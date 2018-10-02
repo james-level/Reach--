@@ -6,12 +6,12 @@ import sys
 import random
 
 # print(sys.path)
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social.settings')
 
 import django
 django.setup()
 
-from rango.models import Category, Page, ProfileLikedByActiveUser, ProfileGreetedByActiveUser
+from social_reach.models import Category, Page, ProfileLikedByActiveUser, ProfileGreetedByActiveUser
 
 def populate():
 
@@ -54,7 +54,7 @@ def populate():
 	categories = {
         'Travel': {'pages': python_pages, 'views': 128, 'likes': 64},
         'Food': {'pages': django_pages, 'views': 64, 'likes': 32},
-        'Animals': {'pages': other_pages, 'views': 32, 'likes': 16}
+        'Animals': {'pages': other_pages, 'views': 32, 'likes': 16},
         'Concerts': {'pages': other_pages, 'views': 23, 'likes': 56}
     }
 
@@ -103,5 +103,5 @@ def delete_all_liked_profiles():
 	ProfileLikedByActiveUser.objects.all().delete()
 
 if __name__ == '__main__':
-	print("Starting Rango population script...")
+	print("Starting Social population script...")
 	populate()

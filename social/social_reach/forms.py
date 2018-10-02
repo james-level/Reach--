@@ -1,6 +1,6 @@
 from django import forms
-from rango.models import Page, Category
-from rango.models import UserProfile
+from social_reach.models import Page, Category
+from social_reach.models import UserProfile
 from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):

@@ -1,20 +1,31 @@
-from django.conf.urls import url
-from rango import views
+"""tango_with_django_project URL Configuration
 
-app_name = 'social_reach'
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.11/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
+from django.conf.urls import url, include
+from django.contrib import admin
+from django.conf import settings
+from django.views.static import *
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-	url(r'about/$', views.about, name='about'),
-	url(r'register/$', views.register, name='register'),
-	url(r'login/$', views.user_login, name='login'),
-	url(r'logout/$', views.user_logout, name='logout'),
-	url(r'restricted/$', views.restricted, name='restricted'),
-	url(r'add_category/$', views.add_category, name='add_category'),
-	url(r'category/(?P<category_slug_url>[\w\-]+)/add-page/$', views.add_page, name='add_page'),
-    url(r'category/(?P<category_name_url>[\w\-]+)/$', views.show_category, name='show_category'),
-	url(r'user/(?P<username>[\w\-]+)/$', views.show_user, name='show_user'),
-    url(r'^profile/$', views.profile, name='profile'),
-    url(r'^goto/$', views.track_url, name='track_url'),
-    url(r'^like_user/$', views.like_user, name='like_user'),
-    url(r'^greet_user/$', views.greet_user, name='greet_user'),
-    ]
+    # url(r'^admin/', admin.site.urls),
+    url(r'^social_reach/', include('social_reach.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+              ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'media/(?P<path>.*)',
+        serve,
+        {'document_root': settings.MEDIA_ROOT}), ]

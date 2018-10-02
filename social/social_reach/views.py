@@ -20,14 +20,14 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth.models import User
 
-from socal_reach.models import Category, Page, UserProfile, ProfileLikedByActiveUser, ProfileGreetedByActiveUser
-from socal_reach.forms import CategoryForm, PageForm
-from socal_reach.forms import UserForm, UserProfileForm
+from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiveUser, ProfileGreetedByActiveUser
+from social_reach.forms import CategoryForm, PageForm
+from social_reach.forms import UserForm, UserProfileForm
 
 
 class RangoRegistrationView(RegistrationView):
 	def get_success_url(self, user):
-		return '/social/'
+		return '/social_reach/'
 
 
 def add_page(request, category_slug_url):
@@ -157,7 +157,7 @@ def greet_user(request):
 def track_url(request):
     context = RequestContext(request)
     page_id = None
-    url = '/rango/'
+    url = '/social_reach/'
 
     if request.method == 'GET':
         if 'page_id' in request.GET:
@@ -271,7 +271,7 @@ def about(request):
 
 
 def register(request):
-
+	cat_list = get_category_list()
 	registered = False
 
 	if request.method == 'POST':
@@ -302,11 +302,13 @@ def register(request):
 	return render(request, 'rango/register.html', {
 			'user_form': user_form,
 			'profile_form': profile_form,
-			'registered': registered
+			'registered': registered,
+			'cat_list': cat_list
 		})
 
 
 def user_login(request):
+	cat_list = get_category_list()
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		password = request.POST.get('password')
@@ -316,19 +318,19 @@ def user_login(request):
 		if user:
 			if user.is_active:
 				login(request, user)
-				return HttpResponseRedirect(reverse('rango:index'))
+				return HttpResponseRedirect(reverse('social_reach:index'))
 			else:
 				return HttpResponse("Your account has been disabled. Please contact the admin.")
 		else:
 			return HttpResponse("Invalid username/password.")
 	else:
-		return render(request, 'rango/login.html', {})
+		return render(request, 'rango/login.html', {'cat_list': cat_list})
 
 
 @login_required
 def user_logout(request):
 	logout(request)
-	return HttpResponseRedirect(reverse('rango:index'))
+	return HttpResponseRedirect(reverse('social_reach:index'))
 
 
 @login_required

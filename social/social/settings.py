@@ -13,7 +13,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
-DATABASE_PATH = os.path.join(BASE_DIR, 'rango.db')
+DATABASE_PATH = os.path.join(BASE_DIR, 'social_reach.db')
 
 TEMPLATE_DIRS = (
     TEMPLATE_PATH,
@@ -51,7 +51,7 @@ DEBUG = True
 
 
 # Specifies where to redirect users should they attempt o view restricted content while not logged in. In this case they are redirected to the log-in screen.
-LOGIN_URL = '/rango/login/'
+LOGIN_URL = '/social_reach/login/'
 
 ALLOWED_HOSTS = []
 
@@ -83,10 +83,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'tango_with_django_project.urls'
+ROOT_URLCONF = 'social.urls'
 
 
-WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
+WSGI_APPLICATION = 'social.wsgi.application'
 
 
 # Database
