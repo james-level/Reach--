@@ -44,10 +44,10 @@ class InstagramScraper:
         raw_string = script_tag.text.strip().replace('window._sharedData =', '').replace(';', '')
         return json.loads(raw_string)
 
-    def scrape_instagram_followers(self, profile_url):
+    def scrape_instagram_followers(self, instagram_handle):
         results = None
         try:
-            response = self.__request_url(profile_url)
+            response = self.__request_url("https://www.instagram.com/" + instagram_handle)
             json_data = self.extract_json_data(response)
             followers = json_data['entry_data']['ProfilePage'][0]['graphql']['user']['edge_followed_by']['count']
         except Exception as e:
