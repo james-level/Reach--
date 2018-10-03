@@ -20,11 +20,11 @@ pip install django-boostrap3
 
 GENERAL INSTRUCTIONS AFTER REFACTORING MODELS AND ALTERING SEEDS:
 
-python manage.py makemigrations
+python manage.py makemigrations (only necessary if you've change models.py)
 
-python manage.py migrate
+python manage.py migrate (only necessary if you've changed models.py)
 
-python populate_social.py
+python populate_social.py (seeds DB = ESSENTIAL after cloning)
 
 GET IT UP AND RUNNING:
 
