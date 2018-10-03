@@ -24,6 +24,8 @@ from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiv
 from social_reach.forms import CategoryForm, PageForm
 from social_reach.forms import UserForm, UserProfileForm
 
+from social_reach.scrape import InstagramScraper
+
 
 class RangoRegistrationView(RegistrationView):
 	def get_success_url(self, user):
@@ -289,6 +291,10 @@ def register(request):
 			if 'picture' in request.FILES:
 				profile.picture = request.FILES['picture']
 
+			instagram_scraper =  InstagramScraper()
+			results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
+
+			profile.instagram_followers=profile.instagram_followers + results
 			profile.save()
 
 			registered = True
