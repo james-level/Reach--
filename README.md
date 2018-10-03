@@ -38,8 +38,8 @@ python manage.py runserver 8080
  
  [ Navigate to localhost:8080/admin/  to manage the app's database and delete users etc ]
  
- <b>VERY IMPORTANT: If it says a .pyc file has been staged when doing a git commit, undo immediately and run python python-cache-flusher.py. DON'T PUSH!<b>
- 
  INSTALLING BEAUTIFUL SOUP:
  
  pip install requests bs4
+ 
+  <b>VERY IMPORTANT: If it says a .pyc file has been staged when doing a git commit, undo immediately and run python python-cache-flusher.py. DON'T PUSH!<b>
