@@ -14,7 +14,7 @@ pip install django-registration-redux
 
 pip install django-boostrap3
 
-* cd into social *
+ [ cd into social ]
 
 GENERAL INSTRUCTIONS AFTER REFACTORING MODELS AND ALTERING SEEDS:
 
@@ -28,4 +28,4 @@ GET IT UP AND RUNNING:
 
 python manage.py runserver 8080
 
-* open localhost:8080/social_reach/ *
+ [ open localhost:8080/social_reach/ ]
