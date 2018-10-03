@@ -31,3 +31,5 @@ python manage.py runserver 8080
  [ open localhost:8080/social_reach/ ]
  
  TO CREATE ADMIN USER WITH ADMIN PRIVILEGES (python manage.py createsuperuser) 
+ 
+ Then you'll be prompted to enter the username and password you want to user for your admin account.
