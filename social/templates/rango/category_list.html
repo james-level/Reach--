@@ -1,0 +1,9 @@
+<ul class="nav nav-list">
+{% if cat_list %}
+{% for cat in cat_list %}
+<li><a href="/social_reach/category/{{ cat.slug }}">{{ cat.name }}</a></li>
+{% endfor %}
+{% else %}
+<li>No categories at present.</li>
+{% endif %}
+</ul>
