@@ -222,7 +222,7 @@ def profile(request):
 def index(request):
 
 	instagram_scraper =  InstagramScraper()
-	results = instagram_scraper.profile_page_metrics('https://www.instagram.com/the_dylan_moran/?hl=en') #Dylan Moran hardcoded for testing purposes
+	results = instagram_scraper.scrape_instagram_followers('https://www.instagram.com/the_dylan_moran/?hl=en') #Dylan Moran hardcoded for testing purposes
 	print("HERE:", results)
 
 	user_list = UserProfile.objects.order_by('-user')[:5]

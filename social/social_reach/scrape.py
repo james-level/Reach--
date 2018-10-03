@@ -40,16 +40,16 @@ class InstagramScraper:
         raw_string = script_tag.text.strip().replace('window._sharedData =', '').replace(';', '')
         return json.loads(raw_string)
 
-    def profile_page_metrics(self, profile_url):
+    def scrape_instagram_followers(self, profile_url):
         results = None
         try:
             response = self.__request_url(profile_url)
             json_data = self.extract_json_data(response)
-            metrics = json_data['entry_data']['ProfilePage'][0]['graphql']['user']['edge_followed_by']['count']
+            followers = json_data['entry_data']['ProfilePage'][0]['graphql']['user']['edge_followed_by']['count']
         except Exception as e:
             raise e
         else:
-            results = metrics
+            results = followers
             # for key, value in metrics.items():
             #     if key != 'edge_owner_to_timeline_media':
             #         if value and isinstance(value, dict):
