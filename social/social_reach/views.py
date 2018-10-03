@@ -23,6 +23,7 @@ from django.contrib.auth.models import User
 from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiveUser, ProfileGreetedByActiveUser
 from social_reach.forms import CategoryForm, PageForm
 from social_reach.forms import UserForm, UserProfileForm
+from social_reach.scrape import InstagramScraper
 
 
 class RangoRegistrationView(RegistrationView):
@@ -220,6 +221,10 @@ def profile(request):
 
 def index(request):
 
+	instagram_scraper =  InstagramScraper()
+	results = instagram_scraper.profile_page_metrics('https://www.instagram.com/the_dylan_moran/?hl=en') #Dylan Moran hardcoded for testing purposes
+	print("HERE:", results)
+
 	user_list = UserProfile.objects.order_by('-user')[:5]
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)
@@ -277,6 +282,7 @@ def register(request):
 	if request.method == 'POST':
 		user_form = UserForm(data = request.POST)
 		profile_form = UserProfileForm(data = request.POST)
+
 
 		if user_form.is_valid() and profile_form.is_valid():
 			user = user_form.save()
