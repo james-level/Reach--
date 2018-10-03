@@ -221,6 +221,7 @@ def profile(request):
 
 def index(request):
 
+
 	instagram_scraper =  InstagramScraper()
 	# results = instagram_scraper.scrape_instagram_followers('https://www.instagram.com/the_dylan_moran/?hl=en') #Dylan Moran hardcoded for testing purposes
 	# print("HERE:", results)
@@ -283,7 +284,6 @@ def register(request):
 		user_form = UserForm(data = request.POST)
 		profile_form = UserProfileForm(data = request.POST)
 
-
 		if user_form.is_valid() and profile_form.is_valid():
 			user = user_form.save()
 			user.set_password(user.password)
@@ -295,11 +295,13 @@ def register(request):
 			if 'picture' in request.FILES:
 				profile.picture = request.FILES['picture']
 
+
 			instagram_scraper =  InstagramScraper()
 			results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
 
 			profile.instagram_followers=profile.instagram_followers + results
 			profile.save()
+
 
 
 			registered = True

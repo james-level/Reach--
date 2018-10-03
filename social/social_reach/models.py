@@ -41,6 +41,7 @@ class UserProfile(models.Model):
 	instagram_handle = models.CharField(max_length=128, default="")
 	instagram_followers = models.IntegerField(default=0)
 
+
 	def __unicode__(self):
 		return self.user.username
 

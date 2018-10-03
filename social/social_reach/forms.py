@@ -49,3 +49,4 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
 
         fields = ('website', 'picture', 'instagram_handle')
+        fields = ('website', 'picture')
