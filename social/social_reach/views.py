@@ -24,7 +24,7 @@ from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiv
 from social_reach.forms import CategoryForm, PageForm
 from social_reach.forms import UserForm, UserProfileForm
 
-from social_reach.scrape import InstagramScraper
+from social_reach.scraper import InstagramScraper
 
 
 class RangoRegistrationView(RegistrationView):

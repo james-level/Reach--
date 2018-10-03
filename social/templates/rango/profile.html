@@ -8,9 +8,9 @@
 {% if userprofile %}
 <p>Website: <a href="{{ userprofile.website }}">{{ userprofile.website }}</a>
 ˓→</p>
+<p>Instagram follower count: {{userprofile.instagram_followers}}</p>
 <br/>
 {% if userprofile.picture %}
-<p>Instagram follower count: {{userprofile.instagram_followers}}</p>
 <img src="{{ userprofile.picture.url }}" />
 {% endif %}
 {% endif %}
