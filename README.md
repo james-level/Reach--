@@ -2,7 +2,7 @@
 
 INSTRUCTIONS:
 
-At base level of directory (Reach--:
+At base level of directory (Reach--):
 
 sudo pip install Django
 
