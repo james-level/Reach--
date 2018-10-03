@@ -1,4 +1,4 @@
-# Reach--
+# Reach
 
 Clone repo onto your machine.
 
