@@ -1,5 +1,7 @@
 # Reach--
 
+Clone repo onto your machine.
+
 INSTRUCTIONS:
 
 At base level of directory (Reach--):
