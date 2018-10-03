@@ -38,6 +38,8 @@ class UserProfile(models.Model):
 	greetings = models.IntegerField(default=0)
 	website = models.URLField(blank=True)
 	picture = models.ImageField(upload_to='profile_images',blank=True)
+	instagram_handle = models.CharField(max_length=128, default="")
+	instagram_followers = models.IntegerField(default=0)
 
 	def __unicode__(self):
 		return self.user.username
