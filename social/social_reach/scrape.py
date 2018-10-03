@@ -5,13 +5,15 @@ import requests
 from bs4 import BeautifulSoup
 
 _user_agents = [
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36'
 ]
 
 
 class InstagramScraper:
 
-    def __init__(self, user_agents=None, proxy=None):
+    def __init__(self, user_agents=_user_agents, proxy=None):
         self.user_agents = user_agents
         self.proxy = proxy
 
@@ -20,8 +22,10 @@ class InstagramScraper:
             return choice(self.user_agents)
         return choice(_user_agents)
 
+
     def __request_url(self, url):
         try:
+            self.__random_agent()
             response = requests.get(url, headers={'User-Agent': self.__random_agent()}, proxies={'http': self.proxy,
                                                                                                  'https': self.proxy})
             response.raise_for_status()
