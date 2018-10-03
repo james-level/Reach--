@@ -29,3 +29,5 @@ GET IT UP AND RUNNING:
 python manage.py runserver 8080
 
  [ open localhost:8080/social_reach/ ]
+ 
+ TO CREATE ADMIN USER WITH ADMIN PRIVILEGES (python manage.py createsuperuser) 
