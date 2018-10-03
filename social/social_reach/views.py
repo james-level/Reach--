@@ -222,7 +222,8 @@ def profile(request):
 
 def index(request):
 
-	user_list = UserProfile.objects.order_by('-user')[:1]
+	user_list = UserProfile.objects.order_by('-user')[:5]
+	
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)
         cat_list = get_category_list()
