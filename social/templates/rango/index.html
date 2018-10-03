@@ -1,0 +1,37 @@
+{% extends 'rango/base.html' %}
+{% block title %}{{ category_name }}{% endblock %}
+{% block body_block %}
+<div class="hero-unit">
+<h1>Social Platform</h1>
+<p>Find, Add, Share and cool links and photos.</p>
+</div>
+<div class="row-fluid">
+<div class="span6">
+<h2>Check out our users!</h2>
+{% if users %}
+<ul>
+  {% for user in users %}
+<li><a href="{% url 'social_reach:show_user' user.user.username %}">{{ user.user.username }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<strong>No users at present.</strong>
+{% endif %}
+</div>
+<!--/span-->
+<div class="span6">
+<h2>Top photos</h2>
+{% if most_viewed_pages %}
+<ul>
+{% for page in most_viewed_pages %}
+<li><a href="{{ page.url}}">{{ page.title }}</a> - {{ page.category }} ({{ page.views }} view(s))</li>
+{% endfor %}
+</ul>
+{% else %}
+<strong>No pages at present.</strong>
+{% endif %}
+</div>
+<!--/span-->
+</div>
+<!--/row-->
+{% endblock %}
