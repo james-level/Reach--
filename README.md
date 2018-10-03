@@ -35,3 +35,5 @@ python manage.py runserver 8080
  TO CREATE ADMIN USER WITH ADMIN PRIVILEGES (python manage.py createsuperuser) 
  
  Then you'll be prompted to enter the username and password you want to user for your admin account.
+ 
+ [ Navigate to localhost:8080/admin/ ] to manage the app's database and delete users etc
