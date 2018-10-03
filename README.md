@@ -20,7 +20,7 @@ pip install django-boostrap3
 
 GENERAL INSTRUCTIONS AFTER REFACTORING MODELS AND ALTERING SEEDS:
 
-python manage.py makemigrations (only necessary if you've change models.py)
+python manage.py makemigrations (only necessary if you've changed models.py)
 
 python manage.py migrate (only necessary if you've changed models.py)
 
@@ -34,9 +34,9 @@ python manage.py runserver 8080
  
  TO CREATE ADMIN USER WITH ADMIN PRIVILEGES (python manage.py createsuperuser) 
  
- Then you'll be prompted to enter the username and password you want to user for your admin account.
+ Then you'll be prompted to enter the username and password you want to use for your admin account.
  
- [ Navigate to localhost:8080/admin/ ] to manage the app's database and delete users etc
+ [ Navigate to localhost:8080/admin/  to manage the app's database and delete users etc ]
  
  INSTALLING BEAUTIFUL SOUP:
  
