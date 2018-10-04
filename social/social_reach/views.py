@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth.models import User
 
-from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiveUser, ProfileGreetedByActiveUser
+from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiveUser, ProfileGreetedByActiveUser, Match
 from social_reach.forms import CategoryForm, PageForm
 from social_reach.forms import UserForm, UserProfileForm
 
@@ -116,6 +116,7 @@ def show_user(request, username):
     return render(request, 'rango/user_profile.html', context=context)
 
 
+
 @login_required
 def like_user(request):
     context = RequestContext(request)
@@ -132,8 +133,18 @@ def like_user(request):
                     user.save()
                     liked_profile = ProfileLikedByActiveUser.objects.create(profile=user.user.username, liker= UserProfile.objects.get(user__username=request.user))
                     liked_profile.save()
-                    return HttpResponse(likes)
-        return HttpResponse(likes)
+
+	if len(ProfileLikedByActiveUser.objects.filter(profile=UserProfile.objects.get(user__username=request.user), liker=user)) == 1:
+			user = UserProfile.objects.get(id=int(user_id))
+			match = Match.objects.create(first_user=user, second_user=UserProfile.objects.get(user__username=request.user))
+			match.save()
+			likes = user.likes
+			print("MATCH", match)
+
+
+
+    	return HttpResponse(likes)
+    return HttpResponse(likes)
 
 @login_required
 def greet_user(request):
@@ -269,9 +280,6 @@ def about(request):
 
 	matches = []
 
-	for liked_prof in ProfileLikedByActiveUser.objects.get(liker = request.user):
-		for liked in ProfileLikedByActiveUser.objects.get(profile__user__username = liked_prof__profile__user__username):
-			match = Match.objects.create()
 
 # remember to include the visit data
 
