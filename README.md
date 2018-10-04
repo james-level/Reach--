@@ -41,3 +41,5 @@ python manage.py runserver 8080
  INSTALLING BEAUTIFUL SOUP:
  
  pip install requests bs4
+ 
+  <b>VERY IMPORTANT: If it says a .pyc file has been staged when doing a git commit, undo immediately and run python python-cache-flusher.py. DON'T PUSH!<b>
