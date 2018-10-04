@@ -4,7 +4,7 @@ from social_reach import views
 app_name = 'social_reach'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-	url(r'about/$', views.about, name='about'),
+	url(r'matches/$', views.matches, name='matches'),
 	url(r'register/$', views.register, name='register'),
 	url(r'login/$', views.user_login, name='login'),
 	url(r'logout/$', views.user_logout, name='logout'),

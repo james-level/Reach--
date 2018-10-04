@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from social_reach.models import Category, Page, UserProfile
+from social_reach.models import Category, Page, UserProfile, Match
 
 # Register your models here.
 
@@ -15,3 +15,4 @@ class PageAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(Page, PageAdmin)
 admin.site.register(UserProfile)
+admin.site.register(Match)

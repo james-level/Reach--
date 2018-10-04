@@ -238,7 +238,7 @@ def profile(request):
 
 def index(request):
 
-	user_list = UserProfile.objects.order_by('-user')[:5]
+	user_list = UserProfile.objects.all().exclude(user__username=request.user)
 
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)
@@ -273,7 +273,7 @@ def index(request):
 	return render(request, 'rango/index.html', _context)
 
 
-def about(request):
+def matches(request):
 
     cat_list = get_category_list()
 
@@ -285,7 +285,7 @@ def about(request):
 
     matches_you_liked_first = Match.objects.filter(first_user__user__username=request.user)
 
-    return render(request, 'rango/about.html', 	{'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': Match.objects.filter(second_user__user__username=request.user)
+    return render(request, 'rango/matches.html', 	{'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': Match.objects.filter(second_user__user__username=request.user)
 }
 )
 
