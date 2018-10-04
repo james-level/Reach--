@@ -59,3 +59,7 @@ class ProfileGreetedByActiveUser(models.Model):
 
 	def __unicode__(self):
 		return self.profile
+
+class Match(models.Model):
+	first_user = models.ForeignKey(UserProfile, related_name='first', default='')
+	second_user = models.ForeignKey(UserProfile, related_name='second', default='')
