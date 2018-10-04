@@ -5,8 +5,8 @@
 <div class="hero-unit">
     <h1>Your matches</h1>
     <p>This is the matches page, <strong>{{request.user}}</strong> - you are on visit number {{ visits }} </p>
-    {% if matches_you_first %}
-    {% for match in matches_you_first %}
+    {% if matches_them_first %}
+    {% for match in matches_them_first %}
     <p>{{match.first_user.user.username}}</p>
     <p>Insta Reach: {{match.first_user.instagram_followers}}</p>
       <img src="{{match.first_user.picture.url}}"/>
@@ -14,8 +14,8 @@
 {% endfor %}
 {% endif %}
 
-{% if matches_them_first %}
-{% for match in matches_them_first %}
+{% if matches_you_first %}
+{% for match in matches_you_first %}
 <p>{{match.second_user.user.username}}</p>
 <p>Insta Reach: {{match.second_user.instagram_followers}}</p>
   <img src="{{match.second_user.picture.url}}"/>

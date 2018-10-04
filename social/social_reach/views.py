@@ -283,12 +283,11 @@ def about(request):
     else:
         count = 0
 
-	matches_they_liked_first = Match.objects.filter(second_user__user__username=request.user)
     matches_you_liked_first = Match.objects.filter(first_user__user__username=request.user)
 
-	context_dict = {'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': matches_they_liked_first}
-
-    return render(request, 'rango/about.html', context_dict)
+    return render(request, 'rango/about.html', 	{'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': Match.objects.filter(second_user__user__username=request.user)
+}
+)
 
 
 def register(request):
