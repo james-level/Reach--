@@ -126,6 +126,8 @@ def like_user(request):
     if user_id:
         user = UserProfile.objects.get(id=int(user_id))
         likes = user.likes
+	print("Length", len(Match.objects.filter(first_user=user, second_user=UserProfile.objects.get(user__username=request.user))))
+
         if user:
             if len(ProfileLikedByActiveUser.objects.filter(profile=user.user.username, liker__user__username=request.user)) == 0:
                     likes = user.likes + 1
@@ -134,17 +136,19 @@ def like_user(request):
                     liked_profile = ProfileLikedByActiveUser.objects.create(profile=user.user.username, liker= UserProfile.objects.get(user__username=request.user))
                     liked_profile.save()
 
+
 	if len(ProfileLikedByActiveUser.objects.filter(profile=UserProfile.objects.get(user__username=request.user), liker=user)) == 1:
 			user = UserProfile.objects.get(id=int(user_id))
-			match = Match.objects.create(first_user=user, second_user=UserProfile.objects.get(user__username=request.user))
-			match.save()
-			likes = user.likes
-			print("MATCH", match)
-
-
+			if len(Match.objects.filter(first_user=user, second_user=UserProfile.objects.get(user__username=request.user))) == 0:
+				match = Match.objects.create(first_user=user, second_user=UserProfile.objects.get(user__username=request.user))
+				match.save()
+				likes = user.likes
+				print("MATCHHH", match)
+				print("Length", len(Match.objects.filter(first_user=user, second_user=UserProfile.objects.get(user__username=request.user))))
 
     	return HttpResponse(likes)
     return HttpResponse(likes)
+
 
 @login_required
 def greet_user(request):
@@ -278,7 +282,7 @@ def about(request):
     else:
         count = 0
 
-	matches = []
+	matches = Match.objects
 
 
 # remember to include the visit data
