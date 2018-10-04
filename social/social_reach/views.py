@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import requires_csrf_token
 from django.core.urlresolvers import reverse
 
+from django.db.models import Q
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -282,14 +283,12 @@ def about(request):
     else:
         count = 0
 
-	matches = Match.objects
+	matches_they_liked_first = Match.objects.filter(second_user__user__username=request.user)
+    matches_you_liked_first = Match.objects.filter(first_user__user__username=request.user)
 
+	context_dict = {'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': matches_they_liked_first}
 
-# remember to include the visit data
-
-    _context = {'visits': count, 'cat_list': cat_list}
-
-    return render(request, 'rango/about.html', _context)
+    return render(request, 'rango/about.html', context_dict)
 
 
 def register(request):
