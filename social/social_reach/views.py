@@ -240,16 +240,6 @@ def profile(request):
 def index(request):
 
 	user_list = UserProfile.objects.all().exclude(user__username=request.user)
-	twitter_scraper = TwitterScraper()
-	twitter_handle = UserProfile.objects.get(user__username=request.user).twitter_handle
-	results = twitter_scraper.scrape_twitter_followers(twitter_handle)
-	print("results:", results)
-	active_user_profile = UserProfile.objects.get(user__username=request.user)
-	print("twitter handle:",twitter_handle)
-	active_user_profile.twitter_followers = active_user_profile.twitter_followers + results
-	print("active:", active_user_profile)
-	active_user_profile.save()
-
 
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)
@@ -324,6 +314,12 @@ def register(request):
 			results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
 
 			profile.instagram_followers=profile.instagram_followers + results
+			profile.save()
+
+			twitter_scraper = TwitterScraper()
+			results = twitter_scraper.scrape_twitter_followers(profile.twitter_handle)
+			print("Handle:",profile.twitter_handle)
+			profile.twitter_followers = profile.twitter_followers + results
 			profile.save()
 
 			registered = True
