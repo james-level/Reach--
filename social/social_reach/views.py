@@ -27,6 +27,7 @@ from social_reach.forms import UserForm, UserProfileForm
 
 from social_reach.instagram_scraper import InstagramScraper
 from social_reach.twitter_scraper import TwitterScraper
+from social_reach.youtube_scraper import YoutubeScraper
 
 
 class RangoRegistrationView(RegistrationView):
@@ -238,7 +239,8 @@ def profile(request):
     return render(request, 'rango/profile.html', context_dict)
 
 def index(request):
-
+	youtube_scraper = YoutubeScraper()
+	subscribers = youtube_scraper.scrape_youtube_followers("terrybuttkins")
 	user_list = UserProfile.objects.all().exclude(user__username=request.user)
 
 	pages_list = Page.objects.order_by('-views')[:5]
