@@ -11,51 +11,72 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social.settings')
 import django
 django.setup()
 
-from social_reach.models import Category, Page, ProfileLikedByActiveUser, ProfileGreetedByActiveUser
+from social_reach.models import Category, Page, ProfileLikedByActiveUser, ProfileGreetedByActiveUser, UserProfile
+from django.contrib.auth.models import User
 
 def populate():
 
-	python_pages = [{
-		'title': 'Python Homepage',
+	bond = add_user('jamesbond007','s@mail','p')
+	may = add_user('TheresaPM','s@mail','p')
+	kimk = add_user('Kimk','s@mail','p')
+	moran = add_user('DylanMoran','s@mail','p')
+	davidsdog = add_user('dudley','s@mail','p')
+
+	bondprofile = add_profile(bond, 'profile_images/bond.jpeg', 'piercebrosnanofficial', 802038 )
+	mayprofile = add_profile(may, 'profile_images/download.jpeg', 'theresamay', 83750)
+	kimkprofile = add_profile(kimk, 'profile_images/django_kard.jpeg', 'theresamay', 83750)
+	davidsdogprofile = add_profile(davidsdog, 'profile_images/dudley.png', 'doodlesdawg', 2171)
+	moranprof = add_profile(moran, 'profile_images/moran.jpg', 'the_dylan_moran', 12523)
+
+	travel_insta = [{
+		'title': 'Scarborough Waterfront',
 		'url': 'https://www.python.org/'
 	},{
-		'title': 'Python 2 Documentation',
+		'title': 'Las Ramblas',
 		'url': 'https://docs.python.org/2/'
 	},{
-		'title': 'Python 3 Documentation',
+		'title': 'Il Duomo, Firenze',
 		'url': 'https://docs.python.org/3/'
 	},{
-		'title': 'Learn Python the Hard Way - Book',
+		'title': 'La Rochelle',
 		'url': 'https://learnpythonthehardway.org/book/'
 	}]
 
-	django_pages = [{
-		'title': 'Django Homepage',
+	food_insta = [{
+		'title': 'Gf made vegan waffles...',
 		'url': 'https://www.djangoproject.com/'
 	},{
-		'title': 'Django Official Tutorial',
+		'title': 'Salmon on rye bread',
 		'url': 'https://docs.djangoproject.com/en/1.10/intro/tutorial01/'
 	},{
-		'title': 'Tango with Django',
+		'title': 'Artisan fish and chips',
 		'url': 'http://www.tangowithdjango.com/'
 	},{
-		'title': 'Django on Reddit',
+		'title': 'Boeuf Bourguignon',
 		'url': 'https://www.reddit.com/r/django'
 	}]
 
-	other_pages = [{
-		'title': 'Bottle: Python web framework',
+	animals_insta = [{
+		'title': 'Big grizzly broke out of Ed zoo!',
+		'url': 'http://bottlepy.org/docs/dev/index.html'
+	},{
+		'title': 'My dog fighting the neighbourhood rabbit',
+		'url': 'http://flask.pocoo.org/'
+	}]
+
+	concerts_insta = [{
+		'title': 'Beatles reunion show',
 		'url': 'http://bottlepy.org/docs/dev/index.html#'
 	},{
-		'title': 'Flask (A python microframework)',
+		'title': 'Jay and Beyonce',
 		'url': 'http://flask.pocoo.org/'
 	}]
 
 	categories = {
-        'Travel': {'pages': python_pages, 'views': 128, 'likes': 64},
-        'Food': {'pages': django_pages, 'views': 64, 'likes': 32},
-        'Animals': {'pages': other_pages, 'views': 32, 'likes': 16},
-        'Concerts': {'pages': other_pages, 'views': 23, 'likes': 56}
+        'Travel': {'pages': travel_insta, 'views': 128, 'likes': 64},
+        'Food': {'pages': food_insta, 'views': 64, 'likes': 32},
+        'Animals': {'pages': animals_insta, 'views': 32, 'likes': 16},
+        'Concerts': {'pages': concerts_insta, 'views': 23, 'likes': 56}
     }
 
 	for cat, cat_data in categories.items():
@@ -87,6 +108,22 @@ def add_page(category, title, url, views=0):
 	p.save()
 
 	return p
+
+def add_user(username,email,password):
+
+    if len(User.objects.filter(username=username))>0:
+        return User.objects.get(username=username)
+    u = User.objects.create_user(username, email, password)
+    u.save()
+    return u
+
+def add_profile(user, picture, instagram_handle, followers, likes=0, greetings=0, website=""):
+
+    if len(UserProfile.objects.filter(user=user))>0:
+        return UserProfile.objects.get(user=user)
+    prof = UserProfile.objects.get_or_create(user=user, picture=picture, instagram_handle=instagram_handle, instagram_followers=followers)[0]
+    prof.save()
+    return prof
 
 def add_greeted_profile(profile, greeter):
 	greeted_profile = ProfileGreetedByActiveUser.get_or_create(profile=profile, greeter=greeter)
