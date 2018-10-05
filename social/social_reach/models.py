@@ -40,6 +40,8 @@ class UserProfile(models.Model):
 	picture = models.ImageField(upload_to='profile_images',blank=True)
 	instagram_handle = models.CharField(max_length=128, default="")
 	instagram_followers = models.IntegerField(default=0)
+	twitter_handle = models.CharField(max_length=128, default="")
+	twitter_followers = models.IntegerField(default=0)
 
 
 	def __unicode__(self):

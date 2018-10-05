@@ -241,7 +241,8 @@ def index(request):
 
 	user_list = UserProfile.objects.all().exclude(user__username=request.user)
 	twitter_scraper = TwitterScraper()
-	results = twitter_scraper.scrape_twitter_followers()
+	twitter_handle = UserProfile.objects.get(user__username=request.user).twitter_handle
+	results = twitter_scraper.scrape_twitter_followers(twitter_handle)
 
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)

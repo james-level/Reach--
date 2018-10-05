@@ -22,11 +22,11 @@ def populate():
 	moran = add_user('DylanMoran','s@mail','p')
 	davidsdog = add_user('dudley','s@mail','p')
 
-	bondprofile = add_profile(bond, 'profile_images/bond.jpeg', 'piercebrosnanofficial', 802038 )
-	mayprofile = add_profile(may, 'profile_images/download.jpeg', 'theresamay', 83750)
-	kimkprofile = add_profile(kimk, 'profile_images/django_kard.jpeg', 'theresamay', 83750)
-	davidsdogprofile = add_profile(davidsdog, 'profile_images/dudley.png', 'doodlesdawg', 2171)
-	moranprof = add_profile(moran, 'profile_images/moran.jpg', 'the_dylan_moran', 12523)
+	bondprofile = add_profile(bond, 'profile_images/bond.jpeg', 'piercebrosnanofficial', 802038, 'jamesb', 23)
+	mayprofile = add_profile(may, 'profile_images/download.jpeg', 'theresamay', 83750, 'pm', 1)
+	kimkprofile = add_profile(kimk, 'profile_images/django_kard.jpeg', 'theresamay', 83750, 'kardy', 5000)
+	davidsdogprofile = add_profile(davidsdog, 'profile_images/dudley.png', 'doodlesdawg', 2171, 'duds', 4343)
+	moranprof = add_profile(moran, 'profile_images/moran.jpg', 'the_dylan_moran', 12523, 'booksb', 4)
 
 	travel_insta = [{
 		'title': 'Scarborough Waterfront',
@@ -117,11 +117,11 @@ def add_user(username,email,password):
     u.save()
     return u
 
-def add_profile(user, picture, instagram_handle, followers, likes=0, greetings=0, website=""):
+def add_profile(user, picture, instagram_handle, instagram_followers, twitter_handle, twitter_followers, likes=0, greetings=0, website=""):
 
     if len(UserProfile.objects.filter(user=user))>0:
         return UserProfile.objects.get(user=user)
-    prof = UserProfile.objects.get_or_create(user=user, picture=picture, instagram_handle=instagram_handle, instagram_followers=followers)[0]
+    prof = UserProfile.objects.get_or_create(user=user, picture=picture, instagram_handle=instagram_handle, instagram_followers=instagram_followers, twitter_handle=twitter_handle, twitter_followers=twitter_followers)[0]
     prof.save()
     return prof
 
