@@ -22,11 +22,11 @@ def populate():
 	moran = add_user('DylanMoran','s@mail','p')
 	davidsdog = add_user('dudley','s@mail','p')
 
-	bondprofile = add_profile(bond, 'profile_images/bond.jpeg', 'piercebrosnanofficial', 802038, 'jamesb', 23)
-	mayprofile = add_profile(may, 'profile_images/download.jpeg', 'theresamay', 83750, 'pm', 1)
-	kimkprofile = add_profile(kimk, 'profile_images/django_kard.jpeg', 'theresamay', 83750, 'kardy', 5000)
-	davidsdogprofile = add_profile(davidsdog, 'profile_images/dudley.png', 'doodlesdawg', 2171, 'duds', 4343)
-	moranprof = add_profile(moran, 'profile_images/moran.jpg', 'the_dylan_moran', 12523, 'booksb', 4)
+	bondprofile = add_profile(bond, 'profile_images/bond.jpeg', 'piercebrosnanofficial', 802038, 'ldnmgmt', 23)
+	mayprofile = add_profile(may, 'profile_images/download.jpeg', 'theresamay', 83750, 'ldnmgmt', 1)
+	kimkprofile = add_profile(kimk, 'profile_images/django_kard.jpeg', 'theresamay', 83750, 'ldnmgmt', 5000)
+	davidsdogprofile = add_profile(davidsdog, 'profile_images/dudley.png', 'doodlesdawg', 2171, 'ldnmgmt', 4343)
+	moranprof = add_profile(moran, 'profile_images/moran.jpg', 'the_dylan_moran', 12523, 'ldnmgmt', 4)
 
 	travel_insta = [{
 		'title': 'Scarborough Waterfront',

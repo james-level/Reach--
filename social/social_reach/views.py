@@ -243,6 +243,13 @@ def index(request):
 	twitter_scraper = TwitterScraper()
 	twitter_handle = UserProfile.objects.get(user__username=request.user).twitter_handle
 	results = twitter_scraper.scrape_twitter_followers(twitter_handle)
+	print("results:", results)
+	active_user_profile = UserProfile.objects.get(user__username=request.user)
+	print("twitter handle:",twitter_handle)
+	active_user_profile.twitter_followers = active_user_profile.twitter_followers + results
+	print("active:", active_user_profile)
+	active_user_profile.save()
+
 
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)

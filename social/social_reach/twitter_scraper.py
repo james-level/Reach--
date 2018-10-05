@@ -55,3 +55,4 @@ class TwitterScraper:
         print(title)
         num_followers = int(title.split(' ')[0].replace(',', ''))
         print(num_followers)
+        return num_followers
