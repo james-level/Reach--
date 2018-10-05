@@ -5,6 +5,13 @@
 <div class="hero-unit">
     <h1>Check out your matches, {{request.user}}</h1>
     <p>This is the matches page - you are on visit number {{ visits }} </p>
+
+    {% if not matches_you_first %}
+    {% if not matches_them_first %}
+    <h3>No matches yet - you'll just have to increase your &copy;Reach!</h3>
+    {% endif %}
+    {% endif %}
+
     {% if matches_them_first %}
     {% for match in matches_them_first %}
     <p><strong>{{match.first_user.user.username}}</strong></p>
@@ -12,8 +19,6 @@
       <img src="{{match.first_user.picture.url}}"/>
       <br>
 {% endfor %}
-{% else %}
-<h3>No matches yet - you'll just have to increase your &copy;Reach!</h3>
 {% endif %}
 <br>
 {% if matches_you_first %}
