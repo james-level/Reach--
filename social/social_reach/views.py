@@ -25,7 +25,8 @@ from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiv
 from social_reach.forms import CategoryForm, PageForm
 from social_reach.forms import UserForm, UserProfileForm
 
-from social_reach.scraper import InstagramScraper
+from social_reach.instagram_scraper import InstagramScraper
+from social_reach.twitter_scraper import TwitterScraper
 
 
 class RangoRegistrationView(RegistrationView):
@@ -239,6 +240,8 @@ def profile(request):
 def index(request):
 
 	user_list = UserProfile.objects.all().exclude(user__username=request.user)
+	twitter_scraper = TwitterScraper()
+	results = twitter_scraper.scrape_twitter_followers()
 
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)
