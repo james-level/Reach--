@@ -40,16 +40,18 @@ class YoutubeScraper:
         soup = BeautifulSoup(html, 'html.parser')
         count = soup.find('span', class_='yt-subscription-button-subscriber-count-branded-horizontal subscribed yt-uix-tooltip')["title"]
         print("YOUTUBE count:", count)
-        formatted_count = int(count.split(' ')[0].replace(',', ''))
-        print("FORMATTED COUNT TYPE", formatted_count)
-        return formatted_count
+        print("PRE-FORMATTED COUNT TYPE", type(count))
+        formatted_count = count.replace(',', '')
+        int_count = int(formatted_count)
+        return int_count
 
     def scrape_youtube_followers(self, youtube_handle):
         results = None
         try:
             response = self.__request_url("https://www.youtube.com/user/" + youtube_handle)
             json_data = self.extract_json_data(response)
-            followers = json_data[0]
+            followers = json_data
+            # followers = json_data[0]
             print("followers",followers)
         except Exception as e:
             raise e

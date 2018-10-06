@@ -240,6 +240,8 @@ def profile(request):
 
 def index(request):
 
+	
+
 	user_list = UserProfile.objects.all().exclude(user__username=request.user)
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)

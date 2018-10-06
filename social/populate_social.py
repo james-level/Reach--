@@ -22,11 +22,11 @@ def populate():
 	moran = add_user('DylanMoran','s@mail','p')
 	davidsdog = add_user('dudley','s@mail','p')
 
-	bondprofile = add_profile(bond, 'profile_images/bond.jpeg', 'piercebrosnanofficial', 802038, 'ldnmgmt', 23, 'jamesbond007', '104000')
-	mayprofile = add_profile(may, 'profile_images/download.jpeg', 'theresamay', 83750, 'ldnmgmt', 1, 'webcameronuk', '23520')
-	kimkprofile = add_profile(kimk, 'profile_images/django_kard.jpeg', 'theresamay', 83750, 'ldnmgmt', 5000, 'kanyewest', '4771895')
-	davidsdogprofile = add_profile(davidsdog, 'profile_images/dudley.png', 'doodlesdawg', 2171, 'ldnmgmt', 4343, 'Littleking0007', '286557')
-	moranprof = add_profile(moran, 'profile_images/moran.jpg', 'the_dylan_moran', 12523, 'ldnmgmt', 4, 'foilarmsandhog', '197319')
+	bondprofile = add_profile(bond, 'profile_images/bond.jpeg', 'piercebrosnanofficial', 802038, 'ldnmgmt', 23, 'jamesbond007', 104000)
+	mayprofile = add_profile(may, 'profile_images/download.jpeg', 'theresamay', 83750, 'ldnmgmt', 1, 'webcameronuk', 23520)
+	kimkprofile = add_profile(kimk, 'profile_images/django_kard.jpeg', 'theresamay', 83750, 'ldnmgmt', 5000, 'kanyewest', 4771895)
+	davidsdogprofile = add_profile(davidsdog, 'profile_images/dudley.png', 'doodlesdawg', 2171, 'ldnmgmt', 4343, 'Littleking0007', 286557)
+	moranprof = add_profile(moran, 'profile_images/moran.jpg', 'the_dylan_moran', 12523, 'ldnmgmt', 4, 'foilarmsandhog', 197319)
 
 	travel_insta = [{
 		'title': 'Scarborough Waterfront',
