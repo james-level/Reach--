@@ -1,7 +1,8 @@
-import requests
-from bs4 import BeautifulSoup
 from random import choice
 import json
+
+import requests
+from bs4 import BeautifulSoup
 
 _user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
@@ -9,7 +10,8 @@ _user_agents = [
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36'
 ]
 
-class YoutubeScraper:
+
+class InstagramScraper:
 
     def __init__(self, user_agents=_user_agents, proxy=None):
         self.user_agents = user_agents
@@ -28,7 +30,7 @@ class YoutubeScraper:
                                                                                                  'https': self.proxy})
             response.raise_for_status()
         except requests.HTTPError:
-            raise requests.HTTPError('Received non 200 status code from Youtube')
+            raise requests.HTTPError('Received non 200 status code from Instagram')
         except requests.RequestException:
             raise requests.RequestException
         else:
@@ -37,17 +39,17 @@ class YoutubeScraper:
     @staticmethod
     def extract_json_data(html):
         soup = BeautifulSoup(html, 'html.parser')
-        count = soup.find('span', class_='yt-subscription-button-subscriber-count-branded-horizontal subscribed yt-uix-tooltip')["title"]
-        print("YOUTUBE count:", count)
-        return count
+        body = soup.find('body')
+        script_tag = body.find('script')
+        raw_string = script_tag.text.strip().replace('window._sharedData =', '').replace(';', '')
+        return json.loads(raw_string)
 
-    def scrape_youtube_followers(self, youtube_handle):
+    def scrape_instagram_followers(self, instagram_handle):
         results = None
         try:
-            response = self.__request_url("https://www.youtube.com/user/" + youtube_handle)
+            response = self.__request_url("https://www.instagram.com/" + instagram_handle)
             json_data = self.extract_json_data(response)
-            followers = json_data[0]
-            print("followers",followers)
+            followers = json_data['entry_data']['ProfilePage'][0]['graphql']['user']['edge_followed_by']['count']
         except Exception as e:
             raise e
         else:
@@ -66,7 +68,7 @@ class YoutubeScraper:
         try:
             response = self.__request_url(profile_url)
             json_data = self.extract_json_data(response)
-            metrics = json_data
+            metrics = json_data['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']["edges"]
         except Exception as e:
             raise e
         else:
@@ -75,29 +77,3 @@ class YoutubeScraper:
                 if node and isinstance(node, dict):
                     results.append(node)
         return results
-
-
-
-
-
-
-
-
-def get_youtube_subs():
-    b = soup.find(id="subscriber-count")
-    print("subscribers:", b)
-
-    # for i in b:
-    #     try:
-    #         value = i.b.text.strip().replace(',','')
-    #         if len(b) == 3:
-    #             f.write(value+',')
-    #             print('\t%s') %(value)
-    #         elif len(b) == 2:
-    #             f.write('null,'+ value + ',')
-    #             print('\tsubs = null\n\t%s') %(value)
-    #         else:
-    #             f.write('null,null,')
-    #             print('\tsubs = null\nviews = null')
-    #     except AttributeError:
-            # pass

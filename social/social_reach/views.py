@@ -240,7 +240,7 @@ def profile(request):
 
 def index(request):
 	youtube_scraper = YoutubeScraper()
-	subscribers = youtube_scraper.scrape_youtube_followers("terrybuttkins")
+	subscribers = youtube_scraper.scrape_youtube_followers("kanyewest")
 	user_list = UserProfile.objects.all().exclude(user__username=request.user)
 
 	pages_list = Page.objects.order_by('-views')[:5]
