@@ -45,7 +45,9 @@ class UserForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
+
+
     class Meta:
         model = UserProfile
 
-        fields = ('website', 'picture', 'instagram_handle', 'twitter_handle')
+        fields = ('website', 'picture', 'instagram_handle', 'twitter_handle', 'youtube_handle')

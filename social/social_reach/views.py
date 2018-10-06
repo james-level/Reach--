@@ -239,10 +239,8 @@ def profile(request):
     return render(request, 'rango/profile.html', context_dict)
 
 def index(request):
-	youtube_scraper = YoutubeScraper()
-	subscribers = youtube_scraper.scrape_youtube_followers("kanyewest")
-	user_list = UserProfile.objects.all().exclude(user__username=request.user)
 
+	user_list = UserProfile.objects.all().exclude(user__username=request.user)
 	pages_list = Page.objects.order_by('-views')[:5]
         print(user_list[1].user.username)
         cat_list = get_category_list()
@@ -313,16 +311,23 @@ def register(request):
 				profile.picture = request.FILES['picture']
 
 			instagram_scraper =  InstagramScraper()
-			results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
-
-			profile.instagram_followers=profile.instagram_followers + results
+			insta_results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
+			profile.instagram_followers=profile.instagram_followers + insta_results
 			profile.save()
 
 			twitter_scraper = TwitterScraper()
-			results = twitter_scraper.scrape_twitter_followers(profile.twitter_handle)
+			twitter_results = twitter_scraper.scrape_twitter_followers(profile.twitter_handle)
 			print("Handle:",profile.twitter_handle)
-			profile.twitter_followers = profile.twitter_followers + results
+			profile.twitter_followers = profile.twitter_followers + twitter_results
 			profile.save()
+			print("YOUTUBE HANDLE", profile.youtube_handle)
+			youtube_scraper = YoutubeScraper()
+			youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+			print("YOUTUBE RESULT", youtube_results)
+			profile.youtube_followers = profile.youtube_followers + youtube_results
+			profile.save()
+			print("HANDLES", profile.instagram_handle, profile.twitter_handle, profile.youtube_handle)
+
 
 			registered = True
 		else:

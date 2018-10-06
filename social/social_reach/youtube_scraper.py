@@ -24,6 +24,7 @@ class YoutubeScraper:
     def __request_url(self, url):
         try:
             self.__random_agent()
+            print("URL", url)
             response = requests.get(url, headers={'User-Agent': self.__random_agent()}, proxies={'http': self.proxy,
                                                                                                  'https': self.proxy})
             response.raise_for_status()
@@ -39,7 +40,9 @@ class YoutubeScraper:
         soup = BeautifulSoup(html, 'html.parser')
         count = soup.find('span', class_='yt-subscription-button-subscriber-count-branded-horizontal subscribed yt-uix-tooltip')["title"]
         print("YOUTUBE count:", count)
-        return count
+        formatted_count = int(count.split(' ')[0].replace(',', ''))
+        print("FORMATTED COUNT", formatted_count)
+        return formatted_count
 
     def scrape_youtube_followers(self, youtube_handle):
         results = None

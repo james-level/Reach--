@@ -42,7 +42,8 @@ class UserProfile(models.Model):
 	instagram_followers = models.IntegerField(default=0)
 	twitter_handle = models.CharField(max_length=128, default="")
 	twitter_followers = models.IntegerField(default=0)
-
+	youtube_handle = models.CharField(max_length=128, default="")
+	youtube_followers = models.CharField(max_length=128, default=0)
 
 	def __unicode__(self):
 		return self.user.username
