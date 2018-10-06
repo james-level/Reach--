@@ -41,7 +41,7 @@ class YoutubeScraper:
         count = soup.find('span', class_='yt-subscription-button-subscriber-count-branded-horizontal subscribed yt-uix-tooltip')["title"]
         print("YOUTUBE count:", count)
         formatted_count = int(count.split(' ')[0].replace(',', ''))
-        print("FORMATTED COUNT", formatted_count)
+        print("FORMATTED COUNT TYPE", formatted_count)
         return formatted_count
 
     def scrape_youtube_followers(self, youtube_handle):
