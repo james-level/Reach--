@@ -9,11 +9,11 @@
 <div class="span6">
 <h2>Check out our users!</h2>
 {% if users %}
-<ul>
   {% for user in users %}
-<li><a href="{% url 'social_reach:show_user' user.user.username %}">{{ user.user.username }}</a></li>
+  <p><img src="{{ user.user.picture }}"/>
+<a href="{% url 'social_reach:show_user' user.user.username %}">{{ user.user.username }}</a>
+</p>
 {% endfor %}
-</ul>
 {% else %}
 <strong>No users at present.</strong>
 {% endif %}
