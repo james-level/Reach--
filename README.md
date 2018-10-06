@@ -14,7 +14,7 @@ pip install django-registration
 
 pip install django-registration-redux
 
-pip install django-boostrap3
+pip install django-bootstrap3
 
  [ cd into social ]
 
@@ -31,15 +31,15 @@ GET IT UP AND RUNNING:
 python manage.py runserver 8080
 
  [ open localhost:8080/social_reach/ ]
- 
- TO CREATE ADMIN USER WITH ADMIN PRIVILEGES (python manage.py createsuperuser) 
- 
+
+ TO CREATE ADMIN USER WITH ADMIN PRIVILEGES (python manage.py createsuperuser)
+
  Then you'll be prompted to enter the username and password you want to use for your admin account.
- 
+
  [ Navigate to localhost:8080/admin/  to manage the app's database and delete users etc ]
- 
+
  INSTALLING BEAUTIFUL SOUP:
- 
+
  pip install requests bs4
- 
+
   <b>VERY IMPORTANT: If it says a .pyc file has been staged when doing a git commit, undo immediately and run python python-cache-flusher.py. DON'T PUSH!<b>
