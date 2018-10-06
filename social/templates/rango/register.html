@@ -19,6 +19,7 @@ enctype="multipart/form-data">
 {{ profile_form.as_p }}
 
 <br />
+ <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
 <!-- Provide a button to click to submit the form. -->
 <input class="btn btn-primary" type="submit" name="submit" value="Register"/>
 </form>

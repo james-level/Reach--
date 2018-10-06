@@ -28,6 +28,7 @@ from social_reach.forms import UserForm, UserProfileForm
 from social_reach.instagram_scraper import InstagramScraper
 from social_reach.twitter_scraper import TwitterScraper
 from social_reach.youtube_scraper import YoutubeScraper
+from access_tokens import facebook_app_token , facebook_access_token
 
 
 class RangoRegistrationView(RegistrationView):
@@ -238,9 +239,15 @@ def profile(request):
 
     return render(request, 'rango/profile.html', context_dict)
 
+
+
 def index(request):
 
-	
+	facebook = OpenFacebook(facebook_access_token)
+
+	# Getting info about me
+	name = facebook.get('me')
+	print("facebook me:",name)
 
 	user_list = UserProfile.objects.all().exclude(user__username=request.user)
 	pages_list = Page.objects.order_by('-views')[:5]

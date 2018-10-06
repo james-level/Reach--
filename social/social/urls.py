@@ -22,6 +22,7 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^social_reach/', include('social_reach.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
               ]
 
 if settings.DEBUG:

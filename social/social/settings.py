@@ -8,12 +8,16 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from social_reach.access_tokens import facebook_app_token , facebook_access_token
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 DATABASE_PATH = os.path.join(BASE_DIR, 'social_reach.db')
+
+FACEBOOK_APP_ID=str('facebook_app_token')
+FACEBOOK_APP_SECRET= str('facebook_access_token')
 
 TEMPLATE_DIRS = (
     TEMPLATE_PATH,
@@ -32,6 +36,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_facebook.context_processors.facebook',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -53,6 +60,7 @@ DEBUG = True
 # Specifies where to redirect users should they attempt o view restricted content while not logged in. In this case they are redirected to the log-in screen.
 LOGIN_URL = '/social_reach/login/'
 
+
 ALLOWED_HOSTS = []
 
 # Sets up browser-length session, meaning the session ends upon close of browser
@@ -71,6 +79,7 @@ INSTALLED_APPS = [
     'social_reach',
     'registration',
     'bootstrap3',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -81,12 +90,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'social.urls'
 
 
 WSGI_APPLICATION = 'social.wsgi.application'
+
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+)
 
 
 # Database
