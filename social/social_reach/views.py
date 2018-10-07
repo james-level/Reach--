@@ -2,6 +2,10 @@
 
 from __future__ import unicode_literals
 
+from rest_framework import generics
+from .models import Category
+from .serializers import CategorySerializer
+
 from django.shortcuts import redirect
 from django.shortcuts import render
 from registration.backends.simple.views import RegistrationView
@@ -30,6 +34,20 @@ from social_reach.twitter_scraper import TwitterScraper
 from social_reach.youtube_scraper import YoutubeScraper
 from access_tokens import facebook_app_token , facebook_access_token
 
+
+class ListCategoryView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class ListProfileView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = ProfileSerializer
 
 class RangoRegistrationView(RegistrationView):
 	def get_success_url(self, user):
