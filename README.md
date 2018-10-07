@@ -42,6 +42,13 @@ python manage.py runserver 8080
 
  pip install requests bs4
  
+ INSTALLING REST FRAMEWORK AND AUTHENTICATION:
+ 
+ pip install djangorestframework
+ 
+ pip install djangorestframework-simplejwt
+ 
+ 
  INSTALLING SOCIAL AUTHENTICATION:
  
  pip install social-auth-app-django
