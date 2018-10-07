@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from rest_framework import generics
 from .models import Category
-from .serializers import CategorySerializer
+from .serializers import CategorySerializer, ProfileSerializer
 
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -43,6 +43,13 @@ class ListCategoryView(generics.ListAPIView):
     serializer_class = CategorySerializer
 
 class ListProfileView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = ProfileSerializer
+
+class ListUserView(generics.ListAPIView):
     """
     Provides a get method handler.
     """
