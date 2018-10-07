@@ -1,4 +1,5 @@
 __pycache__
 *.pyc
 .idea
+db/*.sqlite3
 social/media/profile_images/download_PAa9xbG.jpeg
