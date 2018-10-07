@@ -5,6 +5,9 @@ from __future__ import unicode_literals
 from rest_framework import generics
 from .models import Category
 from .serializers import CategorySerializer, ProfileSerializer, UserSerializer, MatchSerializer, LikeSerializer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -50,11 +53,18 @@ class ListProfileView(generics.ListAPIView):
     serializer_class = ProfileSerializer
 
 class ListUserView(generics.ListAPIView):
-    """
-    Provides a get method handler.
-    """
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    authentication_classes	= (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+	
+    def get(self, request, format=None):
+        content = {
+            'user': unicode(request.user),  # `django.contrib.auth.User` instance.
+            'auth': unicode(request.auth),  # None
+        }
+        return Response(content)
 
 class ListMatchView(generics.ListAPIView):
     """
