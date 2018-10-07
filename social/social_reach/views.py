@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from rest_framework import generics
 from .models import Category
-from .serializers import CategorySerializer, ProfileSerializer
+from .serializers import CategorySerializer, ProfileSerializer, UserSerializer
 
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -53,8 +53,8 @@ class ListUserView(generics.ListAPIView):
     """
     Provides a get method handler.
     """
-    queryset = UserProfile.objects.all()
-    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class RangoRegistrationView(RegistrationView):
 	def get_success_url(self, user):

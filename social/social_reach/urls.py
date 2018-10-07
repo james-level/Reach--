@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from social_reach import views
-from social_reach.views import ListCategoryView, ListProfileView
+from social_reach.views import ListCategoryView, ListProfileView, ListUserView
 
 app_name = 'social_reach'
 urlpatterns = [
@@ -19,6 +19,6 @@ urlpatterns = [
     url(r'^like_user/$', views.like_user, name='like_user'),
     url(r'^greet_user/$', views.greet_user, name='greet_user'),
     url(r'^categories/$', ListCategoryView.as_view(), name="categories_all"),
-    url(r'^profiles/$', ListProfileView.as_view(), name="profiles")
-
+    url(r'^profiles/$', ListProfileView.as_view(), name="profiles"),
+    url(r'^users/$', ListUserView.as_view(), name="users"),
     ]
