@@ -1,0 +1,90 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+  <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
+  <script src="{% static 'js/rango-ajax.js' %}"></script>
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link rel="shortcut icon"  href="{{% static 'Reach_Logo.png' %}"/>
+<link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.css'% }" rel="stylesheet" media="screen">
+<link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+<title>Reach {% block title %}Know your place{% endblock %}</title>
+</head>
+  <body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<img src="/media/profile_images/Reach_Logo.png" >
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="brand" href="/social_reach/"> Reach - know your place</a><br>
+
+<div class="nav-collapse collapse">
+<ul class="nav navbar-nav">
+{% if user.is_authenticated %}
+<li class="navbar-text">Welcome, {{ user.username }}!</li>
+{% else %}
+<li><a href="/social_reach/register/">Register</a></li>
+<li><a href="/social_reach/login/">Login</a></li>
+{% endif %}
+</ul>
+<ul class="nav navbar-nav">
+{% if user.is_authenticated %}
+<li><a href="/social_reach/profile">Profile</a></li>
+<li><a href="/social_reach/matches/">Matches</a></li>
+<li><a href="/social_reach/restricted/">Restricted</a></li>
+<li><a href="/social_reach/add_category/">Add Category</a></li>
+<li><a href="/social_reach/logout/">Logout</a></li>
+{% endif %}
+</ul>
+</div>
+<!--/.nav-collapse -->
+</div>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span3">
+<div class="well sidebar-nav">
+  {% block sidebar %}
+{% endblock %}
+<div id="cats">
+{% if cat_list %}
+<ul class="nav nav-list"><li>Insta-worthy moments</li></ul>
+<!--- Empty for the timebeing -->
+{% include 'rango/category_list.html' with cat_list=cat_list %}
+{% endif %}
+</div>
+</div>
+<!--/.well -->
+</div>
+<!--/span-->
+<div class="span9">
+  {% block body_block %}
+  {% endblock %}
+</div>
+<!--/span-->
+</div>
+<!--/row-->
+</div>
+<!--/.fluid-container-->
+<hr>
+<footer>
+<div class="container">
+<p>&copy; Reach 2018</p>
+</div>
+</footer>
+
+  </body>
+</html>
