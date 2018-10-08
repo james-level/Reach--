@@ -19,9 +19,17 @@ axios.post(session_url, {
   }).then(function(response) {
     console.log(response);
   console.log('Authenticated');
-}).catch(function(error) {
+  var token = response.data['access']
+  console.log(token);
+     axios.get('http://localhost:8080/social_reach/profiles/?format=json', { headers: { Authorization: `Bearer ${token}` } })
+     .then(res =>{
+     console.log(res);
+}).catch(function(error){
+  console.log("Error on authentication");
+})}).catch(function(error) {
   console.log('Error on Authentication');
 });
+
 }
 
   // componentDidMount(){
