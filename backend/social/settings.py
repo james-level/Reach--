@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework',
     'corsheaders',
+    'coreapi',
 ]
 
 CORS_ORIGIN_WHITELIST = (
