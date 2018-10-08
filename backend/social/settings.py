@@ -97,7 +97,8 @@ INSTALLED_APPS = [
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000/'
-)
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
