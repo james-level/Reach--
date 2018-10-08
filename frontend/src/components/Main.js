@@ -9,13 +9,28 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class Main extends Component {
 
-  componentDidMount(){
-    console.log("hi");
-    axios.get('http://localhost:8080/social_reach/profiles/?format=json')
-    .then(res =>{
-      console.log(res);
-    }) //only runs when completed response
-  }
+componentDidMount(){
+var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
+var uname = 'jamesbond007';
+var pass = 'p';
+axios.post(session_url, {
+    'username': uname,
+    'password': pass
+  }).then(function(response) {
+    console.log(response);
+  console.log('Authenticated');
+}).catch(function(error) {
+  console.log('Error on Authentication');
+});
+}
+
+  // componentDidMount(){
+  //   console.log("hi");
+  //   axios.get('http://localhost:8080/social_reach/profiles/?format=json')
+  //   .then(res =>{
+  //     console.log(res);
+  //   }) //only runs when completed response
+  // }
   constructor(props) {
     super(props);
     this.state = {
