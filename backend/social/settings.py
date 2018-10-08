@@ -91,7 +91,12 @@ INSTALLED_APPS = [
     'bootstrap3',
     'social_django',
     'rest_framework',
+    'corsheaders',
 ]
+
+CORS_ORIGIN_WHITELIST = (
+   'localhost:3000/'
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
