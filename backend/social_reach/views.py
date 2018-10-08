@@ -2,6 +2,13 @@
 
 from __future__ import unicode_literals
 
+from rest_framework import generics
+from .models import Category
+from .serializers import CategorySerializer, ProfileSerializer, UserSerializer, MatchSerializer, LikeSerializer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 from django.shortcuts import redirect
 from django.shortcuts import render
 from registration.backends.simple.views import RegistrationView
@@ -30,6 +37,48 @@ from social_reach.twitter_scraper import TwitterScraper
 from social_reach.youtube_scraper import YoutubeScraper
 from access_tokens import facebook_app_token , facebook_access_token
 
+
+class ListCategoryView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class ListProfileView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = ProfileSerializer
+
+class ListUserView(generics.ListAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes	= (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        content = {
+            'user': unicode(request.user),  # `django.contrib.auth.User` instance.
+            'auth': unicode(request.auth),  # None
+        }
+        return Response(content)
+
+class ListMatchView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+
+class ListLikesView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = ProfileLikedByActiveUser.objects.all()
+    serializer_class = LikeSerializer
 
 class RangoRegistrationView(RegistrationView):
 	def get_success_url(self, user):

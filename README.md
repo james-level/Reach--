@@ -42,8 +42,34 @@ python manage.py runserver 8080
 
  pip install requests bs4
  
+ INSTALLING REST FRAMEWORK AND AUTHENTICATION:
+ 
+ pip install djangorestframework
+ 
+ pip install djangorestframework-simplejwt
+ 
+ INITIAL ENDPOINTS FOR OUR REST API (you need to be logged into Reach to view the response; change port number if need be):
+ 
+ Get all user profiles: http://localhost:8080/social_reach/profiles/
+ 
+ Get all users: http://localhost:8080/social_reach/users/
+ 
+ Get all likes: http://localhost:8080/social_reach/likes/
+ 
+ Get all matches: http://localhost:8081/social_reach/mutual_likes/
+ 
+ Get all photo categories: http://localhost:8081/social_reach/categories/
+ 
+ FOR JSON RESPONSE (e.g. profiles): http://localhost:8080/social_reach/profiles/?format=json
+
  INSTALLING SOCIAL AUTHENTICATION:
  
  pip install social-auth-app-django
+ 
+ FRONTEND (REACT):
+ 
+ npm run build (possibly)
+ 
+ npm start
 
   <b>VERY IMPORTANT: If it says a .pyc file has been staged when doing a git commit, undo immediately and run python python-cache-flusher.py. DON'T PUSH!<b>

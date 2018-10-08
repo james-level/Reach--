@@ -16,7 +16,9 @@
     {% for match in matches_them_first %}
     <p><strong>{{match.first_user.user.username}}</strong></p>
     <p>Insta Reach: {{match.first_user.instagram_followers}}</p>
+    {% if match.first_user.picture %}
       <img src="{{match.first_user.picture.url}}"/>
+      {% endif %}
       <br>
 {% endfor %}
 {% endif %}
@@ -25,7 +27,9 @@
 {% for match in matches_you_first %}
 <p><strong>{{match.second_user.user.username}}</strong></p>
 <p>Insta Reach: {{match.second_user.instagram_followers}}</p>
+{% if match.second_user.picture %}
   <img src="{{match.second_user.picture.url}}"/>
+  {% endif %}
   <br>
 {% endfor %}
 {% endif %}
