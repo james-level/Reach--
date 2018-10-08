@@ -3,3 +3,4 @@ __pycache__
 .idea
 db/*.sqlite3
 social/media/profile_images/download_PAa9xbG.jpeg
+node_modules/
