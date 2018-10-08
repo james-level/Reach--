@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+// NB: Lines 4 & 5, I attempted to let this page access the log-in modal .js files. Doesn't work :/
+// import datatables from "/public/login_button_js/datatables.js"
+// import datatables from "/public/login_button_js/datatables.min.js"
+
 
 const Landing = () => (
   <div className="landing">
@@ -16,7 +20,7 @@ const Landing = () => (
     </div>
 {/* REACH LOGO END */}
 
-    <h3 className="tag-line"><i>a social app for social people</i></h3>
+    <h3 className="tag-line"><i>A social app for social people</i></h3>
 
     <img className="landing-image" src="/images/app_images/girl.jpg" alt="girl-on-mobile-phone"></img>
 
