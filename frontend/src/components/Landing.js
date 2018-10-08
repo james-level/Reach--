@@ -1,12 +1,66 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from 'axios';
 
 // NB: Lines 5 & 6, I attempted to let this page access the log-in 'modal.js' files. Doesn't work :/
 // import datatables from "/public/login_button_js/addons/datatables.js"
 // import datatables from "/public/login_button_js/addons/datatables.min.js"
 
 
-const Landing = () => (
+class Landing extends React.Component{
+  constructor(props) {
+  super(props);
+
+  this.state = {
+    username: '',
+    password: ''
+  };
+
+ this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
+ this.handleUsernameChange = this.handleUsernameChange.bind(this)
+ this.handlePasswordChange = this.handlePasswordChange.bind(this)
+
+}
+
+handleUsernameChange(evt){
+  this.setState({ username: evt.target.value})
+
+}
+
+handlePasswordChange(evt){
+  this.setState({ password: evt.target.value})
+}
+
+handleLoginSubmit(evt){
+  evt.preventDefault();
+
+var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
+var uname = this.state.username;
+var pass = this.state.password;
+axios.post(session_url, {
+    'username': uname,
+    'password': pass
+  }).then(function(response) {
+    console.log(response);
+  console.log('Authenticated');
+  var token = response.data['access']
+  console.log(token);
+     axios.get('http://localhost:8080/social_reach/profiles/?format=json', { headers: { Authorization: `Bearer ${token}` } })
+     .then(res =>{
+     console.log(res);
+}).catch(function(error){
+  console.log("Error on authentication");
+})}).catch(function(error) {
+  console.log('Error on Authentication');
+});
+
+}
+
+
+render(){
+
+  return(
+
   <div className="landing">
 
 
@@ -17,6 +71,7 @@ const Landing = () => (
       <span class="letter" data-letter="A">A</span>
       <span class="letter" data-letter="C">C</span>
       <span class="letter" data-letter="H">H</span>
+
     </div>
 {/* REACH LOGO END */}
 
@@ -30,6 +85,16 @@ const Landing = () => (
     <img className="landing-image" src="/images/app_images/girl.jpg" alt="girl-on-mobile-phone"></img>
 {/* LANDING IMAGE END */}
 
+<form onSubmit={this.handleLoginSubmit}>
+  Username:
+  <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange}></input>
+
+  Password:
+  <input type="text" name="password"   value={this.state.password}
+          onChange={this.handlePasswordChange}></input>
+
+  <input type="submit" value="Submit"></input>
+</form>
 
 {/* LOGIN MODAL START */}
 <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -79,6 +144,8 @@ const Landing = () => (
 
 </div>
 );
+}
+}
 
 export default Landing;
 
