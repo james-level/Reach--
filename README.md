@@ -66,6 +66,10 @@ python manage.py runserver 8080
  
  pip install social-auth-app-django
  
+ CORS (Cross origin resource sharing):
+ 
+ pip install django-cors-headers
+ 
  FRONTEND (REACT):
  
  npm run build (possibly)
