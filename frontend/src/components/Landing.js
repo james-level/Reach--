@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// NB: Lines 4 & 5, I attempted to let this page access the log-in modal .js files. Doesn't work :/
-// import datatables from "/public/login_button_js/datatables.js"
-// import datatables from "/public/login_button_js/datatables.min.js"
+// NB: Lines 5 & 6, I attempted to let this page access the log-in 'modal.js' files. Doesn't work :/
+// import datatables from "/public/login_button_js/addons/datatables.js"
+// import datatables from "/public/login_button_js/addons/datatables.min.js"
 
 
 const Landing = () => (
@@ -20,13 +20,18 @@ const Landing = () => (
     </div>
 {/* REACH LOGO END */}
 
-    <h3 className="tag-line"><i>A social app for social people</i></h3>
 
+{/* TAG LINE START */}
+    <h3 className="tag-line"><i>A social app for social people</i></h3>
+{/* TAG LINE END  */}
+
+
+{/* LANDING IMAGE START */}
     <img className="landing-image" src="/images/app_images/girl.jpg" alt="girl-on-mobile-phone"></img>
+{/* LANDING IMAGE END */}
 
 
 {/* LOGIN MODAL START */}
-
 <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -61,6 +66,9 @@ const Landing = () => (
     <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Log In</a>
 </div>
 {/* LOG IN MODAL END  */}
+
+{/* NB / TODO: the <a> tag on line 66 has a href of "" - this *should* launch the modal log-in-form. Need to explore how this links to the form as currently it has no target (see <a> tag on line 75 as comparison. This redirects to registration page. */}
+
 
 {/* REGISTER NEW USER  BUTTON START */}
 <div className="text-center">
