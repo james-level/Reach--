@@ -1,4 +1,12 @@
 from django.conf.urls import url
+from rest_framework import generics
+from django.views import generic
+from rest_framework.schemas import get_schema_view
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from django.conf.urls import include
 from social_reach import views
 from social_reach.views import ListCategoryView, ListProfileView, ListUserView, ListMatchView, ListLikesView
 
@@ -24,4 +32,11 @@ urlpatterns = [
     url(r'^users/$', ListUserView.as_view(), name="users"),
     url(r'^mutual_likes/$', ListMatchView.as_view(), name="mutual_likes"),
     url(r'^likes/$', ListLikesView.as_view(), name="likes"),
+    url(r'^$', generic.RedirectView.as_view(
+         url='/api/', permanent=False)),
+    url(r'^api/$', get_schema_view()),
+    url(r'^api/auth/', include(
+        'rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/auth/token/obtain/$', TokenObtainPairView.as_view()),
+    url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),
     ]
