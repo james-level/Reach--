@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from rest_framework import generics
+from rest_framework.urlpatterns import format_suffix_patterns
 from django.views import generic
 from rest_framework.schemas import get_schema_view
 from rest_framework_simplejwt.views import (
@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import (
 )
 from django.conf.urls import include
 from social_reach import views
-from social_reach.views import ListCategoryView, ListProfileView, ListUserView, ListMatchView, ListLikesView
+from social_reach.views import ListCategoryView, ListProfileView, UserList, UserDetail, ListMatchView, ListLikesView
 
 app_name = 'social_reach'
 urlpatterns = [
@@ -29,7 +29,8 @@ urlpatterns = [
     # REST API ROUTES UNDERNEATH THIS
     url(r'^categories/$', ListCategoryView.as_view(), name="categories_all"),
     url(r'^profiles/$', ListProfileView.as_view(), name="profiles"),
-    url(r'^users/$', ListUserView.as_view(), name="users"),
+     url(r'^users/$', UserList.as_view(), name='user-list'),
+    url(r'^users/(?P<pk>[\w\-]+)/$', UserDetail.as_view(), name='user_detail'),
     url(r'^mutual_likes/$', ListMatchView.as_view(), name="mutual_likes"),
     url(r'^likes/$', ListLikesView.as_view(), name="likes"),
     url(r'^$', generic.RedirectView.as_view(

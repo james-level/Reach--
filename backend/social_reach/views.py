@@ -52,19 +52,18 @@ class ListProfileView(generics.ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
 
-class ListUserView(generics.ListAPIView):
 
+class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    authentication_classes	= (SessionAuthentication, BasicAuthentication)
-    permission_classes = (IsAuthenticated,)
 
-    def get(self, request, format=None):
-        content = {
-            'user': unicode(request.user),  # `django.contrib.auth.User` instance.
-            'auth': unicode(request.auth),  # None
-        }
-        return Response(content)
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        # from IPython import embed; embed();
+        return User.objects.all()
 
 class ListMatchView(generics.ListAPIView):
     """
