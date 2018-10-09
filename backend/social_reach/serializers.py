@@ -8,6 +8,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ("name", "views")
 
+
 class ProfileSerializer(serializers.ModelSerializer):
     # Following line converts user id to username
     user = serializers.ReadOnlyField(source='user.username')
@@ -76,8 +77,24 @@ class MatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         fields = ("first_username", "second_username")
+        
 
 class LikeSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        like = ProfileLikedByActiveUser(
+            profile=validated_data.get('profile', None)
+        )
+        like.set_profile(validated_data.get('profile', None))
+        like.save()
+        return like
+
     class Meta:
         model = ProfileLikedByActiveUser
         fields = ('liker', 'profile')
+
+        extra_kwargs = {
+            'url': {
+                'view_name': 'social_reach: like_detail',
+            }
+        }

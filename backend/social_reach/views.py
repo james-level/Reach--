@@ -59,6 +59,13 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
         # from IPython import embed; embed();
         return UserProfile.objects.all()
 
+class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = LikeSerializer
+
+    def get_queryset(self):
+        # from IPython import embed; embed();
+        return ProfileLikedByActiveUser.objects.all()
+
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
