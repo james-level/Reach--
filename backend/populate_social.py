@@ -130,7 +130,7 @@ def add_greeted_profile(profile, greeter):
 	greeted_profile.save()
 
 def add_liked_profile(profile, liker):
-	liked_profile = ProfileGreetedByActiveUser.get_or_create(profile=profile, liker=liker)
+	liked_profile = ProfileLikedByActiveUser.get_or_create(profile=profile, liker=liker)
 	liked_profile.save()
 
 def delete_all_greeted_profiles():

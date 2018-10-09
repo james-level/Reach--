@@ -11,13 +11,20 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     # Following line converts user id to username
-    user = serializers.ReadOnlyField(source='user.username')
 
     def create(self, validated_data):
         profile = UserProfile(
-            user=validated_data.get('user', None)
+            user=validated_data.get('user', None),
+            likes=validated_data.get('likes', 0),
+            greetings=validated_data.get('greetings', 0),
+            picture=validated_data.get('picture', None),
+            instagram_handle=validated_data.get('instagram_handle', None),
+            twitter_handle=validated_data.get('twitter_handle', None),
+            youtube_handle=validated_data.get('youtube_handle', None),
+            instagram_followers=validated_data.get('instagram_followers', 0),
+            twitter_followers=validated_data.get('twitter_followers', 0),
+            youtube_followers=validated_data.get('youtube_followers', 0),
         )
-        profile.set_user(validated_data.get('user', None))
         profile.save()
         return profile
 
@@ -77,21 +84,26 @@ class MatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         fields = ("first_username", "second_username")
-        
+
+        extra_kwargs = {
+            'url': {
+                'view_name': 'social_reach: match_detail',
+            }
+        }
+
 
 class LikeSerializer(serializers.ModelSerializer):
 
+
     def create(self, validated_data):
-        like = ProfileLikedByActiveUser(
-            profile=validated_data.get('profile', None)
-        )
-        like.set_profile(validated_data.get('profile', None))
+        like = ProfileLikedByActiveUser(liker=validated_data.get('liker', None),
+        profile=validated_data.get('profile', None))
         like.save()
         return like
 
     class Meta:
         model = ProfileLikedByActiveUser
-        fields = ('liker', 'profile')
+        fields = ('liker', 'profile', 'id')
 
         extra_kwargs = {
             'url': {

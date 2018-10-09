@@ -38,14 +38,14 @@ from social_reach.youtube_scraper import YoutubeScraper
 from access_tokens import facebook_app_token , facebook_access_token
 
 
-class ListCategoryView(generics.ListAPIView):
+class ListCategoryView(generics.ListCreateAPIView):
     """
     Provides a get method handler.
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class ListProfileView(generics.ListAPIView):
+class ListProfileView(generics.ListCreateAPIView):
     """
     Provides a get method handler.
     """
@@ -79,14 +79,14 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         # from IPython import embed; embed();
         return User.objects.all()
 
-class ListMatchView(generics.ListAPIView):
+class ListMatchView(generics.ListCreateAPIView):
     """
     Provides a get method handler.
     """
     queryset = Match.objects.all()
     serializer_class = MatchSerializer
 
-class ListLikesView(generics.ListAPIView):
+class ListLikesView(generics.ListCreateAPIView):
     """
     Provides a get method handler.
     """
