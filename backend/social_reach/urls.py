@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import (
 )
 from django.conf.urls import include
 from social_reach import views
-from social_reach.views import ListCategoryView, ListProfileView, UserList, UserDetail, ListMatchView, ListLikesView
+from social_reach.views import ListCategoryView, ListProfileView, UserList, UserDetail, ProfileDetail, ListMatchView, ListLikesView
 
 app_name = 'social_reach'
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     # REST API ROUTES UNDERNEATH THIS
     url(r'^categories/$', ListCategoryView.as_view(), name="categories_all"),
     url(r'^profiles/$', ListProfileView.as_view(), name="profiles"),
+        url(r'^profiles/(?P<pk>[\w\-]+)/$', ProfileDetail.as_view(), name='profile_detail'),
      url(r'^users/$', UserList.as_view(), name='user-list'),
     url(r'^users/(?P<pk>[\w\-]+)/$', UserDetail.as_view(), name='user_detail'),
     url(r'^mutual_likes/$', ListMatchView.as_view(), name="mutual_likes"),

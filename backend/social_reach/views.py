@@ -52,6 +52,13 @@ class ListProfileView(generics.ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
 
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        # from IPython import embed; embed();
+        return UserProfile.objects.all()
+
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()

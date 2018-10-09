@@ -12,9 +12,32 @@ class ProfileSerializer(serializers.ModelSerializer):
     # Following line converts user id to username
     user = serializers.ReadOnlyField(source='user.username')
 
+    def create(self, validated_data):
+        profile = UserProfile(
+            user=validated_data.get('user', None)
+        )
+        profile.set_user(validated_data.get('user', None))
+        profile.save()
+        return profile
+
+    def update(self, instance, validated_data):
+        for field in validated_data:
+            if field == 'user':
+                instance.set_user(validated_data.get(field))
+            else:
+                instance.__setattr__(field, validated_data.get(field))
+        instance.save()
+        return instance
+
     class Meta:
         model = UserProfile
         fields = ("user", "likes", "greetings", "picture", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers")
+
+        extra_kwargs = {
+            'url': {
+                'view_name': 'social_reach: profile_detail',
+            }
+        }
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
