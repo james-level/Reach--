@@ -77,7 +77,7 @@ class UserSerializer(serializers.ModelSerializer):
 class MatchSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
-        match = User(
+        match = Match(
             first_user=validated_data.get('first_user', None),
             second_user=validated_data.get('second_user', None),
         )
