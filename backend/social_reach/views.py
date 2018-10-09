@@ -66,6 +66,13 @@ class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
         # from IPython import embed; embed();
         return ProfileLikedByActiveUser.objects.all()
 
+class MatchDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = MatchSerializer
+
+    def get_queryset(self):
+        # from IPython import embed; embed();
+        return Match.objects.all()
+
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()

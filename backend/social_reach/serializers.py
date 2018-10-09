@@ -75,22 +75,25 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 class MatchSerializer(serializers.ModelSerializer):
-    first_username = serializers.ReadOnlyField(source='first_user.user.username')
-    second_username = serializers.ReadOnlyField(source='second_user.user.username')
 
+    def create(self, validated_data):
+        match = User(
+            first_user=validated_data.get('first_user', None),
+            second_user=validated_data.get('second_user', None),
+        )
+        match.save()
+        return match
 
     def update(self, instance, validated_data):
         for field in validated_data:
-            if field == 'first':
-                instance.set_user(validated_data.get(field))
-            else:
                 instance.__setattr__(field, validated_data.get(field))
         instance.save()
         return instance
 
+
     class Meta:
         model = Match
-        fields = ("first_username", "second_username")
+        fields = ("first_user", "second_user", "id")
 
         extra_kwargs = {
             'url': {
