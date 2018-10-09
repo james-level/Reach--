@@ -30,9 +30,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         for field in validated_data:
-            if field == 'user':
-                instance.set_user(validated_data.get(field))
-            else:
                 instance.__setattr__(field, validated_data.get(field))
         instance.save()
         return instance
@@ -80,6 +77,16 @@ class UserSerializer(serializers.ModelSerializer):
 class MatchSerializer(serializers.ModelSerializer):
     first_username = serializers.ReadOnlyField(source='first_user.user.username')
     second_username = serializers.ReadOnlyField(source='second_user.user.username')
+
+
+    def update(self, instance, validated_data):
+        for field in validated_data:
+            if field == 'first':
+                instance.set_user(validated_data.get(field))
+            else:
+                instance.__setattr__(field, validated_data.get(field))
+        instance.save()
+        return instance
 
     class Meta:
         model = Match
