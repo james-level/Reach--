@@ -50,15 +50,23 @@ python manage.py runserver 8080
  
  INITIAL ENDPOINTS FOR OUR REST API (you need to be logged into Reach to view the response; change port number if need be):
  
- Get all user profiles: http://localhost:8080/social_reach/profiles/
+ Get all user profiles or create a profile: http://localhost:8080/social_reach/profiles/
  
- Get all users: http://localhost:8080/social_reach/users/
+ View/update/delete specific user profile: http://localhost:8080/social_reach/profiles/{id}
  
- Get all likes: http://localhost:8080/social_reach/likes/
+ Get all users or create a user: http://localhost:8080/social_reach/users/
  
- Get all matches: http://localhost:8081/social_reach/mutual_likes/
+ View/update/delete specific user: http://localhost:8080/social_reach/users/{id}
  
- Get all photo categories: http://localhost:8081/social_reach/categories/
+ Get all likes or create a like: http://localhost:8080/social_reach/likes/
+ 
+ View/update/delete specific like: http://localhost:8080/social_reach/likes/{id}
+ 
+ Get all matches or create a match: http://localhost:8080/social_reach/mutual_likes/
+ 
+ View/update/delete specific match: http://localhost:8080/social_reach/mutual_likes/{id}
+ 
+ Get all photo categories: http://localhost:8080/social_reach/categories/
  
  FOR JSON RESPONSE (e.g. profiles): http://localhost:8080/social_reach/profiles/?format=json
 
