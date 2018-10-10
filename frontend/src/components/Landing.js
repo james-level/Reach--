@@ -113,7 +113,7 @@ render(){
 
               </div>
               <div class="modal-footer d-flex justify-content-center">
-                  <button class="btn btn-default">Login</button>
+                  <button  type='submit'  class="btn btn-default">Login</button>
               </div>
               </form>
 
