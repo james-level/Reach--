@@ -87,7 +87,7 @@ render(){
 
 
 {/* LOGIN MODAL START */}
-<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" data-backdrop="false" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
           <form onSubmit={this.props.handleLoginSubmit}>

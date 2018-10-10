@@ -63,7 +63,10 @@ class Main extends Component {
   render() {
     if (this.state.login === true){
       return (
-        <Profile/>
+
+            <Profile/>
+
+      
       )
 
     }else{
