@@ -82,6 +82,10 @@ python manage.py runserver 8080
  
  pip install coreapi
  
+ DJANGO REGISTRATION AUTHENTICATION:
+ 
+ pip install django-rest-auth
+ 
  FRONTEND (REACT):
  
  npm run build (possibly)
