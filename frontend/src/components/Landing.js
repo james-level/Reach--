@@ -93,7 +93,7 @@ render(){
   <input type="text" name="password"   value={this.state.password}
           onChange={this.handlePasswordChange}></input>
 
-  <input type="submit" value="Submit"></input>
+  <input type="submit" value="Test login API"></input>
 </form>
 
 {/* LOGIN MODAL START */}
@@ -128,7 +128,7 @@ render(){
 </div>
 
 <div class="text-center">
-    <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Log In</a>
+    <button class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Login</button>
 </div>
 {/* LOG IN MODAL END  */}
 
@@ -193,10 +193,10 @@ export default Landing;
 // </form>
 //
 // </div>
-//
-// {/* <script>
+
+// { <script>
 // var modal = document.getElementById('id01')
 // window.onclick = function(evt) {
 //     evt.target == modal ? modal.style.display = "none" : null
 //   }
-// </script> */}
+// </script> }
