@@ -31,6 +31,15 @@ class ProfileSerializer(serializers.ModelSerializer):
         instagram_scraper =  InstagramScraper()
         insta_results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
         profile.instagram_followers=profile.instagram_followers + insta_results
+
+        twitter_scraper =  TwitterScraper()
+        twitter_results = twitter_scraper.scrape_twitter_followers(profile.twitter_handle)
+        profile.twitter_followers=profile.twitter_followers + twitter_results
+
+        youtube_scraper =  YoutubeScraper()
+        youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        profile.youtube_followers=profile.youtube_followers + youtube_results
+
         profile.save()
         return profile
 
@@ -46,6 +55,12 @@ class ProfileSerializer(serializers.ModelSerializer):
                 twitter_scraper =  TwitterScraper()
                 twitter_results = twitter_scraper.scrape_twitter_followers(validated_data.get('twitter_handle'))
                 instance.__setattr__('twitter_followers',  twitter_results )
+
+            elif field == 'youtube_followers':
+                youtube_scraper =  YoutubeScraper()
+                youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                instance.__setattr__('youtube_followers',  youtube_results )
+                print("YOUTUBE", youtube_results)
 
             else:
                 instance.__setattr__(field, validated_data.get(field))
