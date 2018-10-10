@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from datetime import datetime
 
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -41,6 +42,7 @@ class Page(models.Model):
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	looking_for = models.CharField(choices=LOOKING_FOR, max_length=6)
+	date_of_birth = models.DateField(default=datetime.now())
 	likes = models.IntegerField(default=0)
 	greetings = models.IntegerField(default=0)
 	website = models.URLField(blank=True)
