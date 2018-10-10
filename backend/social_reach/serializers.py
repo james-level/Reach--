@@ -6,8 +6,6 @@ from social_reach.twitter_scraper import TwitterScraper
 from social_reach.youtube_scraper import YoutubeScraper
 from datetime import datetime
 
-
-
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
