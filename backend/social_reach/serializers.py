@@ -104,6 +104,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'social_reach: user_detail',
+                'view_name': 'social_reach: current_user_detail',
             }
         }
 

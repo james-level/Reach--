@@ -6,9 +6,11 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+import re
+from allauth.account.views import confirm_email as allauthemailconfirmation
 from django.conf.urls import include
 from social_reach import views
-from social_reach.views import LikeDetail, MatchDetail, ListCategoryView, ListProfileView, UserList, UserDetail, ProfileDetail, ListMatchView, ListLikesView
+from social_reach.views import CurrentUserDetail, LikeDetail, MatchDetail, ListCategoryView, ListProfileView, UserList, UserDetail, ProfileDetail, ListMatchView, ListLikesView
 
 app_name = 'social_reach'
 urlpatterns = [
@@ -31,9 +33,10 @@ urlpatterns = [
     url(r'^profiles/$', ListProfileView.as_view(), name="profiles"),
         url(r'^profiles/(?P<pk>[\w\-]+)/$', ProfileDetail.as_view(), name='profile_detail'),
      url(r'^users/$', UserList.as_view(), name='user-list'),
-    url(r'^users/(?P<pk>[\w\-]+)/$', UserDetail.as_view(), name='user_detail'),
+    url(r'^users/(?P<pk>\d+)/$', UserDetail.as_view(), name='user_detail'),
+    url(r'^users/(?P<username>[\w\-]+)/$', CurrentUserDetail.as_view(), name='current_user_detail'),
     url(r'^mutual_likes/$', ListMatchView.as_view(), name="mutual_likes"),
-    url(r'^mutual_likes/(?P<pk>[\w\-]+)/$', MatchDetail.as_view(), name="match_detail"),
+    url(r'^mutual_likes/(?P<pk>[\w\-]+)/$', MatchDetail.as_view(), name="mutual_like_detail"),
     url(r'^likes/$', ListLikesView.as_view(), name="likes"),
     url(r'^likes/(?P<pk>[\w\-]+)/$', LikeDetail.as_view(), name='like_detail'),
     url(r'^$', generic.RedirectView.as_view(
@@ -43,4 +46,8 @@ urlpatterns = [
         'rest_framework.urls', namespace='rest_framework')),
     url(r'^api/auth/token/obtain/$', TokenObtainPairView.as_view()),
     url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),
+     url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+     url(r'^rest-auth/registration/account-confirm-email/',
+        allauthemailconfirmation, name="account_confirm_email"),
     ]
