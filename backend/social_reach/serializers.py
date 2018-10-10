@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from .models import Category, UserProfile, Match, ProfileLikedByActiveUser
 from django.contrib.auth.models import User
+from social_reach.instagram_scraper import InstagramScraper
+from social_reach.twitter_scraper import TwitterScraper
+from social_reach.youtube_scraper import YoutubeScraper
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -25,11 +28,25 @@ class ProfileSerializer(serializers.ModelSerializer):
             twitter_followers=validated_data.get('twitter_followers', 0),
             youtube_followers=validated_data.get('youtube_followers', 0),
         )
+        instagram_scraper =  InstagramScraper()
+        insta_results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
+        profile.instagram_followers=profile.instagram_followers + insta_results
         profile.save()
         return profile
 
     def update(self, instance, validated_data):
         for field in validated_data:
+            if field == 'instagram_followers':
+                instagram_scraper =  InstagramScraper()
+                insta_results = instagram_scraper.scrape_instagram_followers(validated_data.get('instagram_handle'))
+                instance.__setattr__('instagram_followers',  insta_results )
+
+            if field == 'twitter_followers':
+                twitter_scraper =  TwitterScraper()
+                twitter_results = twitter_scraper.scrape_twitter_followers(validated_data.get('instagram_handle'))
+                instance.__setattr__('instagram_followers',  insta_results )
+
+            else:
                 instance.__setattr__(field, validated_data.get(field))
         instance.save()
         return instance
