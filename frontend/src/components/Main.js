@@ -12,7 +12,8 @@ class Main extends Component {
     this.state = {
       username: '',
       password: '',
-      login: false
+      login: false,
+      data: {}
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
   }
@@ -31,6 +32,7 @@ class Main extends Component {
   var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
   var uname = evt.target[1].defaultValue;
   var pass = evt.target[2].defaultValue;
+  // self = this , a workaround to access 'this' within axios
   var self = this;
   this.setState({
     username: uname,
@@ -46,10 +48,12 @@ class Main extends Component {
        axios.get(`http://localhost:8080/social_reach/users/${uname}/?format=json`, { headers: { Authorization: `Bearer ${token}` } })
        .then(res =>{
          self.setState({
-           login: true
+           login: true,
+           data: res.data
          })
 
        console.log("hello", res.data.username);
+       console.dir(res)
   }).catch(function(error){
     console.log(error);
     console.log("Error on authentication");
@@ -64,9 +68,9 @@ class Main extends Component {
     if (this.state.login === true){
       return (
 
-            <Profile/>
+            <Profile data={this.state.data} />
 
-      
+
       )
 
     }else{
