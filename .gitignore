@@ -4,4 +4,5 @@ __pycache__
 db/*.sqlite3
 social/media/profile_images/download_PAa9xbG.jpeg
 node_modules/
-modal_login/
+frontend/public/login_button_js/
+frontend/src/components/modal_login/
