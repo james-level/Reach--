@@ -21,6 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             user=validated_data.get('user', None),
             looking_for=validated_data.get('looking_for', None),
             date_of_birth=validated_data.get('date_of_birth', datetime.now()),
+            gender_identity=validated_data.get('gender_identity', None),
             location=validated_data.get('location', ""),
             likes=validated_data.get('likes', 0),
             greetings=validated_data.get('greetings', 0),
@@ -73,7 +74,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ("user", "looking_for", "date_of_birth", "location", "likes", "greetings", "picture", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers")
+        fields = ("user", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers")
 
         extra_kwargs = {
             'url': {
