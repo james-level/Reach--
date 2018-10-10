@@ -85,6 +85,14 @@ render(){
 {/* LANDING IMAGE END */}
 
 
+  Password:
+  <input type="text" name="password"   value={this.state.password}
+          onChange={this.handlePasswordChange}></input>
+
+  <input type="submit" value="Test login API"></input>
+</form>
+
+
 
 {/* LOGIN MODAL START */}
 <div class="modal fade" data-backdrop="false" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -141,3 +149,55 @@ render(){
 }
 
 export default Landing;
+
+
+
+
+
+
+//
+//
+// <button onclick={document.querySelector('modal').style.display='block'} style="width:auto;">Login</button>
+//
+// <div id="id01" class="modal">
+//
+// <form class="modal-content animate" action="/action_page.php">
+//
+// <div class="imgcontainer">
+// <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+// </div>
+//
+// <div>
+// <img src="img_avatar2.png" alt="Avatar" class="avatar"></img>
+// </div>
+//
+// <div class="container">
+//
+//   <label for="uname"><b>Username</b></label>
+//
+//     <input type="text" placeholder="Enter Username" name="uname" required></input>
+//     <label for="psw"><b>Password</b></label>
+//     <input type="password" placeholder="Enter Password" name="psw" required></input>
+//     <button type="submit">Login</button>
+//
+//     <label>
+//       <input type="checkbox" checked="checked" name="remember"> Remember me</input>
+//     </label>
+//
+// </div>
+//
+// <div class="container" style="background-color:#f1f1f1">
+//   <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+//   <span class="psw">Forgot <a href="#">password?</a></span>
+// </div>
+//
+// </form>
+//
+// </div>
+
+// { <script>
+// var modal = document.getElementById('id01')
+// window.onclick = function(evt) {
+//     evt.target == modal ? modal.style.display = "none" : null
+//   }
+// </script> }

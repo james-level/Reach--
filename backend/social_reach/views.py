@@ -98,6 +98,17 @@ class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
         return obj
 
 
+class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+    # make sure to catch 404's below
+        obj = queryset.get(username=self.request.user)
+        return obj
+
 class ListMatchView(generics.ListCreateAPIView):
     """
     Provides a get method handler.
