@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from social_reach.instagram_scraper import InstagramScraper
 from social_reach.twitter_scraper import TwitterScraper
 from social_reach.youtube_scraper import YoutubeScraper
-<<<<<<< HEAD
 from datetime import datetime
 
 

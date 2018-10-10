@@ -85,12 +85,7 @@ render(){
 {/* LANDING IMAGE END */}
 
 
-  Password:
-  <input type="text" name="password"   value={this.state.password}
-          onChange={this.handlePasswordChange}></input>
 
-  <input type="submit" value="Test login API"></input>
-</form>
 
 
 

@@ -49,11 +49,10 @@ urlpatterns = [
     url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),
      url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
-<<<<<<< HEAD
+
     url(r'^rest-auth/registration/account_confirm_email/',
         UserDetail.as_view(), name="account_confirm_email"),
     # url(r'^confirm-email/(?P<key>[-:\w]+)/$', confirm_email = ConfirmEmailView.as_view(),
     #     name="account_confirm_email"),
-=======
->>>>>>> develop
+
     ]
