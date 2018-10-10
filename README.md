@@ -86,6 +86,8 @@ python manage.py runserver 8080
  
  pip install django-rest-auth
  
+ pip install django-allauth
+ 
  FRONTEND (REACT):
  
  npm run build (possibly)
