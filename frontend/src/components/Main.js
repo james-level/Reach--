@@ -20,10 +20,14 @@ class Main extends Component {
   //authentication
   handleLoginSubmit(evt){
     evt.preventDefault();
-    console.log("Hello!");
+
   var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
   var uname = evt.target[1].defaultValue;
   var pass = evt.target[2].defaultValue;
+  this.setState({
+    username: uname,
+    password: pass
+  })
   axios.post(session_url, {
       'username': uname,
       'password': pass
