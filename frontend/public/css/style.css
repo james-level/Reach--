@@ -7,15 +7,15 @@ body{
     ;
 }
 div.app-title{
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
   text-align: center;
 }
 .letter{
   display: inline-block;
   font-weight: 900;
-  font-size: 8em;
-  margin: 0.2em;
+  font-size: 5em;
+  margin: 0.1em;
   position: relative;
   color: #2cbbad;
   transform-style: preserve-3d;
@@ -81,7 +81,7 @@ div.app-title{
 }
 
     li {
-        float: center;
+        float: left;
     }
 
     li a {
@@ -96,6 +96,17 @@ div.app-title{
         background-color: #2cbbad;
         color: white;
     }
+
+.nav-bar li a:hover:not(.active) {background-color: #2cbbad;}
+
+.nav-barli a.active {background-color: #2cbbad;}
+
+.nav-barli.right {float: right;}
+
+@media screen and (max-width: 600px){
+    .nav-barli.right,
+    .nav-bar li {float: none;}
+}
 /* NAVIGATION BAR END */
 
 

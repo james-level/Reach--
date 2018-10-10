@@ -13,13 +13,13 @@ const Register = () => (
     <fieldset>
       <legend><span class="number"></span> Basic Info</legend>
       <input type="text" name="field1" placeholder="Your Name *"></input>
-      <input type="email" name="field2" placeholder="Your Location *"></input>
+      <input type="text" name="field2" placeholder="Your Location *"></input>
       <input type="text" name="field3" placeholder="Your Gender *"></input>
-      <textarea name="field4" placeholder="Description"></textarea>
+      <textarea name="field4" placeholder="Description *" maxlength="500"></textarea>
 
       <label for="job">Interests:</label>
       <select id="job" name="field5">
-        <optgroup label="I'm into">
+        <optgroup label="I'm into...">
           <option value="travel">Travel</option>
           <option value="ecology">Saving The Planet</option>
           <option value="gym">Gym</option>
@@ -34,7 +34,7 @@ const Register = () => (
 
   <fieldset>
     <legend><span class="number"></span> Additional Info</legend>
-    <textarea name="field6" placeholder="Anything else you want to disclose?"></textarea>
+    <textarea name="field6" placeholder="Anything else you want to disclose?" maxlength="120"></textarea>
   </fieldset>
 
   <fieldset>

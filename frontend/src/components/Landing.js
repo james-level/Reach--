@@ -123,19 +123,13 @@ render(){
       </div>
   </div>
 
+{/* LOG IN & REGISTER NEW USER BUTTONS START */}
   <div class="text-center">
-      <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Login</a>
+      <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">  Login  </a>
+      <a href="/register" class="btn btn-default btn-rounded mb-4">Register</a>
   </div>
-{/* LOG IN MODAL END  */}
+{/* LOG IN & REGISTER NEW USER BUTTONSEND */}
 
-{/* NB / TODO: the <a> tag on line 66 has a href of "" - this *should* launch the modal log-in-form. Need to explore how this links to the form as currently it has no target (see <a> tag on line 75 as comparison. This redirects to registration page. */}
-
-
-{/* REGISTER NEW USER  BUTTON START */}
-<div className="text-center">
-  <a href="/register" class="btn btn-default btn-rounded mb-4">New User?</a>
-</div>
-{/* REGISTER NEW USER BUTTON END */}
 
 
 </div>
@@ -144,55 +138,3 @@ render(){
 }
 
 export default Landing;
-
-
-
-
-
-
-//
-//
-// <button onclick={document.querySelector('modal').style.display='block'} style="width:auto;">Login</button>
-//
-// <div id="id01" class="modal">
-//
-// <form class="modal-content animate" action="/action_page.php">
-//
-// <div class="imgcontainer">
-// <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-// </div>
-//
-// <div>
-// <img src="img_avatar2.png" alt="Avatar" class="avatar"></img>
-// </div>
-//
-// <div class="container">
-//
-//   <label for="uname"><b>Username</b></label>
-//
-//     <input type="text" placeholder="Enter Username" name="uname" required></input>
-//     <label for="psw"><b>Password</b></label>
-//     <input type="password" placeholder="Enter Password" name="psw" required></input>
-//     <button type="submit">Login</button>
-//
-//     <label>
-//       <input type="checkbox" checked="checked" name="remember"> Remember me</input>
-//     </label>
-//
-// </div>
-//
-// <div class="container" style="background-color:#f1f1f1">
-//   <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-//   <span class="psw">Forgot <a href="#">password?</a></span>
-// </div>
-//
-// </form>
-//
-// </div>
-
-// { <script>
-// var modal = document.getElementById('id01')
-// window.onclick = function(evt) {
-//     evt.target == modal ? modal.style.display = "none" : null
-//   }
-// </script> }
