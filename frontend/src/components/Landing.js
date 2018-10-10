@@ -5,6 +5,7 @@ import axios from 'axios';
 
 
 
+
 class Landing extends React.Component{
   constructor(props) {
   super(props);
@@ -14,7 +15,7 @@ class Landing extends React.Component{
     password: ''
   };
 
- this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
+ // this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
  this.handleUsernameChange = this.handleUsernameChange.bind(this)
  this.handlePasswordChange = this.handlePasswordChange.bind(this)
 
@@ -29,30 +30,30 @@ handlePasswordChange(evt){
   this.setState({ password: evt.target.value})
 }
 
-handleLoginSubmit(evt){
-  evt.preventDefault();
-
-var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
-var uname = this.state.username;
-var pass = this.state.password;
-axios.post(session_url, {
-    'username': uname,
-    'password': pass
-  }).then(function(response) {
-    console.log(response);
-  console.log('Authenticated');
-  var token = response.data['access']
-  console.log(token);
-     axios.get('http://localhost:8080/social_reach/profiles/?format=json', { headers: { Authorization: `Bearer ${token}` } })
-     .then(res =>{
-     console.log(res);
-}).catch(function(error){
-  console.log("Error on authentication");
-})}).catch(function(error) {
-  console.log('Error on Authentication');
-});
-
-}
+// handleLoginSubmit(evt){
+//   evt.preventDefault();
+//
+// var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
+// var uname = this.state.username;
+// var pass = this.state.password;
+// axios.post(session_url, {
+//     'username': uname,
+//     'password': pass
+//   }).then(function(response) {
+//     console.log(response);
+//   console.log('Authenticated');
+//   var token = response.data['access']
+//   console.log(token);
+//      axios.get('http://localhost:8080/social_reach/profiles/?format=json', { headers: { Authorization: `Bearer ${token}` } })
+//      .then(res =>{
+//      console.log(res);
+// }).catch(function(error){
+//   console.log("Error on authentication");
+// })}).catch(function(error) {
+//   console.log('Error on Authentication');
+// });
+//
+// }
 
 
 render(){
@@ -83,21 +84,13 @@ render(){
     <img className="landing-image" src="/images/app_images/girl.jpg" alt="girl-on-mobile-phone"></img>
 {/* LANDING IMAGE END */}
 
-<form onSubmit={this.handleLoginSubmit}>
-  Username:
-  <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange}></input>
 
-  Password:
-  <input type="text" name="password"   value={this.state.password}
-          onChange={this.handlePasswordChange}></input>
-
-  <input type="submit" value="Submit"></input>
-</form>
 
 {/* LOGIN MODAL START */}
 <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
+          <form onSubmit={this.props.handleLoginSubmit}>
               <div class="modal-header text-center">
                   <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -105,22 +98,25 @@ render(){
                   </button>
               </div>
               <div class="modal-body mx-3">
+
                   <div class="md-form mb-5">
                       <i class="fa fa-envelope prefix grey-text"></i>
-                      <input type="email" id="defaultForm-email" class="form-control validate"></input>
-                      <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                      <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange} id="defaultForm-username" class="form-control validate" placeholder="username"></input>
+                      <label name="username" data-error="wrong" data-success="right" for="defaultForm-username"  ></label>
                   </div>
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="password" id="defaultForm-pass" class="form-control validate"></input>
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                      <input type="text" name="password" value={this.state.password} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"></input>
+                      <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                   </div>
 
               </div>
               <div class="modal-footer d-flex justify-content-center">
                   <button class="btn btn-default">Login</button>
               </div>
+              </form>
+
           </div>
       </div>
   </div>
