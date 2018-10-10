@@ -16,6 +16,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile = UserProfile(
             user=validated_data.get('user', None),
+            name=validated_data.get('name', None),
+            bio=validated_data.get('bio', "No description yet... this user must be shy!"),
             looking_for=validated_data.get('looking_for', None),
             date_of_birth=validated_data.get('date_of_birth', datetime.now()),
             gender_identity=validated_data.get('gender_identity', None),
@@ -23,6 +25,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             likes=validated_data.get('likes', 0),
             greetings=validated_data.get('greetings', 0),
             picture=validated_data.get('picture', None),
+            picture_two=validated_data.get('picture_two', None),
+            picture_three=validated_data.get('picture_three', None),
+            picture_four=validated_data.get('picture_four', None),
+            picture_five=validated_data.get('picture_five', None),
+            picture_six=validated_data.get('picture_six', None),
             instagram_handle=validated_data.get('instagram_handle', None),
             twitter_handle=validated_data.get('twitter_handle', None),
             youtube_handle=validated_data.get('youtube_handle', None),
@@ -62,7 +69,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
     class Meta:
         model = UserProfile
-        fields = ("user", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers")
+        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers")
 
         extra_kwargs = {
             'url': {
