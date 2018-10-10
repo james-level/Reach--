@@ -6,6 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from django.views.generic import RedirectView
 import re
 from allauth.account.views import confirm_email as allauthemailconfirmation
 from django.conf.urls import include
@@ -48,6 +49,8 @@ urlpatterns = [
     url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),
      url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
-     url(r'^rest-auth/registration/account-confirm-email/',
-        allauthemailconfirmation, name="account_confirm_email"),
+    url(r'^rest-auth/registration/account_confirm_email/',
+        UserDetail.as_view(), name="account_confirm_email"),
+    # url(r'^confirm-email/(?P<key>[-:\w]+)/$', confirm_email = ConfirmEmailView.as_view(),
+    #     name="account_confirm_email"),
     ]
