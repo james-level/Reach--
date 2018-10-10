@@ -36,15 +36,16 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         for field in validated_data:
+
             if field == 'instagram_followers':
                 instagram_scraper =  InstagramScraper()
                 insta_results = instagram_scraper.scrape_instagram_followers(validated_data.get('instagram_handle'))
                 instance.__setattr__('instagram_followers',  insta_results )
 
-            if field == 'twitter_followers':
+            elif field == 'twitter_followers':
                 twitter_scraper =  TwitterScraper()
-                twitter_results = twitter_scraper.scrape_twitter_followers(validated_data.get('instagram_handle'))
-                instance.__setattr__('instagram_followers',  insta_results )
+                twitter_results = twitter_scraper.scrape_twitter_followers(validated_data.get('twitter_handle'))
+                instance.__setattr__('twitter_followers',  twitter_results )
 
             else:
                 instance.__setattr__(field, validated_data.get(field))
