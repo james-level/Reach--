@@ -4,6 +4,12 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
+LOOKING_FOR = {
+	('Male', 'Male'),
+	('Female', 'Female'),
+	('Both', 'Both')
+}
+
 
 class Category(models.Model):
 	name = models.CharField(max_length=128, unique=True)
@@ -34,6 +40,7 @@ class Page(models.Model):
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
+	looking_for = models.CharField(choices=LOOKING_FOR, max_length=6, null=True)
 	likes = models.IntegerField(default=0)
 	greetings = models.IntegerField(default=0)
 	website = models.URLField(blank=True)
