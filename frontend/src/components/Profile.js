@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { Component } from "react";
 
 
-const Profile = () => (
+
+class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      login: false,
+      data: {}
+    };
+
+  }
+
+
+
+  render(){
+    console.log(this.props);
+    return(
+
+
   <div className="profile">
 
   <img className="landing-image" src="/images/app_images/user-profile-icon.png" alt="user-profile-icon"></img>
 
-  <h2> Derek Humbledink, 21 Yrs</h2>
+  <h2> {this.props.data.username}, 21 Yrs</h2>
 
   <h4> Hi, I....Like big butts and I can not lie You
         Other brothers can't deny That
@@ -35,5 +54,7 @@ const Profile = () => (
 
   </div>
 );
+}
+}
 
 export default Profile;

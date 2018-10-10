@@ -126,7 +126,6 @@ render(){
   </div>
 {/* LOG IN MODAL END  */}
 
-{/* NB / TODO: the <a> tag on line 66 has a href of "" - this *should* launch the modal log-in-form. Need to explore how this links to the form as currently it has no target (see <a> tag on line 75 as comparison. This redirects to registration page. */}
 
 
 {/* REGISTER NEW USER  BUTTON START */}
