@@ -95,6 +95,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'coreapi',
+    'rest_auth',
+    'allauth',
+    'django.contrib.sites',
+    'allauth.account',
+    'rest_framework.authtoken'
 ]
 
 CORS_ORIGIN_WHITELIST = (

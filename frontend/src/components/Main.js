@@ -36,9 +36,10 @@ class Main extends Component {
     console.log('Authenticated');
     var token = response.data['access']
     console.log(token);
-       axios.get('http://localhost:8080/social_reach/profiles/?format=json', { headers: { Authorization: `Bearer ${token}` } })
+       axios.get('http://localhost:8080/social_reach/users/jamesbond007/?format=json', { headers: { Authorization: `Bearer ${token}` } })
        .then(res =>{
        console.log(res);
+       console.log("hello", res.data.username);
   }).catch(function(error){
     console.log("Error on authentication");
   })}).catch(function(error) {
