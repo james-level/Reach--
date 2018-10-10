@@ -114,3 +114,155 @@ div.app-title{
   text-align: center;
 }
 /* TAGLINE END */
+
+
+
+
+
+
+
+/* PHOTO UPLOADER BUTTON START */
+html {
+  margin: 30px;
+}
+.foo {
+    display: block;
+    font-family: 'Raleway', sans-serif;
+    position: relative;
+    width: 300px;
+    margin: auto;
+    cursor: pointer;
+    border: 0;
+    height: 60px;
+    border-radius: 5px;
+    outline: 0;
+}
+.foo:hover:after {
+    background: #f96585;
+    color: white;
+}
+.foo:after {
+    transition: 200ms all ease;
+    border-bottom: 3px solid rgba(0,0,0,.2);
+    background: #2cbbad;
+    text-shadow: 0 2px 0 rgba(0,0,0,.2);
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    content: 'Upload Photo';
+    line-height: 60px;
+    border-radius: 5px;
+}
+/* PHOTO UPLOADER END */
+
+
+/* PROFILE INFO INPUT FORM START */
+.user-input-form{
+    max-width: 500px;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    margin: 10px auto;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    font-family: 'Raleway', sans-serif;
+}
+.user-input-form fieldset{
+    border: none;
+}
+.user-input-form legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+.user-input-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+.user-input-form input[type="text"],
+.user-input-form input[type="date"],
+.user-input-form input[type="datetime"],
+.user-input-form input[type="email"],
+.user-input-form input[type="number"],
+.fuser-input-form input[type="search"],
+.user-input-forminput[type="time"],
+.user-input-form input[type="url"],
+.user-input-form textarea,
+.user-input-form select {
+    font-family: 'Raleway', sans-serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: 0;
+    outline: 0;
+    padding: 7px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color:#8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+
+}
+.user-input-form input[type="text"]:focus,
+.user-input-form input[type="date"]:focus,
+.user-input-form input[type="datetime"]:focus,
+.user-input-form input[type="email"]:focus,
+.user-input-form input[type="number"]:focus,
+.user-input-form input[type="search"]:focus,
+.user-input-form input[type="time"]:focus,
+.user-input-form input[type="url"]:focus,
+.user-input-form textarea:focus,
+.user-input-form select:focus{
+    background: #d2d9dd;
+}
+.user-input-form select{
+    -webkit-appearance: menulist-button;
+    height:35px;
+}
+.user-input-form .number {
+    background: #2cbbad;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 15px 15px 15px 0px;
+}
+
+.user-input-form input[type="submit"],
+.user-input-form input[type="button"]
+{
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: #2cbbad;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+}
+.user-input-forminput[type="submit"]:hover,
+.user-input-form input[type="button"]:hover
+{
+    background: #109177;
+}
+/* PROFILE INFO INPUT FORM START */
