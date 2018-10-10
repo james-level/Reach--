@@ -1,4 +1,4 @@
-# Reach Instructios
+# Reach 
 
 Clone repo onto your machine.
 
