@@ -16,6 +16,7 @@ class Main extends Component {
       data: {}
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
+    this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
   }
 
   // login success
@@ -64,6 +65,19 @@ class Main extends Component {
   }
 
 
+  handleSignUpSubmit(evt){
+      evt.preventDefault();
+      var signup_username = evt.target[1].defaultValue
+      var signup_password = evt.target[2].defaultValue
+      var signup_email = evt.target[3].defaultValue
+      //http://localhost:8080/social_reach/auth/users/
+      console.log(evt.target[1].defaultValue);
+      console.log(evt.target[2].defaultValue);
+      console.log(evt.target[3].defaultValue);
+
+  }
+
+
   render() {
     if (this.state.login === true){
       return (
@@ -78,7 +92,7 @@ class Main extends Component {
       <Router>
         <React.Fragment>
           <Navbar />
-          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} />}/>
+          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit}/>}/>
           <Route path="/Register" component={Register} />
           <Route path="/Profile" component={Profile} />
         </React.Fragment>
