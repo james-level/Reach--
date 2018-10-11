@@ -121,7 +121,6 @@ DJOSER = {
     'EMAIL': {'activation': 'social_reach.email.ActivationEmail',
     'confirmation': 'djoser.email.ConfirmationEmail',
     'password_reset': 'djoser.email.PasswordResetEmail',},
-
     'SEND_CONFIRMATION_EMAIL': True,
 }
 
