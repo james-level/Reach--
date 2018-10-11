@@ -14,7 +14,9 @@ class Main extends Component {
       password: '',
       login: false,
       signUpSubmit: false,
-      data: {}
+      data: {},
+      activation_token: '',
+      activation_user: ''
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
