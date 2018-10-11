@@ -88,6 +88,10 @@ python manage.py runserver 8080
  
  pip install django-allauth
  
+ DJOSER
+ 
+ pip install djoser
+ 
  FRONTEND (REACT):
  
  npm run build (possibly)
