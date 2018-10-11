@@ -1,5 +1,5 @@
 """tango_with_django_project URL Configuration
-
+Hello im a dog.
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
 Examples:
