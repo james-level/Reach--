@@ -9,7 +9,7 @@
 {% blocktrans %}{% endblocktrans %}
 
 {% trans "Please go to the following page to activate account and chat to the hottest influencers:" %}
-{{ protocol }}://{{ domain }}/{{ url }}
+http://localhost:3000/activate_profile
 
 {% trans "Thanks for using our site!" %}
 <img src="{{ request.get_host }}{% static 'Reach_Logo.png' %}"/>
@@ -23,7 +23,7 @@
 <p>Hello, hotshot. You're receiving this email because you need to finish your activation process on Reach. </p>{% endblocktrans %}
 
 <p>{% trans "Please go to the following page to activate account and chat to the hottest influencers:" %}</p>
-<p><a href="{{ protocol }}://{{ domain }}/{{ url }}">{{ protocol }}://{{ domain }}/{{ url }}</a></p>
+<p><a href="http://localhost:3000/activate_profile">http://localhost:3000/activate_profile</a></p>
 
 <p>{% trans "Thanks for using our site!" %}</p>
 <img src="{{ request.get_host }}/{% static 'Reach_Logo.png' %}"/>

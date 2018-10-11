@@ -6,6 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from djoser import views as djoserviews
 from django.views.generic import TemplateView
 from django.views.generic import RedirectView
 import re
@@ -46,6 +47,17 @@ urlpatterns = [
          url='/api/', permanent=False)),
     url(r'^api/$', get_schema_view()),
     url(r'^auth/users/activate/$', CustomRegistrationView.as_view(), name='user_activate'),
+    url(
+        r'^token/create/?$',
+        djoserviews.TokenCreateView.as_view(),
+        name='token-create'
+    ),
+    url(
+        r'^token/destroy/?$',
+        djoserviews.TokenDestroyView.as_view(),
+        name='token-destroy'
+    ),
+    url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^auth/', include('djoser.urls')),
     url(r'^api/auth/', include(
         'rest_framework.urls', namespace='rest_framework')),
@@ -55,7 +67,7 @@ urlpatterns = [
     url(r'^rest-auth/registration/account-confirm-email/', views.null_view, name='account_confirm_email'),
     url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.null_view, name='password_reset_confirm'),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls'), name='account_signup'),
-    url(r'^rest-auth/', include('rest_auth.urls')),
+
     # url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', TemplateView.as_view(),  name='password_reset_confirm'),
     #
     # url(r'^rest-auth/registration/account-confirm-email/(?P<key>[-:\w]+)/$', allauthemailconfirmation,
