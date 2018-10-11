@@ -76,7 +76,7 @@ render(){
 
 
 {/* TAG LINE START */}
-    <h3 className="tag-line"><i>A social app for social people</i></h3>
+    <h3 className="tag-line"><i>The social app for social people</i></h3>
 {/* TAG LINE END  */}
 
 
@@ -125,8 +125,8 @@ render(){
 
 {/* LOG IN & REGISTER NEW USER BUTTONS START */}
   <div class="text-center">
-      <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">  Login  </a>
-      <a href="/register" class="btn btn-default btn-rounded mb-4">Register</a>
+      <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Sign In</a>
+      <a href="/register" class="btn btn-default btn-rounded mb-4">Sign Up</a>
   </div>
 {/* LOG IN & REGISTER NEW USER BUTTONSEND */}
 

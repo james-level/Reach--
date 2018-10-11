@@ -40,9 +40,12 @@ const Register = () => (
 {/* SOCIAL MEDIA SECTION */}
       <fieldset>
         <legend><span class="number"></span>Social Reach</legend>
-        <input type="text" name="field7" placeholder="Twitter         NB: enter the bit after 'twitter.com/' "></input>
-        <input type="text" name="field8" placeholder="Instagram   NB: enter the bit after 'instagram.com/' "></input>
-        <input type="text" name="field9" placeholder="YouTube     NB: enter the bit after 'youtube.com/user/' "></input>
+        <input type="text" name="field7" placeholder="Twitter         (enter the bit after 'twitter.com/') "></input>
+        <input type="text" name="field8" placeholder="Instagram   (enter the bit after 'instagram.com/') "></input>
+        <input type="text" name="field9" placeholder="YouTube     (enter the bit after 'youtube.com/user/') "></input>
+        <input type="text" name="field10" placeholder="Facebook     (enter the bit after 'facebook.com/') "></input>
+        <input type="text" name="fiel11" placeholder="SnapChat     (enter the bit after 'snapchat.com') "></input>
+        <input type="text" name="field9" placeholder="Spotify    (ARTISTS ONLY!)"></input>
       </fieldset>
 
 
