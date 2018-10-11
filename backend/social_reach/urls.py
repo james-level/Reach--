@@ -20,6 +20,7 @@ from social_reach.views import ActivationView, CustomRegistrationView, CurrentUs
 
 
 app_name = 'social_reach'
+
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'matches/$', views.matches, name='matches'),
@@ -50,7 +51,7 @@ urlpatterns = [
          url='/api/', permanent=False)),
     url(r'^api/$', get_schema_view()),
     url(r'^auth/users/activate/$', CustomRegistrationView.as_view(), name='user_activate'),
-    url(r'^auth/users/confirmation/$', ActivationView.as_view(), name='user_confirm'),
+    url(r'^auth/users/activate/(?P<username>[\w\-]+)/(?P<token>[\w\-]+)/$', ActivationView.as_view(), name='user_confirm'),
     url(
         r'^token/create/?$',
         djoserviews.TokenCreateView.as_view(),

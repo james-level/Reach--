@@ -68,7 +68,10 @@ class CustomRegistrationView(RegistrationView):
         return extras
 
     def get_context_data(self):
+        token = utils.login_user(self.request, serializer.user)
+        token_serializer_class = settings.SERIALIZERS.token
         context = super(CustomRegistrationView, self).get_context_data()
+        context['token'] = token_serializer_class(token).data
         context['user'] = context.get('user')
         return context
 
