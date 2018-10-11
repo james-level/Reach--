@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 """React URL Configuration
 >>>>>>> develop

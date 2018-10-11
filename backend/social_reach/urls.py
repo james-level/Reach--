@@ -6,10 +6,9 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-<<<<<<< HEAD
+
 from djoser import views as djoserviews
-=======
->>>>>>> develop
+
 from django.views.generic import TemplateView
 from django.views.generic import RedirectView
 import re

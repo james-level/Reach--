@@ -117,7 +117,6 @@ DJOSER = {
     'SERIALIZERS': {'activation': 'djoser.email.ActivationEmail',
 'confirmation': 'djoser.email.ConfirmationEmail',
 'password_reset': 'djoser.email.PasswordResetEmail',},
-
     'EMAIL': {'activation': 'social_reach.email.ActivationEmail',
     'confirmation': 'djoser.email.ConfirmationEmail',
     'password_reset': 'djoser.email.PasswordResetEmail',},
