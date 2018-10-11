@@ -1,9 +1,32 @@
 __pycache__
 *.pyc
 .idea
-db/*.sqlite3
+db.sqlite3
 social/media/profile_images/download_PAa9xbG.jpeg
 node_modules/
+
 frontend/public/login_button_js/
 frontend/public/css/login_button_css/
 frontend/src/components/modal_login/
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
