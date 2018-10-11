@@ -59,7 +59,7 @@ class CustomRegistrationView(RegistrationView):
 
     def get_send_email_extras(self):
         extras = super(CustomRegistrationView, self).get_send_email_extras()
-        extras['html_body_template_name'] = 'activation_email_body.html'
+        extras['html_body_template_name'] = 'activation_email.html'
         return extras
 
 # class UserViewSet(ModelViewSet):
