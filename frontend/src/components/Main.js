@@ -66,7 +66,7 @@ class Main extends Component {
 
             <Profile/>
 
-      
+
       )
 
     }else{
