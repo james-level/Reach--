@@ -13,6 +13,7 @@ class Main extends Component {
       username: '',
       password: '',
       login: false,
+      signUpSubmit: false,
       data: {}
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
@@ -52,9 +53,6 @@ class Main extends Component {
            login: true,
            data: res.data
          })
-
-       console.log("hello", res.data.username);
-       console.dir(res)
   }).catch(function(error){
     console.log(error);
     console.log("Error on authentication");
@@ -67,10 +65,22 @@ class Main extends Component {
 
   handleSignUpSubmit(evt){
       evt.preventDefault();
+      var self = this;
       var signup_username = evt.target[1].defaultValue
       var signup_password = evt.target[2].defaultValue
       var signup_email = evt.target[3].defaultValue
-      //http://localhost:8080/social_reach/auth/users/
+      var new_user_url = 'http://localhost:8080/social_reach/auth/users/'
+      axios.post(new_user_url, {
+        username: signup_username,
+        password: signup_password,
+        email: signup_email
+      }).then(()=>{
+        self.setState({
+          signUpSubmit: true
+        })
+      }).catch(function(e){
+        console.log(e);
+      })
       console.log(evt.target[1].defaultValue);
       console.log(evt.target[2].defaultValue);
       console.log(evt.target[3].defaultValue);
@@ -85,6 +95,11 @@ class Main extends Component {
             <Profile data={this.state.data} />
 
 
+      )
+
+    }if (this.state.signUpSubmit === true){
+      return (
+        <h6>Sign up confirmed! Activate via the email you have just been sent.</h6>
       )
 
     }else{
