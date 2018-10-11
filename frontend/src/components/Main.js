@@ -20,6 +20,7 @@ class Main extends Component {
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
+    console.log(this.props);
   }
 
   // login success
@@ -110,6 +111,7 @@ class Main extends Component {
         <React.Fragment>
           <Navbar />
           <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit}/>}/>
+          <Route exact path="/activate/:id/:token" render={(props)=> <Landing  data={props} handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit}/>}/>
           <Route path="/Register" component={Register} />
           <Route path="/Profile" component={Profile} />
         </React.Fragment>
