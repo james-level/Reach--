@@ -71,17 +71,17 @@ class CustomRegistrationView(RegistrationView):
         token = utils.login_user(self.request, serializer.user)
         token_serializer_class = settings.SERIALIZERS.token
         context = super(CustomRegistrationView, self).get_context_data()
-        context['token'] = token_serializer_class(token).data
+        context['token'] = utils.login_user(self.request, serializer.user)
         context['user'] = context.get('user')
         return context
 
-    def _action(self, serializer):
-        token = utils.login_user(self.request, serializer.user)
-        token_serializer_class = settings.SERIALIZERS.token
-        return Response(
-            data=token_serializer_class(token).data,
-            status=status.HTTP_200_OK,
-        )
+    # def _action(self, serializer):
+    #     token = utils.login_user(self.request, serializer.user)
+    #     token_serializer_class = settings.SERIALIZERS.token
+    #     return Response(
+    #         data=token_serializer_class(token).data,
+    #         status=status.HTTP_200_OK,
+    #     )
 
 class ActivationView(utils.ActionViewMixin, generics.GenericAPIView):
     """
