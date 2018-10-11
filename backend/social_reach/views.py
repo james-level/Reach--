@@ -58,9 +58,15 @@ class CustomRegistrationView(RegistrationView):
     """
 
     def get_send_email_extras(self):
+
         extras = super(CustomRegistrationView, self).get_send_email_extras()
         extras['html_body_template_name'] = 'activation_email.html'
         return extras
+
+    def get_context_data(self):
+        context = super(CustomRegistrationView, self).get_context_data()
+        context['user'] = context.get('user')
+        return context
 
 # class UserViewSet(ModelViewSet):
 #     """
