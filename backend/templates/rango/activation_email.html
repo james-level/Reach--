@@ -20,7 +20,7 @@ http://localhost:3000/activate_profile
 {% block html_body %}
 {% blocktrans %}
 
-<p>Hello, hotshot. You're receiving this email because you need to finish your activation process on Reach. </p>{% endblocktrans %}
+<p>Hello, {{user}}. You're receiving this email because you need to finish your activation process on Reach. </p>{% endblocktrans %}
 
 <p>{% trans "Please go to the following page to activate account and chat to the hottest influencers:" %}</p>
 <p><a href="http://localhost:3000/activate_profile">http://localhost:3000/activate_profile</a></p>

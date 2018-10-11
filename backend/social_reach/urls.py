@@ -18,6 +18,7 @@ from social_reach import views
 from rest_framework import routers
 from social_reach.views import CustomRegistrationView, CurrentUserDetail, LikeDetail, MatchDetail, ListCategoryView, ListProfileView, UserList, UserDetail, ProfileDetail, ListMatchView, ListLikesView, null_view
 
+
 app_name = 'social_reach'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
