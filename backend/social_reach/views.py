@@ -47,6 +47,10 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from djoser import utils, signals
+from djoser.conf import settings
+from rest_framework import generics, permissions, status, views, viewsets
+from django.contrib.auth.tokens import default_token_generator
 
 @api_view()
 def null_view(request):
@@ -67,6 +71,38 @@ class CustomRegistrationView(RegistrationView):
         context = super(CustomRegistrationView, self).get_context_data()
         context['user'] = context.get('user')
         return context
+
+    def _action(self, serializer):
+        token = utils.login_user(self.request, serializer.user)
+        token_serializer_class = settings.SERIALIZERS.token
+        return Response(
+            data=token_serializer_class(token).data,
+            status=status.HTTP_200_OK,
+        )
+
+class ActivationView(utils.ActionViewMixin, generics.GenericAPIView):
+    """
+    Use this endpoint to activate user account.
+    """
+    serializer_class = settings.SERIALIZERS.activation
+    permission_classes = [permissions.AllowAny]
+    token_generator = default_token_generator
+
+    def _action(self, serializer):
+        user = serializer.user
+        user.is_active = True
+        user.save()
+
+        signals.user_activated.send(
+            sender=self.__class__, user=user, request=self.request
+        )
+
+        if settings.SEND_CONFIRMATION_EMAIL:
+            context = {'user': user}
+            to = [get_user_email(user)]
+            settings.EMAIL.confirmation(self.request, context).send(to)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 # class UserViewSet(ModelViewSet):
 #     """
