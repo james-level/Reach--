@@ -53,4 +53,5 @@ urlpatterns = [
         UserDetail.as_view(), name="account_confirm_email"),
     # url(r'^confirm-email/(?P<key>[-:\w]+)/$', confirm_email = ConfirmEmailView.as_view(),
     #     name="account_confirm_email"),
+
     ]

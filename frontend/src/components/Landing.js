@@ -87,7 +87,6 @@ render(){
 
 
 
-
 {/* LOGIN MODAL START */}
 <div class="modal fade" data-backdrop="false" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -130,6 +129,14 @@ render(){
   </div>
 {/* LOG IN & REGISTER NEW USER BUTTONSEND */}
 
+
+
+
+{/* REGISTER NEW USER  BUTTON START */}
+<div className="text-center">
+  <a href="/register" class="btn btn-default btn-rounded mb-4">New User?</a>
+</div>
+{/* REGISTER NEW USER BUTTON END */}
 
 
 </div>
