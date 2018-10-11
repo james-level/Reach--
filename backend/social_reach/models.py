@@ -43,6 +43,8 @@ class Page(models.Model):
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
+	name = models.CharField(max_length=128, default="")
+	bio = models.CharField(max_length=500, default="No description yet... this user must be shy!")
 	looking_for = models.CharField(choices=LOOKING_FOR, max_length=6)
 	date_of_birth = models.DateField(default=datetime.now())
 	gender_identity = models.IntegerField(choices=GENDER_CHOICES, max_length=3, default=0)
@@ -51,6 +53,11 @@ class UserProfile(models.Model):
 	greetings = models.IntegerField(default=0)
 	website = models.URLField(blank=True)
 	picture = models.ImageField(upload_to='profile_images',blank=True)
+	picture_two = models.ImageField(upload_to='profile_images',blank=True)
+	picture_three = models.ImageField(upload_to='profile_images',blank=True)
+	picture_four = models.ImageField(upload_to='profile_images',blank=True)
+	picture_five = models.ImageField(upload_to='profile_images',blank=True)
+	picture_six = models.ImageField(upload_to='profile_images',blank=True)
 	instagram_handle = models.CharField(max_length=128, default="")
 	instagram_followers = models.IntegerField(default=0)
 	twitter_handle = models.CharField(max_length=128, default="")

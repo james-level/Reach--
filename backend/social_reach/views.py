@@ -37,6 +37,118 @@ from social_reach.twitter_scraper import TwitterScraper
 from social_reach.youtube_scraper import YoutubeScraper
 from access_tokens import facebook_app_token , facebook_access_token
 
+from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
+from django.contrib.auth import get_user_model
+from django.utils.translation import ugettext_lazy as _
+from rest_auth.registration.serializers import VerifyEmailSerializer
+from rest_framework import status
+from rest_framework.decorators import api_view, APIView
+from rest_framework.permissions import IsAdminUser, AllowAny
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+
+from djoser import utils, signals
+from djoser.conf import settings
+from rest_framework import generics, permissions, status, views, viewsets
+from django.contrib.auth.tokens import default_token_generator
+
+@api_view()
+def null_view(request):
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class CustomRegistrationView(RegistrationView):
+    """
+    Override the Djoser view to provide an html template for activation email.
+    """
+
+    def get_send_email_extras(self):
+
+        extras = super(CustomRegistrationView, self).get_send_email_extras()
+        extras['html_body_template_name'] = 'activation_email.html'
+        return extras
+
+    def get_context_data(self):
+        token = utils.login_user(self.request, serializer.user)
+        token_serializer_class = settings.SERIALIZERS.token
+        context = super(CustomRegistrationView, self).get_context_data()
+        context['token'] = utils.login_user(self.request, serializer.user)
+        context['user'] = context.get('user')
+        return context
+
+    # def _action(self, serializer):
+    #     token = utils.login_user(self.request, serializer.user)
+    #     token_serializer_class = settings.SERIALIZERS.token
+    #     return Response(
+    #         data=token_serializer_class(token).data,
+    #         status=status.HTTP_200_OK,
+    #     )
+
+class ActivationView(utils.ActionViewMixin, generics.GenericAPIView):
+    """
+    Use this endpoint to activate user account.
+    """
+    serializer_class = settings.SERIALIZERS.activation
+    permission_classes = [permissions.AllowAny]
+    token_generator = default_token_generator
+
+    def _action(self, serializer):
+        user = serializer.user
+        user.is_active = True
+        user.save()
+
+        signals.user_activated.send(
+            sender=self.__class__, user=user, request=self.request
+        )
+
+        if settings.SEND_CONFIRMATION_EMAIL:
+            context = {'user': user}
+            to = [get_user_email(user)]
+            settings.EMAIL.confirmation(self.request, context).send(to)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# class UserViewSet(ModelViewSet):
+#     """
+#     A simple ViewSet for viewing and editing accounts.
+#     """
+#     queryset = get_user_model().objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [IsAdminUser]
+
+# class VerifyEmailView(APIView):
+#     permission_classes = (AllowAny,)
+#     allowed_methods = ('POST', 'OPTIONS', 'HEAD')
+#
+#     def get_serializer(self, *args, **kwargs):
+#         return VerifyEmailSerializer(*args, **kwargs)
+#
+#     def post(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         self.kwargs['key'] = serializer.validated_data['key']
+#         try:
+#             confirmation = self.get_object()
+#             confirmation.confirm(self.request)
+#             return Response({'detail': _('Successfully confirmed email.')}, status=status.HTTP_200_OK)
+#         except EmailConfirmation.DoesNotExist:
+#             return Response({'detail': _('Error. Incorrect key.')}, status=status.HTTP_404_NOT_FOUND)
+#
+#     def get_object(self, queryset=None):
+#         key = self.kwargs['key']
+#         emailconfirmation = EmailConfirmationHMAC.from_key(key)
+#         if not emailconfirmation:
+#             if queryset is None:
+#                 queryset = self.get_queryset()
+#             try:
+#                 emailconfirmation = queryset.get(key=key.lower())
+#             except EmailConfirmation.DoesNotExist:
+#                 raise EmailConfirmation.DoesNotExist
+#         return emailconfirmation
+#
+#     def get_queryset(self):
+#         qs = EmailConfirmation.objects.all_valid()
+#         qs = qs.select_related("email_address__user")
+#         return qs
 
 class ListCategoryView(generics.ListCreateAPIView):
     """
@@ -85,7 +197,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         # from IPython import embed; embed();
         return User.objects.all()
-        
+
 class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()

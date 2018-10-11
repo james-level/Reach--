@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load static %}
+
+{% block subject %}
+{% blocktrans %}Activate your Reach account!{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %}{% endblocktrans %}
+
+{% trans "Please go to the following page to activate account and chat to the hottest influencers:" %}
+http://localhost:3000/activate/{{user}}/{{token}}/
+
+{% trans "Thanks for using our site!" %}
+<img src="{{ request.get_host }}{% static 'Reach_Logo.png' %}"/>
+{ trans }
+{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+{% blocktrans %}
+
+<p>Hello, {{user}}. You're receiving this email because you need to finish your activation process on Reach. </p>{% endblocktrans %}
+
+<p>{% trans "Please go to the following page to activate account and chat to the hottest influencers:" %}</p>
+<p><a href="http://localhost:3000/activate/{{user}}/{{token}}">http://localhost:3000/activate/{{user}}/{{token}}</a></p>
+
+<p>{% trans "Thanks for using our site!" %}</p>
+<img src="{{ request.get_host }}/{% static 'Reach_Logo.png' %}"/>
+
+<p>{% blocktrans %}The Reach team{% endblocktrans %}</p>
+
+{% endblock html_body %}
