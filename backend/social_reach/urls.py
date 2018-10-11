@@ -47,10 +47,10 @@ urlpatterns = [
     url(r'^api/$', get_schema_view()),
     url(r'^auth/users/activate/$', CustomRegistrationView.as_view(), name='user_activate'),
     url(r'^auth/', include('djoser.urls')),
-    # url(r'^api/auth/', include(
-    #     'rest_framework.urls', namespace='rest_framework')),
-    # url(r'^api/auth/token/obtain/$', TokenObtainPairView.as_view()),
-    # url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),
+    url(r'^api/auth/', include(
+        'rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/auth/token/obtain/$', TokenObtainPairView.as_view()),
+    url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),
     #     url(r'^rest-auth/registration/account-email-verification-sent/', views.null_view, name='account_email_verification_sent'),
     url(r'^rest-auth/registration/account-confirm-email/', views.null_view, name='account_confirm_email'),
     url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.null_view, name='password_reset_confirm'),
