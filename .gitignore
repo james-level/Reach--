@@ -4,14 +4,12 @@ __pycache__
 db.sqlite3
 social/media/profile_images/download_PAa9xbG.jpeg
 node_modules/
-<<<<<<< HEAD
 
 frontend/public/login_button_js/
 frontend/public/css/login_button_css/
 frontend/src/components/modal_login/
 
-=======
->>>>>>> develop
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
