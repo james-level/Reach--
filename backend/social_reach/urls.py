@@ -16,7 +16,7 @@ from allauth.account.views import confirm_email as allauthemailconfirmation
 from django.conf.urls import include
 from social_reach import views
 from rest_framework import routers
-from social_reach.views import ActivationView, CustomRegistrationView, CurrentUserDetail, LikeDetail, MatchDetail, ListCategoryView, ListProfileView, UserList, UserDetail, ProfileDetail, ListMatchView, ListLikesView, null_view
+from social_reach.views import ActivationView,  CurrentUserDetail, LikeDetail, MatchDetail, ListCategoryView, ListProfileView, UserList, UserDetail, ProfileDetail, ListMatchView, ListLikesView, null_view
 
 
 app_name = 'social_reach'

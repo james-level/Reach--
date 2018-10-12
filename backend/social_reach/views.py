@@ -56,24 +56,24 @@ from django.contrib.auth.tokens import default_token_generator
 def null_view(request):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class CustomRegistrationView(RegistrationView):
-    """
-    Override the Djoser view to provide an html template for activation email.
-    """
-
-    def get_send_email_extras(self):
-
-        extras = super(CustomRegistrationView, self).get_send_email_extras()
-        extras['html_body_template_name'] = 'activation_email.html'
-        return extras
-
-    def get_context_data(self):
-        token = utils.login_user(self.request, serializer.user)
-        token_serializer_class = settings.SERIALIZERS.token
-        context = super(CustomRegistrationView, self).get_context_data()
-        context['token'] = utils.login_user(self.request, serializer.user)
-        context['user'] = context.get('user')
-        return context
+# class CustomRegistrationView(RegistrationView):
+#     """
+#     Override the Djoser view to provide an html template for activation email.
+#     """
+#
+#     def get_send_email_extras(self):
+#
+#         extras = super(CustomRegistrationView, self).get_send_email_extras()
+#         extras['html_body_template_name'] = 'activation_email.html'
+#         return extras
+#
+#     def get_context_data(self):
+#         token = utils.login_user(self.request, serializer.user)
+#         token_serializer_class = settings.SERIALIZERS.token
+#         context = super(CustomRegistrationView, self).get_context_data()
+#         context['token'] = utils.login_user(self.request, serializer.user)
+#         context['user'] = context.get('user')
+#         return context
 
     # def _action(self, serializer):
     #     token = utils.login_user(self.request, serializer.user)

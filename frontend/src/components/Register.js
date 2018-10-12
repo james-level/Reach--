@@ -14,26 +14,70 @@ class Register extends Component {
         signUpSubmit: false,
         data: {},
         activation_token: '',
-        activation_user: ''
+        activation_user: '',
+
+          name: 'test',
+          location: '',
+          date_of_birth: '',
+          gender: 0,
+          description: '',
+          interests: '',
+          twitter_handle: '',
+          facebook_handle: '',
+          instagram_handle: '',
+          youtube_handle: '',
+          spotify_handle: '',
+          snapchat: '',
+          additional_info: '',
+          photo1: '',
+          photo2: '',
+          photo3: '',
+          photo4: '',
+          photo5: '',
+          photo6: ''
+
+
+        }
+        this.handleChange = this.handleChange.bind(this);
+
       };
 
 
-    }
 
-    componentDidMount(){
 
-      // http://localhost:8080/social_reach/auth/users/activate/{username}/{token}
-      var username = this.props.data.match.params.id
-      var token = this.props.data.match.params.token
-      var activation_url = `http://localhost:8080/social_reach/auth/users/confirmation/`
-      axios.post(activation_url, {
-        username: username
-      }).then(()=>{
-      console.log("something happened");
-      }).catch(function(e){
-        console.log(e);
-      })
+    handleChange(evt){
+
+      
+       this.setState({
+         [evt.target.name]: evt.target.value
+       })
+
     }
+// TODO:  activation needs reformed
+  //   componentDidMount(){
+  //
+  //     // http://localhost:8080/social_reach/auth/users/activate/{username}/{token}
+  //     var uid = this.props.data.match.params.id
+  //     console.log(uid);
+  //     var token = this.props.data.match.params.token
+  //     console.log(token);
+  //     var activation_url = `http://localhost:8080/social_reach/auth/users/activate/`
+  //     axios({
+  //           method: 'post',
+  //           'url': activation_url,
+  //           'data': {
+  //               uid: uid,
+  //               token: token
+  //           },
+  //           'headers': {
+  //               "Content-Type": "application/json"
+  //           }
+  //       }).then(function (response) {
+  //           console.log(response);
+  //       }).catch(function (error) {
+  //               console.log(error);
+  //       });
+  // }
 
     render(){
       return (
@@ -41,20 +85,21 @@ class Register extends Component {
 
       {/* PROFILE INFO INPUT FORM START */}
       <div class="user-input-form">
-        <form>
+        <form onSubmit="hello">
 
       {/* BASIC INFO SECTION */}
           <fieldset>
             <legend><span class="number"></span> Basic Info</legend>
-            <input type="text" name="field1" placeholder="Your Name *"></input>
-            <input type="text" name="field2" placeholder="The Nearest Town/City To Where You Live *"></input>
-            <input type="date" name="field3" placeholder="Your Date Of Birth *"></input>
-            <input type="text" name="field4" placeholder="Your Gender *"></input>
-            <textarea name="field5" placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
+            <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
+            <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
+            <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Your Date Of Birth *"></input>
+            <p> gender select </p>
+            <input type="range"  onChange={this.handleChange} max="100" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>
+            <textarea name="description" onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
 
       {/*  TODO: Replace this 'Interests drop-down (below) with a 'show emoji's to represent you' field?   */}
             <label for="job">Interests:</label>
-              <select id="job" name="field6">
+              <select id="job" name="interests" onChange={this.handleChange}>
                 <optgroup label="I like to post/blog/vlog about...">
                   <option value="travel">Travel</option>
                   <option value="ecology">Saving The Planet</option>
@@ -64,6 +109,9 @@ class Register extends Component {
                   <option value="food">Food Porn</option>
                   <option value="fashion">Fashion/Beauty</option>
                   <option value="sport">Sport</option>
+                  <option value="music">Music</option>
+                  <option value="films">Films</option>
+                  <option value="geeky stuff">Geeky stuff</option>
                 </optgroup>
               </select>
             </fieldset>
@@ -72,25 +120,25 @@ class Register extends Component {
       {/* SOCIAL MEDIA SECTION */}
             <fieldset>
               <legend><span class="number"></span>Social Reach</legend>
-              <input type="text" name="field7" placeholder="Twitter         (enter the bit after 'twitter.com/') "></input>
-              <input type="text" name="field8" placeholder="Instagram   (enter the bit after 'instagram.com/') "></input>
-              <input type="text" name="field9" placeholder="YouTube     (enter the bit after 'youtube.com/user/') "></input>
-              <input type="text" name="field10" placeholder="Facebook     (enter the bit after 'facebook.com/') "></input>
-              <input type="text" name="fiel11" placeholder="SnapChat     (enter the bit after 'snapchat.com') "></input>
-              <input type="text" name="field9" placeholder="Spotify    (ARTISTS ONLY!)"></input>
+              <input type="text" onChange={this.handleChange} name="twitter_handle" placeholder="Twitter         (enter the bit after 'twitter.com/') "></input>
+              <input type="text" onChange={this.handleChange} name="instagram_handle" placeholder="Instagram   (enter the bit after 'instagram.com/') "></input>
+              <input type="text" onChange={this.handleChange} name="youtube_handle" placeholder="YouTube     (enter the bit after 'youtube.com/user/') "></input>
+              <input type="text" onChange={this.handleChange} name="facebook_handle" placeholder="Facebook     (enter the bit after 'facebook.com/') "></input>
+              <input type="text" onChange={this.handleChange} name="snapchat" placeholder="SnapChat     (enter the bit after 'snapchat.com') "></input>
+              <input type="text" onChange={this.handleChange} name="spotify_handle" placeholder="Spotify    (ARTISTS ONLY!)"></input>
             </fieldset>
 
 
       {/* OTHER INFO ECTION */}
         <fieldset>
           <legend><span class="number"></span>Additional Info</legend>
-          <textarea name="field10" placeholder="Anything else you want to tell the world?" maxlength="120"></textarea>
+          <textarea name="additional_info" onChange={this.handleChange} placeholder="Anything else you want to tell the world?" maxlength="120"></textarea>
         </fieldset>
 
       {/* PHOTO UPLOAD SECTION */}
         <fieldset>
           <legend><span class="number"></span>Photos</legend>
-          <input type="file" name="field11" class="foto-upload"></input>
+          <input type="file" onChange={this.handleChange} name="photo1" class="foto-upload"></input>
         </fieldset>
 
       {/*  SAVE BUTTON */}
