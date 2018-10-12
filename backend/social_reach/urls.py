@@ -50,8 +50,14 @@ urlpatterns = [
     url(r'^$', generic.RedirectView.as_view(
          url='/api/', permanent=False)),
     url(r'^api/$', get_schema_view()),
-    url(r'^auth/users/activate/$', CustomRegistrationView.as_view(), name='user_activate'),
-    url(r'^auth/users/activate/(?P<username>[\w\-]+)/(?P<token>[\w\-]+)/$', ActivationView.as_view(), name='user_confirm'),
+    url(
+        r'^users/create/?$',
+        views.UserCreateView.as_view(),
+        name='user-create'
+    ),
+    url(r'^auth/users/activate/$', ActivationView.as_view(), name='user_activate'),
+    # url(r'^auth/users/confirmation/$', ActivationView.as_view(), name='user_confirmation'),
+    # url(r'^auth/users/activate/(?P<username>[\w\-]+)/(?P<token>[\w\-]+)/$', ActivationView.as_view(), name='user_confirm'),
     url(
         r'^token/create/?$',
         djoserviews.TokenCreateView.as_view(),

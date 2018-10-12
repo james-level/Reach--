@@ -91,7 +91,8 @@ class ActivationView(utils.ActionViewMixin, generics.GenericAPIView):
     permission_classes = [permissions.AllowAny]
     token_generator = default_token_generator
 
-    def _action(self, serializer):
+
+    def _action(self, serializer, uid):
         user = serializer.user
         user.is_active = True
         user.save()
@@ -102,10 +103,36 @@ class ActivationView(utils.ActionViewMixin, generics.GenericAPIView):
 
         if settings.SEND_CONFIRMATION_EMAIL:
             context = {'user': user}
+            context = {'uid': uid}
             to = [get_user_email(user)]
             settings.EMAIL.confirmation(self.request, context).send(to)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UserCreateView(generics.CreateAPIView):
+    """
+    Use this endpoint to register new user.
+    """
+    serializer_class = settings.SERIALIZERS.user_create
+    permission_classes = [permissions.AllowAny]
+    print("USER default")
+
+
+    def perform_create(self, serializer, uid):
+        user = serializer.save()
+        signals.user_registered.send(
+            sender=self.__class__, user=user, request=self.request
+        )
+
+        context = {'user': user}
+        context = {'uid': uid}
+        to = [get_user_email(user)]
+        if settings.SEND_ACTIVATION_EMAIL:
+            extras['html_body_template_name'] = 'activation_email.html'
+            return extras
+
+        elif settings.SEND_CONFIRMATION_EMAIL:
+            settings.EMAIL.confirmation(self.request, context).send(to)
 
 # class UserViewSet(ModelViewSet):
 #     """
@@ -201,6 +228,8 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    for user in queryset:
+        print("ACTIVE?", user.is_active)
 
 
     def get_object(self):
