@@ -111,7 +111,7 @@ class Main extends Component {
         <React.Fragment>
           <Navbar />
           <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit}/>}/>
-          <Route exact path="/activate/:id/:token" render={(props)=> <Landing  data={props} handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit}/>}/>
+          <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} />}/>
           <Route path="/Register" component={Register} />
           <Route path="/Profile" component={Profile} />
         </React.Fragment>
