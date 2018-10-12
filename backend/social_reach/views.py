@@ -52,28 +52,28 @@ from djoser.conf import settings
 from rest_framework import generics, permissions, status, views, viewsets
 from django.contrib.auth.tokens import default_token_generator
 
-@api_view()
-def null_view(request):
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+# @api_view()
+# def null_view(request):
+#     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class CustomRegistrationView(RegistrationView):
-    """
-    Override the Djoser view to provide an html template for activation email.
-    """
-
-    def get_send_email_extras(self):
-
-        extras = super(CustomRegistrationView, self).get_send_email_extras()
-        extras['html_body_template_name'] = 'activation_email.html'
-        return extras
-
-    def get_context_data(self):
-        token = utils.login_user(self.request, serializer.user)
-        token_serializer_class = settings.SERIALIZERS.token
-        context = super(CustomRegistrationView, self).get_context_data()
-        context['token'] = utils.login_user(self.request, serializer.user)
-        context['user'] = context.get('user')
-        return context
+# class CustomRegistrationView(RegistrationView):
+#     """
+#     Override the Djoser view to provide an html template for activation email.
+#     """
+#
+#     def get_send_email_extras(self):
+#
+#         extras = super(CustomRegistrationView, self).get_send_email_extras()
+#         extras['html_body_template_name'] = 'activation_email.html'
+#         return extras
+#
+#     def get_context_data(self):
+#         token = utils.login_user(self.request, serializer.user)
+#         token_serializer_class = settings.SERIALIZERS.token
+#         context = super(CustomRegistrationView, self).get_context_data()
+#         context['token'] = utils.login_user(self.request, serializer.user)
+#         context['user'] = context.get('user')
+#         return context
 
     # def _action(self, serializer):
     #     token = utils.login_user(self.request, serializer.user)
@@ -83,31 +83,16 @@ class CustomRegistrationView(RegistrationView):
     #         status=status.HTTP_200_OK,
     #     )
 
-class ActivationView(utils.ActionViewMixin, generics.GenericAPIView):
-    """
-    Use this endpoint to activate user account.
-    """
-    serializer_class = settings.SERIALIZERS.activation
-    permission_classes = [permissions.AllowAny]
-    token_generator = default_token_generator
-
-
-    def _action(self, serializer, uid):
-        user = serializer.user
-        user.is_active = True
-        user.save()
-
-        signals.user_activated.send(
-            sender=self.__class__, user=user, request=self.request
-        )
-
-        if settings.SEND_CONFIRMATION_EMAIL:
-            context = {'user': user}
-            context = {'uid': uid}
-            to = [get_user_email(user)]
-            settings.EMAIL.confirmation(self.request, context).send(to)
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
+# @api_view
+def user_confirm(request, username):
+    queryset = User.objects.all()
+    for user in queryset:
+        print("ACTIVE?", user.username, user.is_active)
+    # make sure to catch 404's below
+    obj = queryset.get(username=username)
+    obj.is_active = True
+    obj.save()
+    return HttpResponse("User account for " + obj.username + " activated.")
 
 class UserCreateView(generics.CreateAPIView):
     """
@@ -125,14 +110,13 @@ class UserCreateView(generics.CreateAPIView):
         )
 
         context = {'user': user}
-        context = {'uid': uid}
         to = [get_user_email(user)]
         if settings.SEND_ACTIVATION_EMAIL:
-            extras['html_body_template_name'] = 'activation_email.html'
-            return extras
-
+            settings.EMAIL.activation(self.request, context).send(to)
         elif settings.SEND_CONFIRMATION_EMAIL:
             settings.EMAIL.confirmation(self.request, context).send(to)
+
+
 
 # class UserViewSet(ModelViewSet):
 #     """
@@ -228,8 +212,6 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    for user in queryset:
-        print("ACTIVE?", user.is_active)
 
 
     def get_object(self):
