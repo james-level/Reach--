@@ -201,7 +201,9 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-
+    for user in queryset:
+        print("ACTIVE?", user.is_active)
+        
 
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())

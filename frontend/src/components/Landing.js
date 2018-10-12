@@ -173,13 +173,6 @@ render(){
 
 
 
-{/* REGISTER NEW USER  BUTTON START */}
-<div className="text-center">
-  <a href="/register" class="btn btn-default btn-rounded mb-4">New User?</a>
-</div>
-{/* REGISTER NEW USER BUTTON END */}
-
-
 </div>
 );
 }

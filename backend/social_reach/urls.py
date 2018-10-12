@@ -51,6 +51,7 @@ urlpatterns = [
          url='/api/', permanent=False)),
     url(r'^api/$', get_schema_view()),
     url(r'^auth/users/activate/$', CustomRegistrationView.as_view(), name='user_activate'),
+    url(r'^auth/users/confirmation/$', ActivationView.as_view(), name='user_confirmation'),
     url(r'^auth/users/activate/(?P<username>[\w\-]+)/(?P<token>[\w\-]+)/$', ActivationView.as_view(), name='user_confirm'),
     url(
         r'^token/create/?$',
