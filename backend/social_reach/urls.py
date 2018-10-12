@@ -16,7 +16,11 @@ from allauth.account.views import confirm_email as allauthemailconfirmation
 from django.conf.urls import include
 from social_reach import views
 from rest_framework import routers
-from social_reach.views import ActivationView,  CurrentUserDetail, LikeDetail, MatchDetail, ListCategoryView, ListProfileView, UserList, UserDetail, ProfileDetail, ListMatchView, ListLikesView, null_view
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('users', djoserviews.UserViewSet)
+from social_reach.views import CurrentUserDetail, LikeDetail, MatchDetail, ListCategoryView, ListProfileView, UserList, UserDetail, ProfileDetail, ListMatchView, ListLikesView
 
 
 app_name = 'social_reach'
@@ -47,15 +51,12 @@ urlpatterns = [
     url(r'^mutual_likes/(?P<pk>[\w\-]+)/$', MatchDetail.as_view(), name="mutual_like_detail"),
     url(r'^likes/$', ListLikesView.as_view(), name="likes"),
     url(r'^likes/(?P<pk>[\w\-]+)/$', LikeDetail.as_view(), name='like_detail'),
-    url(r'^$', generic.RedirectView.as_view(
-         url='/api/', permanent=False)),
-    url(r'^api/$', get_schema_view()),
     url(
         r'^users/create/?$',
-        views.UserCreateView.as_view(),
+        djoserviews.UserCreateView.as_view(),
         name='user-create'
     ),
-    url(r'^auth/users/activate/$', ActivationView.as_view(), name='user_activate'),
+    url(r'^auth/users/confirmation/(?P<username>[\w\-]+)/$', views.user_confirm, name='user_confirm'),
     # url(r'^auth/users/confirmation/$', ActivationView.as_view(), name='user_confirmation'),
     # url(r'^auth/users/activate/(?P<username>[\w\-]+)/(?P<token>[\w\-]+)/$', ActivationView.as_view(), name='user_confirm'),
     url(
@@ -69,16 +70,19 @@ urlpatterns = [
         name='token-destroy'
     ),
     url(r'^auth/', include('djoser.urls')),
+        url(r'^$', generic.RedirectView.as_view(
+             url='/api/', permanent=False)),
+        url(r'^api/$', get_schema_view()),
     url(r'^api/auth/', include(
         'rest_framework.urls', namespace='rest_framework')),
     url(r'^api/auth/token/obtain/$', TokenObtainPairView.as_view()),
     url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),
     #     url(r'^rest-auth/registration/account-email-verification-sent/', views.null_view, name='account_email_verification_sent'),
-    url(r'^rest-auth/registration/account-confirm-email/', views.null_view, name='account_confirm_email'),
-    url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.null_view, name='password_reset_confirm'),
-    url(r'^rest-auth/registration/', include('rest_auth.registration.urls'), name='account_signup'),
-
-    url(r'^rest-auth/', include('rest_auth.urls')),
+    # url(r'^rest-auth/registration/account-confirm-email/', views.null_view, name='account_confirm_email'),
+    # url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.null_view, name='password_reset_confirm'),
+    # url(r'^rest-auth/registration/', include('rest_auth.registration.urls'), name='account_signup'),
+    #
+    # url(r'^rest-auth/', include('rest_auth.urls')),
     # url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', TemplateView.as_view(),  name='password_reset_confirm'),
     #
     # url(r'^rest-auth/registration/account-confirm-email/(?P<key>[-:\w]+)/$', allauthemailconfirmation,
