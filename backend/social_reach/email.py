@@ -10,7 +10,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 
 class ActivationEmail(BaseEmailMessage):
-    template_name = '../templates/rango/activation_email.html'
+    template_name = '../templates/reach/activation_email.html'
 
     def get_context_data(self):
         context = super(ActivationEmail, self).get_context_data()

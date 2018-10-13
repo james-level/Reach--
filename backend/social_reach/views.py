@@ -103,23 +103,24 @@ def user_confirm(request, uidb64, token):
 
     if user_to_confirm and TokenGenerator().check_token(user_to_confirm, token):
         user_to_confirm.is_active = True
+        print("USER TO CONFIRM ACTIVE?", user_to_confirm.is_active)
         user_to_confirm.save()
     # make sure to catch 404's below
 
-    context = {'user': user_to_confirm}
-    print("USER STATUS", user_to_confirm)
+        context = {'user': user_to_confirm}
+        print("USER STATUS", user_to_confirm.is_active)
 
-    token = tokens.generate(scope=(), key="some value", salt="None")
-    message = render_to_string('../templates/rango/account_confirm.html',{'token': token})
-    msg = EmailMessage('Reach account confirmation for ' + user_to_confirm.username,
-    message,
-    ReachSettings.EMAIL_HOST_USER,
-    [    ReachSettings.EMAIL_HOST_USER,
-user_to_confirm.get_email_field_name()],
-    headers={'token': token}
-    )
-    msg.content_subtype = "html"
-    msg.send()
+        token = tokens.generate(scope=(), key="some value", salt="None")
+        message = render_to_string('../templates/reach/account_confirm.html',{'token': token})
+        msg = EmailMessage('Reach account confirmation for ' + user_to_confirm.username,
+        message,
+        ReachSettings.EMAIL_HOST_USER,
+        [    ReachSettings.EMAIL_HOST_USER,
+    user_to_confirm.get_email_field_name()],
+        headers={'token': token}
+        )
+        msg.content_subtype = "html"
+        msg.send()
 
     return HttpResponse("User account for " + user_to_confirm.username + " activated.")
 
@@ -302,7 +303,7 @@ class ListLikesView(generics.ListCreateAPIView):
     queryset = ProfileLikedByActiveUser.objects.all()
     serializer_class = LikeSerializer
 
-class RangoRegistrationView(RegistrationView):
+class reachRegistrationView(RegistrationView):
 	def get_success_url(self, user):
 		return '/social_reach/'
 
@@ -333,7 +334,7 @@ def add_page(request, category_slug_url):
 		'title' : 'Add a Page',
         'cat_list': cat_list
 	}
-	return render(request, 'rango/add_page.html', context=_context)
+	return render(request, 'reach/add_page.html', context=_context)
 
 
 def add_category(request):
@@ -351,7 +352,7 @@ def add_category(request):
 			print(form.errors)
 
 
-	return render(request, 'rango/add_category.html', {'form':form, 'cat_list': cat_list})
+	return render(request, 'reach/add_category.html', {'form':form, 'cat_list': cat_list})
 
 
 def show_user(request, username):
@@ -388,7 +389,7 @@ def show_user(request, username):
         context['liked'] = None
         context['viewed_user'] = user
         context['cat_list'] = cat_list
-    return render(request, 'rango/user_profile.html', context=context)
+    return render(request, 'reach/user_profile.html', context=context)
 
 
 
@@ -483,7 +484,7 @@ def show_category(request, category_name_url):
         _context['cat_list'] = cat_list
 
 
-	return render(request, 'rango/category.html', context=_context)
+	return render(request, 'reach/category.html', context=_context)
 
 def get_category_list():
     cat_list = Category.objects.all().order_by('-views')
@@ -508,7 +509,7 @@ def profile(request):
     context_dict['user'] = u
     context_dict['userprofile'] = up
 
-    return render(request, 'rango/profile.html', context_dict)
+    return render(request, 'reach/profile.html', context_dict)
 
 
 
@@ -525,7 +526,7 @@ def index(request):
         'cat_list': cat_list
 	}
 
-	response = render(request, 'rango/index.html', context=_context)
+	response = render(request, 'reach/index.html', context=_context)
 
         visits = int(request.COOKIES.get('visits', '0'))
 
@@ -545,7 +546,7 @@ def index(request):
             request.session['visits'] = 1
 # Return response back to the user, updating any cookies that need changed.
 
-	return render(request, 'rango/index.html', _context)
+	return render(request, 'reach/index.html', _context)
 
 
 def matches(request):
@@ -560,7 +561,7 @@ def matches(request):
 
     matches_you_liked_first = Match.objects.filter(first_user__user__username=request.user)
 
-    return render(request, 'rango/matches.html', 	{'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': Match.objects.filter(second_user__user__username=request.user)
+    return render(request, 'reach/matches.html', 	{'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': Match.objects.filter(second_user__user__username=request.user)
 }
 )
 
@@ -611,7 +612,7 @@ def register(request):
 		user_form = UserForm()
 		profile_form = UserProfileForm()
 
-	return render(request, 'rango/register.html', {
+	return render(request, 'reach/register.html', {
 			'user_form': user_form,
 			'profile_form': profile_form,
 			'registered': registered,
@@ -636,7 +637,7 @@ def user_login(request):
 		else:
 			return HttpResponse("Invalid username/password.")
 	else:
-		return render(request, 'rango/login.html', {'cat_list': cat_list})
+		return render(request, 'reach/login.html', {'cat_list': cat_list})
 
 
 @login_required
@@ -648,4 +649,4 @@ def user_logout(request):
 @login_required
 def restricted(request):
         cat_list = get_category_list()
-	return render(request, 'rango/restricted.html', {'cat_list': cat_list})
+	return render(request, 'reach/restricted.html', {'cat_list': cat_list})
