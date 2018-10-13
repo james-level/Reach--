@@ -8,6 +8,9 @@ from .serializers import CategorySerializer, ProfileSerializer, UserSerializer, 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.core.mail import send_mail
+from social import settings as ReachSettings
+from access_tokens import tokens
 
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -17,7 +20,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import requires_csrf_token
 from django.core.urlresolvers import reverse
-
+from djoser.compat import get_user_email
 from django.db.models import Q
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
@@ -51,20 +54,21 @@ from djoser import utils, signals
 from djoser.conf import settings
 from rest_framework import generics, permissions, status, views, viewsets
 from django.contrib.auth.tokens import default_token_generator
+from djoser import views as djoserviews
 
 # @api_view()
 # def null_view(request):
 #     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-# class CustomRegistrationView(RegistrationView):
+# class CustomActivationView(RegistrationView):
 #     """
 #     Override the Djoser view to provide an html template for activation email.
 #     """
-#
+# #
 #     def get_send_email_extras(self):
 #
-#         extras = super(CustomRegistrationView, self).get_send_email_extras()
-#         extras['html_body_template_name'] = 'activation_email.html'
+#         extras = super(CustomActivationView, self).get_send_email_extras()
+#         extras['html_body_template_name'] = 'confirmations_email.html'
 #         return extras
 #
 #     def get_context_data(self):
@@ -84,15 +88,54 @@ from django.contrib.auth.tokens import default_token_generator
     #     )
 
 # @api_view
+
+
 def user_confirm(request, username):
+
     queryset = User.objects.all()
     for user in queryset:
         print("ACTIVE?", user.username, user.is_active)
     # make sure to catch 404's below
-    obj = queryset.get(username=username)
-    obj.is_active = True
-    obj.save()
-    return HttpResponse("User account for " + obj.username + " activated.")
+    user_to_confirm = queryset.get(username=username)
+
+    token = tokens.generate(scope=(), key="some value", salt="None")
+    message = render_to_string('confirm_account.html',{'token': token})
+    msg = EmailMessage('Reach account confirmation',
+    'Here is the message.',
+    ReachSettings.EMAIL_HOST_USER,
+    [user_to_confirm.get_email_field_name()],
+    headers=Headers
+    )
+    msg.content_subtype = "html"
+    msg.send()
+    return HttpResponse("User account for " + user_to_confirm.username + " activated.")
+
+
+# def user_confirm(request, username):
+#     # context = RequestContext(request)
+#     queryset = User.objects.all()
+#     for user in queryset:
+#         print("ACTIVE?", user.username, user.is_active)
+#     # make sure to catch 404's below
+#     user_to_confirm = queryset.get(username=username)
+#
+#     to = [ReachSettings.EMAIL_HOST_USER, user_to_confirm.get_email_field_name()]
+#     if not user_to_confirm.is_active:
+#         if settings.SEND_CONFIRMATION_EMAIL:
+#             send_mail(
+#         'Reach account confirmation',
+#         'Hello again, ' + user_to_confirm.username + ". This email was sent on behalf of the Reach team to let you know that your account is now activated and ready to use. Head on over to the app to start chatting to the hottest influencers.",
+#         ReachSettings.EMAIL_HOST_USER,
+#         to,
+#         fail_silently=False,
+#     )
+#
+#         user_to_confirm.is_active = True
+#         context = {'user': user_to_confirm}
+#         user_to_confirm.save()
+#         # settings.EMAIL.confirmation(request, context).send(to)
+#     return HttpResponse("User account for " + user_to_confirm.username + " activated.")
+
 
 class UserCreateView(generics.CreateAPIView):
     """

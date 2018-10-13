@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load static %}
+
+{% block subject %}
+{% blocktrans %}Reach account confirmation!{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %}{% endblocktrans %}
+
+{% trans "Your account has now been activated, so head on over to the app and chat to the hottest influencers." %}
+http://localhost:3000/activate/{{token}}/
+
+{% trans "Thanks for using our site!" %}
+<img src="{{ request.get_host }}{% static 'Reach_Logo.png' %}"/>
+{ trans }
+{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+{% blocktrans %}
+
+<p>Hello, {{user}}. This is a short confirmation message from Reach.</p>{% endblocktrans %}
+
+<p>{% trans "Your account has now been activated, so head on over to the app and chat to the hottest influencers." %}</p>
+<p><a href="http://localhost:3000/activate/{{token}}">http://localhost:3000/activate/{{token}}</a></p>
+
+<p>{% trans "Thanks for using our app!" %}</p>
+<img src="{{ request.get_host }}/{% static 'Reach_Logo.png' %}"/>
+
+<p>{% blocktrans %}The Reach team{% endblocktrans %}</p>
+
+{% endblock html_body %}

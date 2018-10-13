@@ -1,0 +1,29 @@
+{% extends 'rango/base.html' %}
+{% block title %}{{ category_name }}{% endblock %}
+{% block body_block %}
+<div class="hero-unit">
+<h1>Register with Reach</h1>
+<br />
+<div class="container">
+{% if registered %}
+<p>Thank you for registering.</p>
+<p><a href="/social_reach/login/">Login</a> when you are ready to get socialised.</p>
+{% else %}
+<form class="form-signin span8" id="user_form" method="post" action="/social_reach/
+˓→register/"
+enctype="multipart/form-data">
+{% csrf_token %}
+<h2 class="form-signin-heading">Sign up Here</h2>
+<!-- Display each form here -->
+{{ user_form.as_p }}
+{{ profile_form.as_p }}
+
+<br />
+ <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+<!-- Provide a button to click to submit the form. -->
+<input class="btn btn-primary" type="submit" name="submit" value="Register"/>
+</form>
+{% endif %}
+</div>
+
+{% endblock %}

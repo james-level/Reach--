@@ -22,10 +22,10 @@ http://localhost:3000/activate/{{uid}}/{{token}}/
 
 <p>Hello, {{user}}. You're receiving this email because you need to finish your activation process on Reach. </p>{% endblocktrans %}
 
-<p>{% trans "Please go to the following page to activate account and chat to the hottest influencers:" %}</p>
+<p>{% trans "Please go to the following page to activate your account and chat to the hottest influencers:" %}</p>
 <p><a href="http://localhost:3000/activate/{{uid}}/{{token}}">http://localhost:3000/activate/{{uid}}/{{token}}</a></p>
 
-<p>{% trans "Thanks for using our site!" %}</p>
+<p>{% trans "Thanks for using our app!" %}</p>
 <img src="{{ request.get_host }}/{% static 'Reach_Logo.png' %}"/>
 
 <p>{% blocktrans %}The Reach team{% endblocktrans %}</p>

@@ -101,6 +101,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_framework.authtoken',
     'djoser',
+    'access_tokens',
 ]
 
 EMAIL_USE_TLS=True
