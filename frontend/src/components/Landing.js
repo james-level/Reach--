@@ -25,7 +25,10 @@ class Landing extends React.Component{
  this.handleSignUpPasswordChange = this.handleSignUpPasswordChange.bind(this)
  this.handleSignUpEmailChange = this.handleSignUpEmailChange.bind(this)
 
+
+
 }
+
 
 handleUsernameChange(evt){
   this.setState({ username: evt.target.value})
@@ -49,30 +52,7 @@ handleSignUpEmailChange(evt){
 }
 
 
-// handleLoginSubmit(evt){
-//   evt.preventDefault();
-//
-// var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
-// var uname = this.state.username;
-// var pass = this.state.password;
-// axios.post(session_url, {
-//     'username': uname,
-//     'password': pass
-//   }).then(function(response) {
-//     console.log(response);
-//   console.log('Authenticated');
-//   var token = response.data['access']
-//   console.log(token);
-//      axios.get('http://localhost:8080/social_reach/profiles/?format=json', { headers: { Authorization: `Bearer ${token}` } })
-//      .then(res =>{
-//      console.log(res);
-// }).catch(function(error){
-//   console.log("Error on authentication");
-// })}).catch(function(error) {
-//   console.log('Error on Authentication');
-// });
-//
-// }
+
 
 
 render(){
@@ -203,6 +183,8 @@ render(){
 </div>
 );
 }
+
+
 }
 
 export default Landing;
