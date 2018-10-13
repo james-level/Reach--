@@ -88,9 +88,13 @@ python manage.py runserver 8080
  
  pip install django-allauth
  
- DJOSER
+ DJOSER:
  
  pip install djoser
+ 
+ ACCESS TOKENS:
+ 
+ pip install django-access-tokens
  
  FRONTEND (REACT):
  
