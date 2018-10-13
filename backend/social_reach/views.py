@@ -11,7 +11,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from social import settings as ReachSettings
-from access_tokens import tokens
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
 from django.shortcuts import redirect
@@ -110,14 +109,13 @@ def user_confirm(request, uidb64, token):
         context = {'user': user_to_confirm}
         print("USER STATUS", user_to_confirm.is_active)
 
-        token = tokens.generate(scope=(), key="some value", salt="None")
         message = render_to_string('../templates/reach/account_confirm.html',{'token': token})
         msg = EmailMessage('Reach account confirmation for ' + user_to_confirm.username,
         message,
         ReachSettings.EMAIL_HOST_USER,
         [    ReachSettings.EMAIL_HOST_USER,
     user_to_confirm.get_email_field_name()],
-        headers={'token': token}
+        headers={}
         )
         msg.content_subtype = "html"
         msg.send()
