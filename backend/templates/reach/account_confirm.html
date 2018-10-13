@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load static %}
+
+{% block subject %}
+{% blocktrans %}{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+
+{% endblock text_body %}
+
+{% block html_body %}
+{% blocktrans %}
+
+<p>This is a short confirmation message from Reach.</p>{% endblocktrans %}
+
+<p>{% trans "Your account has now been activated, so head on over to the app and chat to the hottest influencers." %}</p>
+
+<p>{% trans "Thanks for using our app!" %}</p>
+
+<p>{% blocktrans %}The Reach team{% endblocktrans %}</p>
+
+{% endblock html_body %}

@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import generics
+from activation_tokens import TokenGenerator
 from .models import Category
 from .serializers import CategorySerializer, ProfileSerializer, UserSerializer, MatchSerializer, LikeSerializer
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
+from django.core.mail import send_mail
+from social import settings as ReachSettings
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, force_text
 from django.shortcuts import redirect
 from django.shortcuts import render
 from registration.backends.simple.views import RegistrationView
@@ -17,7 +21,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import requires_csrf_token
 from django.core.urlresolvers import reverse
-
+from djoser.compat import get_user_email
 from django.db.models import Q
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
@@ -31,11 +35,11 @@ from django.contrib.auth.models import User
 from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiveUser, ProfileGreetedByActiveUser, Match
 from social_reach.forms import CategoryForm, PageForm
 from social_reach.forms import UserForm, UserProfileForm
-
+from django.template.loader import render_to_string
 from social_reach.instagram_scraper import InstagramScraper
 from social_reach.twitter_scraper import TwitterScraper
 from social_reach.youtube_scraper import YoutubeScraper
-from access_tokens import facebook_app_token , facebook_access_token
+from access_tokens_fb import facebook_app_token , facebook_access_token
 
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
 from django.contrib.auth import get_user_model
@@ -51,48 +55,64 @@ from djoser import utils, signals
 from djoser.conf import settings
 from rest_framework import generics, permissions, status, views, viewsets
 from django.contrib.auth.tokens import default_token_generator
+from djoser import views as djoserviews
 
-# @api_view()
-# def null_view(request):
-#     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-# class CustomRegistrationView(RegistrationView):
-#     """
-#     Override the Djoser view to provide an html template for activation email.
-#     """
-#
-#     def get_send_email_extras(self):
-#
-#         extras = super(CustomRegistrationView, self).get_send_email_extras()
-#         extras['html_body_template_name'] = 'activation_email.html'
-#         return extras
-#
-#     def get_context_data(self):
-#         token = utils.login_user(self.request, serializer.user)
-#         token_serializer_class = settings.SERIALIZERS.token
-#         context = super(CustomRegistrationView, self).get_context_data()
-#         context['token'] = utils.login_user(self.request, serializer.user)
-#         context['user'] = context.get('user')
-#         return context
-
-    # def _action(self, serializer):
-    #     token = utils.login_user(self.request, serializer.user)
-    #     token_serializer_class = settings.SERIALIZERS.token
-    #     return Response(
-    #         data=token_serializer_class(token).data,
-    #         status=status.HTTP_200_OK,
-    #     )
-
-# @api_view
-def user_confirm(request, username):
+def user_confirm(request, uidb64, token):
     queryset = User.objects.all()
-    for user in queryset:
-        print("ACTIVE?", user.username, user.is_active)
+
+
+    uid = force_text(urlsafe_base64_decode(uidb64))
+    user_to_confirm = User.objects.get(pk=uid)
+    print("USER TO CONFIRM", user_to_confirm)
+    print("USER TO CONFIRM TOKEN VALID", TokenGenerator().check_token(user_to_confirm, token))
+
+    if user_to_confirm and TokenGenerator().check_token(user_to_confirm, token):
+        user_to_confirm.is_active = True
+        print("USER TO CONFIRM ACTIVE?", user_to_confirm.is_active)
+        user_to_confirm.save()
     # make sure to catch 404's below
-    obj = queryset.get(username=username)
-    obj.is_active = True
-    obj.save()
-    return HttpResponse("User account for " + obj.username + " activated.")
+
+        context = {'user': user_to_confirm}
+        print("USER STATUS", user_to_confirm.is_active)
+
+        message = render_to_string('../templates/reach/account_confirm.html',{'token': token})
+        msg = EmailMessage('Reach account confirmation for ' + user_to_confirm.username,
+        message,
+        ReachSettings.EMAIL_HOST_USER,
+        [    ReachSettings.EMAIL_HOST_USER,
+    user_to_confirm.get_email_field_name()],
+        headers={}
+        )
+        msg.content_subtype = "html"
+        msg.send()
+
+    return HttpResponse("User account for " + user_to_confirm.username + " activated.")
+
+class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def get_object(self):
+        uid = force_text(urlsafe_base64_decode(self.kwargs['uidb64']))
+        user_to_reset = User.objects.get(pk=uid)
+        if user_to_reset and TokenGenerator().check_token(user_to_reset, self.kwargs['token']):
+            print("Password for " + user_to_reset.username + " has been reset.")
+        return user_to_reset
+
+class UserPasswordResetEmail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+    # make sure to catch 404's below
+        obj = queryset.get(username=self.kwargs['username'])
+        context = {'user': obj}
+        to = [get_user_email(obj)]
+        settings.EMAIL.password_reset(self.request, context).send(to)
+        return obj
 
 class UserCreateView(generics.CreateAPIView):
     """
@@ -116,50 +136,6 @@ class UserCreateView(generics.CreateAPIView):
         elif settings.SEND_CONFIRMATION_EMAIL:
             settings.EMAIL.confirmation(self.request, context).send(to)
 
-
-
-# class UserViewSet(ModelViewSet):
-#     """
-#     A simple ViewSet for viewing and editing accounts.
-#     """
-#     queryset = get_user_model().objects.all()
-#     serializer_class = UserSerializer
-#     permission_classes = [IsAdminUser]
-
-# class VerifyEmailView(APIView):
-#     permission_classes = (AllowAny,)
-#     allowed_methods = ('POST', 'OPTIONS', 'HEAD')
-#
-#     def get_serializer(self, *args, **kwargs):
-#         return VerifyEmailSerializer(*args, **kwargs)
-#
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         self.kwargs['key'] = serializer.validated_data['key']
-#         try:
-#             confirmation = self.get_object()
-#             confirmation.confirm(self.request)
-#             return Response({'detail': _('Successfully confirmed email.')}, status=status.HTTP_200_OK)
-#         except EmailConfirmation.DoesNotExist:
-#             return Response({'detail': _('Error. Incorrect key.')}, status=status.HTTP_404_NOT_FOUND)
-#
-#     def get_object(self, queryset=None):
-#         key = self.kwargs['key']
-#         emailconfirmation = EmailConfirmationHMAC.from_key(key)
-#         if not emailconfirmation:
-#             if queryset is None:
-#                 queryset = self.get_queryset()
-#             try:
-#                 emailconfirmation = queryset.get(key=key.lower())
-#             except EmailConfirmation.DoesNotExist:
-#                 raise EmailConfirmation.DoesNotExist
-#         return emailconfirmation
-#
-#     def get_queryset(self):
-#         qs = EmailConfirmation.objects.all_valid()
-#         qs = qs.select_related("email_address__user")
-#         return qs
 
 class ListCategoryView(generics.ListCreateAPIView):
     """
@@ -220,8 +196,7 @@ class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
         obj = queryset.get(username=self.request.user)
         return obj
 
-
-class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
+class SpecificUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -229,8 +204,9 @@ class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
     # make sure to catch 404's below
-        obj = queryset.get(username=self.request.user)
+        obj = queryset.get(username=self.kwargs['username'])
         return obj
+
 
 class ListMatchView(generics.ListCreateAPIView):
     """
@@ -246,7 +222,7 @@ class ListLikesView(generics.ListCreateAPIView):
     queryset = ProfileLikedByActiveUser.objects.all()
     serializer_class = LikeSerializer
 
-class RangoRegistrationView(RegistrationView):
+class reachRegistrationView(RegistrationView):
 	def get_success_url(self, user):
 		return '/social_reach/'
 
@@ -277,7 +253,7 @@ def add_page(request, category_slug_url):
 		'title' : 'Add a Page',
         'cat_list': cat_list
 	}
-	return render(request, 'rango/add_page.html', context=_context)
+	return render(request, 'reach/add_page.html', context=_context)
 
 
 def add_category(request):
@@ -295,7 +271,7 @@ def add_category(request):
 			print(form.errors)
 
 
-	return render(request, 'rango/add_category.html', {'form':form, 'cat_list': cat_list})
+	return render(request, 'reach/add_category.html', {'form':form, 'cat_list': cat_list})
 
 
 def show_user(request, username):
@@ -332,7 +308,7 @@ def show_user(request, username):
         context['liked'] = None
         context['viewed_user'] = user
         context['cat_list'] = cat_list
-    return render(request, 'rango/user_profile.html', context=context)
+    return render(request, 'reach/user_profile.html', context=context)
 
 
 
@@ -427,7 +403,7 @@ def show_category(request, category_name_url):
         _context['cat_list'] = cat_list
 
 
-	return render(request, 'rango/category.html', context=_context)
+	return render(request, 'reach/category.html', context=_context)
 
 def get_category_list():
     cat_list = Category.objects.all().order_by('-views')
@@ -452,7 +428,7 @@ def profile(request):
     context_dict['user'] = u
     context_dict['userprofile'] = up
 
-    return render(request, 'rango/profile.html', context_dict)
+    return render(request, 'reach/profile.html', context_dict)
 
 
 
@@ -469,7 +445,7 @@ def index(request):
         'cat_list': cat_list
 	}
 
-	response = render(request, 'rango/index.html', context=_context)
+	response = render(request, 'reach/index.html', context=_context)
 
         visits = int(request.COOKIES.get('visits', '0'))
 
@@ -489,7 +465,7 @@ def index(request):
             request.session['visits'] = 1
 # Return response back to the user, updating any cookies that need changed.
 
-	return render(request, 'rango/index.html', _context)
+	return render(request, 'reach/index.html', _context)
 
 
 def matches(request):
@@ -504,7 +480,7 @@ def matches(request):
 
     matches_you_liked_first = Match.objects.filter(first_user__user__username=request.user)
 
-    return render(request, 'rango/matches.html', 	{'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': Match.objects.filter(second_user__user__username=request.user)
+    return render(request, 'reach/matches.html', 	{'visits': count, 'cat_list': cat_list, 'matches_you_first': matches_you_liked_first, 'matches_them_first': Match.objects.filter(second_user__user__username=request.user)
 }
 )
 
@@ -555,7 +531,7 @@ def register(request):
 		user_form = UserForm()
 		profile_form = UserProfileForm()
 
-	return render(request, 'rango/register.html', {
+	return render(request, 'reach/register.html', {
 			'user_form': user_form,
 			'profile_form': profile_form,
 			'registered': registered,
@@ -580,7 +556,7 @@ def user_login(request):
 		else:
 			return HttpResponse("Invalid username/password.")
 	else:
-		return render(request, 'rango/login.html', {'cat_list': cat_list})
+		return render(request, 'reach/login.html', {'cat_list': cat_list})
 
 
 @login_required
@@ -592,4 +568,4 @@ def user_logout(request):
 @login_required
 def restricted(request):
         cat_list = get_category_list()
-	return render(request, 'rango/restricted.html', {'cat_list': cat_list})
+	return render(request, 'reach/restricted.html', {'cat_list': cat_list})
