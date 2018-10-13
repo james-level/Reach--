@@ -57,22 +57,12 @@ class Register extends Component {
     componentDidMount(){
 
       // needs updated to include the correct activation components
-      var username = this.props.data.match.params.id
+      var uid = this.props.data.match.params.id
       console.log(uid);
       var token = this.props.data.match.params.token
       console.log(token);
-      var activation_url = `http://localhost:8080/social_reach/auth/users/confirmation/${username}`
-      axios({
-            method: 'post',
-            'url': activation_url,
-            'data': {
-                uid: uid,
-                token: token
-            },
-            'headers': {
-                "Content-Type": "application/json"
-            }
-        }).then(function (response) {
+      var activation_url = `http://localhost:8080/social_reach/auth/users/confirmation/${uid}/${token}`
+       axios.get(`${activation_url}/?format=json`).then(function (response) {
             console.log(response);
         }).catch(function (error) {
                 console.log(error);

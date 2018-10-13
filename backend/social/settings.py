@@ -172,6 +172,7 @@ ROOT_URLCONF = 'social.urls'
 
 CORS_ALLOW_CREDENTIALS = True
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'social.wsgi.application'
 
