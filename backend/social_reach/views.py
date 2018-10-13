@@ -148,6 +148,19 @@ def user_confirm(request, uidb64, token):
 #         # settings.EMAIL.confirmation(request, context).send(to)
 #     return HttpResponse("User account for " + user_to_confirm.username + " activated.")
 
+class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+    # make sure to catch 404's below
+        obj = queryset.get(username=self.kwargs['username'])
+        context = {'user': obj}
+        to = [get_user_email(obj)]
+        settings.EMAIL.password_reset(self.request, context).send(to)
+        return obj
 
 class UserCreateView(generics.CreateAPIView):
     """
