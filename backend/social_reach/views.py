@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import generics
+from activation_tokens import TokenGenerator
 from .models import Category
 from .serializers import CategorySerializer, ProfileSerializer, UserSerializer, MatchSerializer, LikeSerializer
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -12,7 +13,7 @@ from django.core.mail import send_mail
 from social import settings as ReachSettings
 from access_tokens import tokens
 from django.core.mail import EmailMessage
-
+from django.utils.encoding import force_bytes, force_text
 from django.shortcuts import redirect
 from django.shortcuts import render
 from registration.backends.simple.views import RegistrationView
@@ -91,14 +92,22 @@ from djoser import views as djoserviews
 # @api_view
 
 
-def user_confirm(request, username):
-
+def user_confirm(request, uidb64, token):
     queryset = User.objects.all()
-    for user in queryset:
-        print("ACTIVE?", user.username, user.is_active)
+
+
+    uid = force_text(urlsafe_base64_decode(uidb64))
+    user_to_confirm = User.objects.get(pk=uid)
+    print("USER TO CONFIRM", user_to_confirm)
+    print("USER TO CONFIRM TOKEN VALID", TokenGenerator().check_token(user_to_confirm, token))
+
+    if user_to_confirm and TokenGenerator().check_token(user_to_confirm, token):
+        user_to_confirm.is_active = True
+        user_to_confirm.save()
     # make sure to catch 404's below
-    user_to_confirm = queryset.get(username=username)
+
     context = {'user': user_to_confirm}
+    print("USER STATUS", user_to_confirm)
 
     token = tokens.generate(scope=(), key="some value", salt="None")
     message = render_to_string('../templates/rango/account_confirm.html',{'token': token})
@@ -111,6 +120,7 @@ user_to_confirm.get_email_field_name()],
     )
     msg.content_subtype = "html"
     msg.send()
+
     return HttpResponse("User account for " + user_to_confirm.username + " activated.")
 
 

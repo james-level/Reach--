@@ -1,9 +1,12 @@
 from django.contrib.auth.tokens import default_token_generator
 
 from templated_mail.mail import BaseEmailMessage
-
+from activation_tokens import TokenGenerator
 from djoser import utils
 from djoser.conf import settings
+from django.utils.encoding import force_bytes, force_text
+
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 
 class ActivationEmail(BaseEmailMessage):
@@ -13,8 +16,8 @@ class ActivationEmail(BaseEmailMessage):
         context = super(ActivationEmail, self).get_context_data()
 
         user = context.get('user')
-        context['uid'] = utils.encode_uid(user.pk)
-        context['token'] = default_token_generator.make_token(user)
+        context['uid'] = urlsafe_base64_encode(force_bytes(user.pk))
+        context['token'] = account_activation_token = TokenGenerator().make_token(user)
         context['url'] = settings.ACTIVATION_URL.format(**context)
         return context
 
