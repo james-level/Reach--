@@ -122,33 +122,18 @@ def user_confirm(request, uidb64, token):
 
     return HttpResponse("User account for " + user_to_confirm.username + " activated.")
 
-
-# def user_confirm(request, username):
-#     # context = RequestContext(request)
-#     queryset = User.objects.all()
-#     for user in queryset:
-#         print("ACTIVE?", user.username, user.is_active)
-#     # make sure to catch 404's below
-#     user_to_confirm = queryset.get(username=username)
-#
-#     to = [ReachSettings.EMAIL_HOST_USER, user_to_confirm.get_email_field_name()]
-#     if not user_to_confirm.is_active:
-#         if settings.SEND_CONFIRMATION_EMAIL:
-#             send_mail(
-#         'Reach account confirmation',
-#         'Hello again, ' + user_to_confirm.username + ". This email was sent on behalf of the Reach team to let you know that your account is now activated and ready to use. Head on over to the app to start chatting to the hottest influencers.",
-#         ReachSettings.EMAIL_HOST_USER,
-#         to,
-#         fail_silently=False,
-#     )
-#
-#         user_to_confirm.is_active = True
-#         context = {'user': user_to_confirm}
-#         user_to_confirm.save()
-#         # settings.EMAIL.confirmation(request, context).send(to)
-#     return HttpResponse("User account for " + user_to_confirm.username + " activated.")
-
 class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def get_object(self):
+        uid = force_text(urlsafe_base64_decode(self.kwargs['uidb64']))
+        user_to_reset = User.objects.get(pk=uid)
+        if user_to_reset and TokenGenerator().check_token(user_to_reset, self.kwargs['token']):
+            print("Password for " + user_to_reset.username + " has been reset.")
+        return user_to_reset
+
+class UserPasswordResetEmail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 

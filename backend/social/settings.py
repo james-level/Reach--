@@ -120,7 +120,7 @@ DJOSER = {
 'password_reset': 'djoser.email.PasswordResetEmail',},
     'EMAIL': {'activation': 'social_reach.email.ActivationEmail',
     'confirmation': 'djoser.email.ConfirmationEmail',
-    'password_reset': 'djoser.email.PasswordResetEmail',},
+    'password_reset': 'social_reach.email.PasswordResetEmail',},
     'SEND_CONFIRMATION_EMAIL': True,
 }
 
