@@ -231,8 +231,7 @@ class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
         obj = queryset.get(username=self.request.user)
         return obj
 
-
-class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
+class SpecificUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -240,8 +239,9 @@ class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
     # make sure to catch 404's below
-        obj = queryset.get(username=self.request.user)
+        obj = queryset.get(username=self.kwargs['username'])
         return obj
+
 
 class ListMatchView(generics.ListCreateAPIView):
     """

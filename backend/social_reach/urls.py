@@ -47,6 +47,7 @@ urlpatterns = [
     url(r'^users/$', UserList.as_view(), name='user-list'),
     url(r'^users/(?P<pk>\d+)/$', UserDetail.as_view(), name='user_detail'),
     url(r'^users/(?P<username>[\w\-]+)/$', CurrentUserDetail.as_view(), name='current_user_detail'),
+    url(r'^users/find/(?P<username>[\w\-]+)/$', views.SpecificUserDetail.as_view(), name='specific_user_detail'),
     url(r'^mutual_likes/$', ListMatchView.as_view(), name="mutual_likes"),
     url(r'^mutual_likes/(?P<pk>[\w\-]+)/$', MatchDetail.as_view(), name="mutual_like_detail"),
     url(r'^likes/$', ListLikesView.as_view(), name="likes"),
