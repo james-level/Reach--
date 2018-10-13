@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from django.core.mail import send_mail
 from social import settings as ReachSettings
 from access_tokens import tokens
+from django.core.mail import EmailMessage
 
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -34,11 +35,11 @@ from django.contrib.auth.models import User
 from social_reach.models import Category, Page, UserProfile, ProfileLikedByActiveUser, ProfileGreetedByActiveUser, Match
 from social_reach.forms import CategoryForm, PageForm
 from social_reach.forms import UserForm, UserProfileForm
-
+from django.template.loader import render_to_string
 from social_reach.instagram_scraper import InstagramScraper
 from social_reach.twitter_scraper import TwitterScraper
 from social_reach.youtube_scraper import YoutubeScraper
-from access_tokens import facebook_app_token , facebook_access_token
+from access_tokens_fb import facebook_app_token , facebook_access_token
 
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
 from django.contrib.auth import get_user_model
@@ -97,14 +98,16 @@ def user_confirm(request, username):
         print("ACTIVE?", user.username, user.is_active)
     # make sure to catch 404's below
     user_to_confirm = queryset.get(username=username)
+    context = {'user': user_to_confirm}
 
     token = tokens.generate(scope=(), key="some value", salt="None")
-    message = render_to_string('confirm_account.html',{'token': token})
-    msg = EmailMessage('Reach account confirmation',
-    'Here is the message.',
+    message = render_to_string('../templates/rango/account_confirm.html',{'token': token})
+    msg = EmailMessage('Reach account confirmation for ' + user_to_confirm.username,
+    message,
     ReachSettings.EMAIL_HOST_USER,
-    [user_to_confirm.get_email_field_name()],
-    headers=Headers
+    [    ReachSettings.EMAIL_HOST_USER,
+user_to_confirm.get_email_field_name()],
+    headers={'token': token}
     )
     msg.content_subtype = "html"
     msg.send()

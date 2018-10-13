@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-from social_reach.access_tokens import facebook_app_token , facebook_access_token
+from social_reach.access_tokens_fb import facebook_app_token , facebook_access_token
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
