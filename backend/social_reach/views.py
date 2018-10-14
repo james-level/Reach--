@@ -158,6 +158,17 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
         # from IPython import embed; embed();
         return UserProfile.objects.all()
 
+class ProfileByUsername(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProfileSerializer
+    queryset = UserProfile.objects.all()
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+    # make sure to catch 404's below
+        user = User.objects.get(username=self.kwargs['username'])
+        obj = queryset.get(user=user)
+        return obj
+
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LikeSerializer
 

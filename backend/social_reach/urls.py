@@ -43,7 +43,8 @@ urlpatterns = [
     # REST API ROUTES UNDERNEATH THIS
     url(r'^categories/$', ListCategoryView.as_view(), name="categories_all"),
     url(r'^profiles/$', ListProfileView.as_view(), name="profiles"),
-    url(r'^profiles/(?P<pk>[\w\-]+)/$', ProfileDetail.as_view(), name='profile_detail'),
+    url(r'^profiles/(?P<pk>\d+)/$', ProfileDetail.as_view(), name='profile_detail'),
+    url(r'^profiles/(?P<username>[\w\-]+)/$', views.ProfileByUsername.as_view(), name='profile_username'),
     url(r'^users/$', UserList.as_view(), name='user-list'),
     url(r'^users/(?P<pk>\d+)/$', UserDetail.as_view(), name='user_detail'),
     url(r'^users/(?P<username>[\w\-]+)/$', CurrentUserDetail.as_view(), name='current_user_detail'),
