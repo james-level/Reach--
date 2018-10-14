@@ -14,12 +14,14 @@ class Main extends Component {
       password: '',
       login: false,
       signUpSubmit: false,
+      forgottenPassword: false,
       data: {},
       activation_token: '',
       activation_user: ''
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
+    this.handleForgottenPassword = this.handleForgottenPassword.bind(this)
     console.log(this.props);
   }
 
@@ -27,6 +29,13 @@ class Main extends Component {
   login(){
     this.setState({
       login: true
+    })
+  }
+
+  handleForgottenPassword(evt){
+    evt.preventDefault();
+    this.setState({
+      forgottenPassword: true
     })
   }
 
@@ -72,7 +81,7 @@ class Main extends Component {
       var signup_username = evt.target[1].defaultValue
       var signup_password = evt.target[2].defaultValue
       var signup_email = evt.target[3].defaultValue
-      var new_user_url = 'http://localhost:8080/social_reach/auth/users/'
+      var new_user_url = 'http://localhost:8080/social_reach/auth/users/create'
       axios.post(new_user_url, {
         username: signup_username,
         password: signup_password,
@@ -102,15 +111,17 @@ class Main extends Component {
 
     }if (this.state.signUpSubmit === true){
       return (
-        <h6>Sign up confirmed! Activate via the email you have just been sent.</h6>
+        <h6>We are now processing your registration! Activate via the email you have just been sent.</h6>
       )
 
-    }else{
+    }
+
+    else{
     return (
       <Router>
         <React.Fragment>
           <Navbar />
-          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit}/>}/>
+          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword}/>}/>
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} />}/>
           <Route path="/Profile" component={Profile} />
         </React.Fragment>

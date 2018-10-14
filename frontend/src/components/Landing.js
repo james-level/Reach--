@@ -15,7 +15,8 @@ class Landing extends React.Component{
     password: '',
     signup_username: '',
     signup_password: '',
-    signup_email: ''
+    signup_email: '',
+    usernameForReset: ''
   };
 
  // this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
@@ -24,6 +25,7 @@ class Landing extends React.Component{
  this.handleSignUpUsernameChange = this.handleSignUpUsernameChange.bind(this)
  this.handleSignUpPasswordChange = this.handleSignUpPasswordChange.bind(this)
  this.handleSignUpEmailChange = this.handleSignUpEmailChange.bind(this)
+ this.handleResetPasswordUsernameChange = this.handleResetPasswordUsernameChange.bind(this)
 
 
 
@@ -49,6 +51,10 @@ handleSignUpPasswordChange(evt){
 
 handleSignUpEmailChange(evt){
   this.setState({ signup_email: evt.target.value})
+}
+
+handleResetPasswordUsernameChange(evt){
+  this.setState({ usernameForReset: evt.target.value })
 }
 
 
@@ -150,6 +156,7 @@ render(){
                       <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                   </div>
 
+
               </div>
               <div class="modal-footer d-flex justify-content-center">
                   <button  type='submit'  class="btn btn-default">Login</button>
@@ -160,6 +167,33 @@ render(){
       </div>
   </div>
 
+  <div class="modal fade" data-backdrop="false" id="modalPasswordReset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <form onSubmit={this.props.handleForgottenPassword}>
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Reset my password!</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+
+                    <div class="md-form mb-5">
+                        <i class="fa fa-envelope prefix grey-text"></i>
+                        <input type="text" name="username" value={this.state.usernameForReset} onChange={this.handleResetPasswordUsernameChange} id="defaultForm-username" class="form-control validate" placeholder="Enter your username"></input>
+                        <label name="username" data-error="wrong" data-success="right" for="defaultForm-username"  ></label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button  type='submit'  class="btn btn-default">Reset password</button>
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
 
 {/* LOG IN & REGISTER NEW USER BUTTONS START */}
   <div class="text-center">
@@ -168,6 +202,11 @@ render(){
       {/* <a href="/register" class="btn btn-default btn-rounded mb-4">Sign Up</a> */}
   </div>
 {/* LOG IN & REGISTER NEW USER BUTTONSEND */}
+
+{/* LOG IN & REGISTER NEW USER BUTTONS START */}
+  <div class="text-center">
+      <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalPasswordReset">Forgotten password?</a>
+  </div>
 
 
 
