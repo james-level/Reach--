@@ -16,6 +16,7 @@ class Main extends Component {
       login: false,
       signUpSubmit: false,
       forgottenPassword: false,
+      resetPasswordSubmitted: false,
       data: {},
       activation_token: '',
       activation_user: ''
@@ -23,6 +24,7 @@ class Main extends Component {
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
     this.handleForgottenPassword = this.handleForgottenPassword.bind(this)
+    this.handlePasswordResetSubmit = this.handlePasswordResetSubmit.bind(this)
     console.log(this.props);
   }
 
@@ -45,6 +47,21 @@ class Main extends Component {
 }).catch(function(error){
  console.log(error);
  console.log("Error sending password reset email.");
+})
+}
+
+handlePasswordResetSubmit(evt){
+  evt.preventDefault();
+  var uname = evt.target[1].defaultValue;
+  var session_url = `http://localhost:8080/social_reach/users/reset_password/${uname}/?format=json`;
+  axios.get(session_url)
+  .then(res =>{
+    this.setState({
+      forgottenPassword: true
+    })
+}).catch(function(error){
+console.log(error);
+console.log("Error sending password reset email.");
 })
 }
 
@@ -136,7 +153,7 @@ class Main extends Component {
           <Navbar />
           <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword}/>}/>
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} />}/>
-          <Route exact path="/reset_password/:id/:token" component={PasswordReset}/>
+          <Route exact path="/reset_password/:id/:token" component={PasswordReset} handlePasswordReset = {this.handlePasswordResetSubmit}/>
           <Route path="/Profile" component={Profile} />
 
         </React.Fragment>
