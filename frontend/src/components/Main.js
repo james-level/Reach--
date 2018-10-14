@@ -18,6 +18,7 @@ class Main extends Component {
       forgottenPassword: false,
       resetPasswordSubmitted: false,
       data: {},
+      loggedInAs: '',
       activation_token: '',
       activation_user: '',
       reset_token: '',
@@ -110,11 +111,12 @@ console.log("Error resetting password");
       console.log(response);
     console.log('Authenticated');
     var token = response.data['access']
-       axios.get(`http://localhost:8080/social_reach/users/${uname}/?format=json`, { headers: { Authorization: `Bearer ${token}` } })
+       axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `Bearer ${token}` } })
        .then(res =>{
          self.setState({
            login: true,
-           data: res.data
+           data: res.data,
+           loggedInAs: uname
          })
   }).catch(function(error){
     console.log(error);
@@ -155,7 +157,7 @@ console.log("Error resetting password");
     if (this.state.login === true){
       return (
 
-            <Profile data={this.state.data} />
+            <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />
 
 
       )
