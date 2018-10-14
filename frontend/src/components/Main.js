@@ -19,14 +19,31 @@ class Main extends Component {
       resetPasswordSubmitted: false,
       data: {},
       activation_token: '',
-      activation_user: ''
+      activation_user: '',
+      reset_token: '',
+      reset_uid: ''
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
     this.handleForgottenPassword = this.handleForgottenPassword.bind(this)
     this.handlePasswordResetSubmit = this.handlePasswordResetSubmit.bind(this)
+    this.get_uniqueID = this.get_uniqueID.bind(this)
+    this.get_reset_token = this.get_reset_token.bind(this)
     console.log(this.props);
   }
+
+get_uniqueID(uid){
+  this.setState({
+    reset_uid: uid
+  })
+}
+
+get_reset_token(token){
+  this.setState({
+    reset_token: token
+  })
+}
+
 
   // login success
   login(){
@@ -52,16 +69,24 @@ class Main extends Component {
 
 handlePasswordResetSubmit(evt){
   evt.preventDefault();
+  var uid = this.state.reset_uid
+  console.log(uid);
+  var token = this.state.reset_token
   var uname = evt.target[1].defaultValue;
-  var session_url = `http://localhost:8080/social_reach/users/reset_password/${uname}/?format=json`;
-  axios.get(session_url)
-  .then(res =>{
+  var password = evt.target[2].defaultValue;
+  var email = evt.target[4].defaultValue;
+  var reset_url = `http://localhost:8080/social_reach/users/reset_password/${uid}/${token}`
+   axios.put(`${reset_url}/?format=json`, {
+     'username': uname,
+     'password': password,
+     'email': email
+   }).then(function (response) {
     this.setState({
-      forgottenPassword: true
+      resetPasswordSubmitted: true
     })
 }).catch(function(error){
 console.log(error);
-console.log("Error sending password reset email.");
+console.log("Error resetting password");
 })
 }
 
@@ -146,6 +171,12 @@ console.log("Error sending password reset email.");
       )
     }
 
+    if (this.state.resetPasswordSubmitted === true){
+      return (
+        <h6>Success! You can now log in again with your new password.</h6>
+      )
+    }
+
     else{
     return (
       <Router>
@@ -153,7 +184,7 @@ console.log("Error sending password reset email.");
           <Navbar />
           <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword}/>}/>
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} />}/>
-          <Route exact path="/reset_password/:id/:token" component={PasswordReset} handlePasswordReset = {this.handlePasswordResetSubmit}/>
+          <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token}/>}/>
           <Route path="/Profile" component={Profile} />
 
         </React.Fragment>
