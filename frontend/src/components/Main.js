@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Landing from "./Landing";
 import Register from "./Register";
 import Profile from "./Profile";
+import PasswordReset from "./PasswordReset";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 
@@ -135,7 +136,9 @@ class Main extends Component {
           <Navbar />
           <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword}/>}/>
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} />}/>
+          <Route exact path="/reset_password/:id/:token" component={PasswordReset}/>
           <Route path="/Profile" component={Profile} />
+
         </React.Fragment>
       </Router>
     )};
