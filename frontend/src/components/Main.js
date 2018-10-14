@@ -34,10 +34,18 @@ class Main extends Component {
 
   handleForgottenPassword(evt){
     evt.preventDefault();
-    this.setState({
-      forgottenPassword: true
-    })
-  }
+    var uname = evt.target[1].defaultValue;
+    var session_url = `http://localhost:8080/social_reach/users/reset_password/${uname}/?format=json`;
+    axios.get(session_url)
+    .then(res =>{
+      this.setState({
+        forgottenPassword: true
+      })
+}).catch(function(error){
+ console.log(error);
+ console.log("Error sending password reset email.");
+})
+}
 
   //authentication
   handleLoginSubmit(evt){
@@ -113,7 +121,11 @@ class Main extends Component {
       return (
         <h6>We are now processing your registration! Activate via the email you have just been sent.</h6>
       )
-
+    }
+    if (this.state.forgottenPassword === true){
+      return (
+        <h6>Reset your password via the link in the email you have just been sent.</h6>
+      )
     }
 
     else{
