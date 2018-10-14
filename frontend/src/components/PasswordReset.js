@@ -12,6 +12,7 @@ class PasswordReset extends Component {
       password_one: '',
       password_two: '',
       email: '',
+      reset: false
     };
 
 
@@ -22,6 +23,7 @@ class PasswordReset extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
     this.handlePasswordTwoChange = this.handlePasswordTwoChange.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
 
   }
 
@@ -41,6 +43,11 @@ class PasswordReset extends Component {
     this.setState({ email: evt.target.value})
   }
 
+  handleSubmit(evt){
+    this.props.handlePasswordResetSubmit(evt)
+    this.setState({ reset: true})
+  }
+
   componentDidMount(){
 
     this.props.get_reset_token(this.token)
@@ -57,7 +64,7 @@ class PasswordReset extends Component {
     return(
 
               <div class="modal-content">
-              <form  onSubmit={this.props.handlePasswordResetSubmit}>
+              <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
                       <h4 class="modal-title w-100 font-weight-bold">Reset your password!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -102,12 +109,18 @@ class PasswordReset extends Component {
 
   }
 
+  if (this.state.reset === true){
+    return (
+      <h6>Success! You can now log in again with your new password.</h6>
+    )
+  }
+
   else {
 
     return(
 
               <div class="modal-content">
-              <form  onSubmit={this.props.handlePasswordResetSubmit}>
+              <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
                       <h4 class="modal-title w-100 font-weight-bold">Reset your password!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
