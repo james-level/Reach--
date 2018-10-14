@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 
-
 class PasswordReset extends Component {
   constructor(props) {
     super(props);
@@ -38,14 +37,14 @@ class PasswordReset extends Component {
 
   render() {
 
-    if (this.state.password_one.length > 0
-    && this.state.password_two.length > 0
+    if ((this.state.password_one.length > 0
+    || this.state.password_two.length > 0)
     && this.state.password_two !== this.state.password_one){
 
     return(
 
               <div class="modal-content">
-              <form onSubmit={this.props.handlePasswordReset}>
+              <form>
                   <div class="modal-header text-center">
                       <h4 class="modal-title w-100 font-weight-bold">Reset your password!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -62,12 +61,12 @@ class PasswordReset extends Component {
 
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="text" name="password" value={this.state.password_one} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
+                          <input type="password" name="password" value={this.state.password_one} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="text" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"></input>
+                          <input type="password" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <div class="md-form mb-3">
@@ -75,13 +74,11 @@ class PasswordReset extends Component {
                           <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="email address"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
-                      <h5 align="center" style={{fontWeight: "bold", color: "#8B0000"}}>Passwords do not match</h5>
+                      <h5 align="center" style={{fontWeight: "bold", color: "#8B0000"}}>The two passwords have to match</h5>
 
 
                   </div>
-                  <div class="modal-footer d-flex justify-content-center">
-                      <button  type='submit'  class="btn btn-default">Reset password</button>
-                  </div>
+
                   </form>
 
               </div>
@@ -112,12 +109,12 @@ class PasswordReset extends Component {
 
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="text" name="password" value={this.state.password_one} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
+                          <input type="password" name="password" value={this.state.password_one} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="text" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"></input>
+                          <input type="password" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <div class="md-form mb-3">

@@ -113,7 +113,7 @@ render(){
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="text" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
+                      <input type="password" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
                       <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                   </div>
                   <div class="md-form mb-3">
@@ -152,7 +152,7 @@ render(){
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="text" name="password" value={this.state.password} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"></input>
+                      <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"></input>
                       <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                   </div>
 
