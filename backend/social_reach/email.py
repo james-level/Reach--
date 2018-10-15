@@ -27,13 +27,12 @@ class ConfirmationEmail(BaseEmailMessage):
 
 
 class PasswordResetEmail(BaseEmailMessage):
-    template_name = 'email/password_reset.html'
+    template_name = '../templates/reach/password_reset.html'
 
     def get_context_data(self):
         context = super(PasswordResetEmail, self).get_context_data()
 
         user = context.get('user')
-        context['uid'] = utils.encode_uid(user.pk)
-        context['token'] = default_token_generator.make_token(user)
-        context['url'] = settings.PASSWORD_RESET_CONFIRM_URL.format(**context)
+        context['uid'] = urlsafe_base64_encode(force_bytes(user.pk))
+        context['token'] = account_activation_token = TokenGenerator().make_token(user)
         return context

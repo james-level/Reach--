@@ -152,6 +152,7 @@ div.app-title{
     margin-bottom: 8px;
 }
 .user-input-form input[type="text"],
+.user-input-form input[type="password"],
 .user-input-form input[type="date"],
 .user-input-form input[type="datetime"],
 .user-input-form input[type="email"],

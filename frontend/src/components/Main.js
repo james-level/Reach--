@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Landing from "./Landing";
 import Register from "./Register";
 import Profile from "./Profile";
+import PasswordReset from "./PasswordReset";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 
@@ -14,14 +15,44 @@ class Main extends Component {
       password: '',
       login: false,
       signUpSubmit: false,
+      forgottenPassword: false,
+      resetPasswordSubmitted: false,
       data: {},
+      loggedInAs: '',
       activation_token: '',
-      activation_user: ''
+      activation_user: '',
+      reset_token: '',
+      reset_uid: '',
+
     };
+
+    this.signUpPassword = null
+
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
+    this.handleForgottenPassword = this.handleForgottenPassword.bind(this)
+    this.handlePasswordResetSubmit = this.handlePasswordResetSubmit.bind(this)
+    this.get_uniqueID = this.get_uniqueID.bind(this)
+    this.get_reset_token = this.get_reset_token.bind(this)
     console.log(this.props);
   }
+
+get_uniqueID(uid){
+  this.setState({
+    reset_uid: uid
+  })
+}
+
+set_signUpPassword(word){
+  this.signUpPassword = word
+}
+
+get_reset_token(token){
+  this.setState({
+    reset_token: token
+  })
+}
+
 
   // login success
   login(){
@@ -29,6 +60,44 @@ class Main extends Component {
       login: true
     })
   }
+
+  handleForgottenPassword(evt){
+    evt.preventDefault();
+    var uname = evt.target[1].defaultValue;
+    var session_url = `http://localhost:8080/social_reach/users/reset_password/${uname}/?format=json`;
+    axios.get(session_url)
+    .then(res =>{
+      this.setState({
+        forgottenPassword: true
+      })
+}).catch(function(error){
+ console.log(error);
+ console.log("Error sending password reset email.");
+})
+}
+
+handlePasswordResetSubmit(evt){
+  evt.preventDefault();
+  var uid = this.state.reset_uid
+  console.log(uid);
+  var token = this.state.reset_token
+  var uname = evt.target[1].defaultValue;
+  var password = evt.target[2].defaultValue;
+  var email = evt.target[4].defaultValue;
+  var reset_url = `http://localhost:8080/social_reach/users/reset_password/${uid}/${token}`
+   axios.put(`${reset_url}/?format=json`, {
+     'username': uname,
+     'password': password,
+     'email': email
+   }).then(function (response) {
+    this.setState({
+      resetPasswordSubmitted: true
+    })
+}).catch(function(error){
+console.log(error);
+console.log("Error resetting password");
+})
+}
 
   //authentication
   handleLoginSubmit(evt){
@@ -50,11 +119,12 @@ class Main extends Component {
       console.log(response);
     console.log('Authenticated');
     var token = response.data['access']
-       axios.get(`http://localhost:8080/social_reach/users/${uname}/?format=json`, { headers: { Authorization: `Bearer ${token}` } })
+       axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `Bearer ${token}` } })
        .then(res =>{
          self.setState({
            login: true,
-           data: res.data
+           data: res.data,
+           loggedInAs: uname
          })
   }).catch(function(error){
     console.log(error);
@@ -72,22 +142,22 @@ class Main extends Component {
       var signup_username = evt.target[1].defaultValue
       var signup_password = evt.target[2].defaultValue
       var signup_email = evt.target[3].defaultValue
-      var new_user_url = 'http://localhost:8080/social_reach/auth/users/'
+      var new_user_url = 'http://localhost:8080/social_reach/auth/users/create'
       axios.post(new_user_url, {
         username: signup_username,
         password: signup_password,
         email: signup_email
       }).then(()=>{
         self.setState({
-          signUpSubmit: true
+          signUpSubmit: true,
         })
+        self.set_signUpPassword(signup_password)
       }).catch(function(e){
         console.log(e);
       })
       console.log(evt.target[1].defaultValue);
       console.log(evt.target[2].defaultValue);
       console.log(evt.target[3].defaultValue);
-
   }
 
 
@@ -95,25 +165,38 @@ class Main extends Component {
     if (this.state.login === true){
       return (
 
-            <Profile data={this.state.data} />
+            <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />
 
 
       )
 
     }if (this.state.signUpSubmit === true){
       return (
-        <h6>Sign up confirmed! Activate via the email you have just been sent.</h6>
+        <h6>We are now processing your registration! Activate via the email you have just been sent.</h6>
       )
+    }
+    if (this.state.forgottenPassword === true){
+      return (
+        <h6>Reset your password via the link in the email you have just been sent.</h6>
+      )
+    }
 
-    }else{
+    if (this.state.resetPasswordSubmitted === true){
+      return (
+        <h6>Success! You can now log in again with your new password.</h6>
+      )
+    }
+
+    else{
     return (
       <Router>
         <React.Fragment>
           <Navbar />
-          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit}/>}/>
-          <Route exact path="/activate/:id/:token" render={(props)=> <Landing  data={props} handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit}/>}/>
-          <Route path="/Register" component={Register} />
+          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword}/>}/>
+          <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} signUpPassword = {this.signUpPassword} />}/>
+          <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token}/>}/>
           <Route path="/Profile" component={Profile} />
+
         </React.Fragment>
       </Router>
     )};

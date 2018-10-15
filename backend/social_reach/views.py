@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import unicode_literals
+import requests
+
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import generics
 from activation_tokens import TokenGenerator
@@ -10,9 +11,10 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.core.mail import send_mail
+from django.forms.models import model_to_dict
 from social import settings as ReachSettings
-from access_tokens import tokens
 from django.core.mail import EmailMessage
+from django.http import JsonResponse
 from django.utils.encoding import force_bytes, force_text
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -58,39 +60,6 @@ from rest_framework import generics, permissions, status, views, viewsets
 from django.contrib.auth.tokens import default_token_generator
 from djoser import views as djoserviews
 
-# @api_view()
-# def null_view(request):
-#     return Response(status=status.HTTP_400_BAD_REQUEST)
-
-# class CustomActivationView(RegistrationView):
-#     """
-#     Override the Djoser view to provide an html template for activation email.
-#     """
-# #
-#     def get_send_email_extras(self):
-#
-#         extras = super(CustomActivationView, self).get_send_email_extras()
-#         extras['html_body_template_name'] = 'confirmations_email.html'
-#         return extras
-#
-#     def get_context_data(self):
-#         token = utils.login_user(self.request, serializer.user)
-#         token_serializer_class = settings.SERIALIZERS.token
-#         context = super(CustomRegistrationView, self).get_context_data()
-#         context['token'] = utils.login_user(self.request, serializer.user)
-#         context['user'] = context.get('user')
-#         return context
-
-    # def _action(self, serializer):
-    #     token = utils.login_user(self.request, serializer.user)
-    #     token_serializer_class = settings.SERIALIZERS.token
-    #     return Response(
-    #         data=token_serializer_class(token).data,
-    #         status=status.HTTP_200_OK,
-    #     )
-
-# @api_view
-
 
 def user_confirm(request, uidb64, token):
     queryset = User.objects.all()
@@ -100,56 +69,62 @@ def user_confirm(request, uidb64, token):
     user_to_confirm = User.objects.get(pk=uid)
     print("USER TO CONFIRM", user_to_confirm)
     print("USER TO CONFIRM TOKEN VALID", TokenGenerator().check_token(user_to_confirm, token))
+    print("USER TO CONFIRM ACTIVE ALREADY?", user_to_confirm.is_active)
 
     if user_to_confirm and TokenGenerator().check_token(user_to_confirm, token):
         user_to_confirm.is_active = True
-        print("USER TO CONFIRM ACTIVE?", user_to_confirm.is_active)
+        print("USER TO CONFIRM SET TO ACTIVE?", user_to_confirm.is_active)
         user_to_confirm.save()
     # make sure to catch 404's below
 
         context = {'user': user_to_confirm}
         print("USER STATUS", user_to_confirm.is_active)
 
-        token = tokens.generate(scope=(), key="some value", salt="None")
         message = render_to_string('../templates/reach/account_confirm.html',{'token': token})
         msg = EmailMessage('Reach account confirmation for ' + user_to_confirm.username,
         message,
         ReachSettings.EMAIL_HOST_USER,
         [    ReachSettings.EMAIL_HOST_USER,
     user_to_confirm.get_email_field_name()],
-        headers={'token': token}
+        headers={}
         )
         msg.content_subtype = "html"
         msg.send()
 
-    return HttpResponse("User account for " + user_to_confirm.username + " activated.")
+        data = {
+            'username': user_to_confirm.username,
+            'password': user_to_confirm.password
+                }
+
+        r = requests.post('http://localhost:8080/social_reach/api/auth/token/obtain/', data=data)
+
+    return JsonResponse( {'user': model_to_dict(user_to_confirm), 'status': 200, 'text': "User account for " + user_to_confirm.username + " activated." }
+, status=201)
+
+class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def get_object(self):
+        uid = force_text(urlsafe_base64_decode(self.kwargs['uidb64']))
+        user_to_reset = User.objects.get(pk=uid)
+        if user_to_reset and TokenGenerator().check_token(user_to_reset, self.kwargs['token']):
+            print("Password for " + user_to_reset.username + " has been reset.")
+        return user_to_reset
+
+class UserPasswordResetEmail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
 
 
-# def user_confirm(request, username):
-#     # context = RequestContext(request)
-#     queryset = User.objects.all()
-#     for user in queryset:
-#         print("ACTIVE?", user.username, user.is_active)
-#     # make sure to catch 404's below
-#     user_to_confirm = queryset.get(username=username)
-#
-#     to = [ReachSettings.EMAIL_HOST_USER, user_to_confirm.get_email_field_name()]
-#     if not user_to_confirm.is_active:
-#         if settings.SEND_CONFIRMATION_EMAIL:
-#             send_mail(
-#         'Reach account confirmation',
-#         'Hello again, ' + user_to_confirm.username + ". This email was sent on behalf of the Reach team to let you know that your account is now activated and ready to use. Head on over to the app to start chatting to the hottest influencers.",
-#         ReachSettings.EMAIL_HOST_USER,
-#         to,
-#         fail_silently=False,
-#     )
-#
-#         user_to_confirm.is_active = True
-#         context = {'user': user_to_confirm}
-#         user_to_confirm.save()
-#         # settings.EMAIL.confirmation(request, context).send(to)
-#     return HttpResponse("User account for " + user_to_confirm.username + " activated.")
-
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+    # make sure to catch 404's below
+        obj = queryset.get(username=self.kwargs['username'])
+        context = {'user': obj}
+        to = [get_user_email(obj)]
+        settings.EMAIL.password_reset(self.request, context).send(to)
+        return obj
 
 class UserCreateView(generics.CreateAPIView):
     """
@@ -174,50 +149,6 @@ class UserCreateView(generics.CreateAPIView):
             settings.EMAIL.confirmation(self.request, context).send(to)
 
 
-
-# class UserViewSet(ModelViewSet):
-#     """
-#     A simple ViewSet for viewing and editing accounts.
-#     """
-#     queryset = get_user_model().objects.all()
-#     serializer_class = UserSerializer
-#     permission_classes = [IsAdminUser]
-
-# class VerifyEmailView(APIView):
-#     permission_classes = (AllowAny,)
-#     allowed_methods = ('POST', 'OPTIONS', 'HEAD')
-#
-#     def get_serializer(self, *args, **kwargs):
-#         return VerifyEmailSerializer(*args, **kwargs)
-#
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         self.kwargs['key'] = serializer.validated_data['key']
-#         try:
-#             confirmation = self.get_object()
-#             confirmation.confirm(self.request)
-#             return Response({'detail': _('Successfully confirmed email.')}, status=status.HTTP_200_OK)
-#         except EmailConfirmation.DoesNotExist:
-#             return Response({'detail': _('Error. Incorrect key.')}, status=status.HTTP_404_NOT_FOUND)
-#
-#     def get_object(self, queryset=None):
-#         key = self.kwargs['key']
-#         emailconfirmation = EmailConfirmationHMAC.from_key(key)
-#         if not emailconfirmation:
-#             if queryset is None:
-#                 queryset = self.get_queryset()
-#             try:
-#                 emailconfirmation = queryset.get(key=key.lower())
-#             except EmailConfirmation.DoesNotExist:
-#                 raise EmailConfirmation.DoesNotExist
-#         return emailconfirmation
-#
-#     def get_queryset(self):
-#         qs = EmailConfirmation.objects.all_valid()
-#         qs = qs.select_related("email_address__user")
-#         return qs
-
 class ListCategoryView(generics.ListCreateAPIView):
     """
     Provides a get method handler.
@@ -238,6 +169,17 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         # from IPython import embed; embed();
         return UserProfile.objects.all()
+
+class ProfileByUsername(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProfileSerializer
+    queryset = UserProfile.objects.all()
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+    # make sure to catch 404's below
+        user = User.objects.get(username=self.kwargs['username'])
+        obj = queryset.get(user=user)
+        return obj
 
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LikeSerializer
@@ -261,10 +203,19 @@ class UserList(generics.ListCreateAPIView):
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
+    queryset = User.objects.all()
 
-    def get_queryset(self):
-        # from IPython import embed; embed();
-        return User.objects.all()
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+    # make sure to catch 404's below
+        obj = queryset.get(id=self.kwargs['pk'])
+
+        return obj
+
+def get_user_password(request, pk):
+    user = User.objects.get(id=pk)
+    return JsonResponse( {'user': model_to_dict(user), 'status': 200 }
+    , status=201)
 
 class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
@@ -277,8 +228,7 @@ class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
         obj = queryset.get(username=self.request.user)
         return obj
 
-
-class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
+class SpecificUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -286,8 +236,9 @@ class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
     # make sure to catch 404's below
-        obj = queryset.get(username=self.request.user)
+        obj = queryset.get(username=self.kwargs['username'])
         return obj
+
 
 class ListMatchView(generics.ListCreateAPIView):
     """

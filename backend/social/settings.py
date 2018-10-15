@@ -120,7 +120,7 @@ DJOSER = {
 'password_reset': 'djoser.email.PasswordResetEmail',},
     'EMAIL': {'activation': 'social_reach.email.ActivationEmail',
     'confirmation': 'djoser.email.ConfirmationEmail',
-    'password_reset': 'djoser.email.PasswordResetEmail',},
+    'password_reset': 'social_reach.email.PasswordResetEmail',},
     'SEND_CONFIRMATION_EMAIL': True,
 }
 
@@ -159,19 +159,20 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'social.urls'
 
 CORS_ALLOW_CREDENTIALS = True
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'social.wsgi.application'
 

@@ -81,7 +81,8 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User(
             username=validated_data.get('username', None),
-            email=validated_data.get('email', None)
+            email=validated_data.get('email', None),
+
         )
         user.set_password(validated_data.get('password', None))
         user.save()
@@ -96,7 +97,7 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
     class Meta:
         model = User
-        fields = ("username", "email", "password", "id")
+        fields = ("username", "email", "password", "id", "is_active")
         extra_kwargs = {
             'url': {
                 'view_name': 'social_reach: user_detail',
