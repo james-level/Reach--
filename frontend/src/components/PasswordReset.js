@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import { Link } from 'react-router-dom'
+import PasswordMask from 'react-password-mask';
 
 
 
@@ -81,12 +82,15 @@ class PasswordReset extends Component {
 
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="password" name="password" value={this.state.password_one} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
-                          <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                          <PasswordMask id="password" name="password" placeholder="Enter password" class="form-control validate" placeholder="password min length 8 characters" value={this.state.password_one}
+               onChange={this.handlePasswordChange}
+              />
+
+                          <label data-error="wrong" data-success="right" for="password"></label>
                       </div>
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="password" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"></input>
+                          <PasswordMask type="password" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"/>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <div class="md-form mb-3">
@@ -137,12 +141,12 @@ class PasswordReset extends Component {
 
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="password" name="password" value={this.state.password_one} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
+                          <PasswordMask type="password" name="password" value={this.state.password_one} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"/>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="password" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"></input>
+                          <PasswordMask type="password" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"/>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <div class="md-form mb-3">
