@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import { Link } from 'react-router-dom'
 import PasswordMask from 'react-password-mask';
+import axios from 'axios';
 
 
 
@@ -13,7 +14,8 @@ class PasswordReset extends Component {
       password_one: '',
       password_two: '',
       email: '',
-      reset: false
+      reset: false,
+      reset_user: null
     };
 
 
@@ -54,6 +56,21 @@ class PasswordReset extends Component {
     this.props.get_reset_token(this.token)
     this.props.get_uniqueID(this.uid)
 
+    var self = this;
+    var uid = this.uid
+    console.log(uid);
+    var token = this.token
+    console.log(token);
+    var url = `http://localhost:8080/social_reach/auth/users/getreset/${uid}/${token}`
+     axios.get(`${url}/?format=json`).then(function (response) {
+          self.setState({
+            reset_user: response.data.user
+          })
+      }).catch(function (error) {
+              console.log(error);
+      });
+
+
   }
 
   render() {
@@ -67,7 +84,7 @@ class PasswordReset extends Component {
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                      <h4 class="modal-title w-100 font-weight-bold">Reset your password!</h4>
+                      <h4 class="modal-title w-100 font-weight-bold">Reset your password,!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -126,7 +143,7 @@ class PasswordReset extends Component {
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                      <h4 class="modal-title w-100 font-weight-bold">Reset your password!</h4>
+                  <h4 class="modal-title w-100 font-weight-bold">Reset your password, !</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>

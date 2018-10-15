@@ -68,7 +68,8 @@ get_reset_token(token){
     axios.get(session_url)
     .then(res =>{
       this.setState({
-        forgottenPassword: true
+        forgottenPassword: true,
+        data: res.data,
       })
 }).catch(function(error){
  console.log(error);
@@ -91,7 +92,7 @@ handlePasswordResetSubmit(evt){
      'email': email
    }).then(function (response) {
     this.setState({
-      resetPasswordSubmitted: true
+      resetPasswordSubmitted: true,
     })
 }).catch(function(error){
 console.log(error);
@@ -194,7 +195,7 @@ console.log("Error resetting password");
           <Navbar />
           <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword}/>}/>
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} signUpPassword = {this.signUpPassword} />}/>
-          <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token}/>}/>
+          <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
           <Route path="/Profile" component={Profile} />
 
         </React.Fragment>

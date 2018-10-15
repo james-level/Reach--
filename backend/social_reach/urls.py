@@ -63,6 +63,7 @@ urlpatterns = [
         name='user-create'
     ),
     url(r'^auth/users/confirmation/(?P<uidb64>[\w\-]+)/(?P<token>[\w\-]+)/$', views.user_confirm, name='user_confirm'),
+    url(r'^auth/users/getreset/(?P<uidb64>[\w\-]+)/(?P<token>[\w\-]+)/$', views.user_reset, name='user_reset'),
     # url(r'^auth/users/confirmation/$', ActivationView.as_view(), name='user_confirmation'),
     # url(r'^auth/users/activate/(?P<username>[\w\-]+)/(?P<token>[\w\-]+)/$', ActivationView.as_view(), name='user_confirm'),
     url(

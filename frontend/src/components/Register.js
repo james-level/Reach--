@@ -115,6 +115,7 @@ class Register extends Component {
       var uid = this.props.data.match.params.id
       console.log(uid);
       var token = this.props.data.match.params.token
+      
       console.log(token);
       var activation_url = `http://localhost:8080/social_reach/auth/users/confirmation/${uid}/${token}`
        axios.get(`${activation_url}/?format=json`).then(function (response) {
