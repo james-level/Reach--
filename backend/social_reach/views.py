@@ -10,8 +10,10 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.core.mail import send_mail
+from django.forms.models import model_to_dict
 from social import settings as ReachSettings
 from django.core.mail import EmailMessage
+from django.http import JsonResponse
 from django.utils.encoding import force_bytes, force_text
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -66,10 +68,11 @@ def user_confirm(request, uidb64, token):
     user_to_confirm = User.objects.get(pk=uid)
     print("USER TO CONFIRM", user_to_confirm)
     print("USER TO CONFIRM TOKEN VALID", TokenGenerator().check_token(user_to_confirm, token))
+    print("USER TO CONFIRM ACTIVE ALREADY?", user_to_confirm.is_active)
 
     if user_to_confirm and TokenGenerator().check_token(user_to_confirm, token):
         user_to_confirm.is_active = True
-        print("USER TO CONFIRM ACTIVE?", user_to_confirm.is_active)
+        print("USER TO CONFIRM SET TO ACTIVE?", user_to_confirm.is_active)
         user_to_confirm.save()
     # make sure to catch 404's below
 
@@ -87,7 +90,8 @@ def user_confirm(request, uidb64, token):
         msg.content_subtype = "html"
         msg.send()
 
-    return HttpResponse("User account for " + user_to_confirm.username + " activated.")
+    return JsonResponse( {'user': model_to_dict(user_to_confirm), 'status': 200, 'text': "User account for " + user_to_confirm.username + " activated." }
+, status=201)
 
 class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer

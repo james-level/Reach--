@@ -39,11 +39,30 @@ class Register extends Component {
 
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
       };
 
 
+    handleSubmit(evt){
+      evt.preventDefault();
 
+      var name = evt.target[1].defaultValue
+      var location = evt.target[2].defaultValue
+      var date_of_birth = evt.target[3].defaultValue
+      var create_profile_url = 'http://localhost:8080/social_reach/auth/users/create'
+      axios.post(create_profile_url, {
+        username: name,
+        password: location,
+        email: date_of_birth
+      }).then(()=>{
+        this.setState({
+          signUpSubmit: true
+        })
+      }).catch(function(e){
+        console.log(e);
+      })
+    }
 
     handleChange(evt){
 
@@ -67,6 +86,7 @@ class Register extends Component {
         }).catch(function (error) {
                 console.log(error);
         });
+        console.log(this.props.data);
   }
 
     render(){
@@ -75,7 +95,7 @@ class Register extends Component {
 
       {/* PROFILE INFO INPUT FORM START */}
       <div class="user-input-form">
-        <form onSubmit="hello">
+        <form onSubmit={this.handleSubmit}>
 
       {/* BASIC INFO SECTION */}
           <fieldset>
