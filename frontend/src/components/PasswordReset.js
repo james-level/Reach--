@@ -75,6 +75,10 @@ class PasswordReset extends Component {
 
   render() {
 
+    if (this.state.reset_user == null) {
+      return <div><p>Loading...</p></div>
+    }
+
     if ((this.state.password_one.length > 0
     || this.state.password_two.length > 0)
     && this.state.password_two !== this.state.password_one){
@@ -84,7 +88,7 @@ class PasswordReset extends Component {
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                      <h4 class="modal-title w-100 font-weight-bold">Reset your password,!</h4>
+                      <h4 class="modal-title w-100 font-weight-bold">Reset your password, {this.state.reset_user.username}!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -143,7 +147,7 @@ class PasswordReset extends Component {
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                  <h4 class="modal-title w-100 font-weight-bold">Reset your password, !</h4>
+                  <h4 class="modal-title w-100 font-weight-bold">Reset your password, {this.state.reset_user.username}!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
