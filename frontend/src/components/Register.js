@@ -17,6 +17,7 @@ class Register extends Component {
         activation_user: null,
         activation_user_password: '',
 
+          password: '',
           name: 'test',
           looking_for: '',
           location: '',
@@ -51,12 +52,13 @@ class Register extends Component {
       var self = this;
       evt.preventDefault();
       console.log(this.state.activation_user_password);
+      console.log(self.state.activation_user['username']);
       var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
-
+      console.log(self.state.password);
 // poST request currently meaningless as no JWT is needed to make profile currently
       axios.post(session_url, {
-          'username': 'jamesbond007',
-          'password': 'p'
+          'username': self.state.activation_user['username'],
+          'password': self.state.password
         }).then(function(response) {
           console.log(response);
         console.log('Authenticated');
@@ -121,32 +123,28 @@ class Register extends Component {
         console.log(this.props);
 
 
-        var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
-        axios.post(session_url, {
-
-          // PROVIDE CREDENTIALS TO BRING BACK NON-ENCRYPTED PASSWORD FOR CURRENT USER
-            'username': 'jamesbond007',
-            'password': 'p'
-          }).then(function(response) {
-            console.log(response);
-          console.log('Authenticated');
-          var token = response.data['access']
-          console.log(token);
-
-        var password_url = `http://localhost:8080/social_reach/users/${self.state.activation_user.id}`
-        axios.get(`${password_url}/?format=json`, { headers: { Authorization: `Bearer ${token}` } }).then(function (response) {
-             console.log(response)
-             self.setState({
-               activation_user_password: response.data.user['password']
-             })
-             console.log(self.state.activation_user_password);
-         }).catch(function (error) {
-                 console.log(error);
-         });
-
-  }
-)
-}
+        // var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
+        // axios.post(session_url, {
+        //
+        //   // PROVIDE CREDENTIALS TO BRING BACK NON-ENCRYPTED PASSWORD FOR CURRENT USER
+        //     'username': 'jamesbond007',
+        //     'password': 'p'
+        //   }).then(function(response) {
+        //     console.log(response);
+        //   console.log('Authenticated');
+        //   var token = response.data['access']
+        //   console.log(token);
+        //
+        // var password_url = `http://localhost:8080/social_reach/users/${self.state.activation_user.id}`
+        // axios.get(`${password_url}/?format=json`, { headers: { Authorization: `Bearer ${token}` } }).then(function (response) {
+        //      console.log(response)
+        //      self.setState({
+        //        activation_user_password: response.data.user['password']
+        //      })
+        //      console.log(self.state.activation_user_password);
+        //  }).catch(function (error) {
+        //          console.log(error);
+         }
 
     render(){
       if (this.state.activation_user){
@@ -163,6 +161,7 @@ class Register extends Component {
       {/* BASIC INFO SECTION */}
           <fieldset>
             <legend><span class="number"></span> Basic Info</legend>
+            <input onChange={this.handleChange} type="text" name="password" placeholder="Type password"></input>
             <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
             <input onChange={this.handleChange} type="text" name="looking_for" placeholder="Seeking (Male / Female / Both)"></input>
             <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
