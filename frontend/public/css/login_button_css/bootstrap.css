@@ -245,11 +245,13 @@ button:focus {
   outline: 5px auto -webkit-focus-ring-color;
 }
 
+
 input,
 button,
 select,
 optgroup,
-textarea {
+textarea
+ {
   margin: 0;
   font-family: inherit;
   font-size: inherit;

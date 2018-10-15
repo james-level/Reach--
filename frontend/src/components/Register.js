@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import PasswordMask from 'react-password-mask';
 
 
 
@@ -44,6 +45,7 @@ class Register extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+
 
       };
 
@@ -104,6 +106,8 @@ class Register extends Component {
 
     }
 
+
+
     componentDidMount(){
 
       // needs updated to include the correct activation components
@@ -146,7 +150,9 @@ class Register extends Component {
         //          console.log(error);
          }
 
+
     render(){
+
       if (this.state.activation_user){
       return (
         <div className="register">
@@ -161,7 +167,10 @@ class Register extends Component {
       {/* BASIC INFO SECTION */}
           <fieldset>
             <legend><span class="number"></span> Basic Info</legend>
-            <input onChange={this.handleChange} type="text" name="password" placeholder="Type password"></input>
+            <PasswordMask id="password" name="password" placeholder="Enter password" value={this.state.password}
+ onChange={this.handleChange}
+/>
+
             <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
             <input onChange={this.handleChange} type="text" name="looking_for" placeholder="Seeking (Male / Female / Both)"></input>
             <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
