@@ -69,6 +69,7 @@ class Register extends Component {
 
       var user = self.state.activation_user['id']
       var name = self.state.name
+      var bio = self.state.description
       var looking_for = self.state.looking_for
       console.log(looking_for);
       var location = self.state.location
@@ -81,6 +82,7 @@ class Register extends Component {
       axios.post(create_profile_url, {
         'user': user,
         'name': name,
+        'bio': bio,
         'looking_for': looking_for,
         'location': location,
         'date_of_birth': date_of_birth,
@@ -115,7 +117,7 @@ class Register extends Component {
       var uid = this.props.data.match.params.id
       console.log(uid);
       var token = this.props.data.match.params.token
-      
+
       console.log(token);
       var activation_url = `http://localhost:8080/social_reach/auth/users/confirmation/${uid}/${token}`
        axios.get(`${activation_url}/?format=json`).then(function (response) {
