@@ -49,6 +49,7 @@ class PasswordReset extends Component {
   handleSubmit(evt){
     this.props.handlePasswordResetSubmit(evt)
     this.setState({ reset: true})
+    console.log(this.state.reset_user.email);
   }
 
   componentDidMount(){
@@ -88,7 +89,7 @@ class PasswordReset extends Component {
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                      <h4 class="modal-title w-100 font-weight-bold">Reset your password, {this.state.reset_user.username}!</h4>
+                      <h4 class="modal-title w-100 font-weight-bold">Reset Reach your password, {this.state.reset_user.username}!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -97,7 +98,7 @@ class PasswordReset extends Component {
 
                       <div class="md-form mb-5">
                           <i class="fa fa-envelope prefix grey-text"></i>
-                          <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
+                          <input type="hidden" name="username" value={this.state.reset_user.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
                           <label name="signup_username" data-error="wrong" data-success="right" for="defaultForm-signup_username"  ></label>
                       </div>
 
@@ -116,7 +117,7 @@ class PasswordReset extends Component {
                       </div>
                       <div class="md-form mb-3">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
+                          <input type="hidden" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <h5 align="center" style={{fontWeight: "bold", color: "#8B0000"}}>The two passwords have to match</h5>
@@ -147,7 +148,7 @@ class PasswordReset extends Component {
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                  <h4 class="modal-title w-100 font-weight-bold">Reset your password, {this.state.reset_user.username}!</h4>
+                  <h4 class="modal-title w-100 font-weight-bold">Reset your Reach password, {this.state.reset_user.username}!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -156,7 +157,7 @@ class PasswordReset extends Component {
 
                       <div class="md-form mb-5">
                           <i class="fa fa-envelope prefix grey-text"></i>
-                          <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
+                          <input type="hidden" name="username" value={this.state.reset_user.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
                           <label name="signup_username" data-error="wrong" data-success="right" for="defaultForm-signup_username"  ></label>
                       </div>
 
@@ -172,7 +173,7 @@ class PasswordReset extends Component {
                       </div>
                       <div class="md-form mb-3">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
+                          <input type="hidden" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
 

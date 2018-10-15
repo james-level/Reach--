@@ -78,13 +78,17 @@ get_reset_token(token){
 }
 
 handlePasswordResetSubmit(evt){
+  console.log(evt.target);
   evt.preventDefault();
   var uid = this.state.reset_uid
   console.log(uid);
   var token = this.state.reset_token
   var uname = evt.target[1].defaultValue;
   var password = evt.target[2].defaultValue;
-  var email = evt.target[4].defaultValue;
+  var email = evt.target[6].value;
+  console.log(email);
+  console.log(uname);
+  console.log(password);
   var reset_url = `http://localhost:8080/social_reach/users/reset_password/${uid}/${token}`
    axios.put(`${reset_url}/?format=json`, {
      'username': uname,
