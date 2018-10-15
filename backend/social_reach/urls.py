@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^profiles/(?P<pk>\d+)/$', ProfileDetail.as_view(), name='profile_detail'),
     url(r'^profiles/(?P<username>[\w\-]+)/$', views.ProfileByUsername.as_view(), name='profile_username'),
     url(r'^users/$', UserList.as_view(), name='user-list'),
-    url(r'^users/(?P<pk>\d+)/$', UserDetail.as_view(), name='user_detail'),
+    url(r'^users/(?P<pk>\d+)/$', views.get_user_password, name='user_detail'),
     url(r'^users/(?P<username>[\w\-]+)/$', CurrentUserDetail.as_view(), name='current_user_detail'),
     url(r'^users/find/(?P<username>[\w\-]+)/$', views.SpecificUserDetail.as_view(), name='specific_user_detail'),
     # For sending link to reset password

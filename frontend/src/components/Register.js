@@ -15,8 +15,10 @@ class Register extends Component {
         data: {},
         activation_token: '',
         activation_user: null,
+        activation_user_password: '',
 
           name: 'test',
+          looking_for: '',
           location: '',
           date_of_birth: '',
           gender: 0,
@@ -46,24 +48,50 @@ class Register extends Component {
 
 
     handleSubmit(evt){
+      var self = this;
       evt.preventDefault();
+      console.log(this.state.activation_user_password);
+      var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
 
-      var name = evt.target[1].defaultValue
-      var location = evt.target[2].defaultValue
-      var date_of_birth = evt.target[3].defaultValue
-      var create_profile_url = 'http://localhost:8080/social_reach/auth/users/create'
+// poST request currently meaningless as no JWT is needed to make profile currently
+      axios.post(session_url, {
+          'username': 'jamesbond007',
+          'password': 'p'
+        }).then(function(response) {
+          console.log(response);
+        console.log('Authenticated');
+        var token = response.data['access']
+        console.log(token);
+
+      var user = self.state.activation_user['id']
+      var name = self.state.name
+      var looking_for = self.state.looking_for
+      console.log(looking_for);
+      var location = self.state.location
+      var date_of_birth = self.state.date_of_birth
+      var gender = self.state.gender
+      var twitter_handle = self.state.twitter_handle
+      var instagram_handle = self.state.instagram_handle
+      var youtube_handle = self.state.youtube_handle
+      var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
       axios.post(create_profile_url, {
-        username: name,
-        password: location,
-        email: date_of_birth
+        'user': user,
+        'name': name,
+        'looking_for': looking_for,
+        'location': location,
+        'date_of_birth': date_of_birth,
+        'gender_identity': gender,
+        'twitter_handle': twitter_handle,
+        'instagram_handle': instagram_handle,
+        'youtube_handle': youtube_handle
       }).then(()=>{
-        this.setState({
-          signUpSubmit: true
+        console.log("Done");
         })
       }).catch(function(e){
         console.log(e);
       })
     }
+
 
     handleChange(evt){
 
@@ -84,23 +112,48 @@ class Register extends Component {
       console.log(token);
       var activation_url = `http://localhost:8080/social_reach/auth/users/confirmation/${uid}/${token}`
        axios.get(`${activation_url}/?format=json`).then(function (response) {
-            console.log(response.data.user);
             self.setState({
               activation_user: response.data.user
             })
-            console.log(self.state.activation_user);
         }).catch(function (error) {
                 console.log(error);
         });
-        console.log(this.props.data);
+        console.log(this.props);
+
+
+        var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
+        axios.post(session_url, {
+
+          // PROVIDE CREDENTIALS TO BRING BACK NON-ENCRYPTED PASSWORD FOR CURRENT USER
+            'username': 'jamesbond007',
+            'password': 'p'
+          }).then(function(response) {
+            console.log(response);
+          console.log('Authenticated');
+          var token = response.data['access']
+          console.log(token);
+
+        var password_url = `http://localhost:8080/social_reach/users/${self.state.activation_user.id}`
+        axios.get(`${password_url}/?format=json`, { headers: { Authorization: `Bearer ${token}` } }).then(function (response) {
+             console.log(response)
+             self.setState({
+               activation_user_password: response.data.user['password']
+             })
+             console.log(self.state.activation_user_password);
+         }).catch(function (error) {
+                 console.log(error);
+         });
+
   }
+)
+}
 
     render(){
       if (this.state.activation_user){
       return (
         <div className="register">
 
-        <h6 align="center" style={{fontWeight: 'bold'}}>{"Let's start making you a killer profile, "} {this.state.activation_user['username']}</h6>
+        <h6 align="center" style={{fontWeight: 'bold'}}>Welcome to &copy;Reach, {this.state.activation_user['username']}! {"Let's start by making your profile."}</h6>
 <p></p>
 
       {/* PROFILE INFO INPUT FORM START */}
@@ -111,10 +164,11 @@ class Register extends Component {
           <fieldset>
             <legend><span class="number"></span> Basic Info</legend>
             <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
+            <input onChange={this.handleChange} type="text" name="looking_for" placeholder="Seeking (Male / Female / Both)"></input>
             <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
             <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Your Date Of Birth *"></input>
-            <p> gender select </p>
-            <input type="range"  onChange={this.handleChange} max="100" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>
+            <p> {"What's your gender identity?"} </p>
+            Female  <input type="range"  onChange={this.handleChange} max="100" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male
             <textarea name="description" onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
 
       {/*  TODO: Replace this 'Interests drop-down (below) with a 'show emoji's to represent you' field?   */}
@@ -171,15 +225,11 @@ class Register extends Component {
 
       {/* PROFILE INFO INPUT FORM END */}
 
-
-
-
-
         </div>
       )
     }
 
-    else{
+    else {
       return <div><p></p></div>
     }
 

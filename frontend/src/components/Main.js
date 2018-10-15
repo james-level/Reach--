@@ -22,8 +22,12 @@ class Main extends Component {
       activation_token: '',
       activation_user: '',
       reset_token: '',
-      reset_uid: ''
+      reset_uid: '',
+
     };
+
+    this.signUpPassword = null
+
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
     this.handleForgottenPassword = this.handleForgottenPassword.bind(this)
@@ -37,6 +41,10 @@ get_uniqueID(uid){
   this.setState({
     reset_uid: uid
   })
+}
+
+set_signUpPassword(word){
+  this.signUpPassword = word
 }
 
 get_reset_token(token){
@@ -141,15 +149,15 @@ console.log("Error resetting password");
         email: signup_email
       }).then(()=>{
         self.setState({
-          signUpSubmit: true
+          signUpSubmit: true,
         })
+        self.set_signUpPassword(signup_password)
       }).catch(function(e){
         console.log(e);
       })
       console.log(evt.target[1].defaultValue);
       console.log(evt.target[2].defaultValue);
       console.log(evt.target[3].defaultValue);
-
   }
 
 
@@ -185,7 +193,7 @@ console.log("Error resetting password");
         <React.Fragment>
           <Navbar />
           <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword}/>}/>
-          <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} />}/>
+          <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} signUpPassword = {this.signUpPassword} />}/>
           <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token}/>}/>
           <Route path="/Profile" component={Profile} />
 

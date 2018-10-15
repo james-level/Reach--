@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import unicode_literals
+import requests
+
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import generics
 from activation_tokens import TokenGenerator
@@ -89,6 +90,13 @@ def user_confirm(request, uidb64, token):
         )
         msg.content_subtype = "html"
         msg.send()
+
+        data = {
+            'username': user_to_confirm.username,
+            'password': user_to_confirm.password
+                }
+
+        r = requests.post('http://localhost:8080/social_reach/api/auth/token/obtain/', data=data)
 
     return JsonResponse( {'user': model_to_dict(user_to_confirm), 'status': 200, 'text': "User account for " + user_to_confirm.username + " activated." }
 , status=201)
@@ -195,10 +203,19 @@ class UserList(generics.ListCreateAPIView):
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
+    queryset = User.objects.all()
 
-    def get_queryset(self):
-        # from IPython import embed; embed();
-        return User.objects.all()
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+    # make sure to catch 404's below
+        obj = queryset.get(id=self.kwargs['pk'])
+
+        return obj
+
+def get_user_password(request, pk):
+    user = User.objects.get(id=pk)
+    return JsonResponse( {'user': model_to_dict(user), 'status': 200 }
+    , status=201)
 
 class CurrentUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
