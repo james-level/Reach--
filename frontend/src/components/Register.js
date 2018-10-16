@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
+import { Redirect } from 'react-router-dom'
 
 
 
@@ -160,6 +161,11 @@ class Register extends Component {
 
 
     render(){
+      console.log(this.props);
+
+       if (this.props.info.user){
+        return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+      }
 
       if (this.state.activation_user){
       return (
