@@ -190,11 +190,11 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
+        'USER': 'reach22',
+        'PASSWORD': 'influencers',
         'NAME': 'reach',
         'HOST': 'localhost',
-        'PORT': '8080',
+        'PORT': '',
     }
 }
 
