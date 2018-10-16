@@ -108,7 +108,7 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'reach22',
-        'PASSWORD': 'influencers',
+        'PASSWORD': 'insert-password-here',
         'NAME': 'reach',
         'HOST': 'localhost',
         'PORT': '',
@@ -121,9 +121,10 @@ createdb reach
 
 psql -d reach
 
-CREATE USER reach22 WITH PASSWORD 'influencers';
+CREATE USER reach22 WITH PASSWORD 'INSERT PASSWORD HERE';
 
-And don't forget makemigrations and migrate!
+python manage.py makemigrations
+python manage.py migrate
 
 manage.py dbshell
 
