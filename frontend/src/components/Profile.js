@@ -1,25 +1,21 @@
 import React, { Component } from "react";
 
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       password: '',
-      login: false,
+      login: this.props.login,
       data: {}
     };
-
   }
-
-
 
   render(){
     console.log(this.props);
 //ternary to either display profile or log in message
-  const post = this.props.data ? (
+  const post = this.props.loggedInAs  ? (
 
                     <div className="profile">
 
@@ -40,9 +36,8 @@ class Profile extends Component {
     {post}
     </div>
 
-
-  )
-}
+    )
+  }
 }
 
 export default Profile;

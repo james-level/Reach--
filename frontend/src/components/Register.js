@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
+import { Redirect } from 'react-router-dom'
 
 
 
@@ -43,6 +44,7 @@ class Register extends Component {
 
         }
         this.handleChange = this.handleChange.bind(this);
+        this.fileChangedHandler = this.fileChangedHandler.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -51,10 +53,11 @@ class Register extends Component {
 
 
     handleSubmit(evt){
+      console.log(this.state);
       var self = this;
       evt.preventDefault();
-      console.log(this.state.activation_user_password);
-      console.log(self.state.activation_user['username']);
+      console.log("pw", this.state.activation_user_password);
+      console.log("username",self.state.activation_user['username']);
       var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
       console.log(self.state.password);
 // poST request currently meaningless as no JWT is needed to make profile currently
@@ -67,8 +70,11 @@ class Register extends Component {
         var token = response.data['access']
         console.log(token);
 
+
+
       var user = self.state.activation_user['id']
       var name = self.state.name
+      var bio = self.state.description
       var looking_for = self.state.looking_for
       console.log(looking_for);
       var location = self.state.location
@@ -77,12 +83,16 @@ class Register extends Component {
       var twitter_handle = self.state.twitter_handle
       var instagram_handle = self.state.instagram_handle
       var youtube_handle = self.state.youtube_handle
+      var picture_one = self.state.photo1
+      console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
       axios.post(create_profile_url, {
         'user': user,
         'name': name,
+        'bio': bio,
         'looking_for': looking_for,
         'location': location,
+        // 'picture': picture_one,
         'date_of_birth': date_of_birth,
         'gender_identity': gender,
         'twitter_handle': twitter_handle,
@@ -90,6 +100,7 @@ class Register extends Component {
         'youtube_handle': youtube_handle
       }).then(()=>{
         console.log("Done");
+        self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
         })
       }).catch(function(e){
         console.log(e);
@@ -106,21 +117,29 @@ class Register extends Component {
 
     }
 
+    fileChangedHandler(event){
+  this.setState({photo1: event.target.files[0]})
+
+}
+
 
 
     componentDidMount(){
+          console.log(this.props.data.history);
 
       // needs updated to include the correct activation components
       var self = this;
       var uid = this.props.data.match.params.id
       console.log(uid);
       var token = this.props.data.match.params.token
+
       console.log(token);
       var activation_url = `http://localhost:8080/social_reach/auth/users/confirmation/${uid}/${token}`
        axios.get(`${activation_url}/?format=json`).then(function (response) {
             self.setState({
               activation_user: response.data.user
             })
+
         }).catch(function (error) {
                 console.log(error);
         });
@@ -152,6 +171,11 @@ class Register extends Component {
 
 
     render(){
+      console.log(this.props);
+
+       if (this.props.info.user){
+        return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+      }
 
       if (this.state.activation_user){
       return (
@@ -220,12 +244,12 @@ class Register extends Component {
       {/* PHOTO UPLOAD SECTION */}
         <fieldset>
           <legend><span class="number"></span>Photos</legend>
-          <input type="file" onChange={this.handleChange} name="photo1" class="foto-upload"></input>
+          <input type="file" onChange={this.fileChangedHandler} name="photo1" class="foto-upload"></input>
         </fieldset>
 
       {/*  SAVE BUTTON */}
         <br></br>
-          <input type="submit" name="field12" class="Save"></input>
+          <input type="submit"  name="field12" class="Save"></input>
 
         </form>
       </div>
@@ -238,7 +262,7 @@ class Register extends Component {
     }
 
     else {
-      return <div><p></p></div>
+      return <div><p>LOADING LOADING LOADING</p></div>
     }
 
 

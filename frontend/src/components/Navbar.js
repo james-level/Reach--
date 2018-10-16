@@ -9,6 +9,12 @@ const Navbar = () => (
     <li>
       <Link to="/profile">Profile</Link>
     </li>
+    <li>
+      <Link to="/">Sign Out</Link>
+    </li>
+    {/* <li>
+      <Link to="/publicprofile">Public Profile</Link>
+    </li> */}
   </ul>
 );
 

@@ -101,6 +101,32 @@ def user_confirm(request, uidb64, token):
     return JsonResponse( {'user': model_to_dict(user_to_confirm), 'status': 200, 'text': "User account for " + user_to_confirm.username + " activated." }
 , status=201)
 
+def user_reset(request, uidb64, token):
+    queryset = User.objects.all()
+
+
+    uid = force_text(urlsafe_base64_decode(uidb64))
+    user_reset = User.objects.get(pk=uid)
+    print("USER TO CONFIRM TOKEN VALID", TokenGenerator().check_token(user_reset, token))
+
+
+    if user_reset and TokenGenerator().check_token(user_reset, token):
+
+    # make sure to catch 404's below
+
+        context = {'user': user_reset}
+
+        data = {
+            'username': user_reset.username,
+            'password': user_reset.password
+                }
+
+        r = requests.post('http://localhost:8080/social_reach/api/auth/token/obtain/', data=data)
+
+    return JsonResponse( {'user': model_to_dict(user_reset), 'status': 200, 'text': "Returned response." }
+, status=201)
+
+
 class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()

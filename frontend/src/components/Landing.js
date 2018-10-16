@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Redirect } from 'react-router-dom'
+
 import axios from 'axios';
 
 
@@ -61,9 +63,17 @@ handleResetPasswordUsernameChange(evt){
 
 
 
+
 render(){
+   //  console.log(this.props.reroute);
+    if (this.props.reroute === true){
+     return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+   }
+
+
 
   return(
+
 
   <div className="landing">
 
@@ -186,7 +196,7 @@ render(){
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button  type='submit'  class="btn btn-default">Reset password</button>
+                    <button  type='submit'  class="btn btn-default">Send reset email</button>
                 </div>
                 </form>
 
@@ -205,7 +215,7 @@ render(){
 
 {/* LOG IN & REGISTER NEW USER BUTTONS START */}
   <div class="text-center">
-      <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalPasswordReset">Forgotten password?</a>
+      <a href="" class="" data-toggle="modal" data-target="#modalPasswordReset">Forgotten password?</a>
   </div>
 
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import { Link } from 'react-router-dom'
 import PasswordMask from 'react-password-mask';
+import axios from 'axios';
 
 
 
@@ -13,7 +14,8 @@ class PasswordReset extends Component {
       password_one: '',
       password_two: '',
       email: '',
-      reset: false
+      reset: false,
+      reset_user: null
     };
 
 
@@ -47,6 +49,7 @@ class PasswordReset extends Component {
   handleSubmit(evt){
     this.props.handlePasswordResetSubmit(evt)
     this.setState({ reset: true})
+    console.log(this.state.reset_user.email);
   }
 
   componentDidMount(){
@@ -54,9 +57,28 @@ class PasswordReset extends Component {
     this.props.get_reset_token(this.token)
     this.props.get_uniqueID(this.uid)
 
+    var self = this;
+    var uid = this.uid
+    console.log(uid);
+    var token = this.token
+    console.log(token);
+    var url = `http://localhost:8080/social_reach/auth/users/getreset/${uid}/${token}`
+     axios.get(`${url}/?format=json`).then(function (response) {
+          self.setState({
+            reset_user: response.data.user
+          })
+      }).catch(function (error) {
+              console.log(error);
+      });
+
+
   }
 
   render() {
+
+    if (this.state.reset_user == null) {
+      return <div><p>Loading...</p></div>
+    }
 
     if ((this.state.password_one.length > 0
     || this.state.password_two.length > 0)
@@ -67,7 +89,7 @@ class PasswordReset extends Component {
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                      <h4 class="modal-title w-100 font-weight-bold">Reset your password!</h4>
+                      <h4 class="modal-title w-100 font-weight-bold">Reset Reach your password, {this.state.reset_user.username}!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -76,7 +98,7 @@ class PasswordReset extends Component {
 
                       <div class="md-form mb-5">
                           <i class="fa fa-envelope prefix grey-text"></i>
-                          <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
+                          <input type="hidden" name="username" value={this.state.reset_user.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
                           <label name="signup_username" data-error="wrong" data-success="right" for="defaultForm-signup_username"  ></label>
                       </div>
 
@@ -95,7 +117,7 @@ class PasswordReset extends Component {
                       </div>
                       <div class="md-form mb-3">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
+                          <input type="hidden" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <h5 align="center" style={{fontWeight: "bold", color: "#8B0000"}}>The two passwords have to match</h5>
@@ -126,7 +148,7 @@ class PasswordReset extends Component {
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                      <h4 class="modal-title w-100 font-weight-bold">Reset your password!</h4>
+                  <h4 class="modal-title w-100 font-weight-bold">Reset your Reach password, {this.state.reset_user.username}!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -135,7 +157,7 @@ class PasswordReset extends Component {
 
                       <div class="md-form mb-5">
                           <i class="fa fa-envelope prefix grey-text"></i>
-                          <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
+                          <input type="hidden" name="username" value={this.state.reset_user.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
                           <label name="signup_username" data-error="wrong" data-success="right" for="defaultForm-signup_username"  ></label>
                       </div>
 
@@ -151,7 +173,7 @@ class PasswordReset extends Component {
                       </div>
                       <div class="md-form mb-3">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
+                          <input type="hidden" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
 
