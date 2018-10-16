@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -11,10 +10,7 @@ class Profile extends Component {
       login: false,
       data: {}
     };
-
   }
-
-
 
   render(){
     console.log(this.props);
@@ -40,9 +36,8 @@ class Profile extends Component {
     {post}
     </div>
 
-
-  )
-}
+    )
+  }
 }
 
 export default Profile;

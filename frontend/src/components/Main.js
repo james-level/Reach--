@@ -170,8 +170,9 @@ console.log("Error resetting password");
   render() {
     if (this.state.login === true){
       return (
+          
+              <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />
 
-            <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />
 
 
       )
