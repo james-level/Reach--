@@ -53,8 +53,8 @@ class Register extends Component {
     handleSubmit(evt){
       var self = this;
       evt.preventDefault();
-      console.log(this.state.activation_user_password);
-      console.log(self.state.activation_user['username']);
+      console.log("pw", this.state.activation_user_password);
+      console.log("username",self.state.activation_user['username']);
       var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
       console.log(self.state.password);
 // poST request currently meaningless as no JWT is needed to make profile currently
@@ -94,12 +94,7 @@ class Register extends Component {
         'youtube_handle': youtube_handle
       }).then(()=>{
         console.log("Done");
-
-          self.props.data.history.push({
-  pathname: '/profile',
-
-  state: { password: self.state.password }
-})
+        self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
         })
       }).catch(function(e){
         console.log(e);
@@ -238,7 +233,7 @@ class Register extends Component {
 
       {/*  SAVE BUTTON */}
         <br></br>
-          <input type="submit" name="field12" class="Save"></input>
+          <input type="submit"  name="field12" class="Save"></input>
 
         </form>
       </div>

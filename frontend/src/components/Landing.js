@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Redirect } from 'react-router-dom'
+
 import axios from 'axios';
 
 
@@ -61,9 +63,17 @@ handleResetPasswordUsernameChange(evt){
 
 
 
+
 render(){
+   //  console.log(this.props.reroute);
+    if (this.props.reroute === true){
+     return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+   }
+
+
 
   return(
+
 
   <div className="landing">
 
