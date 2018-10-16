@@ -7,7 +7,7 @@ class Profile extends Component {
     this.state = {
       username: '',
       password: '',
-      login: false,
+      login: this.props.login,
       data: {}
     };
   }
@@ -15,7 +15,7 @@ class Profile extends Component {
   render(){
     console.log(this.props);
 //ternary to either display profile or log in message
-  const post = this.props.data ? (
+  const post = this.props.loggedInAs  ? (
 
                     <div className="profile">
 
