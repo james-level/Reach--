@@ -22,12 +22,12 @@ class PublicProfile extends Component {
 
                       {/* Photo Carousel */}
                       <div class="gallery" data-flickity='{ "cellAlign": "left", "contain": true }'>
-                        <img class="gallery-cell" src="../images/app_images/girlonphone.jpeg"></img>
-                        <img class="gallery-cell" src="../images/app_images/girlonphone.jpeg"></img>
-                        <img class="gallery-cell" src="../images/app_images/girlonphone.jpeg"></img>
-                        <img class="gallery-cell" src="../images/app_images/girlonphone.jpeg"></img>
-                        <img class="gallery-cell" src="../images/app_images/girlonphone.jpeg"></img>
-                        <img class="gallery-cell" src="../images/app_images/girlonphone.jpeg"></img>
+                        <img class="gallery-cell" src="../images/app_images/user1.jpeg"></img>
+                        <img class="gallery-cell" src="../images/app_images/user2.jpeg"></img>
+                        <img class="gallery-cell" src="../images/app_images/user3.jpeg"></img>
+                        <img class="gallery-cell" src="../images/app_images/user 4.jpeg"></img>
+                        <img class="gallery-cell" src="../images/app_images/user 5.jpeg"></img>
+                        <img class="gallery-cell" src="../images/app_images/user6.jpeg"></img>
                       </div>
 
 

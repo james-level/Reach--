@@ -284,16 +284,14 @@ html {
   box-sizing: border-box;
 }
 
-/* body { font-family: 'Raleway', sans-serif;} */
-
 .gallery {
   background: white;
 }
 
 .gallery-cell {
   width: 100%;
-  height: 200px;
-  margin: 2px;
+  height: 500px;
+  margin: 5px;
   background: #2cbbad;
   counter-increment: gallery-cell;
 }
@@ -303,9 +301,6 @@ html {
   display: block;
   text-align: center;
   content: counter(gallery-cell);
-  line-height: 200px;
-  font-size: 80px;
-  color: white;
 }
 
 /* big buttons, no circle */
@@ -316,10 +311,10 @@ html {
 }
 /* arrow color */
 .flickity-prev-next-button .arrow {
-  fill: white;
+  fill: #2cbbad;
 }
 .flickity-prev-next-button.no-svg {
-  color: white;
+  color: #2cbbad;
 }
 .flickity-prev-next-button:hover {
   background: transparent;
@@ -339,7 +334,7 @@ html {
   height: 12px;
   opacity: 1;
   background: transparent;
-  border: 2px solid white;
+  border: 2px solid #2cbbad;
 }
 /* fill-in selected dot */
 .flickity-page-dots .dot.is-selected {
