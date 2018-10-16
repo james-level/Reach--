@@ -89,7 +89,7 @@ class Register extends Component {
         'bio': bio,
         'looking_for': looking_for,
         'location': location,
-        'picture': picture_one,
+        // 'picture': picture_one,
         'date_of_birth': date_of_birth,
         'gender_identity': gender,
         'twitter_handle': twitter_handle,
