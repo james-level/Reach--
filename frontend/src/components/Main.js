@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Landing from "./Landing";
 import Register from "./Register";
 import Profile from "./Profile";
+import PublicProfile from "./PublicProfile";
 import PasswordReset from "./PasswordReset";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
@@ -201,6 +202,7 @@ console.log("Error resetting password");
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginSubmit= {this.handleLoginSubmit} signUpPassword = {this.signUpPassword} />}/>
           <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
           <Route path="/Profile" component={Profile} />
+          <Route path="/PublicProfile" component={PublicProfile} />
 
         </React.Fragment>
       </Router>
