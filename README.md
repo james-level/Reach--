@@ -96,6 +96,10 @@ python manage.py runserver 8080
 
  pip install django-access-tokens
 
+CONVERT SQLITE TO PSQL:
+
+pip install django psycopg2 (among others)
+
  FRONTEND (REACT):
 
  npm install flickity
