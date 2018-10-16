@@ -98,7 +98,6 @@ INSTALLED_APPS = [
     'rest_auth',
     'allauth',
     'django.contrib.sites',
-    'allauth.account',
     'rest_framework.authtoken',
     'djoser',
     'access_tokens',
@@ -188,8 +187,14 @@ AUTHENTICATION_BACKENDS = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'myprojectuser',
+        'PASSWORD': 'password',
+        'NAME': 'reach',
+        'HOST': 'localhost',
+        'PORT': '8080',
     }
 }
 
