@@ -44,6 +44,7 @@ class Register extends Component {
 
         }
         this.handleChange = this.handleChange.bind(this);
+        this.fileChangedHandler = this.fileChangedHandler.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -52,6 +53,7 @@ class Register extends Component {
 
 
     handleSubmit(evt){
+      console.log(this.state);
       var self = this;
       evt.preventDefault();
       console.log("pw", this.state.activation_user_password);
@@ -81,6 +83,8 @@ class Register extends Component {
       var twitter_handle = self.state.twitter_handle
       var instagram_handle = self.state.instagram_handle
       var youtube_handle = self.state.youtube_handle
+      var picture_one = self.state.photo1
+      console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
       axios.post(create_profile_url, {
         'user': user,
@@ -88,6 +92,7 @@ class Register extends Component {
         'bio': bio,
         'looking_for': looking_for,
         'location': location,
+        // 'picture': picture_one,
         'date_of_birth': date_of_birth,
         'gender_identity': gender,
         'twitter_handle': twitter_handle,
@@ -111,6 +116,11 @@ class Register extends Component {
        })
 
     }
+
+    fileChangedHandler(event){
+  this.setState({photo1: event.target.files[0]})
+
+}
 
 
 
@@ -234,7 +244,7 @@ class Register extends Component {
       {/* PHOTO UPLOAD SECTION */}
         <fieldset>
           <legend><span class="number"></span>Photos</legend>
-          <input type="file" onChange={this.handleChange} name="photo1" class="foto-upload"></input>
+          <input type="file" onChange={this.fileChangedHandler} name="photo1" class="foto-upload"></input>
         </fieldset>
 
       {/*  SAVE BUTTON */}
@@ -252,7 +262,7 @@ class Register extends Component {
     }
 
     else {
-      return <div><p></p></div>
+      return <div><p>LOADING LOADING LOADING</p></div>
     }
 
 
