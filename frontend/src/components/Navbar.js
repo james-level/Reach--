@@ -9,6 +9,9 @@ const Navbar = () => (
     <li>
       <Link to="/profile">Profile</Link>
     </li>
+    <li>
+      <Link to="/">Sign Out</Link>
+    </li>
   </ul>
 );
 
