@@ -67,6 +67,8 @@ class Register extends Component {
         var token = response.data['access']
         console.log(token);
 
+
+
       var user = self.state.activation_user['id']
       var name = self.state.name
       var bio = self.state.description
@@ -92,6 +94,12 @@ class Register extends Component {
         'youtube_handle': youtube_handle
       }).then(()=>{
         console.log("Done");
+
+          self.props.data.history.push({
+  pathname: '/profile',
+
+  state: { password: self.state.password }
+})
         })
       }).catch(function(e){
         console.log(e);
@@ -111,6 +119,7 @@ class Register extends Component {
 
 
     componentDidMount(){
+          console.log(this.props.data.history);
 
       // needs updated to include the correct activation components
       var self = this;
@@ -124,6 +133,7 @@ class Register extends Component {
             self.setState({
               activation_user: response.data.user
             })
+
         }).catch(function (error) {
                 console.log(error);
         });
