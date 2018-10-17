@@ -24,7 +24,6 @@ class PublicProfile extends Component {
                         <legend><span class="number"></span> {this.props.loggedInAs} </legend>
                         <label type="date">Born: {this.props.data.date_of_birth}</label>
                         <label type="text">Gender: {this.props.data.gender_identity}</label>
-                        <label type="text">Bio: {this.props.data.bio}</label>
                       </fieldset>
 
                       <fieldset>
