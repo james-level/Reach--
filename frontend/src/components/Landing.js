@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Redirect } from 'react-router-dom'
+import PasswordMask from 'react-password-mask';
 
 import axios from 'axios';
 
@@ -58,7 +59,6 @@ handleSignUpEmailChange(evt){
 handleResetPasswordUsernameChange(evt){
   this.setState({ usernameForReset: evt.target.value })
 }
-
 
 
 
@@ -123,7 +123,9 @@ render(){
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="password" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
+                      <PasswordMask id="password" name="password" value={this.state.signup_password}
+           onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"/>
+                      {/* <input type="password" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input> */}
                       <label for="defaultForm-pass"></label>
                   </div>
                   <div class="md-form mb-3">
@@ -162,7 +164,9 @@ render(){
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"></input>
+                      <PasswordMask id="password" name="password" value={this.state.password}
+           onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"/>
+
                       <label  for="defaultForm-pass"></label>
                   </div>
 
