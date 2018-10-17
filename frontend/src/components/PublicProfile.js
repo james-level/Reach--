@@ -17,9 +17,15 @@ class PublicProfile extends Component {
     console.log(this.props);
       const post = this.props.loggedInAs  ? (
 
-                    <div className="public-profile">
+                    <div class="public-profile">
 
-                      <p> Yo bitch </p>
+                      {/* Profile Info */}
+                      <fieldset>
+                        <legend><span class="number"></span> {this.props.loggedInAs} </legend>
+                        <label type="date">Born: {this.props.data.date_of_birth}</label>
+                        <label type="text">Gender: {this.props.data.gender_identity}</label>
+                        <label type="text">Bio: {this.props.data.bio}</label>
+                      </fieldset>
 
                       {/* Photo Carousel */}
                       <div class="gallery" data-flickity='{ "cellAlign": "left", "contain": true }'>
@@ -31,20 +37,10 @@ class PublicProfile extends Component {
                         <img class="gallery-cell" src="../images/app_images/user6.jpeg"></img>
                       </div>
 
-
-                      <h2>
-                        Name{this.props.loggedInAs},
-                        Age {this.props.data.date_of_birth},
-                        Gender: {this.props.data.gender_identity}
-                      </h2>
-
-                      <h4>
-                        {this.props.data.bio}
-                      </h4>
-
                     </div>
+
                   ) : (
-                    <div className="center">Oops! You need to log in.</div>
+                    <div className="center"> Oops! You need to log in :/ </div>
                   )
 
                   return(
