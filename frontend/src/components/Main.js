@@ -67,7 +67,7 @@ get_reset_token(token){
   }
 
   handleLogOut(){
-    
+
     this.setState({
       username: '',
       password: '',
@@ -215,7 +215,8 @@ console.log("Error resetting password");
       var self = this;
       var signup_username = evt.target[1].defaultValue
       var signup_password = evt.target[2].defaultValue
-      var signup_email = evt.target[3].defaultValue
+      var signup_email = evt.target[4].defaultValue
+      console.log(signup_email);
       var new_user_url = 'http://localhost:8080/social_reach/auth/users/create'
       axios.post(new_user_url, {
         username: signup_username,
@@ -229,9 +230,7 @@ console.log("Error resetting password");
       }).catch(function(e){
         console.log(e);
       })
-      console.log(evt.target[1].defaultValue);
-      console.log(evt.target[2].defaultValue);
-      console.log(evt.target[3].defaultValue);
+
   }
 
 
