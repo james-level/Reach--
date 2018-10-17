@@ -219,10 +219,7 @@ console.log("Error resetting password");
   handleSignUpSubmit(evt){
       evt.preventDefault();
       var self = this;
-      self.setState({
-        signup_load: 'loader'
 
-      })
       var signup_username = evt.target[1].defaultValue
       var signup_password = evt.target[2].defaultValue
       var signup_email = evt.target[4].defaultValue
@@ -235,11 +232,13 @@ console.log("Error resetting password");
       }).then(()=>{
         self.setState({
           signUpSubmit: true,
+
         })
         self.set_signUpPassword(signup_password)
       }).catch(function(e){
         self.setState({
-          message: 'error: check that the password is eight characters or more in length \n the email format is valid \n the password is not too similair to the username or email \n and try again'
+
+          message: ' BAD! something is wrong with password or email address'
         })
 
         console.log(e);

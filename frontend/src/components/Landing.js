@@ -69,9 +69,12 @@ render(){
    //  console.log(this.props.reroute);
 
    const load = this.props.signup_load
+
     if (this.props.reroute === true){
      return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
    }
+
+
 
 
 
@@ -142,9 +145,10 @@ render(){
 
 
                   <button  type='submit'  class="btn btn-default">Continue</button>
-                  <p>  {this.props.message}</p>
-                
+
               </div>
+              <p align='center'>  {this.props.message}</p>
+
               </form>
 
           </div>
