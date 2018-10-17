@@ -13,14 +13,32 @@ class PublicProfile extends Component {
     };
   }
 
-
-
   render(){
     console.log(this.props);
-      return (
-                    <div className="public-profile">
+      const post = this.props.loggedInAs  ? (
+
+                    <div class="public-profile">
+
+                      {/* Profile Info */}
+                      <fieldset>
+                        <legend><span class="number"></span> {this.props.loggedInAs} </legend>
+                        <label type="date">Born: {this.props.data.date_of_birth}</label>
+                        <label type="text">Gender: {this.props.data.gender_identity}</label>
+                      </fieldset>
+
+                      <fieldset>
+                        <legend><span class="number"></span> About </legend>
+                        <label type="text">{this.props.data.bio}</label>
+                      </fieldset>
+
+                      <fieldset>
+                        <legend><span class="number"></span> Interests </legend>
+                        <label type="text"> ⚽️ 🐶 🥩 </label>
+                      </fieldset>
 
                       {/* Photo Carousel */}
+                      <fieldset>
+                        <legend><span class="number"></span> Selfie Centre </legend>
                       <div class="gallery" data-flickity='{ "cellAlign": "left", "contain": true }'>
                         <img class="gallery-cell" src="../images/app_images/user1.jpeg"></img>
                         <img class="gallery-cell" src="../images/app_images/user2.jpeg"></img>
@@ -29,22 +47,22 @@ class PublicProfile extends Component {
                         <img class="gallery-cell" src="../images/app_images/user 5.jpeg"></img>
                         <img class="gallery-cell" src="../images/app_images/user6.jpeg"></img>
                       </div>
-
-
-                      <h2>
-                        {/* Name{this.props.loggedInAs},
-                        Age {this.props.data.date_of_birth},
-                        Gender: {this.props.data.gender_identity} */}
-                      </h2>
-
-                      <h4>
-                        {/* {this.props.data.bio} */}
-                      </h4>
+                      </fieldset>
 
                     </div>
 
+                  ) : (
+                    <div className="center"> Oops! You need to log in :/ </div>
                   )
-  }
-}
+
+                  return(
+                    <div className="container">
+                    {post}
+                    </div>
+
+                    )
+                  }
+                  }
+
 
 export default PublicProfile;
