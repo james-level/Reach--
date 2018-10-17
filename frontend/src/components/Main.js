@@ -25,7 +25,9 @@ class Main extends Component {
       activation_user: '',
       reset_token: '',
       reset_uid: '',
-      reroute: false
+      reroute: false,
+      signup_load: '',
+      message: ''
 
     };
 
@@ -81,7 +83,8 @@ get_reset_token(token){
       activation_user: '',
       reset_token: '',
       reset_uid: '',
-      reroute: false
+      reroute: false,
+      signup_load: ''
     })
   }
 
@@ -131,6 +134,9 @@ console.log("Error resetting password");
   //authentication
   handleLoginSubmit(evt){
     evt.preventDefault();
+    this.setState({
+      signup_load: 'loader'
+    })
 
   var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
   var uname = evt.target[1].defaultValue;
@@ -213,6 +219,10 @@ console.log("Error resetting password");
   handleSignUpSubmit(evt){
       evt.preventDefault();
       var self = this;
+      self.setState({
+        signup_load: 'loader'
+
+      })
       var signup_username = evt.target[1].defaultValue
       var signup_password = evt.target[2].defaultValue
       var signup_email = evt.target[4].defaultValue
@@ -228,6 +238,10 @@ console.log("Error resetting password");
         })
         self.set_signUpPassword(signup_password)
       }).catch(function(e){
+        self.setState({
+          message: 'error: check that the password is eight characters or more in length \n the email format is valid \n the password is not too similair to the username or email \n and try again'
+        })
+
         console.log(e);
       })
 
@@ -243,7 +257,7 @@ console.log("Error resetting password");
             <Router>
               <React.Fragment>
                 <Navbar logout={this.handleLogOut}/>
-                <Route exact path="/" render={(props)=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute}/>}/>
+                <Route exact path="/" render={(props)=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute} signup_load={this.state.signup_load}/>}/>
                 <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
                 <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
                 <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
@@ -277,7 +291,7 @@ console.log("Error resetting password");
       <Router>
         <React.Fragment>
           <Navbar logout={this.handleLogOut}/>
-          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute}/>}/>
+          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute} signup_load={this.state.signup_load} message={this.state.message}/>}/>
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
           <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
           <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
