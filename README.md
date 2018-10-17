@@ -100,6 +100,49 @@ CONVERT SQLITE TO PSQL:
 
 pip install django psycopg2 (among others)
 
+in settings.py, change DATABASES = ... to the following:
+
+DATABASES = {
+    'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'reach22',
+        'PASSWORD': 'insert-password-here',
+        'NAME': 'reach',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+Then... 
+
+createdb reach
+
+psql -d reach
+
+CREATE USER reach22 WITH PASSWORD 'INSERT PASSWORD HERE';
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+IF THERE ARE SERVERS RUNNING: 
+
+{
+pg_ctl -D /usr/local/var/postgres stop -s -m fast
+
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+}
+
+python manage.py dbshell
+
+TRUNCATE django_content_type CASCADE;
+
+python manage.py loaddata dump.json
+
+Now the data is stored in a PSQL database.
+
  FRONTEND (REACT):
 
  npm install flickity
