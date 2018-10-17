@@ -14,19 +14,21 @@ class Profile extends Component {
     };
   }
 
-chart(instagram_reach){
+chart(instagram_reach, twitter_reach, youtube_reach){
+
+  console.log();
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 
   $(function(){
     $("#doughnutChart").drawDoughnutChart([
-      { title: "Instagram",         value : {instagram_reach},  color: "red" },
+      { title: "Instagram",         value : instagram_reach,  color: "blue" },
       { title: "Facebook", value:  80,   color: "orange" },
-      { title: "Twitter",      value:  70,   color: "yellow" },
-      { title: "Youtube",        value : 50,   color: "green" },
+      { title: "Twitter",      value:  twitter_reach,   color: "indigo" },
+      { title: "Youtube",        value : youtube_reach,   color: "red" },
       { title: "Snapchat",        value : 40,   color: "blue" },
-      { title: "Spotify",        value : 20,   color: "indigo" }
+      { title: "Spotify",        value : 20,   color: "yellow" }
     ]);
   });
   /*!
@@ -65,7 +67,7 @@ chart(instagram_reach){
           tipOffsetY: -45,
           tipClass: "doughnutTip",
           summaryClass: "doughnutSummary",
-          summaryTitle: "REACH",
+          summaryTitle: "YOUR REACH",
           summaryTitleClass: "doughnutSummaryTitle",
           summaryNumberClass: "doughnutSummaryNumber",
           beforeDraw: function() {  },
@@ -282,16 +284,13 @@ chart(instagram_reach){
   render(){
     console.log(this.props);
 
-      this.chart(this.props.data.instagram_followers)
+      this.chart(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)
 //ternary to either display profile or log in message
   const post = this.props.loggedInAs  ? (
 
 
 
                     <div className="profile">
-
-
-                    <img className="landing-image" src="/images/app_images/user-profile-icon.png" alt="user-profile-icon" ></img>
 
                     <h2> {this.props.loggedInAs}, born on {this.props.data.date_of_birth}, gender identity {this.props.data.gender_identity}</h2>
 
