@@ -123,20 +123,20 @@ render(){
 
                   <div class="md-form mb-5">
                       <i class="fa fa-envelope prefix grey-text"></i>
-                      <input type="text" name="username" value={this.state.signup_username} onChange={this.handleSignUpUsernameChange} id="defaultForm-signup_username" placeholder="desired username"></input>
+                      <input type="text" required name="username" value={this.state.signup_username} onChange={this.handleSignUpUsernameChange} id="defaultForm-signup_username" placeholder="desired username"></input>
                       <label name="signup_username" for="defaultForm-signup_username"  ></label>
                   </div>
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <PasswordMask id="password" name="password" value={this.state.signup_password}
-           onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"/>
+                      <PasswordMask id="password"  name="password" value={this.state.signup_password}
+           onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" required placeholder="password min length 8 characters"/>
                       {/* <input type="password" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input> */}
                       <label for="defaultForm-pass"></label>
                   </div>
                   <div class="md-form mb-3">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="text" name="email" value={this.state.signup_email} onChange={this.handleSignUpEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="email address"></input>
+                      <input type="text" name="email" required value={this.state.signup_email} onChange={this.handleSignUpEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="email address"></input>
                       <label for="defaultForm-pass"></label>
                   </div>
 

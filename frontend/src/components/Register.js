@@ -18,8 +18,7 @@ class Register extends Component {
         activation_token: '',
         activation_user: null,
         activation_user_password: '',
-
-          password: '',
+        password: '',
           name: 'test',
           looking_for: '',
           location: '',
@@ -262,20 +261,7 @@ class Register extends Component {
     }
 
     else {
-      return(
-
-
-<div class="loader">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-
-
-
-);
+      return <div><p>LOADING LOADING LOADING</p></div>
     }
 
 
