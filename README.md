@@ -126,6 +126,10 @@ CREATE USER reach22 WITH PASSWORD 'INSERT PASSWORD HERE';
 python manage.py makemigrations
 python manage.py migrate
 
+pg_ctl -D /usr/local/var/postgres stop -s -m fast
+
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
 manage.py dbshell
 
 TRUNCATE django_content_type CASCADE;
