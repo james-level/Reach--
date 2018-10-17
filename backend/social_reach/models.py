@@ -8,9 +8,9 @@ from django.contrib.auth.models import User
 GENDER_CHOICES = [(i, i) for i in range(-100,100)]
 
 LOOKING_FOR = {
-	('Male', 'Male'),
-	('Female', 'Female'),
-	('Both', 'Both')
+	('Guys', 'Guys'),
+	('Girls', 'Girls'),
+	('Any', 'Any')
 }
 
 
