@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Landing from "./Landing";
 import Register from "./Register";
 import Profile from "./Profile";
-// import PublicProfile from "./PublicProfile";
+import PublicProfile from "./PublicProfile";
 import PasswordReset from "./PasswordReset";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
@@ -25,7 +25,9 @@ class Main extends Component {
       activation_user: '',
       reset_token: '',
       reset_uid: '',
-      reroute: false
+      reroute: false,
+      signup_load: '',
+      message: ''
 
     };
 
@@ -38,6 +40,7 @@ class Main extends Component {
     this.get_uniqueID = this.get_uniqueID.bind(this)
     this.get_reset_token = this.get_reset_token.bind(this)
     this.handleLoginFromRegistrationSubmit = this.handleLoginFromRegistrationSubmit.bind(this)
+    this.handleLogOut = this.handleLogOut.bind(this)
     console.log(this.props);
   }
 
@@ -62,6 +65,26 @@ get_reset_token(token){
   login(){
     this.setState({
       login: true
+    })
+  }
+
+  handleLogOut(){
+
+    this.setState({
+      username: '',
+      password: '',
+      login: false,
+      signUpSubmit: false,
+      forgottenPassword: false,
+      resetPasswordSubmitted: false,
+      data: {},
+      loggedInAs: '',
+      activation_token: '',
+      activation_user: '',
+      reset_token: '',
+      reset_uid: '',
+      reroute: false,
+      signup_load: ''
     })
   }
 
@@ -111,6 +134,9 @@ console.log("Error resetting password");
   //authentication
   handleLoginSubmit(evt){
     evt.preventDefault();
+    this.setState({
+      signup_load: 'loader'
+    })
 
   var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
   var uname = evt.target[1].defaultValue;
@@ -125,7 +151,7 @@ console.log("Error resetting password");
       'username': uname,
       'password': pass
     }).then(function(response) {
-      console.log(response);
+      console.log('response:', response);
     console.log('Authenticated');
     var token = response.data['access']
        axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `Bearer ${token}` } })
@@ -148,7 +174,7 @@ console.log("Error resetting password");
   }
 
   handleLoginFromRegistrationSubmit(username, password){
-    console.log("Hello, handleLoginFromRegistrationSubmit here, I am running");
+
 
 
   var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
@@ -188,12 +214,16 @@ console.log("Error resetting password");
   }
 
 
+
+
   handleSignUpSubmit(evt){
       evt.preventDefault();
       var self = this;
+
       var signup_username = evt.target[1].defaultValue
       var signup_password = evt.target[2].defaultValue
-      var signup_email = evt.target[3].defaultValue
+      var signup_email = evt.target[4].defaultValue
+      console.log(signup_email);
       var new_user_url = 'http://localhost:8080/social_reach/auth/users/create'
       axios.post(new_user_url, {
         username: signup_username,
@@ -202,14 +232,18 @@ console.log("Error resetting password");
       }).then(()=>{
         self.setState({
           signUpSubmit: true,
+
         })
         self.set_signUpPassword(signup_password)
       }).catch(function(e){
+        self.setState({
+
+          message: ' BAD! something is wrong with password or email address'
+        })
+
         console.log(e);
       })
-      console.log(evt.target[1].defaultValue);
-      console.log(evt.target[2].defaultValue);
-      console.log(evt.target[3].defaultValue);
+
   }
 
 
@@ -221,11 +255,13 @@ console.log("Error resetting password");
 
             <Router>
               <React.Fragment>
-                <Navbar />
-                <Route exact path="/" render={(props)=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute}/>}/>
+                <Navbar logout={this.handleLogOut}/>
+                <Route exact path="/" render={(props)=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute} signup_load={this.state.signup_load}/>}/>
                 <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
                 <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
                 <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
+                <Route path="/publicProfile" render={(props) =>  <PublicProfile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
+
 
               </React.Fragment>
             </Router>
@@ -254,11 +290,12 @@ console.log("Error resetting password");
     return (
       <Router>
         <React.Fragment>
-          <Navbar />
-          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute}/>}/>
+          <Navbar logout={this.handleLogOut}/>
+          <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute} signup_load={this.state.signup_load} message={this.state.message}/>}/>
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
           <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
           <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/publicprofile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
         </React.Fragment>
       </Router>

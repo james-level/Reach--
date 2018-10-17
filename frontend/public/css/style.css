@@ -160,7 +160,7 @@ div.app-title{
 .user-input-form input[type="email"],
 .user-input-form input[type="number"],
 .fuser-input-form input[type="search"],
-.user-input-forminput[type="time"],
+.user-input-form input[type="time"],
 .user-input-form input[type="url"],
 .user-input-form textarea,
 .user-input-form select {
@@ -230,7 +230,7 @@ div.app-title{
     border-width: 1px 1px 3px;
     margin-bottom: 10px;
 }
-.user-input-forminput[type="submit"]:hover,
+.user-input-form input[type="submit"]:hover,
 .user-input-form input[type="button"]:hover
 {
     background: #109177;
@@ -343,3 +343,245 @@ html {
   background: white;
 }
 /* PUBLIC PROFILE (VIEW) PHOTO CAROUSEL END */
+
+/* PIE CHART REACH STYLE */
+
+@import url(//fonts.googleapis.com/css?family=Oswald:400);
+body {
+  background: #222428;
+  font-family: "Oswald", sans-serif;
+}
+.chart {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  top: 50%;
+  left: 50%;
+  margin: -225px 0 0 -225px;
+}
+.doughnutTip {
+  position: absolute;
+  min-width: 30px;
+  max-width: 300px;
+  padding: 5px 15px;
+  border-radius: 1px;
+  background: rgba(0,0,0,.8);
+  color: #ddd;
+  font-size: 17px;
+  text-shadow: 0 1px 0 #000;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: .06em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  pointer-events: none;
+  &::after {
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      content: "";
+      height: 0;
+      margin: 0 0 0 -6px;
+      border-right: 5px solid transparent;
+      border-left: 5px solid transparent;
+      border-top: 6px solid rgba(0,0,0,.7);
+      line-height: 0;
+  }
+}
+.doughnutSummary {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #d5d5d5;
+  text-align: center;
+  text-shadow: 0 -1px 0 #111;
+  cursor: default;
+}
+.doughnutSummaryTitle {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -27%;
+  font-size: 22px;
+  letter-spacing: .06em;
+}
+.doughnutSummaryNumber {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -15%;
+  font-size: 55px;
+}
+.chart path:hover { opacity: 0.65; }
+
+/*  PIE CHART ENDS */
+/*Loading indicator */
+@import "compass/css3";
+.loader {
+ width: 100px;
+ height: 20px;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+}
+.loader > div {
+ content: " ";
+ width: 20px;
+ height: 20px;
+ background: #2196f3;
+ border-radius: 100%;
+ position: absolute;
+ animation: shift 2s linear infinite;
+}
+.loader > div:nth-of-type(1) {
+ animation-delay: -0.4s;
+}
+.loader > div:nth-of-type(2) {
+ animation-delay: -0.8s;
+}
+.loader > div:nth-of-type(3) {
+ animation-delay: -1.2s;
+}
+.loader > div:nth-of-type(4) {
+ animation-delay: -1.6s;
+}
+@keyframes shift {
+ 0% {
+   left: -60px;
+   opacity: 0;
+   background-color: white;
+ }
+ 10% {
+   left: 0;
+   opacity: 1;
+ }
+ 90% {
+   left: 100px;
+   opacity: 1;
+ }
+ 100% {
+   left: 160px;
+   background-color: #2cbbad;
+   opacity: 0;
+ }
+}
+.info {
+ position: absolute;
+ bottom: 0;
+ color: crimson;
+}
+.info .info-text {
+ display: none;
+}
+.info input:checked + .info-text {
+ display: block;
+}
+
+
+
+/* PUBLIC PROFILE PAGE START */
+.public-profile {
+    max-width: 500px;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    margin: 10px auto;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    font-family: 'Raleway', sans-serif;
+}
+.public-profile fieldset{
+    border: none;
+}
+.public-profile legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+.public-profile label {
+    display: block;
+    margin-bottom: 8px;
+}
+.public-profile input[type="text"],
+.public-profile input[type="password"],
+.public-profile input[type="date"],
+.public-profile input[type="datetime"],
+.public-profile input[type="email"],
+.public-profile input[type="number"],
+.public-profile input[type="search"],
+.public-profile input[type="time"],
+.public-profile input[type="url"],
+.public-profile textarea,
+.public-profile select {
+    font-family: 'Raleway', sans-serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: 0;
+    outline: 0;
+    padding: 7px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color:#8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+
+}
+.public-profile input[type="text"]:focus,
+.public-profile input[type="date"]:focus,
+.public-profile input[type="datetime"]:focus,
+.public-profile input[type="email"]:focus,
+.public-profile input[type="number"]:focus,
+.public-profile input[type="search"]:focus,
+.public-profile input[type="time"]:focus,
+.upublic-profile input[type="url"]:focus,
+.public-profile textarea:focus,
+.public-profile select:focus{
+    background: #d2d9dd;
+}
+.public-profile select{
+    -webkit-appearance: menulist-button;
+    height:35px;
+}
+.public-profile .number {
+    background: #2cbbad;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 15px 15px 15px 0px;
+}
+
+.public-profile input[type="submit"],
+.public-profile input[type="button"]
+{
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: #2cbbad;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+}
+.public-profile input[type="submit"]:hover,
+.public-profile input[type="button"]:hover
+{
+    background: #109177;
+}
+/* PUBLIC PROFILE PAGE END */

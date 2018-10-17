@@ -8,9 +8,9 @@ from django.contrib.auth.models import User
 GENDER_CHOICES = [(i, i) for i in range(-100,100)]
 
 LOOKING_FOR = {
-	('Male', 'Male'),
-	('Female', 'Female'),
-	('Both', 'Both')
+	('Guys', 'Guys'),
+	('Girls', 'Girls'),
+	('Any', 'Any')
 }
 
 
@@ -47,7 +47,7 @@ class UserProfile(models.Model):
 	bio = models.CharField(max_length=500, default="No description yet... this user must be shy!")
 	looking_for = models.CharField(choices=LOOKING_FOR, max_length=6)
 	date_of_birth = models.DateField(default=datetime.now())
-	gender_identity = models.IntegerField(choices=GENDER_CHOICES, max_length=3, default=0)
+	gender_identity = models.IntegerField(choices=GENDER_CHOICES, default=0)
 	location = models.CharField(max_length=128, default="")
 	likes = models.IntegerField(default=0)
 	greetings = models.IntegerField(default=0)

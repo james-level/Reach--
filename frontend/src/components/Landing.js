@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Redirect } from 'react-router-dom'
+import PasswordMask from 'react-password-mask';
 
 import axios from 'axios';
 
@@ -18,7 +19,8 @@ class Landing extends React.Component{
     signup_username: '',
     signup_password: '',
     signup_email: '',
-    usernameForReset: ''
+    usernameForReset: '',
+    load: ''
   };
 
  // this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
@@ -63,12 +65,16 @@ handleResetPasswordUsernameChange(evt){
 
 
 
-
 render(){
    //  console.log(this.props.reroute);
+
+   const load = this.props.signup_load
+
     if (this.props.reroute === true){
      return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
    }
+
+
 
 
 
@@ -102,7 +108,7 @@ render(){
 
 
 
-{/* LOGIN MODAL START */}
+{/* SIGN UP MODAL START & REGISTER NEW USER BUTTONS START */}
 <div class="modal fade" data-backdrop="false" id="modalSignUpForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -117,31 +123,38 @@ render(){
 
                   <div class="md-form mb-5">
                       <i class="fa fa-envelope prefix grey-text"></i>
-                      <input type="text" name="username" value={this.state.signup_username} onChange={this.handleSignUpUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="desired username"></input>
-                      <label name="signup_username" data-error="wrong" data-success="right" for="defaultForm-signup_username"  ></label>
+                      <input type="text" name="username" value={this.state.signup_username} onChange={this.handleSignUpUsernameChange} id="defaultForm-signup_username" placeholder="desired username"></input>
+                      <label name="signup_username" for="defaultForm-signup_username"  ></label>
                   </div>
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="password" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                      <PasswordMask id="password" name="password" value={this.state.signup_password}
+           onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"/>
+                      {/* <input type="password" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input> */}
+                      <label for="defaultForm-pass"></label>
                   </div>
                   <div class="md-form mb-3">
                       <i class="fa fa-lock prefix grey-text"></i>
                       <input type="text" name="email" value={this.state.signup_email} onChange={this.handleSignUpEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="email address"></input>
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                      <label for="defaultForm-pass"></label>
                   </div>
 
               </div>
               <div class="modal-footer d-flex justify-content-center">
+
+
                   <button  type='submit'  class="btn btn-default">Continue</button>
+
               </div>
+              <p align='center'>  {this.props.message}</p>
+
               </form>
 
           </div>
       </div>
   </div>
-{/* SIGN UP MODAL START & REGISTER NEW USER BUTTONS START */}
+{/* LOGIN MODAL START  */}
 <div class="modal fade" data-backdrop="false" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -157,13 +170,15 @@ render(){
                   <div class="md-form mb-5">
                       <i class="fa fa-envelope prefix grey-text"></i>
                       <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange} id="defaultForm-username" class="form-control validate" placeholder="username"></input>
-                      <label name="username" data-error="wrong" data-success="right" for="defaultForm-username"  ></label>
+                      <label name="username"  for="defaultForm-username"  ></label>
                   </div>
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"></input>
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                      <PasswordMask id="password" name="password" value={this.state.password}
+           onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"/>
+
+                      <label  for="defaultForm-pass"></label>
                   </div>
 
 
@@ -192,7 +207,7 @@ render(){
                     <div class="md-form mb-5">
                         <i class="fa fa-envelope prefix grey-text"></i>
                         <input type="text" name="username" value={this.state.usernameForReset} onChange={this.handleResetPasswordUsernameChange} id="defaultForm-username" class="form-control validate" placeholder="Enter your username"></input>
-                        <label name="username" data-error="wrong" data-success="right" for="defaultForm-username"  ></label>
+                        <label name="username" for="defaultForm-username"  ></label>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
@@ -205,7 +220,7 @@ render(){
     </div>
 
 
-{/* LOG IN & REGISTER NEW USER BUTTONS START */}
+{/*  LOG IN & REGISTER NEW USER BUTTONS START */}
   <div class="text-center">
       <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Sign In</a>
       <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalSignUpForm">Sign Up!</a>
