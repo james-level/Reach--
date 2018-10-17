@@ -262,7 +262,20 @@ class Register extends Component {
     }
 
     else {
-      return <div><p>LOADING LOADING LOADING</p></div>
+      return(
+
+
+<div class="loader">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+
+
+);
     }
 
 
