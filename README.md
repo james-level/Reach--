@@ -130,7 +130,7 @@ pg_ctl -D /usr/local/var/postgres stop -s -m fast
 
 pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
-manage.py dbshell
+python manage.py dbshell
 
 TRUNCATE django_content_type CASCADE;
 
