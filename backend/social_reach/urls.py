@@ -44,6 +44,10 @@ urlpatterns = [
     url(r'^categories/$', ListCategoryView.as_view(), name="categories_all"),
     url(r'^profiles/$', ListProfileView.as_view(), name="profiles"),
     url(r'^profiles/(?P<pk>\d+)/$', ProfileDetail.as_view(), name='profile_detail'),
+
+    # Find profile within age limits
+    url(r'^profiles/minage=(?P<min_age>\d+)/maxage=(?P<max_age>\d+)/$', views.ProfilesWithinAgeRange.as_view(), name='profiles_in_age_range'),
+
     url(r'^profiles/(?P<username>[\w\-]+)/$', views.ProfileByUsername.as_view(), name='profile_username'),
     url(r'^users/$', UserList.as_view(), name='user-list'),
     url(r'^users/(?P<pk>\d+)/$', views.get_user_password, name='user_detail'),

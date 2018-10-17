@@ -5,6 +5,7 @@ import requests
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import generics
 from activation_tokens import TokenGenerator
+from datetime import datetime
 from .models import Category
 from .serializers import CategorySerializer, ProfileSerializer, UserSerializer, MatchSerializer, LikeSerializer
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -206,6 +207,22 @@ class ProfileByUsername(generics.RetrieveUpdateDestroyAPIView):
         user = User.objects.get(username=self.kwargs['username'])
         obj = queryset.get(user=user)
         return obj
+
+class ProfilesWithinAgeRange(generics.ListCreateAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+
+        today = datetime.today()
+
+
+        earliest_year = today.year - int(self.kwargs['max_age'])
+        latest_year = today.year - int(self.kwargs['min_age'])
+        earliest_permissible_dob= datetime(earliest_year, today.month, today.day)
+        latest_permissible_dob = datetime(latest_year, today.month, today.day)
+
+        queryset = UserProfile.objects.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob)
+        return queryset
 
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LikeSerializer
