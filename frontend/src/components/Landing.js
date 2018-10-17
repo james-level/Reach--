@@ -19,7 +19,8 @@ class Landing extends React.Component{
     signup_username: '',
     signup_password: '',
     signup_email: '',
-    usernameForReset: ''
+    usernameForReset: '',
+    load: ''
   };
 
  // this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
@@ -66,9 +67,14 @@ handleResetPasswordUsernameChange(evt){
 
 render(){
    //  console.log(this.props.reroute);
+
+   const load = this.props.signup_load
+
     if (this.props.reroute === true){
      return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
    }
+
+
 
 
 
@@ -102,7 +108,7 @@ render(){
 
 
 
-{/* LOGIN MODAL START */}
+{/* SIGN UP MODAL START & REGISTER NEW USER BUTTONS START */}
 <div class="modal fade" data-backdrop="false" id="modalSignUpForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -136,14 +142,19 @@ render(){
 
               </div>
               <div class="modal-footer d-flex justify-content-center">
+
+
                   <button  type='submit'  class="btn btn-default">Continue</button>
+
               </div>
+              <p align='center'>  {this.props.message}</p>
+
               </form>
 
           </div>
       </div>
   </div>
-{/* SIGN UP MODAL START & REGISTER NEW USER BUTTONS START */}
+{/* LOGIN MODAL START  */}
 <div class="modal fade" data-backdrop="false" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -209,7 +220,7 @@ render(){
     </div>
 
 
-{/* LOG IN & REGISTER NEW USER BUTTONS START */}
+{/*  LOG IN & REGISTER NEW USER BUTTONS START */}
   <div class="text-center">
       <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Sign In</a>
       <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalSignUpForm">Sign Up!</a>
