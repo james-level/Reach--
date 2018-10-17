@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Landing from "./Landing";
 import Register from "./Register";
 import Profile from "./Profile";
+// import PublicProfile from "./PublicProfile";
 import PasswordReset from "./PasswordReset";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
@@ -215,6 +216,8 @@ console.log("Error resetting password");
   render() {
     if (this.state.login === true){
       return (
+
+              // <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />
 
             <Router>
               <React.Fragment>

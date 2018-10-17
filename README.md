@@ -41,57 +41,61 @@ python manage.py runserver 8080
  INSTALLING BEAUTIFUL SOUP:
 
  pip install requests bs4
- 
+
  INSTALLING REST FRAMEWORK AND AUTHENTICATION:
- 
+
  pip install djangorestframework
- 
+
  pip install djangorestframework-simplejwt
- 
+
  INITIAL ENDPOINTS FOR OUR REST API (you need to be logged into Reach to view the response; change port number if need be):
- 
+
  Get all user profiles or create a profile: http://localhost:8080/social_reach/profiles/
- 
+
  View/update/delete specific user profile: http://localhost:8080/social_reach/profiles/{id}
- 
+
  Get all users or create a user: http://localhost:8080/social_reach/users/
- 
+
  View/update/delete specific user: http://localhost:8080/social_reach/users/{id}
- 
+
  Get all likes or create a like: http://localhost:8080/social_reach/likes/
- 
+
  View/update/delete specific like: http://localhost:8080/social_reach/likes/{id}
- 
+
  Get all matches or create a match: http://localhost:8080/social_reach/mutual_likes/
- 
+
  View/update/delete specific match: http://localhost:8080/social_reach/mutual_likes/{id}
- 
+
  Get all photo categories: http://localhost:8080/social_reach/categories/
- 
+
  FOR JSON RESPONSE (e.g. profiles): http://localhost:8080/social_reach/profiles/?format=json
 
  INSTALLING SOCIAL AUTHENTICATION:
- 
+
  pip install social-auth-app-django
- 
+
  CORS (Cross origin resource sharing):
- 
+
  pip install django-cors-headers
- 
+
  REST FRAMEWORK AUTHENTICATION VIEWS:
- 
+
  pip install coreapi
- 
+
  DJANGO REGISTRATION AUTHENTICATION:
- 
+
  pip install django-rest-auth
- 
+
  pip install django-allauth
- 
+
  FRONTEND (REACT):
- 
+
+ npm install flickity
+
  npm run build (possibly)
- 
+
  npm start
+
+
 
   <b>VERY IMPORTANT: If it says a .pyc file has been staged when doing a git commit, undo immediately and run python python-cache-flusher.py. DON'T PUSH!<b>
