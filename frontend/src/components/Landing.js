@@ -117,19 +117,19 @@ render(){
 
                   <div class="md-form mb-5">
                       <i class="fa fa-envelope prefix grey-text"></i>
-                      <input type="text" name="username" value={this.state.signup_username} onChange={this.handleSignUpUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="desired username"></input>
-                      <label name="signup_username" data-error="wrong" data-success="right" for="defaultForm-signup_username"  ></label>
+                      <input type="text" name="username" value={this.state.signup_username} onChange={this.handleSignUpUsernameChange} id="defaultForm-signup_username" placeholder="desired username"></input>
+                      <label name="signup_username" for="defaultForm-signup_username"  ></label>
                   </div>
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
                       <input type="password" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input>
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                      <label for="defaultForm-pass"></label>
                   </div>
                   <div class="md-form mb-3">
                       <i class="fa fa-lock prefix grey-text"></i>
                       <input type="text" name="email" value={this.state.signup_email} onChange={this.handleSignUpEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="email address"></input>
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                      <label for="defaultForm-pass"></label>
                   </div>
 
               </div>
@@ -157,13 +157,13 @@ render(){
                   <div class="md-form mb-5">
                       <i class="fa fa-envelope prefix grey-text"></i>
                       <input type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange} id="defaultForm-username" class="form-control validate" placeholder="username"></input>
-                      <label name="username" data-error="wrong" data-success="right" for="defaultForm-username"  ></label>
+                      <label name="username"  for="defaultForm-username"  ></label>
                   </div>
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
                       <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"></input>
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                      <label  for="defaultForm-pass"></label>
                   </div>
 
 
@@ -192,7 +192,7 @@ render(){
                     <div class="md-form mb-5">
                         <i class="fa fa-envelope prefix grey-text"></i>
                         <input type="text" name="username" value={this.state.usernameForReset} onChange={this.handleResetPasswordUsernameChange} id="defaultForm-username" class="form-control validate" placeholder="Enter your username"></input>
-                        <label name="username" data-error="wrong" data-success="right" for="defaultForm-username"  ></label>
+                        <label name="username" for="defaultForm-username"  ></label>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
