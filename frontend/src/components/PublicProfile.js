@@ -13,12 +13,13 @@ class PublicProfile extends Component {
     };
   }
 
-
-
   render(){
     console.log(this.props);
-      return (
+      const post = this.props.loggedInAs  ? (
+
                     <div className="public-profile">
+
+                      <p> Yo bitch </p>
 
                       {/* Photo Carousel */}
                       <div class="gallery" data-flickity='{ "cellAlign": "left", "contain": true }'>
@@ -32,19 +33,28 @@ class PublicProfile extends Component {
 
 
                       <h2>
-                        {/* Name{this.props.loggedInAs},
+                        Name{this.props.loggedInAs},
                         Age {this.props.data.date_of_birth},
-                        Gender: {this.props.data.gender_identity} */}
+                        Gender: {this.props.data.gender_identity}
                       </h2>
 
                       <h4>
-                        {/* {this.props.data.bio} */}
+                        {this.props.data.bio}
                       </h4>
 
                     </div>
-
+                  ) : (
+                    <div className="center">Oops! You need to log in.</div>
                   )
-  }
-}
+
+                  return(
+                    <div className="container">
+                    {post}
+                    </div>
+
+                    )
+                  }
+                  }
+
 
 export default PublicProfile;
