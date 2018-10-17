@@ -27,7 +27,19 @@ class PublicProfile extends Component {
                         <label type="text">Bio: {this.props.data.bio}</label>
                       </fieldset>
 
+                      <fieldset>
+                        <legend><span class="number"></span> About </legend>
+                        <label type="text">{this.props.data.bio}</label>
+                      </fieldset>
+
+                      <fieldset>
+                        <legend><span class="number"></span> Interests </legend>
+                        <label type="text"> ⚽️ 🐶 🥩 </label>
+                      </fieldset>
+
                       {/* Photo Carousel */}
+                      <fieldset>
+                        <legend><span class="number"></span> Selfie Centre </legend>
                       <div class="gallery" data-flickity='{ "cellAlign": "left", "contain": true }'>
                         <img class="gallery-cell" src="../images/app_images/user1.jpeg"></img>
                         <img class="gallery-cell" src="../images/app_images/user2.jpeg"></img>
@@ -36,6 +48,7 @@ class PublicProfile extends Component {
                         <img class="gallery-cell" src="../images/app_images/user 5.jpeg"></img>
                         <img class="gallery-cell" src="../images/app_images/user6.jpeg"></img>
                       </div>
+                      </fieldset>
 
                     </div>
 
