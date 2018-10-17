@@ -36,7 +36,13 @@ class Profile extends Component {
 
                     <h4> Total Reach: {this.total_reach()}</h4>
 
+                    <h4> Your Reach rank: Super Influencer</h4>
+
+                    <div>
+
                     <div id="doughnutChart" class="chart"></div>
+
+                    </div>
 
                     </div>
 
