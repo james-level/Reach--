@@ -10,11 +10,16 @@ class Profile extends Component {
       username: '',
       password: '',
       login: this.props.login,
-      data: {}
+      data: {},
+      chart: false
     };
   }
 
 chart(instagram_reach, twitter_reach, youtube_reach){
+
+  this.setState({
+    chart: true
+  })
 
   console.log();
 
@@ -283,8 +288,11 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
   render(){
     console.log(this.props);
-
+      if (this.state.chart == false){
       this.chart(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)
+    }
+
+
 //ternary to either display profile or log in message
   const post = this.props.loggedInAs  ? (
 
