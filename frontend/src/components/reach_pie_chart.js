@@ -2,11 +2,10 @@
 $(function(){
   $("#doughnutChart").drawDoughnutChart([
     { title: "Instagram",         value : 120,  color: "red" },
-    { title: "Facebook", value:  80,   color: "orange" },
+
     { title: "Twitter",      value:  70,   color: "yellow" },
-    { title: "Youtube",        value : 50,   color: "green" },
-    { title: "Snapchat",        value : 40,   color: "blue" },
-    { title: "Spotify",        value : 20,   color: "indigo" }
+    { title: "Youtube",        value : 50,   color: "green" }
+
   ]);
 });
 /*!

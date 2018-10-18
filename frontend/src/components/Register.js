@@ -218,12 +218,23 @@ class Register extends Component {
 />
 
             <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
-            <input onChange={this.handleChange} type="text" name="looking_for" placeholder="Seeking (Male / Female / Both)"></input>
+            <p>Looking for:</p>
+            <select onChange={this.handleChange} name="looking_for">
+              <option value="Girls">Girls</option>
+              <option value="Guys">Guys</option>
+              <option value="Any">Any</option>
+            </select>
+            <div class="emoji-toggle emoji-diet">
+              <input type="checkbox" id="toggle1" class="toggle"></input>
+                <div class="emoji"></div>
+                <label for="toggle1" class="well"></label>
+              </div>
+
             <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
             <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Your Date Of Birth *"></input>
             <p> {"What's your gender identity?"} </p>
             Female  <input type="range"  onChange={this.handleChange} max="100" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male
-            <textarea name="description" onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
+            <textarea name="description" required onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
 
       {/*  TODO: Replace this 'Interests drop-down (below) with a 'show emoji's to represent you' field?   */}
             <label for="job">Interests:</label>
