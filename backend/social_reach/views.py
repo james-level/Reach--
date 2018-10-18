@@ -222,8 +222,30 @@ class ProfilesWithinAgeRange(generics.ListCreateAPIView):
         earliest_permissible_dob = datetime(earliest_year, today.month, today.day)
         latest_permissible_dob = datetime(latest_year, today.month, today.day)
 
-        queryset = UserProfile.objects.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob).exclude(user__username=self.request.user)
-        return queryset
+        queryset = UserProfile.objects.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob)
+        return self.orientation_and_gender_filter(queryset)
+
+    def orientation_and_gender_filter(self, queryset):
+
+
+        current_user_profile = UserProfile.objects.get(user__username = "JarrodBennieJS")
+
+        current_user_gender_number = current_user_profile.gender_identity
+        print(current_user_gender_number)
+
+        gender_group_current_user_belongs_to = ""
+        gender_group_current_user_belongs_to = "Guys" if current_user_gender_number > -1 else "Girls"
+        max_gender_number = 99 if gender_group_current_user_belongs_to == "Guys" else -1
+
+        # Instantiating a conditional statement for heterosexuals and homosexuals
+        if current_user_profile.looking_for == "Guys" or "Girls":
+            # Nested conditional for homosexuals
+            if current_user_profile.looking_for == gender_group_current_user_belongs_to:
+                compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any"), gender_identity__lte=max_gender_number).exclude(user__username=current_user_profile.user)
+                # compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any"), gender_identity__lte = )
+            else:
+                compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any")).exclude(gender_identity__gte = max_gender_number ).exclude(user__username=current_user_profile.user)
+        return compatible_profiles
 
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LikeSerializer
