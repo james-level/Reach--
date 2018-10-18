@@ -170,6 +170,29 @@ class Register extends Component {
 
 
     render(){
+      var inputStyles = {
+
+        width: '100%',
+        marginBottom: 'none'
+        // fontSize: '0.8em'
+      };
+
+      var buttonStyles = {
+
+       top: '50%',
+       right: '0.1em',
+       marginTop: '-13px',
+       padding: '4px ',
+       background: 'rgb(43, 187, 173)',
+       borderRadius: '2px',
+       color: 'rgb(255, 255, 255)',
+       textAlign: 'center',
+       textDecoration: 'none',
+       textTransform: 'uppercase',
+       userSelect: 'none',
+       display: 'inline',
+       fontSize: '0.7em'
+      }
       console.log(this.props);
 
        if (this.props.info.user){
@@ -191,7 +214,7 @@ class Register extends Component {
           <fieldset>
             <legend><span class="number"></span> Basic Info</legend>
             <PasswordMask id="password" name="password" placeholder="Enter password" value={this.state.password}
- onChange={this.handleChange}
+ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} inputStyles={inputStyles}
 />
 
             <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
