@@ -30,7 +30,7 @@ class InstagramScraper:
                                                                                                  'https': self.proxy})
             response.raise_for_status()
         except requests.HTTPError:
-            raise requests.HTTPError('Received non 200 status code from Instagram')
+                return response.text
         except requests.RequestException:
             raise requests.RequestException
         else:
@@ -51,7 +51,8 @@ class InstagramScraper:
             json_data = self.extract_json_data(response)
             followers = json_data['entry_data']['ProfilePage'][0]['graphql']['user']['edge_followed_by']['count']
         except Exception as e:
-            raise e
+            followers = 0
+            return followers
         else:
             results = followers
             # for key, value in metrics.items():

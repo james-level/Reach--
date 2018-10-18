@@ -29,11 +29,10 @@ chart(instagram_reach, twitter_reach, youtube_reach){
   $(function(){
     $("#doughnutChart").drawDoughnutChart([
       { title: "Instagram",         value : instagram_reach,  color: "blue" },
-      { title: "Facebook", value:  80,   color: "orange" },
+
       { title: "Twitter",      value:  twitter_reach,   color: "indigo" },
-      { title: "Youtube",        value : youtube_reach,   color: "red" },
-      { title: "Snapchat",        value : 40,   color: "blue" },
-      { title: "Spotify",        value : 20,   color: "yellow" }
+      { title: "Youtube",        value : youtube_reach,   color: "red" }
+
     ]);
   });
   /*!

@@ -32,13 +32,15 @@ class ProfileSerializer(serializers.ModelSerializer):
             picture_four=validated_data.get('picture_four', None),
             picture_five=validated_data.get('picture_five', None),
             picture_six=validated_data.get('picture_six', None),
-            instagram_handle=validated_data.get('instagram_handle', None),
-            twitter_handle=validated_data.get('twitter_handle', None),
-            youtube_handle=validated_data.get('youtube_handle', None),
+            instagram_handle=validated_data.get('instagram_handle', ''),
+            twitter_handle=validated_data.get('twitter_handle', ''),
+            youtube_handle=validated_data.get('youtube_handle', ''),
             instagram_followers=validated_data.get('instagram_followers', 0),
             twitter_followers=validated_data.get('twitter_followers', 0),
             youtube_followers=validated_data.get('youtube_followers', 0),
         )
+        if profile.bio is None:
+            profile.bio = "No description yet... this user must be shy!"
         instagram_scraper =  InstagramScraper()
         insta_results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
         profile.instagram_followers=profile.instagram_followers + insta_results
@@ -56,20 +58,23 @@ class ProfileSerializer(serializers.ModelSerializer):
         return profile
 
     def update(self, instance, validated_data):
+
         for field in validated_data:
             if field == 'instagram_followers':
                 instagram_scraper =  InstagramScraper()
-                insta_results = instagram_scraper.scrape_instagram_followers(validated_data.get('instagram_handle'))
-                instance.__setattr__('instagram_followers',  insta_results )
+                if validated_data.get('instagram_handle') is not None:
+                    insta_results = instagram_scraper.scrape_instagram_followers(validated_data.get('instagram_handle'))
+                    instance.__setattr__('instagram_followers',  insta_results )
             elif field == 'twitter_followers':
                 twitter_scraper =  TwitterScraper()
-                twitter_results = twitter_scraper.scrape_twitter_followers(validated_data.get('twitter_handle'))
-                instance.__setattr__('twitter_followers',  twitter_results )
+                if validated_data.get('twitter_handle') is not None:
+                    twitter_results = twitter_scraper.scrape_twitter_followers(validated_data.get('twitter_handle'))
+                    instance.__setattr__('twitter_followers',  twitter_results )
             elif field == 'youtube_followers':
-                youtube_scraper =  YoutubeScraper()
-                youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
-                instance.__setattr__('youtube_followers',  youtube_results )
-                print("YOUTUBE", youtube_results)
+                if validated_data.get('youtube_handle') is not None:
+                    youtube_scraper =  YoutubeScraper()
+                    youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    instance.__setattr__('youtube_followers',  youtube_results )
             else:
                 instance.__setattr__(field, validated_data.get(field))
         instance.save()
