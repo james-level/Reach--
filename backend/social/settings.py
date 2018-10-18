@@ -101,6 +101,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'access_tokens',
+    'django.contrib.postgres',
+    'django_postgres_extensions'
 ]
 
 EMAIL_USE_TLS=True

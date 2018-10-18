@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from datetime import datetime
+from django_postgres_extensions.models.fields import ArrayField
 
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -64,6 +65,7 @@ class UserProfile(models.Model):
 	twitter_followers = models.IntegerField(default=0)
 	youtube_handle = models.CharField(max_length=128, default="")
 	youtube_followers = models.IntegerField(default=0)
+	liked_profiles = models.ManyToManyField(User, related_name='liked_user')
 
 	def __unicode__(self):
 		return self.user.username

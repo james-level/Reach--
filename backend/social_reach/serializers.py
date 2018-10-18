@@ -37,6 +37,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             instagram_followers=validated_data.get('instagram_followers', 0),
             twitter_followers=validated_data.get('twitter_followers', 0),
             youtube_followers=validated_data.get('youtube_followers', 0),
+            liked_profiles=validated_data.get('liked_profiles', None),
         )
         instagram_scraper =  InstagramScraper()
         insta_results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
@@ -70,7 +71,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
     class Meta:
         model = UserProfile
-        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers")
+        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles")
 
         extra_kwargs = {
             'url': {

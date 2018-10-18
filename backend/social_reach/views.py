@@ -221,7 +221,7 @@ class ProfilesWithinAgeRange(generics.ListCreateAPIView):
         earliest_permissible_dob = datetime(earliest_year, today.month, today.day)
         latest_permissible_dob = datetime(latest_year, today.month, today.day)
 
-        queryset = UserProfile.objects.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob)
+        queryset = UserProfile.objects.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob).exclude(user__username=self.request.user)
         return queryset
 
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
