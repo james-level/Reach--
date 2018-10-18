@@ -234,7 +234,6 @@ class ProfilesWithinAgeRange(generics.ListCreateAPIView):
 
         gender_group_current_user_belongs_to = ""
         gender_group_current_user_belongs_to = "Guys" if current_user_gender_number > -1 else "Girls"
-        print("GENDER", gender_group_current_user_belongs_to)
 
         max_gender_number = ""
         min_gender_number = ""
@@ -245,8 +244,6 @@ class ProfilesWithinAgeRange(generics.ListCreateAPIView):
         min_opposite_gender_number = ""
         max_opposite_gender_number = -1 if gender_group_current_user_belongs_to == "Guys" else 100
         min_opposite_gender_number = -100 if gender_group_current_user_belongs_to == "Guys" else 0
-        print("MAX OPPOSITE", max_opposite_gender_number)
-        print("Looking FOR", current_user_profile.looking_for)
 
         # Instantiating a conditional statement for heterosexuals and homosexuals
         if current_user_profile.looking_for != "Any":
