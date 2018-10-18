@@ -44,7 +44,7 @@ class Page(models.Model):
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	name = models.CharField(max_length=128, default="")
-	bio = models.CharField(max_length=500, default="No description yet... this user must be shy!")
+	bio = models.CharField(max_length=500, default="No description yet... this user must be shy!" )
 	looking_for = models.CharField(choices=LOOKING_FOR, max_length=6)
 	date_of_birth = models.DateField(default=datetime.now())
 	gender_identity = models.IntegerField(choices=GENDER_CHOICES, default=0)
