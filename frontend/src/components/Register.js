@@ -234,7 +234,7 @@ class Register extends Component {
             <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Your Date Of Birth *"></input>
             <p> {"What's your gender identity?"} </p>
             Female  <input type="range"  onChange={this.handleChange} max="100" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male
-            <textarea name="description" required onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
+            <textarea name="description" onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
 
       {/*  TODO: Replace this 'Interests drop-down (below) with a 'show emoji's to represent you' field?   */}
             <label for="job">Interests:</label>
