@@ -15,6 +15,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     picture = serializers.ImageField(max_length=None, use_url=False, required=False)
     # Following line converts user id to username
     def create(self, validated_data):
+
         profile = UserProfile(
             user=validated_data.get('user', None),
             name=validated_data.get('name', None),
@@ -37,7 +38,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             instagram_followers=validated_data.get('instagram_followers', 0),
             twitter_followers=validated_data.get('twitter_followers', 0),
             youtube_followers=validated_data.get('youtube_followers', 0),
-            liked_profiles=validated_data.get('liked_profiles', None),
         )
         instagram_scraper =  InstagramScraper()
         insta_results = instagram_scraper.scrape_instagram_followers(profile.instagram_handle)
@@ -48,6 +48,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         youtube_scraper =  YoutubeScraper()
         youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
         profile.youtube_followers=profile.youtube_followers + youtube_results
+        profile.save()
+        profile.liked_profiles=validated_data.get('liked_profiles', [])
         profile.save()
         return profile
     def update(self, instance, validated_data):
