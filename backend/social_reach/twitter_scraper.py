@@ -51,8 +51,12 @@ class TwitterScraper:
         r = requests.get(url)
         soup = BeautifulSoup(r.content)
         f = soup.find('li', class_="ProfileNav-item--followers")
-        title = f.find('a')['title']
-        print(title)
-        num_followers = int(title.split(' ')[0].replace(',', ''))
-        print(num_followers)
+        if f is not None:
+            title = f.find('a')['title']
+            print(title)
+            num_followers = int(title.split(' ')[0].replace(',', ''))
+            print(num_followers)
+        else:
+            num_followers = 0
+
         return num_followers
