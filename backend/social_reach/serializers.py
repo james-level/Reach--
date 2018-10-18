@@ -49,9 +49,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
         profile.youtube_followers=profile.youtube_followers + youtube_results
         profile.save()
+        # Adding liked profiles after saving the profile as the ManyToMany relationship requires the object to have an ID before being used
         profile.liked_profiles=validated_data.get('liked_profiles', [])
+        profile.ignored_profiles=validated_data.get('ignored_profiles', [])
         profile.save()
         return profile
+
     def update(self, instance, validated_data):
         for field in validated_data:
             if field == 'instagram_followers':
@@ -73,7 +76,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
     class Meta:
         model = UserProfile
-        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles")
+        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles", "ignored_profiles")
 
         extra_kwargs = {
             'url': {

@@ -86,10 +86,11 @@ def user_confirm(request, uidb64, token):
         message,
         ReachSettings.EMAIL_HOST_USER,
         [    ReachSettings.EMAIL_HOST_USER,
-    user_to_confirm.get_email_field_name()],
+    user_to_confirm.email],
         headers={}
         )
         msg.content_subtype = "html"
+        print("EMAIL", user_to_confirm.email)
         msg.send()
 
         data = {

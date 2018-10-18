@@ -65,6 +65,7 @@ class UserProfile(models.Model):
 	youtube_handle = models.CharField(max_length=128, default="")
 	youtube_followers = models.IntegerField(default=0)
 	liked_profiles = models.ManyToManyField(User, related_name='liked_user', default=[])
+	ignored_profiles = models.ManyToManyField(User, related_name='ignored_user', default=[])
 
 	def __unicode__(self):
 		return self.user.username
