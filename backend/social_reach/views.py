@@ -227,24 +227,38 @@ class ProfilesWithinAgeRange(generics.ListCreateAPIView):
 
     def orientation_and_gender_filter(self, queryset):
 
-
-        current_user_profile = UserProfile.objects.get(user__username = "JarrodBennieJS")
+        current_user_profile = UserProfile.objects.get(user__username = "JarrodBennieJS2")
 
         current_user_gender_number = current_user_profile.gender_identity
         print(current_user_gender_number)
 
         gender_group_current_user_belongs_to = ""
         gender_group_current_user_belongs_to = "Guys" if current_user_gender_number > -1 else "Girls"
+        print("GENDER", gender_group_current_user_belongs_to)
+
+        max_gender_number = ""
+        min_gender_number = ""
         max_gender_number = 99 if gender_group_current_user_belongs_to == "Guys" else -1
+        min_gender_number = 0 if gender_group_current_user_belongs_to == "Guys" else -100
+
+        max_opposite_gender_number = ""
+        min_opposite_gender_number = ""
+        max_opposite_gender_number = -1 if gender_group_current_user_belongs_to == "Guys" else 100
+        min_opposite_gender_number = -100 if gender_group_current_user_belongs_to == "Guys" else 0
+        print("MAX OPPOSITE", max_opposite_gender_number)
+        print("Looking FOR", current_user_profile.looking_for)
 
         # Instantiating a conditional statement for heterosexuals and homosexuals
-        if current_user_profile.looking_for == "Guys" or "Girls":
+        if current_user_profile.looking_for != "Any":
             # Nested conditional for homosexuals
             if current_user_profile.looking_for == gender_group_current_user_belongs_to:
-                compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any"), gender_identity__lte=max_gender_number).exclude(user__username=current_user_profile.user)
+                compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any"), gender_identity__range=[min_gender_number, max_gender_number]).exclude(user__username=current_user_profile.user)
                 # compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any"), gender_identity__lte = )
             else:
-                compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any")).exclude(gender_identity__gte = max_gender_number ).exclude(user__username=current_user_profile.user)
+                compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any")).exclude(gender_identity__range=[min_opposite_gender_number, max_opposite_gender_number]).exclude(user__username=current_user_profile.user)
+        else:
+            compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any")).exclude(user__username=current_user_profile.user)
+
         return compatible_profiles
 
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
