@@ -29,7 +29,7 @@ class YoutubeScraper:
                                                                                                  'https': self.proxy})
             response.raise_for_status()
         except requests.HTTPError:
-            raise requests.HTTPError('Received non 200 status code from Youtube')
+            return response.text
         except requests.RequestException:
             raise requests.RequestException
         else:
