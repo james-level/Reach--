@@ -68,6 +68,31 @@ handleResetPasswordUsernameChange(evt){
 render(){
    //  console.log(this.props.reroute);
 
+
+   var inputStyles = {
+     marginLeft: '2.5rem',
+     width: 'calc(100% - 2.5rem)',
+     // fontSize: '0.8em'
+   };
+
+   var buttonStyles = {
+     position: 'absolute',
+    top: '50%',
+    right: '0.1em',
+    marginTop: '-13px',
+    padding: '4px 10px',
+    background: 'rgb(43, 187, 173)',
+    borderRadius: '2px',
+    color: 'rgb(255, 255, 255)',
+    textAlign: 'center',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    userSelect: 'none',
+    display: 'inline',
+    fontSize: '0.7em'
+   }
+
+
    const load = this.props.signup_load
 
     if (this.props.reroute === true){
@@ -123,20 +148,19 @@ render(){
 
                   <div class="md-form mb-5">
                       <i class="fa fa-envelope prefix grey-text"></i>
-                      <input type="text" name="username" value={this.state.signup_username} onChange={this.handleSignUpUsernameChange} id="defaultForm-signup_username" placeholder="desired username"></input>
+                      <input type="text" required name="username" value={this.state.signup_username} onChange={this.handleSignUpUsernameChange} id="defaultForm-signup_username" placeholder="desired username"></input>
                       <label name="signup_username" for="defaultForm-signup_username"  ></label>
                   </div>
 
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <PasswordMask id="password" name="password" value={this.state.signup_password}
-           onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"/>
-                      {/* <input type="password" name="password" value={this.state.signup_password} onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"></input> */}
+                      <PasswordMask type="text" id="password"  name="password" value={this.state.signup_password}
+           onChange={this.handleSignUpPasswordChange} id="defaultForm-pass" class="form-control validate" required placeholder="password" useVendorStyles={false} buttonStyles={buttonStyles} inputStyles={inputStyles}/>
                       <label for="defaultForm-pass"></label>
                   </div>
                   <div class="md-form mb-3">
                       <i class="fa fa-lock prefix grey-text"></i>
-                      <input type="text" name="email" value={this.state.signup_email} onChange={this.handleSignUpEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="email address"></input>
+                      <input type="text" name="email" required value={this.state.signup_email} onChange={this.handleSignUpEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="email address"></input>
                       <label for="defaultForm-pass"></label>
                   </div>
 
@@ -176,7 +200,7 @@ render(){
                   <div class="md-form mb-4">
                       <i class="fa fa-lock prefix grey-text"></i>
                       <PasswordMask id="password" name="password" value={this.state.password}
-           onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password"/>
+           onChange={this.handlePasswordChange} id="password" class="form-control validate" placeholder="password" useVendorStyles={false} buttonStyles={buttonStyles} inputStyles={inputStyles}/>
 
                       <label  for="defaultForm-pass"></label>
                   </div>

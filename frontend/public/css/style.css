@@ -240,9 +240,10 @@ div.app-title{
 
 
 /* PHOTO UPLOADER BUTTON START (REGISTRATION PAGE)*/
-html {
+/*commented out below to make view on mobile not bad*/
+/* html {
   margin: 30px;
-}
+} */
 .foto-upload {
     display: block;
     font-family: 'Raleway', sans-serif;
