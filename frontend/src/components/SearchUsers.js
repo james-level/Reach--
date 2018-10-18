@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Flickity from 'flickity';
+import axios from 'axios';
 
 
 class SearchUsers extends Component {
@@ -10,9 +10,15 @@ class SearchUsers extends Component {
       password: '',
       login: false,
       data: {},
-      min_age: null,
-      max_age: null
+      min_age: 0,
+      max_age: 99,
+      entered_search_query: false,
+      query_results: null
     };
+
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleChange(evt){
@@ -22,13 +28,26 @@ class SearchUsers extends Component {
   }
 
   handleSubmit(evt){
-      min_age = this.state.min_age;
-      max_age = this.state.max_age;
-      var filtering_url = `http://localhost:8080/social_reach/profiles/minage=${min_age}/maxage=${max_age}/?format=json`;
+    evt.preventDefault();
+    console.log(this.state.min_age);
+    var min_age = this.state.min_age;
+      var max_age = this.state.max_age;
+      var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/?format=json`;
+
+      axios.get(filtering_url)
+      .then(res =>{
+        this.setState({
+          entered_search_query: true,
+          query_results: res.data,
+        })
+  }).catch(function(error){
+   console.log(error);
+   console.log("Error retrieving profiles.");
+  })
   }
 
   render(){
-    console.log(this.props);
+
       const post = this.props.loggedInAs  ? (
 
       <div>
@@ -36,7 +55,8 @@ class SearchUsers extends Component {
         <p>Search for our hottest users, {this.props.loggedInAs}! Remember, you can change your gender preferences on your profile page at any time!</p>
         <p></p>
         <p>Users aged between</p>
-      <select onChange={this.handleChange} name="min_age_range">
+      <select onChange={this.handleChange} name="min_age">
+      <option disabled hidden value=''></option>
         <option value="14">14</option>
         <option value="15">15</option>
         <option value="16">16</option>
@@ -77,7 +97,8 @@ class SearchUsers extends Component {
       </select>
       <p></p>
         <p>and</p>
-      <select onChange={this.handleChange} name="max_age_range">
+      <select onChange={this.handleChange} name="max_age">
+      <option disabled hidden value=''></option>
         <option value="16">16</option>
         <option value="17">17</option>
         <option value="18">18</option>
@@ -152,12 +173,51 @@ class SearchUsers extends Component {
       <div className="center"> Oops! You need to log in :/ </div>
     )
 
-    return(
+    if (this.state.entered_search_query ===  false)
+    {
+      return(
       <div className="container">
       {post}
+
       </div>
 
       )
+    }
+
+    else if (this.state.query_results === {})
+    {
+      return(
+      <div className="container">
+      <p>REACHING OUT REACHING OUT REACHING OUT</p>
+
+      </div>
+
+      )
+    }
+
+    else
+    {
+      return(
+      <div className="container">
+      <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
+      <br></br>
+      {this.state.query_results.map(user =>
+  <div>
+  <p>User {user.user} - their name is {user.name}</p>
+  <p>{user.bio}</p>
+  <p>{user.instagram_followers} is their Instagram Reach!</p>
+  <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
+  <br></br>
+  <p>Go check out this user, {this.props.loggedInAs}!</p>
+  <br></br>
+  </div>
+)}
+      </div>
+
+      )
+    }
+
+
 
                   }
                   }

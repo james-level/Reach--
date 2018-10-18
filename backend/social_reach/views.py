@@ -227,10 +227,9 @@ class ProfilesWithinAgeRange(generics.ListCreateAPIView):
 
     def orientation_and_gender_filter(self, queryset):
 
-        current_user_profile = UserProfile.objects.get(user__username = "JarrodBennieJS2")
+        current_user_profile = UserProfile.objects.get(user__username = self.kwargs['username'])
 
         current_user_gender_number = current_user_profile.gender_identity
-        print(current_user_gender_number)
 
         gender_group_current_user_belongs_to = ""
         gender_group_current_user_belongs_to = "Guys" if current_user_gender_number > -1 else "Girls"
@@ -250,9 +249,11 @@ class ProfilesWithinAgeRange(generics.ListCreateAPIView):
             # Nested conditional for homosexuals
             if current_user_profile.looking_for == gender_group_current_user_belongs_to:
                 compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any"), gender_identity__range=[min_gender_number, max_gender_number]).exclude(user__username=current_user_profile.user)
+                return compatible_profiles
                 # compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any"), gender_identity__lte = )
             else:
-                compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any")).exclude(gender_identity__range=[min_opposite_gender_number, max_opposite_gender_number]).exclude(user__username=current_user_profile.user)
+                compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any"), gender_identity__range=[min_opposite_gender_number, max_opposite_gender_number]).exclude(user__username=current_user_profile.user)
+                return compatible_profiles
         else:
             compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any")).exclude(user__username=current_user_profile.user)
 
