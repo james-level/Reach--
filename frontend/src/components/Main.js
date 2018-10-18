@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Landing from "./Landing";
 import Register from "./Register";
 import Profile from "./Profile";
-// import PublicProfile from "./PublicProfile";
+import PublicProfile from "./PublicProfile";
 import PasswordReset from "./PasswordReset";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
@@ -260,6 +260,7 @@ console.log("Error resetting password");
                 <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
                 <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
                 <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
+                <Route path="/publicProfile" render={(props) =>  <PublicProfile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
 
 
               </React.Fragment>
@@ -294,6 +295,7 @@ console.log("Error resetting password");
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
           <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
           <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/publicprofile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
         </React.Fragment>
       </Router>
