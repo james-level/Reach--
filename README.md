@@ -143,6 +143,12 @@ python manage.py loaddata dump.json
 
 Now the data is stored in a PSQL database.
 
+POSTGRES EXTENSIONS FOR ARRAYS:
+
+pip install django_postgres_extensions
+
+
+
  FRONTEND (REACT):
 
  npm install flickity
