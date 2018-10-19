@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from social_reach.access_tokens_fb import facebook_app_token , facebook_access_token
+import json
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -55,6 +57,8 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
