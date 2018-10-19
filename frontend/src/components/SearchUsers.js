@@ -208,6 +208,8 @@ class SearchUsers extends Component {
   <p>{user.instagram_followers} is their Instagram Reach!</p>
   <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
   <br></br>
+  <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
+  <br></br>
   <p>Go check out this user, {this.props.loggedInAs}!</p>
   <br></br>
   </div>
