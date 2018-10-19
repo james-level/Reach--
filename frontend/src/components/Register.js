@@ -133,7 +133,9 @@ class Register extends Component {
               console.log(this.state.image1);
          }
     console.log(event.target.files[0]);
+    if (event.target.files[0] != undefined ){
       reader.readAsDataURL(event.target.files[0])
+    }
       this.setState({
         photo1: event.target.files[0],
         upload_status: "foto-upload-ready"
@@ -227,7 +229,7 @@ class Register extends Component {
        display: 'inline',
        fontSize: '0.7em'
       }
-      console.log(this.props);
+
 
        if (this.props.info.user){
         return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
