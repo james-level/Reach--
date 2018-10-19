@@ -202,6 +202,11 @@ DATABASES = {
     }
 }
 
+DEFAULT_PARSER_CLASSES = {
+    'rest_framework.parsers.JSONParser',
+    'rest_framework.parsers.MultiPartParser',
+    'rest_framework.parsers.FileUploadParser',
+},
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
