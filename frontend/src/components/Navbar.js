@@ -24,6 +24,9 @@ class Navbar extends Component {
           <Link to="/publicprofile">PublicProfile</Link>
         </li>
         <li>
+          <Link to="/reachout">Reach Out!</Link>
+        </li>
+        <li>
           <Link to="/" onClick={this.props.logout}>Sign Out</Link>
         </li>
       </ul>
