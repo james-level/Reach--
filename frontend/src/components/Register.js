@@ -21,7 +21,7 @@ class Register extends Component {
         activation_user_password: '',
         password: '',
           name: 'test',
-          looking_for: '',
+          looking_for: 'Any',
           location: '',
           date_of_birth: '',
           gender: 0,
@@ -197,11 +197,7 @@ class Register extends Component {
 
     render(){
 
-      let reader = new FileReader()
-      let file = this.state.data.photo1;
-      reader.onloadend = () => {
-              console.log(reader.result);
-         }
+
 
 
 
