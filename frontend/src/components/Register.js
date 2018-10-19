@@ -224,12 +224,7 @@ class Register extends Component {
               <option value="Guys">Guys</option>
               <option value="Any">Any</option>
             </select>
-            <div class="emoji-toggle emoji-diet">
-              <input type="checkbox" id="toggle1" class="toggle"></input>
-                <div class="emoji"></div>
-                <label for="toggle1" class="well"></label>
-              </div>
-
+        
             <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
             <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Your Date Of Birth *"></input>
             <p> {"What's your gender identity?"} </p>
