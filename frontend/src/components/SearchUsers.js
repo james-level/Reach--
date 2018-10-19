@@ -154,7 +154,7 @@ class SearchUsers extends Component {
         <option value="68">68</option>
         <option value="70">70</option>
         <option value="71">71</option>
-        <option value="72">72</option>
+        <option selected value="72">72</option>
       </select>
 
 
