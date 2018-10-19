@@ -10,6 +10,7 @@ class Register extends Component {
     constructor(props) {
       super(props);
       this.state = {
+        upload_status: 'foto-upload',
         username: '',
         password: '',
         login: false,
@@ -33,6 +34,7 @@ class Register extends Component {
           spotify_handle: '',
           snapchat: '',
           additional_info: '',
+          image1:'',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -51,6 +53,14 @@ class Register extends Component {
       };
 
 
+    handleImageUpload(x){
+      console.log("upload");
+      this.setState({
+        upload_status: "foto-upload-ready"
+      })
+
+    };
+
     handleSubmit(evt){
       console.log(this.state);
       var self = this;
@@ -68,9 +78,6 @@ class Register extends Component {
         console.log('Authenticated');
         var token = response.data['access']
         console.log(token);
-
-
-
       var user = self.state.activation_user['id']
       var name = self.state.name
       var bio = self.state.description
@@ -98,7 +105,7 @@ class Register extends Component {
         'instagram_handle': instagram_handle,
         'youtube_handle': youtube_handle
       }).then(()=>{
-        console.log("Done");
+        console.log("Upload photos if photos in state followed by as dot then");
         self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
         })
       }).catch(function(e){
@@ -117,9 +124,25 @@ class Register extends Component {
     }
 
     fileChangedHandler(event){
-  this.setState({photo1: event.target.files[0]})
+      let reader = new FileReader()
+      let file = this.state.data.photo1;
+      reader.onloadend = () => {
+        this.setState({
+          image1: reader.result
+        })
+              console.log(this.state.image1);
+         }
+    console.log(event.target.files[0]);
+      reader.readAsDataURL(event.target.files[0])
+      this.setState({
+        photo1: event.target.files[0],
+        upload_status: "foto-upload-ready"
+      })
+
 
 }
+
+
 
 
 
@@ -169,7 +192,18 @@ class Register extends Component {
          }
 
 
+
     render(){
+
+      let reader = new FileReader()
+      let file = this.state.data.photo1;
+      reader.onloadend = () => {
+              console.log(reader.result);
+         }
+
+
+
+
       var inputStyles = {
 
         width: '100%',
@@ -224,7 +258,7 @@ class Register extends Component {
               <option value="Guys">Guys</option>
               <option value="Any">Any</option>
             </select>
-        
+
             <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
             <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Your Date Of Birth *"></input>
             <p> {"What's your gender identity?"} </p>
@@ -272,7 +306,8 @@ class Register extends Component {
       {/* PHOTO UPLOAD SECTION */}
         <fieldset>
           <legend><span class="number"></span>Photos</legend>
-          <input type="file" onChange={this.fileChangedHandler} name="photo1" class="foto-upload"></input>
+          <input type="file" onChange={this.fileChangedHandler} name="photo1" text="words" class={this.state.upload_status} ></input>
+          <img src={this.state.image1} />
         </fieldset>
 
       {/*  SAVE BUTTON */}
