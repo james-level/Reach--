@@ -214,9 +214,7 @@ class Register extends Component {
 
 
       var photoUpload =  this.state.image_count.map(index => {
-        console.log("index:",index);
         let name = "photo" + index
-        console.log("name", name);
         let id = "image" + index
         return (
           <fieldset>
