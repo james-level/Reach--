@@ -12,6 +12,15 @@ class Register extends Component {
     constructor(props) {
       super(props);
       this.state = {
+        image_count: [1],
+        upload_status: {
+          photo1: 'foto-upload',
+          photo2: 'foto-upload',
+          photo3: 'foto-upload',
+          photo4: 'foto-upload',
+          photo5: 'foto-upload',
+          photo6: 'foto-upload'
+        },
         username: '',
         password: '',
         login: false,
@@ -22,7 +31,7 @@ class Register extends Component {
         activation_user_password: '',
         password: '',
           name: 'test',
-          looking_for: '',
+          looking_for: 'Any',
           location: '',
           date_of_birth: '',
           gender: 0,
@@ -35,6 +44,12 @@ class Register extends Component {
           spotify_handle: '',
           snapchat: '',
           additional_info: '',
+          image1:'',
+          image2:'',
+          image3:'',
+          image4:'',
+          image5:'',
+          image6:'',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -53,6 +68,9 @@ class Register extends Component {
       };
 
 
+
+
+
     handleSubmit(evt){
       console.log(this.state);
       var self = this;
@@ -69,10 +87,6 @@ class Register extends Component {
           console.log(response);
         console.log('Authenticated');
         var token = response.data['access']
-        console.log(token);
-
-
-
       var user = self.state.activation_user['id']
       var name = self.state.name
       var bio = self.state.description
@@ -85,21 +99,32 @@ class Register extends Component {
       var instagram_handle = self.state.instagram_handle
       var youtube_handle = self.state.youtube_handle
       var picture_one = self.state.photo1
+      var picture_two = self.state.photo2
+      var picture_three = self.state.photo3
+      var picture_four = self.state.photo4
+      var picture_five = self.state.photo5
+      var picture_six = self.state.photo6
       console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
-      axios.post(create_profile_url, {
-        'user': user,
-        'name': name,
-        'bio': bio,
-        'looking_for': looking_for,
-        'location': location,
-        // 'picture': picture_one,
-        'date_of_birth': date_of_birth,
-        'gender_identity': gender,
-        'twitter_handle': twitter_handle,
-        'instagram_handle': instagram_handle,
-        'youtube_handle': youtube_handle
-      }).then(()=>{
+
+      const formData = new FormData();
+      formData.append('picture', picture_one);
+      formData.append('picture_two', picture_two);
+      formData.append('picture_three', picture_three);
+      formData.append('picture_four', picture_four);
+      formData.append('picture_five', picture_five);
+      formData.append('picture_six', picture_six);
+      formData.append('name', name);
+      formData.append('user', user);
+      formData.append('bio', bio);
+      formData.append('looking_for', looking_for);
+      formData.append('location', location);
+      formData.append('date_of_birth', date_of_birth);
+      formData.append('gender_identity', gender);
+      formData.append('twitter_handle', twitter_handle);
+      formData.append('instagram_handle', instagram_handle);
+      formData.append('youtube_handle', youtube_handle);
+      axios.post(create_profile_url, formData).then(()=>{
         console.log("Done");
         self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
         })
@@ -119,9 +144,33 @@ class Register extends Component {
     }
 
     fileChangedHandler(event){
-  this.setState({photo1: event.target.files[0]})
+      let photo = event.target.name
+      let image = event.target.id
+      let reader = new FileReader()
+      reader.onloadend = () => {
+        this.setState({
+          [image]: reader.result
+          })
+         }
+    if (event.target.files[0] != undefined ){
+      reader.readAsDataURL(event.target.files[0])
+      if (this.state.image_count.length < 6){
+      this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
+    }}
+    this.setState(prevState => ({
+    upload_status: {
+        ...prevState.upload_status,
+        [photo]: 'foto-upload-ready'
+    }
+    }))
+    this.setState({
+      [event.target.name]: event.target.files[0],
+        })
+
 
 }
+
+
 
 
 
@@ -152,6 +201,22 @@ class Register extends Component {
     render(){
 
 
+
+      var photoUpload =  this.state.image_count.map(index => {
+        let name = "photo" + index
+        let id = "image" + index
+        return (
+          <fieldset>
+            <legend><span class="number"></span>Photos</legend>
+            <input type="file" onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
+            <img src={this.state[id]} />
+          </fieldset>
+
+        )
+      })
+
+
+
       var inputStyles = {
 
         width: '100%',
@@ -175,7 +240,7 @@ class Register extends Component {
        display: 'inline',
        fontSize: '0.7em'
       }
-      console.log(this.props);
+
 
        if (this.props.info.user){
         return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
@@ -252,10 +317,7 @@ class Register extends Component {
         </fieldset>
 
       {/* PHOTO UPLOAD SECTION */}
-        <fieldset>
-          <legend><span class="number"></span>Photos</legend>
-          <input type="file" onChange={this.fileChangedHandler} name="photo1" class="foto-upload"></input>
-        </fieldset>
+      {photoUpload}
 
       {/*  SAVE BUTTON */}
         <br></br>
