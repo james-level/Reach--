@@ -135,7 +135,6 @@ class Register extends Component {
       let photo = event.target.name
       let image = event.target.id
       let reader = new FileReader()
-      let file = this.state.data.photo1;
       reader.onloadend = () => {
         this.setState({
           [image]: reader.result
@@ -143,6 +142,7 @@ class Register extends Component {
          }
     if (event.target.files[0] != undefined ){
       reader.readAsDataURL(event.target.files[0])
+      this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
     }
     this.setState(prevState => ({
     upload_status: {
@@ -211,17 +211,21 @@ class Register extends Component {
     render(){
 
 
-      var photoUpload =  (
-        <fieldset>
-          <legend><span class="number"></span>Photos</legend>
-          <input type="file" onChange={this.fileChangedHandler} name="photo1" id="image1" text="words" class={this.state.upload_status['photo1']} ></input>
-          <img src={this.state.image1} />
-        </fieldset>
 
-      )
+      var photoUpload =  this.state.image_count.map(index => {
+        console.log("index:",index);
+        let name = "photo" + index
+        console.log("name", name);
+        let id = "image" + index
+        return (
+          <fieldset>
+            <legend><span class="number"></span>Photos</legend>
+            <input type="file" onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
+            <img src={this.state[id]} />
+          </fieldset>
 
-
-
+        )
+      })
 
 
 
