@@ -286,6 +286,9 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
 
   render(){
+    var getAge = require('get-age');
+    var age = getAge(this.props.data.date_of_birth);
+    console.log("age:",age);
     console.log(this.props);
       if (this.state.chart == false){
       this.chart(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)
@@ -299,7 +302,7 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
                     <div className="profile">
 
-                    <h2> {this.props.loggedInAs}, born on {this.props.data.date_of_birth}, gender identity {this.props.data.gender_identity}</h2>
+                    <h2> {this.props.loggedInAs}, {age}, gender identity {this.props.data.gender_identity}</h2>
 
                     <h4> {this.props.data.bio}</h4>
 

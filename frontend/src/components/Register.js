@@ -10,6 +10,15 @@ class Register extends Component {
     constructor(props) {
       super(props);
       this.state = {
+        image_count: [1],
+        upload_status: {
+          photo1: 'foto-upload',
+          photo2: 'foto-upload',
+          photo3: 'foto-upload',
+          photo4: 'foto-upload',
+          photo5: 'foto-upload',
+          photo6: 'foto-upload'
+        },
         username: '',
         password: '',
         login: false,
@@ -20,7 +29,7 @@ class Register extends Component {
         activation_user_password: '',
         password: '',
           name: 'test',
-          looking_for: '',
+          looking_for: 'Any',
           location: '',
           date_of_birth: '',
           gender: 0,
@@ -33,6 +42,12 @@ class Register extends Component {
           spotify_handle: '',
           snapchat: '',
           additional_info: '',
+          image1:'',
+          image2:'',
+          image3:'',
+          image4:'',
+          image5:'',
+          image6:'',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -49,6 +64,9 @@ class Register extends Component {
 
 
       };
+
+
+
 
 
     handleSubmit(evt){
@@ -68,9 +86,6 @@ class Register extends Component {
         console.log('Authenticated');
         var token = response.data['access']
         console.log(token);
-
-
-
       var user = self.state.activation_user['id']
       var name = self.state.name
       var bio = self.state.description
@@ -83,11 +98,21 @@ class Register extends Component {
       var instagram_handle = self.state.instagram_handle
       var youtube_handle = self.state.youtube_handle
       var picture_one = self.state.photo1
+      var picture_two = self.state.photo2
+      var picture_three = self.state.photo3
+      var picture_four = self.state.photo4
+      var picture_five = self.state.photo5
+      var picture_six = self.state.photo6
       console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
 
       const formData = new FormData();
       formData.append('picture', picture_one);
+      formData.append('picture_two', picture_two);
+      formData.append('picture_three', picture_three);
+      formData.append('picture_four', picture_four);
+      formData.append('picture_five', picture_five);
+      formData.append('picture_six', picture_six);
       formData.append('name', name);
       formData.append('user', user);
       formData.append('bio', bio);
@@ -118,9 +143,33 @@ class Register extends Component {
     }
 
     fileChangedHandler(event){
-  this.setState({photo1: event.target.files[0]})
+      let photo = event.target.name
+      let image = event.target.id
+      let reader = new FileReader()
+      reader.onloadend = () => {
+        this.setState({
+          [image]: reader.result
+        })
+         }
+    if (event.target.files[0] != undefined ){
+      reader.readAsDataURL(event.target.files[0])
+      if (this.state.image_count.length < 6){
+      this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
+    }}
+    this.setState(prevState => ({
+    upload_status: {
+        ...prevState.upload_status,
+        [photo]: 'foto-upload-ready'
+    }
+    }))
+    this.setState({
+      [event.target.name]: event.target.files[0],
+        })
+
 
 }
+
+
 
 
 
@@ -170,7 +219,26 @@ class Register extends Component {
          }
 
 
+
     render(){
+
+
+
+      var photoUpload =  this.state.image_count.map(index => {
+        let name = "photo" + index
+        let id = "image" + index
+        return (
+          <fieldset>
+            <legend><span class="number"></span>Photos</legend>
+            <input type="file" onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
+            <img src={this.state[id]} />
+          </fieldset>
+
+        )
+      })
+
+
+
       var inputStyles = {
 
         width: '100%',
@@ -194,7 +262,7 @@ class Register extends Component {
        display: 'inline',
        fontSize: '0.7em'
       }
-      console.log(this.props);
+
 
        if (this.props.info.user){
         return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
@@ -225,11 +293,6 @@ class Register extends Component {
               <option value="Guys">Guys</option>
               <option value="Any">Any</option>
             </select>
-            <div class="emoji-toggle emoji-diet">
-              <input type="checkbox" id="toggle1" class="toggle"></input>
-                <div class="emoji"></div>
-                <label for="toggle1" class="well"></label>
-              </div>
 
             <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
             <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Your Date Of Birth *"></input>
@@ -276,10 +339,7 @@ class Register extends Component {
         </fieldset>
 
       {/* PHOTO UPLOAD SECTION */}
-        <fieldset>
-          <legend><span class="number"></span>Photos</legend>
-          <input type="file" onChange={this.fileChangedHandler} name="photo1" class="foto-upload"></input>
-        </fieldset>
+      {photoUpload}
 
       {/*  SAVE BUTTON */}
         <br></br>

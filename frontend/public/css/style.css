@@ -255,6 +255,7 @@ div.app-title{
     height: 60px;
     border-radius: 5px;
     outline: 0;
+
 }
 .foto-upload:hover:after {
     background: #f96585;
@@ -280,6 +281,45 @@ div.app-title{
 }
 /* PHOTO UPLOADER END (REGISTRATION PAGE) */
 
+.foto-upload-ready{
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  position: relative;
+  width: 300px;
+  margin: auto;
+  cursor: pointer;
+  border: 0;
+  height: 60px;
+  border-radius: 5px;
+  outline: 0;
+
+}
+
+.foto-upload-ready:hover:after {
+    background: #f96585;
+    color: white;
+}
+
+.foto-upload-ready:after{
+  transition: 200ms all ease;
+  border-bottom: 3px solid rgba(0,0,0,.2);
+  background: #2cbbad;
+  text-shadow: 0 2px 0 rgba(0,0,0,.2);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  line-height: 60px;
+  border-radius: 5px;
+  content: 'image ready'
+
+
+}
 
 /* PUBLIC PROFILE (VIEW) PHOTO CAROUSEL START. NB: external css: flickity.css */
 * {

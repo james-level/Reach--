@@ -71,7 +71,7 @@ render(){
 
    var inputStyles = {
      marginLeft: '2.5rem',
-     width: 'calc(100% - 2.5rem)',
+     width: 'calc(100% - 2.5rem)'
      // fontSize: '0.8em'
    };
 
