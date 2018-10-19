@@ -10,7 +10,15 @@ class Register extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        upload_status: 'foto-upload',
+        image_count: [1],
+        upload_status: {
+          photo1: 'foto-upload',
+          photo2: 'foto-upload',
+          photo3: 'foto-upload',
+          photo4: 'foto-upload',
+          photo5: 'foto-upload',
+          photo6: 'foto-upload'
+        },
         username: '',
         password: '',
         login: false,
@@ -35,6 +43,11 @@ class Register extends Component {
           snapchat: '',
           additional_info: '',
           image1:'',
+          image2:'',
+          image3:'',
+          image4:'',
+          image5:'',
+          image6:'',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -53,13 +66,8 @@ class Register extends Component {
       };
 
 
-    handleImageUpload(x){
-      console.log("upload");
-      this.setState({
-        upload_status: "foto-upload-ready"
-      })
 
-    };
+
 
     handleSubmit(evt){
       console.log(this.state);
@@ -124,22 +132,27 @@ class Register extends Component {
     }
 
     fileChangedHandler(event){
+      let photo = event.target.name
+      let image = event.target.id
       let reader = new FileReader()
       let file = this.state.data.photo1;
       reader.onloadend = () => {
         this.setState({
-          image1: reader.result
+          [image]: reader.result
         })
-              console.log(this.state.image1);
          }
-    console.log(event.target.files[0]);
     if (event.target.files[0] != undefined ){
       reader.readAsDataURL(event.target.files[0])
     }
-      this.setState({
-        photo1: event.target.files[0],
-        upload_status: "foto-upload-ready"
-      })
+    this.setState(prevState => ({
+    upload_status: {
+        ...prevState.upload_status,
+        [photo]: 'foto-upload-ready'
+    }
+    }))
+    this.setState({
+      [event.target.name]: event.target.files[0],
+        })
 
 
 }
@@ -196,6 +209,16 @@ class Register extends Component {
 
 
     render(){
+
+
+      var photoUpload =  (
+        <fieldset>
+          <legend><span class="number"></span>Photos</legend>
+          <input type="file" onChange={this.fileChangedHandler} name="photo1" id="image1" text="words" class={this.state.upload_status['photo1']} ></input>
+          <img src={this.state.image1} />
+        </fieldset>
+
+      )
 
 
 
@@ -302,11 +325,7 @@ class Register extends Component {
         </fieldset>
 
       {/* PHOTO UPLOAD SECTION */}
-        <fieldset>
-          <legend><span class="number"></span>Photos</legend>
-          <input type="file" onChange={this.fileChangedHandler} name="photo1" text="words" class={this.state.upload_status} ></input>
-          <img src={this.state.image1} />
-        </fieldset>
+      {photoUpload}
 
       {/*  SAVE BUTTON */}
         <br></br>
