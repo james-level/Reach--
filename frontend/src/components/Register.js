@@ -98,11 +98,21 @@ class Register extends Component {
       var instagram_handle = self.state.instagram_handle
       var youtube_handle = self.state.youtube_handle
       var picture_one = self.state.photo1
+      var picture_two = self.state.photo2
+      var picture_three = self.state.photo3
+      var picture_four = self.state.photo4
+      var picture_five = self.state.photo5
+      var picture_six = self.state.photo6
       console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
 
       const formData = new FormData();
       formData.append('picture', picture_one);
+      formData.append('picture_two', picture_two);
+      formData.append('picture_three', picture_three);
+      formData.append('picture_four', picture_four);
+      formData.append('picture_five', picture_five);
+      formData.append('picture_six', picture_six);
       formData.append('name', name);
       formData.append('user', user);
       formData.append('bio', bio);
