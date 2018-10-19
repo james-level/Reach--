@@ -142,8 +142,9 @@ class Register extends Component {
          }
     if (event.target.files[0] != undefined ){
       reader.readAsDataURL(event.target.files[0])
+      if (this.state.image_count.length < 6){
       this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
-    }
+    }}
     this.setState(prevState => ({
     upload_status: {
         ...prevState.upload_status,
