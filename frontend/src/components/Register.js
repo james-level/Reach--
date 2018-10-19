@@ -3,7 +3,6 @@ import axios from 'axios';
 import PasswordMask from 'react-password-mask';
 import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
-import EmojiPicker from './js/emoji-picker.js';
 
 
 
