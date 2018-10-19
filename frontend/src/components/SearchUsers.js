@@ -154,7 +154,7 @@ class SearchUsers extends Component {
         <option value="68">68</option>
         <option value="70">70</option>
         <option value="71">71</option>
-        <option value="72">72</option>
+        <option selected value="72">72</option>
       </select>
 
 
@@ -207,6 +207,8 @@ class SearchUsers extends Component {
   <p>{user.bio}</p>
   <p>{user.instagram_followers} is their Instagram Reach!</p>
   <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
+  <br></br>
+  <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
   <br></br>
   <p>Go check out this user, {this.props.loggedInAs}!</p>
   <br></br>

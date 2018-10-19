@@ -161,6 +161,7 @@ class UserCreateView(generics.CreateAPIView):
     serializer_class = settings.SERIALIZERS.user_create
     permission_classes = [permissions.AllowAny]
     print("USER default")
+    parser_classes = ReachSettings.DEFAULT_PARSER_CLASSES
 
 
     def perform_create(self, serializer, uid):

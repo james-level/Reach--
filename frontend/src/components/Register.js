@@ -100,20 +100,21 @@ class Register extends Component {
       var picture_one = self.state.photo1
       console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
-      axios.post(create_profile_url, {
-        'user': user,
-        'name': name,
-        'bio': bio,
-        'looking_for': looking_for,
-        'location': location,
-        // 'picture': picture_one,
-        'date_of_birth': date_of_birth,
-        'gender_identity': gender,
-        'twitter_handle': twitter_handle,
-        'instagram_handle': instagram_handle,
-        'youtube_handle': youtube_handle
-      }).then(()=>{
-        console.log("Upload photos if photos in state followed by as dot then");
+
+      const formData = new FormData();
+      formData.append('picture', picture_one);
+      formData.append('name', name);
+      formData.append('user', user);
+      formData.append('bio', bio);
+      formData.append('looking_for', looking_for);
+      formData.append('location', location);
+      formData.append('date_of_birth', date_of_birth);
+      formData.append('gender_identity', gender);
+      formData.append('twitter_handle', twitter_handle);
+      formData.append('instagram_handle', instagram_handle);
+      formData.append('youtube_handle', youtube_handle);
+      axios.post(create_profile_url, formData).then(()=>{
+        console.log("Done");
         self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
         })
       }).catch(function(e){
