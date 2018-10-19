@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 from social_reach.access_tokens_fb import facebook_app_token , facebook_access_token
 from social_reach.email_details import password
+import json
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -52,10 +54,12 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -199,6 +203,11 @@ DATABASES = {
     }
 }
 
+DEFAULT_PARSER_CLASSES = {
+    'rest_framework.parsers.JSONParser',
+    'rest_framework.parsers.MultiPartParser',
+    'rest_framework.parsers.FileUploadParser',
+},
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
