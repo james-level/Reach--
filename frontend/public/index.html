@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="/css/login_button_css/style.min.css">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
-    <script src="/login_button_js/bootstrap.min.js"></script>
-    <script src="/login_button_js/jquery-3.3.1.min.js"></script>
-    <script src="/login_button_js/mdb.min.js"></script>
-    <script src="/login_button_js/popper.min.js"></script>
 
+<!-- Below: emoji picker Script starts -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="./css/emoji.css" rel="stylesheet">
 
+<!-- Below: emoji picker Script ends -->
 
 
 
@@ -47,6 +47,11 @@
   <body>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
+<input type="text" data-emojiable="true"  maxlength="5" name="interests" placeholder="Pick five emojis that represent your interests"></input>
+
+
+
+
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -66,7 +71,6 @@
     <!-- MDB SCRIPTS -->
  <!-- JQuery -->
  <script type="text/javascript" src="/login_button_js/jquery-3.3.1.min.js"></script>
-
  <!-- Bootstrap tooltips -->
  <script type="text/javascript" src="/login_button_js/popper.min.js"></script>
  <!-- Bootstrap core JavaScript -->
@@ -74,5 +78,29 @@
  <!-- MDB core JavaScript -->
  <script type="text/javascript" src="login_button_js/mdb.min.js"></script>
  <script type="text/javascript" src="reach_pie_chart.js"></script>
+
+
+
+<!-- BELOW: JS for emoji in 'Interests' bar in 'Registration'  -->
+<script type="text/javascript" src="./js/config.js"></script>
+<script type="text/javascript" src="./js/util.js"></script>
+<script type="text/javascript" src="./js/jquery.emojiarea.js"></script>
+<script type="text/javascript" src="./js/emoji-picker.js"></script>
+
+
+
+<script>
+     $(function() {
+         // Initializes and creates emoji set from sprite sheet
+         window.emojiPicker = new EmojiPicker({
+             emojiable_selector: '[data-emojiable=true]',
+             assetsPath: 'http://onesignal.github.io/emoji-picker/lib/img/',
+             popupButtonClasses: 'fa fa-smile-o'
+         });
+
+         window.emojiPicker.discover();
+     });
+</script>
+
   </body>
 </html>
