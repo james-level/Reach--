@@ -85,7 +85,6 @@ class Register extends Component {
           console.log(response);
         console.log('Authenticated');
         var token = response.data['access']
-        console.log(token);
       var user = self.state.activation_user['id']
       var name = self.state.name
       var bio = self.state.description
@@ -149,7 +148,7 @@ class Register extends Component {
       reader.onloadend = () => {
         this.setState({
           [image]: reader.result
-        })
+          })
          }
     if (event.target.files[0] != undefined ){
       reader.readAsDataURL(event.target.files[0])
