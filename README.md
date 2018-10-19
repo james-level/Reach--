@@ -147,7 +147,10 @@ POSTGRES EXTENSIONS FOR ARRAYS:
 
 pip install django_postgres_extensions
 
+OTHERS:
 
+pip install cryptography
+pip install python-jose
 
  FRONTEND (REACT):
 
