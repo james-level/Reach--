@@ -155,6 +155,8 @@ pip install python-jose
  FRONTEND (REACT):
 
  npm install flickity
+ 
+ npm i get-age --save
 
  npm run build (possibly)
 
