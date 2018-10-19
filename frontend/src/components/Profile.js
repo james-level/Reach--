@@ -311,6 +311,7 @@ chart(instagram_reach, twitter_reach, youtube_reach){
                     <h4> Your Reach rank: Super Influencer</h4>
 
                     <div>
+                    <img src={`http://localhost:8080/social_reach/media/${this.props.data.picture}`}/>
 
                     <div id="doughnutChart" class="chart"></div>
 
