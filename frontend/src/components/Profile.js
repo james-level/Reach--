@@ -302,7 +302,7 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
                     <div className="profile">
 
-                    <h2> {this.props.loggedInAs}, {age}, gender identity {this.props.data.gender_identity}</h2>
+                    <h2> {this.props.loggedInAs}, {age} years old, gender identity {this.props.data.gender_identity}</h2>
 
                     <h4> {this.props.data.bio}</h4>
 
