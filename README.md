@@ -158,6 +158,8 @@ pip install python-jose
  
  npm i get-age --save
 
+ npm i get-age
+
  npm run build (possibly)
 
  npm start
