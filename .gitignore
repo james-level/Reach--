@@ -9,6 +9,7 @@ backend/social_reach/email_details.py
 frontend/public/login_button_js/
 frontend/public/css/login_button_css/
 frontend/src/components/modal_login/
+frontend/public/js/
 
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
