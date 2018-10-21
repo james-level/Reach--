@@ -139,7 +139,7 @@ console.log("Error resetting password");
       signup_load: 'loader'
     })
 
-  var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
+  var session_url = 'http://localhost:8080/social_reach/jwt_login/';
   var uname = evt.target[1].defaultValue;
   var pass = evt.target[2].defaultValue;
   // self = this , a workaround to access 'this' within axios
@@ -153,9 +153,16 @@ console.log("Error resetting password");
       'password': pass
     }).then(function(response) {
       console.log('response:', response);
-    console.log('Authenticated');
-    var token = response.data['access']
-       axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `Bearer ${token}` } })
+    console.log('Obtained token.');
+    var token = response.data['token']
+    axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+        "token": token
+      }).then(function(second_response) {
+
+        console.log("Token verified.");
+        var verified_token = second_response.data['token']
+        console.log("VER TOKEN", verified_token);
+       axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `Token ${verified_token}` } })
        .then(res =>{
          self.setState({
            login: true,
@@ -168,7 +175,7 @@ console.log("Error resetting password");
   }).catch(function(error){
     console.log(error);
     console.log("Error on authentication");
-  })}).catch(function(error) {
+  })})}).catch(function(error) {
     console.log(error);
   });
 
