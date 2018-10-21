@@ -42,12 +42,12 @@ class Register extends Component {
           spotify_handle: '',
           snapchat: '',
           additional_info: '',
-          image1:'',
-          image2:'',
-          image3:'',
-          image4:'',
-          image5:'',
-          image6:'',
+          image1:'empty',
+          image2:'empty',
+          image3:'empty',
+          image4:'empty',
+          image5:'empty',
+          image6:'empty',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -144,17 +144,24 @@ class Register extends Component {
     fileChangedHandler(event){
       let photo = event.target.name
       let image = event.target.id
+
+      let count = event.target.attributes.index.nodeValue
+      let preview_image = "image" + count
+      console.log(this.state[preview_image]);
       let reader = new FileReader()
       reader.onloadend = () => {
+        /* do not draw new upload button if 6 photos have been uploaded or image is being replaced */
+        if (this.state.image_count.length < 6 && this.state[preview_image] === 'empty'){
+        this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
+      }
         this.setState({
           [image]: reader.result
           })
+
          }
     if (event.target.files[0] != undefined ){
       reader.readAsDataURL(event.target.files[0])
-      if (this.state.image_count.length < 6){
-      this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
-    }}
+      }
     this.setState(prevState => ({
     upload_status: {
         ...prevState.upload_status,
@@ -164,7 +171,6 @@ class Register extends Component {
     this.setState({
       [event.target.name]: event.target.files[0],
         })
-
 
 }
 
@@ -223,14 +229,23 @@ class Register extends Component {
 
 
 
+
+
       var photoUpload =  this.state.image_count.map(index => {
         let name = "photo" + index
         let id = "image" + index
+        let backgroundImage = {
+          backgroundImage: `url(${this.state[id]})`,
+          backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'noRepeat'
+
+        }
         return (
           <fieldset>
-            <legend><span class="number"></span>Photos</legend>
-            <input type="file" onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
-            <img src={this.state[id]} />
+            <label for={id}  style={backgroundImage}class={this.state.upload_status[`${name}`]}></label>
+            <input type="file" index={index} onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
+
           </fieldset>
 
         )
@@ -338,6 +353,7 @@ class Register extends Component {
         </fieldset>
 
       {/* PHOTO UPLOAD SECTION */}
+        <legend><span class="number"></span>Photos</legend>
       {photoUpload}
 
       {/*  SAVE BUTTON */}

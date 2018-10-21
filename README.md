@@ -92,7 +92,7 @@ python manage.py runserver 8080
 
  npm install flickity
 
- npm i get-age
+ npm i get-age --save
 
  npm run build (possibly)
 

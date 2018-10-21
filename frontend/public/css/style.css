@@ -248,11 +248,12 @@ div.app-title{
     display: block;
     font-family: 'Raleway', sans-serif;
     position: relative;
-    width: 300px;
+    width: 50%;
+    height: 20vh;
     margin: auto;
     cursor: pointer;
     border: 0;
-    height: 60px;
+
     border-radius: 5px;
     outline: 0;
 
@@ -269,11 +270,11 @@ div.app-title{
     color: white;
     font-size: 20px;
     text-align: center;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 20vh;
     display: block;
     content: 'Upload Photos (6 max)';
     line-height: 60px;
@@ -281,15 +282,18 @@ div.app-title{
 }
 /* PHOTO UPLOADER END (REGISTRATION PAGE) */
 
+input[type="file"] {
+    display: none;
+}
 .foto-upload-ready{
   display: block;
   font-family: 'Raleway', sans-serif;
   position: relative;
-  width: 300px;
+  width: 30%;
+  height: 20vh;
   margin: auto;
   cursor: pointer;
   border: 0;
-  height: 60px;
   border-radius: 5px;
   outline: 0;
 
@@ -303,20 +307,21 @@ div.app-title{
 .foto-upload-ready:after{
   transition: 200ms all ease;
   border-bottom: 3px solid rgba(0,0,0,.2);
-  background: #2cbbad;
+
   text-shadow: 0 2px 0 rgba(0,0,0,.2);
   color: white;
-  font-size: 20px;
+  font-size: 5vw;
   text-align: center;
-  position: absolute;
+  position: relative;
+  content: 'image uploaded'
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 30%;
+  height: 20vh;
   display: block;
   line-height: 60px;
   border-radius: 5px;
-  content: 'image ready'
+
 
 
 }
