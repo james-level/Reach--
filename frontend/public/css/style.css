@@ -262,16 +262,17 @@ div.app-title{
 
 .foto-upload {
     display: block;
+     border-radius: 25px;
     font-family: 'Raleway', sans-serif;
     position: relative;
     width: 100%;
     height: 40vh;
     margin: auto;
     cursor: pointer;
-    border: 0;
+     border-style: solid;
+     border-color: #2cbbad;
+    border: 1%;
      flex: 1;
-
-    border-radius: 5px;
     outline: 0;
 
 }
@@ -282,6 +283,7 @@ div.app-title{
 .foto-upload:after {
     transition: 200ms all ease;
     border-bottom: 3px solid rgba(0,0,0,.2);
+    border: 1%;
     background: #2cbbad;
     text-shadow: 0 2px 0 rgba(0,0,0,.2);
     color: white;
@@ -295,7 +297,9 @@ div.app-title{
     display: block;
     content: '';
     line-height: 60px;
-    border-radius: 5px;
+    border-radius: 25px;
+     border-style: solid;
+     border-color: #2cbbad;
      flex: 1;
 }
 /* PHOTO UPLOADER END (REGISTRATION PAGE) */
@@ -313,8 +317,10 @@ input[type="file"] {
   height: 40vh;
   margin: none;
   cursor: pointer;
-  border: 0;
-  border-radius: 5px;
+  border: 1%;
+  border-radius: 25px;
+   border-style: solid;
+   border-color: #2cbbad;
   outline: 0;
    flex: 1;
 
@@ -341,8 +347,11 @@ input[type="file"] {
   height: 40vh;
   display: block;
   line-height: 60px;
-  border-radius: 5px;
+  border-radius: 25px;
    flex: 1;
+   border-style: solid;
+   border: 1%;
+   border-color: #2cbbad;
 
 }
 

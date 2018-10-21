@@ -65,6 +65,7 @@ class Register extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.fileChangedHandler = this.fileChangedHandler.bind(this);
+        // this.removeImageSelection = this.removeImageSelection.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -146,6 +147,18 @@ class Register extends Component {
        })
 
     }
+
+    // delete method
+    // removeImageSelection(evt){
+    //   console.log("INDEX:",evt.target.attributes.index.nodeValue);
+    //   let index = evt.target.attributes.index.nodeValue;
+    //   this.setState(prevState => ({
+    //     [`image${index}`]: prevState[`image${index+1}`],
+    //     [`photo${index}`]: prevState[`photo${index+1}`]
+    //   }))
+    // }
+
+
 
     fileChangedHandler(event){
       let photo = event.target.name
@@ -254,8 +267,8 @@ class Register extends Component {
         return (
           <fieldset class="photo_upload_container">
 
-            <label for={id}  style={backgroundImage}class={this.state.upload_status[`${name}`]}></label>
-             <div class="overlay">{this.state[message]}</div>
+            <label for={id}  style={backgroundImage} altText="uploaded image" class={this.state.upload_status[`${name}`]}></label>
+             <div class="overlay" index={index} >{this.state[message]}</div>
             <input type="file" index={index} onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
 
           </fieldset>
