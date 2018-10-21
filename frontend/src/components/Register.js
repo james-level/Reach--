@@ -48,6 +48,12 @@ class Register extends Component {
           image4:'empty',
           image5:'empty',
           image6:'empty',
+          image1_message: 'Upload Photos (6 slots left)',
+          image2_message: 'Upload Photos (5 slots left)',
+          image3_message: 'Upload Photos (4 slots left)',
+          image4_message: 'Upload Photos (3 slots left)',
+          image5_message: 'Upload Photos (2 slots left)',
+          image6_message: 'Upload Photos (1 slot left)',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -144,6 +150,7 @@ class Register extends Component {
     fileChangedHandler(event){
       let photo = event.target.name
       let image = event.target.id
+      let message = image + '_message'
 
       let count = event.target.attributes.index.nodeValue
       let preview_image = "image" + count
@@ -170,6 +177,8 @@ class Register extends Component {
     }))
     this.setState({
       [event.target.name]: event.target.files[0],
+      [message]: "image selected - tap to change"
+
         })
 
 }
@@ -234,6 +243,7 @@ class Register extends Component {
       var photoUpload =  this.state.image_count.map(index => {
         let name = "photo" + index
         let id = "image" + index
+        let message = id + '_message'
         let backgroundImage = {
           backgroundImage: `url(${this.state[id]})`,
           backgroundPosition: 'center',
@@ -244,7 +254,8 @@ class Register extends Component {
         return (
           <fieldset class="photo_upload_container">
 
-            <label for={id}  style={backgroundImage}class={this.state.upload_status[`${name}`]}>image preview</label>
+            <label for={id}  style={backgroundImage}class={this.state.upload_status[`${name}`]}></label>
+             <div class="overlay">{this.state[message]}</div>
             <input type="file" index={index} onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
 
           </fieldset>
