@@ -270,11 +270,18 @@ class Register extends Component {
         )
       })
 
+      var test = new Array(0);
+
+
       var remaining_slots = new Array(6 -  this.state.image_count.length).join().split(',')
     .map(function(item, index){ return ++index;})
       console.log("hello slots",remaining_slots);
+      var emptySlotPlaceholder = null;
 
-      var emptySlotPlaceholder = remaining_slots.map(index => {
+      if (this.state.image_count.length === 6){
+        emptySlotPlaceholder == '';
+      }else{
+      emptySlotPlaceholder = remaining_slots.map(index => {
         return (
               <fieldset class="photo_upload_container">
 
@@ -284,7 +291,9 @@ class Register extends Component {
 
         )
       })
+    }
 
+    console.log(emptySlotPlaceholder);
 
 
       var inputStyles = {
