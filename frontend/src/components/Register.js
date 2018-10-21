@@ -48,12 +48,12 @@ class Register extends Component {
           image4:'empty',
           image5:'empty',
           image6:'empty',
-          image1_message: 'Upload Photos (6 slots left)',
-          image2_message: 'Upload Photos (5 slots left)',
-          image3_message: 'Upload Photos (4 slots left)',
-          image4_message: 'Upload Photos (3 slots left)',
-          image5_message: 'Upload Photos (2 slots left)',
-          image6_message: 'Upload Photos (1 slot left)',
+          image1_message: 'choose a picture',
+          image2_message: '5 slots left',
+          image3_message: '4 slots left',
+          image4_message: '3 slots left',
+          image5_message: '2 slots left',
+          image6_message: '1 slot left, make it count!',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -148,7 +148,7 @@ class Register extends Component {
 
     }
 
-    // delete method
+    // delete method - probably will need to restructure image state elements into array of objects
     // removeImageSelection(evt){
     //   console.log("INDEX:",evt.target.attributes.index.nodeValue);
     //   let index = evt.target.attributes.index.nodeValue;
@@ -167,7 +167,6 @@ class Register extends Component {
 
       let count = event.target.attributes.index.nodeValue
       let preview_image = "image" + count
-      console.log(this.state[preview_image]);
       let reader = new FileReader()
       reader.onloadend = () => {
         /* do not draw new upload button if 6 photos have been uploaded or image is being replaced */
@@ -190,7 +189,7 @@ class Register extends Component {
     }))
     this.setState({
       [event.target.name]: event.target.files[0],
-      [message]: "image selected - tap to change"
+      [message]: "tap to change"
 
         })
 
@@ -249,10 +248,6 @@ class Register extends Component {
 
     render(){
 
-
-
-
-
       var photoUpload =  this.state.image_count.map(index => {
         let name = "photo" + index
         let id = "image" + index
@@ -262,7 +257,6 @@ class Register extends Component {
           backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'noRepeat'
-
         }
         return (
           <fieldset class="photo_upload_container">
@@ -276,17 +270,30 @@ class Register extends Component {
         )
       })
 
+      var remaining_slots = new Array(6 -  this.state.image_count.length).join().split(',')
+    .map(function(item, index){ return ++index;})
+      console.log("hello slots",remaining_slots);
+
+      var emptySlotPlaceholder = remaining_slots.map(index => {
+        return (
+              <fieldset class="photo_upload_container">
+
+          <div class="empty_slot_placeholder">
+          </div>
+            </fieldset>
+
+        )
+      })
+
 
 
       var inputStyles = {
-
         width: '100%',
         marginBottom: 'none'
         // fontSize: '0.8em'
       };
 
       var buttonStyles = {
-
        top: '50%',
        right: '0.1em',
        marginTop: '-13px',
@@ -381,6 +388,7 @@ class Register extends Component {
         <legend><span class="number"></span>Photos</legend>
               <div class="flex_upload">
       {photoUpload}
+      {emptySlotPlaceholder}
     </div>
 
       {/*  SAVE BUTTON */}
