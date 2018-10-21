@@ -242,8 +242,9 @@ class Register extends Component {
 
         }
         return (
-          <fieldset>
-            <label for={id}  style={backgroundImage}class={this.state.upload_status[`${name}`]}></label>
+          <fieldset class="photo_upload_container">
+
+            <label for={id}  style={backgroundImage}class={this.state.upload_status[`${name}`]}>image preview</label>
             <input type="file" index={index} onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
 
           </fieldset>
@@ -354,7 +355,9 @@ class Register extends Component {
 
       {/* PHOTO UPLOAD SECTION */}
         <legend><span class="number"></span>Photos</legend>
+              <div class="flex_upload">
       {photoUpload}
+    </div>
 
       {/*  SAVE BUTTON */}
         <br></br>
