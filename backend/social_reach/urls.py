@@ -83,7 +83,7 @@ urlpatterns = [
         djoserviews.TokenDestroyView.as_view(),
         name='token-destroy'
     ),
-     url(r'^jwt_auth-jwt-obtain/', obtain_jwt_token),
+     url(r'^jwt_login/', obtain_jwt_token),
         url(r'^auth-jwt-refresh/', refresh_jwt_token),
         url(r'^auth-jwt-verify/', verify_jwt_token),
     url(r'^auth/', include('djoser.urls')),
