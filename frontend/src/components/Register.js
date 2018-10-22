@@ -43,12 +43,18 @@ class Register extends Component {
           spotify_handle: '',
           snapchat: '',
           additional_info: '',
-          image1:'',
-          image2:'',
-          image3:'',
-          image4:'',
-          image5:'',
-          image6:'',
+          image1:'empty',
+          image2:'empty',
+          image3:'empty',
+          image4:'empty',
+          image5:'empty',
+          image6:'empty',
+          image1_message: 'choose a picture',
+          image2_message: '5 slots left',
+          image3_message: '4 slots left',
+          image4_message: '3 slots left',
+          image5_message: '2 slots left',
+          image6_message: '1 slot left, make it count!',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -60,6 +66,7 @@ class Register extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.fileChangedHandler = this.fileChangedHandler.bind(this);
+        // this.removeImageSelection = this.removeImageSelection.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -142,20 +149,39 @@ class Register extends Component {
 
     }
 
+    // delete method - probably will need to restructure image state elements into array of objects
+    // removeImageSelection(evt){
+    //   console.log("INDEX:",evt.target.attributes.index.nodeValue);
+    //   let index = evt.target.attributes.index.nodeValue;
+    //   this.setState(prevState => ({
+    //     [`image${index}`]: prevState[`image${index+1}`],
+    //     [`photo${index}`]: prevState[`photo${index+1}`]
+    //   }))
+    // }
+
+
+
     fileChangedHandler(event){
       let photo = event.target.name
       let image = event.target.id
+      let message = image + '_message'
+
+      let count = event.target.attributes.index.nodeValue
+      let preview_image = "image" + count
       let reader = new FileReader()
       reader.onloadend = () => {
+        /* do not draw new upload button if 6 photos have been uploaded or image is being replaced */
+        if (this.state.image_count.length < 6 && this.state[preview_image] === 'empty'){
+        this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
+      }
         this.setState({
           [image]: reader.result
           })
+
          }
     if (event.target.files[0] != undefined ){
       reader.readAsDataURL(event.target.files[0])
-      if (this.state.image_count.length < 6){
-      this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
-    }}
+      }
     this.setState(prevState => ({
     upload_status: {
         ...prevState.upload_status,
@@ -164,8 +190,9 @@ class Register extends Component {
     }))
     this.setState({
       [event.target.name]: event.target.files[0],
-        })
+      [message]: "tap to change"
 
+        })
 
 }
 
@@ -199,32 +226,61 @@ class Register extends Component {
 
     render(){
 
-
-
       var photoUpload =  this.state.image_count.map(index => {
         let name = "photo" + index
         let id = "image" + index
+        let message = id + '_message'
+        let backgroundImage = {
+          backgroundImage: `url(${this.state[id]})`,
+          backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'noRepeat'
+        }
         return (
-          <fieldset>
-            <legend><span class="number"></span>Photos</legend>
-            <input type="file" onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
-            <img src={this.state[id]} />
+          <fieldset class="photo_upload_container">
+
+            <label for={id}  style={backgroundImage} altText="uploaded image" class={this.state.upload_status[`${name}`]}></label>
+             <div class="overlay" index={index} >{this.state[message]}</div>
+            <input type="file" index={index} onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
+
           </fieldset>
 
         )
       })
 
+      var test = new Array(0);
+
+
+      var remaining_slots = new Array(6 -  this.state.image_count.length).join().split(',')
+    .map(function(item, index){ return ++index;})
+      console.log("hello slots",remaining_slots);
+      var emptySlotPlaceholder = null;
+
+      if (this.state.image_count.length === 6){
+        emptySlotPlaceholder == '';
+      }else{
+      emptySlotPlaceholder = remaining_slots.map(index => {
+        return (
+              <fieldset class="photo_upload_container">
+
+          <div class="empty_slot_placeholder">
+          </div>
+            </fieldset>
+
+        )
+      })
+    }
+
+    console.log(emptySlotPlaceholder);
 
 
       var inputStyles = {
-
         width: '100%',
         marginBottom: 'none'
         // fontSize: '0.8em'
       };
 
       var buttonStyles = {
-
        top: '50%',
        right: '0.1em',
        marginTop: '-13px',
@@ -316,7 +372,11 @@ class Register extends Component {
         </fieldset>
 
       {/* PHOTO UPLOAD SECTION */}
+        <legend><span class="number"></span>Photos</legend>
+              <div class="flex_upload">
       {photoUpload}
+      {emptySlotPlaceholder}
+    </div>
 
       {/*  SAVE BUTTON */}
         <br></br>

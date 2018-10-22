@@ -244,54 +244,90 @@ div.app-title{
 /* html {
   margin: 30px;
 } */
+.flex_upload{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%
+
+
+}
+
+.photo_upload_container{
+
+  width: 30%;
+  height: 27vh;
+  padding: none;
+  border-radius: 25px;
+
+
+
+}
+
 .foto-upload {
     display: block;
+     border-radius: 25px;
     font-family: 'Raleway', sans-serif;
     position: relative;
-    width: 300px;
+    width: 100%;
+    height: 27vh;
     margin: auto;
     cursor: pointer;
-    border: 0;
-    height: 60px;
-    border-radius: 5px;
+  justify-content: center;
+
+     border-color: #2cbbad;
+    border: 1%;
+     flex: 1;
     outline: 0;
 
 }
 .foto-upload:hover:after {
     background: #f96585;
     color: white;
+
 }
 .foto-upload:after {
     transition: 200ms all ease;
-    border-bottom: 3px solid rgba(0,0,0,.2);
+     border-bottom: 3px solid rgba(0,0,0,.2);
     background: #2cbbad;
     text-shadow: 0 2px 0 rgba(0,0,0,.2);
     color: white;
     font-size: 20px;
     text-align: center;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 27vh;
     display: block;
-    content: 'Upload Photos (6 max)';
-    line-height: 60px;
-    border-radius: 5px;
+    content: 'Add an image';
+    /* line-height: 60px; */
+    border-radius: 25px;
+     flex: 1;
 }
 /* PHOTO UPLOADER END (REGISTRATION PAGE) */
+
+input[type="file"] {
+    display: none;
+}
+
 
 .foto-upload-ready{
   display: block;
   font-family: 'Raleway', sans-serif;
   position: relative;
-  width: 300px;
-  margin: auto;
+  width: 100%;
+  height: 27vh;
+  margin: none;
+  top: 0;
+  left: 0;
   cursor: pointer;
-  border: 0;
-  height: 60px;
-  border-radius: 5px;
+  border: 1%;
+  border-radius: 25px;
+   border-style: solid;
+   border-color: #2cbbad;
   outline: 0;
+   flex: 1;
 
 }
 
@@ -303,22 +339,59 @@ div.app-title{
 .foto-upload-ready:after{
   transition: 200ms all ease;
   border-bottom: 3px solid rgba(0,0,0,.2);
-  background: #2cbbad;
+
   text-shadow: 0 2px 0 rgba(0,0,0,.2);
   color: white;
-  font-size: 20px;
+  font-size: 5vw;
   text-align: center;
-  position: absolute;
+  position: relative;
+  /* content: 'image uploaded' */
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 27vh;
   display: block;
   line-height: 60px;
-  border-radius: 5px;
-  content: 'image ready'
+  border-radius: 25px;
+   flex: 1;
+   border-style: solid;
 
+   border-color: #2cbbad;
 
+}
+
+.empty_slot_placeholder {
+  transition: 200ms all ease;
+  border-bottom: 3px solid rgba(0,0,0,.2);
+   border-bottom: 3px solid rgba(0,0,0,.2);
+  text-shadow: 0 2px 0 rgba(0,0,0,.2);
+  color: white;
+  font-size: 5vw;
+  text-align: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 27vh;
+  display: block;
+  border-radius: 25px;
+   flex: 1;
+   border-style: dotted;
+   border: 1%;
+   border-color: #2cbbad;
+  padding: none;
+}
+
+.overlay {
+    position: relative;
+    align-items: flex-end;
+    top: -13vh;
+    right: -5.5vw;
+    width: 34%;
+    text-align: center;
+    color: white;
+    font-size: 1.5vh;
+    background-color: hsla(174, 62%, 45%, 0.8)
 }
 
 /* PUBLIC PROFILE (VIEW) PHOTO CAROUSEL START. NB: external css: flickity.css */
