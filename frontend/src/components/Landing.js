@@ -32,7 +32,6 @@ class Landing extends React.Component{
  this.handleResetPasswordUsernameChange = this.handleResetPasswordUsernameChange.bind(this)
 
 
-
 }
 
 
