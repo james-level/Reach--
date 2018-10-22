@@ -95,7 +95,7 @@ def user_confirm(request, uidb64, token):
         print("USER STATUS", user_to_confirm.is_active)
 
         message = render_to_string('../templates/reach/account_confirm.html',{'token': token})
-        msg = EmailMessage('Reach account confirmation for ' + user_to_confirm.username,
+        msg = EmailMessage('Reach account confirmation for ' + user_to_confirm.username.capitalize(),
         message,
         ReachSettings.EMAIL_HOST_USER,
         [    ReachSettings.EMAIL_HOST_USER,
@@ -113,7 +113,7 @@ def user_confirm(request, uidb64, token):
 
         r = requests.post('http://localhost:8080/social_reach/api/auth/token/obtain/', data=data)
 
-    return JsonResponse( {'user': model_to_dict(user_to_confirm), 'status': 200, 'text': "User account for " + user_to_confirm.username + " activated." }
+    return JsonResponse( {'user': model_to_dict(user_to_confirm), 'status': 200, 'text': "User account for " + user_to_confirm.username.capitalize() + " activated." }
 , status=201)
 
 def user_reset(request, uidb64, token):
