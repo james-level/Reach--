@@ -105,6 +105,14 @@ class Profile extends Component {
             <div class="slide slide-6" style={imageStyle6}></div>
           </div>
 
+          {/* YES OR NO BUTTONS   */}
+          <fieldset>
+            <div class="buttonHolder">
+              <a href="#" class="button tick"></a>
+              <a href="#" class="button cross"></a>
+            </div>
+          </fieldset>
+
 
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
         <br></br>
