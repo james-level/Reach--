@@ -1,5 +1,5 @@
 import Cards, { Card } from 'react-swipe-card'
-
+import React from "react";
 
 const data = ['Alexandre', 'Thomas', 'Lucien']
 
