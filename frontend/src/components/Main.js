@@ -164,7 +164,7 @@ console.log("Error resetting password");
         console.log(second_response);
         var verified_token = second_response.data['token']
         console.log("VER TOKEN", verified_token);
-       axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `Token ${verified_token}` } })
+       axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `JWT ${verified_token}` } })
        .then(res =>{
          self.setState({
            login: true,

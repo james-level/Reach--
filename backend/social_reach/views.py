@@ -216,6 +216,7 @@ class ProfileByUsername(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProfileSerializer
     queryset = UserProfile.objects.all()
 
+
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
     # make sure to catch 404's below
@@ -395,9 +396,8 @@ class JSONWebTokenAPIView(APIView):
             user = serializer.object.get('user') or request.user
             token = serializer.object.get('token')
             user_to_authenticate = serializer.object.get('user')
-            # user_to_authenticate.IsAuthenticated = True
+            # user_to_authenticate.is_authenticated = True
             # user_to_authenticate.save()
-            print("IS AUTH", user_to_authenticate.IsAuthenticated)
             response_data = jwt_response_payload_handler(token, user, request)
             response = Response(response_data)
             if api_settings.JWT_AUTH_COOKIE:
