@@ -161,6 +161,8 @@ pip install python-jose
  npm i get-age --save
 
  npm i get-age --save
+ 
+ npm install --save-dev babel-plugin-transform-function-bind
 
  npm run build (possibly)
 
