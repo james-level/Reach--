@@ -870,7 +870,7 @@ border-top-right-radius: 5px;
 	}
 		.block {
 			margin: 25px 25px 0 0;
-			background: white;
+			background: #f4f7f8;
 			border-radius: 5px;
       float: left;
       width: 300px;
@@ -880,6 +880,7 @@ border-top-right-radius: 5px;
 		.left-container {}
 			.menu-box {
 				height: 360px;
+        align-items: center;
 			}
 
 			.donut-chart-block {

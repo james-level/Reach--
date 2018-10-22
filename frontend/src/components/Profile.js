@@ -332,44 +332,38 @@ chart(instagram_reach, twitter_reach, youtube_reach){
           <label type="text">{this.props.data.bio}</label>
         </fieldset>
 
-        <fieldset>
-          <legend><span class="number"></span>Reach: {this.total_reach()} </legend>
-        </fieldset>
-
-
-
-
-
 {/* PIE CHART START  */}
-  <div class="donut-chart-block block">
+        <fieldset>
+          <div class="donut-chart-block block">
 
-  <div class="donut-chart">
-    <div id="porcion1" class="recorte"><div class="quesito twitter" data-rel={(100/this.total_reach()) * this.twitter_followers()}></div></div>
-    <div id="porcion2" class="recorte"><div class="quesito instagram" data-rel={(100/this.total_reach()) * this.instagram_followers()}></div></div>
-    <div id="porcion3" class="recorte"><div class="quesito youtube" data-rel={(100/this.total_reach()) * this.youtube_followers()}></div></div>
-    <div id="porcionFin" class="recorte"><div class="quesito facebook" data-rel="0"></div></div>
-    <p class="center-date">{this.total_reach()}<br></br><span class="scnd-font-color"></span></p>
-  </div>
+          <div class="donut-chart">
+            <div id="porcion1" class="recorte"><div class="quesito twitter" data-rel={(100/this.total_reach()) * this.twitter_followers()}></div></div>
+            <div id="porcion2" class="recorte"><div class="quesito instagram" data-rel={(100/this.total_reach()) * this.instagram_followers()}></div></div>
+            <div id="porcion3" class="recorte"><div class="quesito youtube" data-rel={(100/this.total_reach()) * this.youtube_followers()}></div></div>
+            <div id="porcionFin" class="recorte"><div class="quesito facebook" data-rel="0"></div></div>
+            <p class="center-date">{this.total_reach()}<br></br><span class="scnd-font-color"></span></p>
+          </div>
 
-    <ul class="os-percentages horizontal-list">
-        <li>
-          <p class="twitter os scnd-font-color">Twitter</p>
-          <p class="os-percentage">{(100/this.total_reach()) * this.twitter_followers()}<sup>%</sup></p>
-        </li>
-        <li>
-          <p class="instagram os scnd-font-color">Instagram</p>
-          <p class="os-percentage">{(100/this.total_reach()) * this.instagram_followers()}<sup>%</sup></p>
-        </li>
-        <li>
-          <p class="youtube os scnd-font-color">YouTube</p>
-          <p class="os-percentage">{(100/this.total_reach()) * this.youtube_followers()}<sup>%</sup></p>
-        </li>
-        <li>
-          <p class="facebook os scnd-font-color">Facebook</p>
-          <p class="os-percentage">0<sup>%</sup></p>
-        </li>
-    </ul>
-  </div>
+            <ul class="os-percentages horizontal-list">
+                <li>
+                  <p class="twitter os scnd-font-color">Twitter</p>
+                  <p class="os-percentage">{(100/this.total_reach()) * this.twitter_followers()}<sup>%</sup></p>
+                </li>
+                <li>
+                  <p class="instagram os scnd-font-color">Instagram</p>
+                  <p class="os-percentage">{(100/this.total_reach()) * this.instagram_followers()}<sup>%</sup></p>
+                </li>
+                <li>
+                  <p class="youtube os scnd-font-color">YouTube</p>
+                  <p class="os-percentage">{(100/this.total_reach()) * this.youtube_followers()}<sup>%</sup></p>
+                </li>
+                <li>
+                  <p class="facebook os scnd-font-color">Facebook</p>
+                  <p class="os-percentage">0<sup>%</sup></p>
+                </li>
+            </ul>
+          </div>
+        </fieldset>
 {/* PIE CHART END  */}
 
       </div>
