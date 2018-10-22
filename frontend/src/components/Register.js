@@ -69,6 +69,7 @@ class Register extends Component {
         // this.removeImageSelection = this.removeImageSelection.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+      
 
 
       };
@@ -140,13 +141,12 @@ class Register extends Component {
     }
 
 
+
+
     handleChange(evt){
-
-
        this.setState({
          [evt.target.name]: evt.target.value
        })
-
     }
 
     // delete method - probably will need to restructure image state elements into array of objects
@@ -271,7 +271,6 @@ class Register extends Component {
       })
     }
 
-    console.log(emptySlotPlaceholder);
 
 
       var inputStyles = {
@@ -322,9 +321,9 @@ class Register extends Component {
             <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
             <p>Looking for:</p>
             <select onChange={this.handleChange} name="looking_for">
+              <option value="Any">Any</option>
               <option value="Girls">Girls</option>
               <option value="Guys">Guys</option>
-              <option value="Any">Any</option>
             </select>
 
 
