@@ -351,15 +351,15 @@ chart(instagram_reach, twitter_reach, youtube_reach){
             <ul class="os-percentages horizontal-list">
                 <li>
                   <p class="twitter os scnd-font-color">Twitter</p>
-                  <p class="os-percentage">{(100/this.total_reach()) * this.twitter_followers()}<sup>%</sup></p>
+                  <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.twitter_followers())}<sup>%</sup></p>
                 </li>
                 <li>
                   <p class="instagram os scnd-font-color">Instagram</p>
-                  <p class="os-percentage">{(100/this.total_reach()) * this.instagram_followers()}<sup>%</sup></p>
+                  <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.instagram_followers())}<sup>%</sup></p>
                 </li>
                 <li>
                   <p class="youtube os scnd-font-color">YouTube</p>
-                  <p class="os-percentage">{(100/this.total_reach()) * this.youtube_followers()}<sup>%</sup></p>
+                  <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.youtube_followers())}<sup>%</sup></p>
                 </li>
                 <li>
                   <p class="facebook os scnd-font-color">Facebook</p>

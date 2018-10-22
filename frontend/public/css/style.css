@@ -846,9 +846,6 @@ a {
 		text-decoration: underline;
 	}
 
-h1, h2, p, a, span{
-	color: #fff;
-}
 	.scnd-font-color {
 		color: black;
 	}
@@ -927,6 +924,7 @@ border-top-right-radius: 5px;
  }
 p.center-date {
   background: #394264;
+  color: #fff;
   position: absolute;
   text-align: center;
 	font-size: 28px;
@@ -937,6 +935,11 @@ p.center-date {
   border-radius: 50%;
   line-height: 35px;
   padding: 15% 0 0;
+}
+
+
+p.os-percentage{
+	color: #fff;
 }
 .center-date span.scnd-font-color {
  line-height: 0;

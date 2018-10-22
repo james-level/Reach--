@@ -69,7 +69,7 @@ class Register extends Component {
         // this.removeImageSelection = this.removeImageSelection.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
-      
+
 
 
       };
@@ -334,8 +334,8 @@ class Register extends Component {
             <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Date Of Birth *"></input>
 
             {/* GENDER INPUT */}
-            <p> {"Gender Identity?"} </p>
-            <span> Female  <input type="range"  onChange={this.handleChange} max="100" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male </span>
+            <p> Gender Identity? </p>
+            <span> Female  <input type="range"  onChange={this.handleChange} max="99" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male </span>
             <br></br><br></br>
 
             {/* BIO/DESCRIPTION INPUT  */}
