@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import $ from 'jquery';
 import jQuery from 'jquery'
+import {geolocated, geoPropTypes} from 'react-geolocated';
+
+
 
 
 class Profile extends Component {
@@ -286,6 +289,7 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
 
   render(){
+    console.log(this.props.coords);
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
     console.log("age:",age);
@@ -338,4 +342,4 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
 
 
-export default Profile;
+export default geolocated()(Profile);
