@@ -168,6 +168,8 @@ pip install python-jose
 
  npm start
 
+npm install react-geolocated --save
+
 
 
   <b>VERY IMPORTANT: If it says a .pyc file has been staged when doing a git commit, undo immediately and run python python-cache-flusher.py. DON'T PUSH!<b>

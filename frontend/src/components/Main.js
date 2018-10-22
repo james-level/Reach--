@@ -91,7 +91,7 @@ get_reset_token(token){
 
   handleForgottenPassword(evt){
     evt.preventDefault();
-    var uname = evt.target[1].defaultValue;
+    var uname = evt.target[1].defaultValue.toLowerCase();
     var session_url = `http://localhost:8080/social_reach/users/reset_password/${uname}/?format=json`;
     axios.get(session_url)
     .then(res =>{
@@ -111,7 +111,7 @@ handlePasswordResetSubmit(evt){
   var uid = this.state.reset_uid
   console.log(uid);
   var token = this.state.reset_token
-  var uname = evt.target[1].defaultValue;
+  var uname = evt.target[1].defaultValue.toLowerCase();
   var password = evt.target[2].defaultValue;
   var email = evt.target[6].value;
   console.log(email);
@@ -195,7 +195,7 @@ console.log("Error resetting password");
   console.log(password);
   // catch error and put to screen
    self.setState({
-     username: username,
+     username: username.toLowerCase(),
      password: password
    })
   axios.post(session_url, {
@@ -230,7 +230,7 @@ console.log("Error resetting password");
       evt.preventDefault();
       var self = this;
 
-      var signup_username = evt.target[1].defaultValue
+      var signup_username = evt.target[1].defaultValue.toLowerCase();
       var signup_password = evt.target[2].defaultValue
       var signup_email = evt.target[4].defaultValue
       console.log(signup_email);

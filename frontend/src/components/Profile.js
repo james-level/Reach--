@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import $ from 'jquery';
 import jQuery from 'jquery'
+import {geolocated, geoPropTypes} from 'react-geolocated';
+
+
 
 
 class Profile extends Component {
@@ -15,6 +18,19 @@ class Profile extends Component {
     };
   }
 
+twitter_followers(){
+  return this.props.data.twitter_followers;
+}
+
+instagram_followers(){
+  return this.props.data.instagram_followers;
+}
+
+youtube_followers(){
+  return this.props.data.youtube_followers;
+}
+
+// REACH DONUT DISPLAY GRAPHIC START
 chart(instagram_reach, twitter_reach, youtube_reach){
 
   this.setState({
@@ -277,8 +293,8 @@ chart(instagram_reach, twitter_reach, youtube_reach){
       return $this;
     };
   })(jQuery);
-
 }
+// REACH DONUT DISPLAY GRAPHIC END
 
   total_reach(){
     return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers
@@ -286,6 +302,7 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
 
   render(){
+    console.log(this.props.coords);
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
     console.log("age:",age);
@@ -298,29 +315,65 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 //ternary to either display profile or log in message
   const post = this.props.loggedInAs  ? (
 
+      <div className="profile">
+
+        <fieldset>
+          <legend><span class="number"></span> </legend>
+            <div class="gallery" data-flickity='{ "cellAlign": "left", "contain": true }'>
+              <img src={`http://localhost:8080/social_reach/media/${this.props.data.picture}`}/>
+              <img src={this.props.data.picture_two}/>
+              <img src={this.props.data.picture_three}/>
+              <img src={this.props.data.picture_four}/>
+              <img src={this.props.data.picture_five}/>
+              <img src={this.props.data.picture_six}/>
+            </div>
+        </fieldset>
+        <br></br>
 
 
-                    <div className="profile">
+        <fieldset>
+          <legend><span class="number"></span> {this.props.loggedInAs}, {age} </legend>
+          <label type="text">{this.props.data.bio}</label>
+        </fieldset>
 
-                    <h2> {this.props.loggedInAs}, {age} years old, gender identity {this.props.data.gender_identity}</h2>
+{/* PIE CHART START  */}
+        <fieldset>
+          <div class="donut-chart-block block">
 
-                    <h4> {this.props.data.bio}</h4>
+          <div class="donut-chart">
+            <div id="porcion1" class="recorte"><div class="quesito twitter" data-rel={(100/this.total_reach()) * this.twitter_followers()}></div></div>
+            <div id="porcion2" class="recorte"><div class="quesito instagram" data-rel={(100/this.total_reach()) * this.instagram_followers()}></div></div>
+            <div id="porcion3" class="recorte"><div class="quesito youtube" data-rel={(100/this.total_reach()) * this.youtube_followers()}></div></div>
+            <div id="porcionFin" class="recorte"><div class="quesito facebook" data-rel="0"></div></div>
+            <p class="center-date">{this.total_reach()}<br></br><span class="scnd-font-color"></span></p>
+          </div>
 
-                    <h4> Total Reach: {this.total_reach()}</h4>
+            <ul class="os-percentages horizontal-list">
+                <li>
+                  <p class="twitter os scnd-font-color">Twitter</p>
+                  <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.twitter_followers())}<sup>%</sup></p>
+                </li>
+                <li>
+                  <p class="instagram os scnd-font-color">Instagram</p>
+                  <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.instagram_followers())}<sup>%</sup></p>
+                </li>
+                <li>
+                  <p class="youtube os scnd-font-color">YouTube</p>
+                  <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.youtube_followers())}<sup>%</sup></p>
+                </li>
+                <li>
+                  <p class="facebook os scnd-font-color">Facebook</p>
+                  <p class="os-percentage">0<sup>%</sup></p>
+                </li>
+            </ul>
+          </div>
+        </fieldset>
+{/* PIE CHART END  */}
 
-                    <h4> Your Reach rank: Super Influencer</h4>
-
-                    <div>
-                    <img src={`http://localhost:8080/social_reach/media/${this.props.data.picture}`}/>
-
-                    <div id="doughnutChart" class="chart"></div>
-
-                    </div>
-
-                    </div>
+      </div>
 
   ) : (
-    <div className="center">Oops! You need to log in.</div>
+    <div className="center"> Oops! You need to log in :) </div>
   )
 
   return(
@@ -338,4 +391,4 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
 
 
-export default Profile;
+export default geolocated()(Profile);
