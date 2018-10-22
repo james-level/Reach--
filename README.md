@@ -147,6 +147,8 @@ POSTGRES EXTENSIONS FOR ARRAYS:
 
 pip install django_postgres_extensions
 
+pip install djangorestframework-jwt
+
 OTHERS:
 
 pip install cryptography
