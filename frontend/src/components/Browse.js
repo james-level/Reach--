@@ -1,20 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom';
-import ReactSwipe from 'react-swipe';
+import Cards, { Card } from 'react-swipe-card'
 
-class Carousel extends React.Component {
-    render() {
-        return (
-            <ReactSwipe className="carousel" swipeOptions={{continuous: false}}>
-                <div>PANE 1</div>
-                <div>PANE 2</div>
-                <div>PANE 3</div>
-            </ReactSwipe>
-        );
-    }
+
+const data = ['Alexandre', 'Thomas', 'Lucien']
+
+const Wrapper = () => {
+  return (
+	  <Cards onEnd={action('end')} className='master-root'>
+        {data.map(item =>
+          <Card
+            onSwipeLeft={action('swipe left')}
+            onSwipeRight={action('swipe right')}>
+            <h2>{item}</h2>
+          </Card>
+        )}
+      </Cards>
+  )
 }
-
-ReactDOM.render(
-    <Carousel />,
-    document.getElementById('app')
-);
