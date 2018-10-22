@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import $ from 'jquery';
 
 
 
@@ -219,29 +220,6 @@ class Register extends Component {
                 console.log(error);
         });
         console.log(this.props);
-
-
-        // var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
-        // axios.post(session_url, {
-        //
-        //   // PROVIDE CREDENTIALS TO BRING BACK NON-ENCRYPTED PASSWORD FOR CURRENT USER
-        //     'username': 'jamesbond007',
-        //     'password': 'p'
-        //   }).then(function(response) {
-        //     console.log(response);
-        //   console.log('Authenticated');
-        //   var token = response.data['access']
-        //   console.log(token);
-        //
-        // var password_url = `http://localhost:8080/social_reach/users/${self.state.activation_user.id}`
-        // axios.get(`${password_url}/?format=json`, { headers: { Authorization: `Bearer ${token}` } }).then(function (response) {
-        //      console.log(response)
-        //      self.setState({
-        //        activation_user_password: response.data.user['password']
-        //      })
-        //      console.log(self.state.activation_user_password);
-        //  }).catch(function (error) {
-        //          console.log(error);
          }
 
 
@@ -335,7 +313,7 @@ class Register extends Component {
         <form onSubmit={this.handleSubmit}>
 
       {/* BASIC INFO SECTION */}
-          <fieldset>
+      <fieldset>
             <legend><span class="number"></span> Basic Info</legend>
             <PasswordMask id="password" name="password" placeholder="Enter password" value={this.state.password}
  onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} inputStyles={inputStyles}
@@ -349,30 +327,30 @@ class Register extends Component {
               <option value="Any">Any</option>
             </select>
 
+
+            {/* LOCATION INPUT */}
             <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
-            <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Your Date Of Birth *"></input>
-            <p> {"What's your gender identity?"} </p>
-            Female  <input type="range"  onChange={this.handleChange} max="100" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male
+
+            {/* DOB INPUT */}
+            <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Date Of Birth *"></input>
+
+            {/* GENDER INPUT */}
+            <p> {"Gender Identity?"} </p>
+            <span> Female  <input type="range"  onChange={this.handleChange} max="100" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male </span>
+            <br></br><br></br>
+
+            {/* BIO/DESCRIPTION INPUT  */}
+            <p>About You:</p>
             <textarea name="description" onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
 
-      {/*  TODO: Replace this 'Interests drop-down (below) with a 'show emoji's to represent you' field?   */}
+            {/*INTERESTS INPUT (EMOJI's)  */}
             <label for="job">Interests:</label>
-              <select id="job" name="interests" onChange={this.handleChange}>
-                <optgroup label="I like to post/blog/vlog about...">
-                  <option value="travel">Travel</option>
-                  <option value="ecology">Saving The Planet</option>
-                  <option value="gym">Gym</option>
-                  <option value="animals">Animals</option>
-                  <option value="politics">Politics</option>
-                  <option value="food">Food Porn</option>
-                  <option value="fashion">Fashion/Beauty</option>
-                  <option value="sport">Sport</option>
-                  <option value="music">Music</option>
-                  <option value="films">Films</option>
-                  <option value="geeky stuff">Geeky stuff</option>
-                </optgroup>
-              </select>
-            </fieldset>
+              <input type="text" onChange={this.handleChange} data-emojiable="true"  maxlength="5" name="interests" placeholder="Pick five emojis that represent your interests"></input>
+
+      </fieldset>
+
+
+
 
 
       {/* SOCIAL MEDIA SECTION */}

@@ -17,6 +17,9 @@ from django.conf.urls import include
 from social_reach import views
 from rest_framework import routers
 from rest_framework.routers import DefaultRouter
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import refresh_jwt_token
+from rest_framework_jwt.views import verify_jwt_token
 
 router = DefaultRouter()
 router.register('users', djoserviews.UserViewSet)
@@ -29,7 +32,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'matches/$', views.matches, name='matches'),
     url(r'register/$', views.register, name='register'),
-    url(r'login/$', views.user_login, name='login'),
+    # url(r'login/$', views.user_login, name='login'),
     url(r'logout/$', views.user_logout, name='logout'),
     url(r'restricted/$', views.restricted, name='restricted'),
     url(r'add_category/$', views.add_category, name='add_category'),
@@ -80,6 +83,9 @@ urlpatterns = [
         djoserviews.TokenDestroyView.as_view(),
         name='token-destroy'
     ),
+     url(r'^jwt_login/', views.obtain_jwt_token),
+        url(r'^auth-jwt-refresh/', views.refresh_jwt_token),
+        url(r'^auth-jwt-verify/', views.verify_jwt_token),
     url(r'^auth/', include('djoser.urls')),
         url(r'^$', generic.RedirectView.as_view(
              url='/api/', permanent=False)),
