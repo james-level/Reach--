@@ -394,6 +394,8 @@ input[type="file"] {
     background-color: hsla(174, 62%, 45%, 0.8)
 }
 
+
+
 /* PUBLIC PROFILE (VIEW) PHOTO CAROUSEL START. NB: external css: flickity.css */
 * {
   -webkit-box-sizing: border-box;
@@ -456,14 +458,15 @@ input[type="file"] {
 .flickity-page-dots .dot.is-selected {
   background: white;
 }
-/* PUBLIC PROFILE (VIEW) PHOTO CAROUSEL END */
+/* PROFILE (VIEWS) PHOTO CAROUSEL END */
+
+
 
 /* PIE CHART REACH STYLE */
 
 @import url(//fonts.googleapis.com/css?family=Oswald:400);
 body {
   background: #222428;
-  font-family: "Oswald", sans-serif;
 }
 .chart {
   position: absolute;
@@ -699,3 +702,303 @@ body {
     background: #109177;
 }
 /* PUBLIC PROFILE PAGE END */
+
+
+
+
+/* PROFILE PAGE START */
+.profile {
+    max-width: 500px;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    margin: 10px auto;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    font-family: 'Raleway', sans-serif;
+}
+.profile fieldset{
+    border: none;
+}
+.profile legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+.profile label {
+    display: block;
+    margin-bottom: 8px;
+}
+.profile input[type="text"],
+.profile input[type="password"],
+.profile input[type="date"],
+.profile input[type="datetime"],
+.profile input[type="email"],
+.profile input[type="number"],
+.profile input[type="search"],
+.profile input[type="time"],
+.profile input[type="url"],
+.profile textarea,
+.profile select {
+    font-family: 'Raleway', sans-serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: 0;
+    outline: 0;
+    padding: 7px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color:#8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+
+}
+.profile input[type="text"]:focus,
+.profile input[type="date"]:focus,
+.profile input[type="datetime"]:focus,
+.profile input[type="email"]:focus,
+.profile input[type="number"]:focus,
+.profile input[type="search"]:focus,
+.profile input[type="time"]:focus,
+.profile input[type="url"]:focus,
+.profile textarea:focus,
+.profile select:focus{
+    background: #d2d9dd;
+}
+.profile select{
+    -webkit-appearance: menulist-button;
+    height:35px;
+}
+.profile .number {
+    background: #2cbbad;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 15px 15px 15px 0px;
+}
+
+.profile input[type="submit"],
+.profile input[type="button"]
+{
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: #2cbbad;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+}
+.profile input[type="submit"]:hover,
+.profile input[type="button"]:hover
+{
+    background: #109177;
+}
+/* PUBLIC PROFILE PAGE END */
+
+
+
+/* NEW REACTIVE PIECHART DISPLAY START  */
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,700);
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+
+h2 {
+	font-size: 17px;
+}
+
+p {
+	font-size: 15px;
+}
+
+a {
+	text-decoration: none;
+	font-size: 15px;
+}
+	a:hover {
+		text-decoration: underline;
+	}
+
+h1, h2, p, a, span{
+	color: #fff;
+}
+	.scnd-font-color {
+		color: black;
+	}
+.titular {
+display: block;
+line-height: 60px;
+margin: 0;
+text-align: center;
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+}
+.horizontal-list {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+	.horizontal-list li {
+		float: left;
+	}
+		.block {
+			margin: 25px 25px 0 0;
+			background: #f4f7f8;
+			border-radius: 5px;
+      float: left;
+      width: 300px;
+      overflow: hidden;
+		}
+
+		.left-container {}
+			.menu-box {
+				height: 360px;
+        align-items: center;
+			}
+
+			.donut-chart-block {
+				overflow: hidden;
+			}
+				.donut-chart-block .titular {
+					padding: 10px 0;
+				}
+				.os-percentages li {
+					width: 75px;
+					border: 1px solid white;
+					text-align: center;
+					background: #2cbbad
+				}
+					.os {
+						margin: 0;
+						padding: 10px 0 5px;
+						font-size: 15px;
+					}
+						.os.twitter {
+							border-top: 4px solid #e64c65;
+						}
+						.os.instagram {
+							border-top: 4px solid #11a8ab;
+						}
+						.os.youtube {
+							border-top: 4px solid #fcb150;
+						}
+						.os.facebook {
+							border-top: 4px solid #4fc4f6;
+						}
+					.os-percentage {
+						margin: 0;
+						padding: 0 0 15px 10px;
+						font-size: 25px;
+					}
+
+.donut-chart {
+  position: relative;
+	width: 200px;
+  height: 200px;
+	margin: 0 auto 2rem;
+	border-radius: 100%
+ }
+p.center-date {
+  background: #394264;
+  position: absolute;
+  text-align: center;
+	font-size: 28px;
+  top:0;left:0;bottom:0;right:0;
+  width: 130px;
+  height: 130px;
+  margin: auto;
+  border-radius: 50%;
+  line-height: 35px;
+  padding: 15% 0 0;
+}
+.center-date span.scnd-font-color {
+ line-height: 0;
+}
+.recorte {
+    border-radius: 50%;
+    clip: rect(0px, 200px, 200px, 100px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+.quesito {
+    border-radius: 50%;
+    clip: rect(0px, 100px, 200px, 0px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    font-family: monospace;
+    font-size: 1.5rem;
+  }
+#porcion1 {
+    transform: rotate(0deg);
+  }
+
+#porcion1 .quesito {
+    background-color: #E64C65;
+    transform: rotate(76deg);
+  }
+#porcion2 {
+    transform: rotate(76deg);
+  }
+#porcion2 .quesito {
+    background-color: #11A8AB;
+    transform: rotate(140deg);
+  }
+#porcion3 {
+    transform: rotate(215deg);
+  }
+#porcion3 .quesito {
+    background-color: #4FC4F6;
+    transform: rotate(113deg);
+  }
+#porcionFin {
+    transform:rotate(-32deg);
+  }
+#porcionFin .quesito {
+    background-color: #FCB150;
+    transform: rotate(32deg);
+  }
+.nota-final {
+  clear: both;
+  color: #4FC4F6;
+  font-size: 1rem;
+  padding: 2rem 0;
+}
+.nota-final strong {
+  color: #E64C65;
+}
+.nota-final a {
+  color: #FCB150;
+  font-size: inherit;
+}
+
+
+/* NEW REACTIVE PIECHART DISPLAY END  */
