@@ -40,42 +40,11 @@ class Profile extends Component {
 
         {/* DISPLAY NAME & AGE*/}
         <fieldset>
-          <legend><span class="number"></span> {this.props.loggedInAs}, {age}yrs </legend>
-          <label type="text">Total Reach: {this.total_reach()}</label>
+          <legend><span class="number"></span> {this.props.loggedInAs} ({this.props.data.location}), {age}yrs </legend>
+          <label className="total-reach" type="text">Reach: {this.total_reach()}</label>
         </fieldset>
 
-        {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
-        <div className="reach-stats">
-        <ul class="os-percentages horizontal-list">
-            <li>
-              <p class="twitter os scnd-font-color">Twitter</p>
-              <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.twitter_followers())}<sup>%</sup></p>
-            </li>
-            <li>
-              <p class="instagram os scnd-font-color">Instagram</p>
-              <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.instagram_followers())}<sup>%</sup></p>
-            </li>
-            <li>
-              <p class="youtube os scnd-font-color">YouTube</p>
-              <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.youtube_followers())}<sup>%</sup></p>
-            </li>
-            <li>
-              <p class="facebook os scnd-font-color">Facebook</p>
-              <p class="os-percentage">0<sup>%</sup></p>
-            </li>
-            <li>
-              <p class="snapchat os scnd-font-color">Snapchat</p>
-              <p class="os-percentage">0<sup>%</sup></p>
-            </li>
-            <li>
-              <p class="spotify os scnd-font-color">Spotify</p>
-              <p class="os-percentage">0<sup>%</sup></p>
-            </li>
-        </ul>
-      </div>
-
       {/* PHOTO CAROUSEL */}
-          <br></br><br></br>
           <div class="slider-container">
             <div class="slider-menu"> */}
               {/* <label for="slide-dot-1"></label> */}
@@ -104,6 +73,39 @@ class Profile extends Component {
             <input id="slide-dot-6" type="radio" name="slides"></input>
             <div class="slide slide-6" style={imageStyle6}></div>
           </div>
+          <br></br>
+
+
+          {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
+          <div className="reach-stats">
+          <ul class="os-percentages horizontal-list">
+              <li>
+                <p class="twitter os scnd-font-color">Twitter</p>
+                <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.twitter_followers())}<sup>%</sup></p>
+              </li>
+              <li>
+                <p class="instagram os scnd-font-color">Instagram</p>
+                <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.instagram_followers())}<sup>%</sup></p>
+              </li>
+              <li>
+                <p class="youtube os scnd-font-color">YouTube</p>
+                <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.youtube_followers())}<sup>%</sup></p>
+              </li>
+              <li>
+                <p class="facebook os scnd-font-color">Facebook</p>
+                <p class="os-percentage">0<sup>%</sup></p>
+              </li>
+              <li>
+                <p class="snapchat os scnd-font-color">Snapchat</p>
+                <p class="os-percentage">0<sup>%</sup></p>
+              </li>
+              <li>
+                <p class="spotify os scnd-font-color">Spotify</p>
+                <p class="os-percentage">0<sup>%</sup></p>
+              </li>
+          </ul>
+        </div>
+        <br></br><br></br>
 
           {/* YES OR NO BUTTONS   */}
           <fieldset>
@@ -117,7 +119,7 @@ class Profile extends Component {
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
         <br></br>
         <fieldset>
-          <legend><span class="number"></span>Home-town: {this.props.data.location}</legend>
+          <legend><span class="number"></span>About</legend>
           <label type="text">{this.props.data.bio}</label>
         </fieldset>
 

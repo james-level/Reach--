@@ -704,6 +704,14 @@ body {
 /* PUBLIC PROFILE PAGE END */
 
 
+/* TOTAL REACH HEADER START */
+.total-reach {
+  font-weight:600;
+  font-size: 3vh;
+  text-align: center;
+  color: #2cbbad
+}
+/* TOTAL REACH HEADER END */
 
 
 /* PROFILE PAGE START */
@@ -914,6 +922,7 @@ font-size: 25px;
 .slide {
   width: 100%;
   height: 100%;
+  border-radius: 10px;
   position: absolute;
   top: 0;
   background-size: cover;
@@ -931,7 +940,9 @@ font-size: 25px;
 /* YES OR NO BUTTONS (UNDER PROFILE IMAGES) START */
 .buttonHolder{
   margin:80px auto;
-  width:400px;
+  width:200px;
+  justify-content: center;
+
 }
 
 		.button{
