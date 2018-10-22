@@ -140,7 +140,7 @@ console.log("Error resetting password");
     })
 
   var session_url = 'http://localhost:8080/social_reach/jwt_login/';
-  var uname = evt.target[1].defaultValue.toLowerCase();
+  var uname = evt.target[1].defaultValue;
   var pass = evt.target[2].defaultValue;
   // self = this , a workaround to access 'this' within axios
   var self = this;
