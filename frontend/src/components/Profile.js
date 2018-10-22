@@ -302,7 +302,15 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
 
   render(){
-    console.log(this.props.coords);
+
+    // const imageStyle = {backgroundImage: `url(${this.props.data.picture})`}
+    const imageStyle2 = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture_two})`}
+    const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
+    const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
+    const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
+    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture_six})`}
+
+
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
     console.log("age:",age);
@@ -317,7 +325,7 @@ chart(instagram_reach, twitter_reach, youtube_reach){
 
       <div className="profile">
 
-        <fieldset>
+        {/* <fieldset>
           <legend><span class="number"></span> </legend>
             <div class="gallery" data-flickity='{ "cellAlign": "left", "contain": true }'>
               <img src={`http://localhost:8080/social_reach/media/${this.props.data.picture}`}/>
@@ -327,6 +335,39 @@ chart(instagram_reach, twitter_reach, youtube_reach){
               <img src={this.props.data.picture_five}/>
               <img src={this.props.data.picture_six}/>
             </div>
+        </fieldset>
+        <br></br> */}
+
+
+        <fieldset>
+          <div class="slider-container">
+            <div class="menu">
+              {/* <label for="slide-dot-1"></label> */}
+              <label for="slide-dot-2"></label>
+              <label for="slide-dot-3"></label>
+              <label for="slide-dot-4"></label>
+              <label for="slide-dot-5"></label>
+              <label for="slide-dot-6"></label>
+            </div>
+
+            {/* <input id="slide-dot-1" type="radio" name="slides" checked></input>
+            <div class="slide slide-1" style={imageStyle}></div> */}
+
+            <input id="slide-dot-2" type="radio" name="slides"></input>
+            <div class="slide slide-2" style={imageStyle2}></div>
+
+            <input id="slide-dot-3" type="radio" name="slides"></input>
+            <div class="slide slide-3" style={imageStyle3}></div>
+
+            <input id="slide-dot-4" type="radio" name="slides"></input>
+            <div class="slide slide-4" style={imageStyle4}></div>
+
+            <input id="slide-dot-5" type="radio" name="slides"></input>
+            <div class="slide slide-5" style={imageStyle5}></div>
+
+            <input id="slide-dot-6" type="radio" name="slides"></input>
+            <div class="slide slide-6" style={imageStyle6}></div>
+          </div>
         </fieldset>
         <br></br>
 

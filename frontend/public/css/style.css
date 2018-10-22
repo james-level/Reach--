@@ -1002,6 +1002,57 @@ p.os-percentage{
   color: #FCB150;
   font-size: inherit;
 }
-
-
 /* NEW REACTIVE PIECHART DISPLAY END  */
+
+
+
+/* NEW PROFILE IMAGE SLIDER START */
+
+.slider-container{
+  height: 350px;
+  width: 350px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.menu {
+  position: absolute;
+  left: 0;
+  z-index: 900;
+  width: 100%;
+  bottom: 0;
+}
+
+.menu label {
+  cursor: pointer;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50px;
+  margin: 0 .2em 1em;
+  &:hover {
+    background: red;
+  }
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  /* left: 100%; */
+  z-index: 10;
+  padding: 8em 1em 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  transition: left 0s .50s;
+}
+
+[id^="slide"]:checked + .slide {
+  left: 0;
+  z-index: 100;
+  transition: left .50s ease-out;
+}
+/* NEW PROFILE IMAGE SLIDER END */
