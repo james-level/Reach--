@@ -15,6 +15,8 @@ class Profile extends Component {
     };
   }
 
+
+// REACH DONUT DISPLAY GRAPHIC START
 chart(instagram_reach, twitter_reach, youtube_reach){
 
   this.setState({
@@ -277,8 +279,8 @@ chart(instagram_reach, twitter_reach, youtube_reach){
       return $this;
     };
   })(jQuery);
-
 }
+// REACH DONUT DISPLAY GRAPHIC END
 
   total_reach(){
     return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers
@@ -290,37 +292,43 @@ chart(instagram_reach, twitter_reach, youtube_reach){
     var age = getAge(this.props.data.date_of_birth);
     console.log("age:",age);
     console.log(this.props);
-      if (this.state.chart == false){
-      this.chart(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)
-    }
+    //   if (this.state.chart == false){
+    //   this.chart(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)
+    // }
 
 
 //ternary to either display profile or log in message
   const post = this.props.loggedInAs  ? (
 
+      <div className="profile">
+
+        <fieldset>
+          <legend><span class="number"></span> </legend>
+            <div class="gallery" data-flickity='{ "cellAlign": "left", "contain": true }'>
+              <img src={`http://localhost:8080/social_reach/media/${this.props.data.picture}`}/>
+              <img src={this.props.data.picture_two}/>
+              <img src={this.props.data.picture_three}/>
+              <img src={this.props.data.picture_four}/>
+              <img src={this.props.data.picture_five}/>
+              <img src={this.props.data.picture_six}/>
+            </div>
+        </fieldset>
+        <br></br>
 
 
-                    <div className="profile">
+        <fieldset>
+          <legend><span class="number"></span> {this.props.loggedInAs}, {age} </legend>
+          <label type="text">{this.props.data.bio}</label>
+        </fieldset>
 
-                    <h2> {this.props.loggedInAs}, {age} years old, gender identity {this.props.data.gender_identity}</h2>
+        <fieldset>
+          <legend><span class="number"></span>Reach: {this.total_reach()} </legend>
+        </fieldset>
 
-                    <h4> {this.props.data.bio}</h4>
-
-                    <h4> Total Reach: {this.total_reach()}</h4>
-
-                    <h4> Your Reach rank: Super Influencer</h4>
-
-                    <div>
-                    <img src={`http://localhost:8080/social_reach/media/${this.props.data.picture}`}/>
-
-                    <div id="doughnutChart" class="chart"></div>
-
-                    </div>
-
-                    </div>
+      </div>
 
   ) : (
-    <div className="center">Oops! You need to log in.</div>
+    <div className="center"> Oops! You need to log in :) </div>
   )
 
   return(
