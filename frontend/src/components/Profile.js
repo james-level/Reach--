@@ -3,6 +3,8 @@ import $ from 'jquery';
 import jQuery from 'jquery'
 import {geolocated, geoPropTypes} from 'react-geolocated';
 
+// DELETE THIS COMMENT  DURING MERE PLEASE
+
 
 class Profile extends Component {
   constructor(props) {
