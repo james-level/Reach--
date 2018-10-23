@@ -122,9 +122,11 @@ handlePasswordResetSubmit(evt){
   var uname = evt.target[1].defaultValue.toLowerCase();
   var password = evt.target[2].defaultValue;
   var email = evt.target[6].value;
+  var self = this
   console.log(email);
   console.log(uname);
   console.log(password);
+  var jwt_token = this.state.password_reset_jwt_token
   console.log("JWT", this.state.password_reset_jwt_token);
   var reset_url = `http://localhost:8080/social_reach/users/reset_password/${uid}/${token}`
    axios.put(`${reset_url}/?format=json`, {
@@ -132,8 +134,8 @@ handlePasswordResetSubmit(evt){
      'password': password,
      'email': email
    },
- { headers: { 'Authorization': `JWT ${this.state.password_reset_jwt_token}` } }).then(function (response) {
-    this.setState({
+ { headers: { 'Authorization': `JWT ${jwt_token}` } }).then(function (response) {
+    self.setState({
       resetPasswordSubmitted: true,
     })
     console.log("RESET DONE");
