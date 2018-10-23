@@ -142,17 +142,13 @@ def user_reset(request, uidb64, token):
 , status=201)
 
 
-class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-
-    def get_object(self):
-        uid = force_text(urlsafe_base64_decode(self.kwargs['uidb64']))
-        user_to_reset = User.objects.get(pk=uid)
-        if user_to_reset and TokenGenerator().check_token(user_to_reset, self.kwargs['token']):
-            print("Password for " + user_to_reset.username + " has been reset.")
-        return user_to_reset
-
+def initiate_password_reset(request, uidb64, token):
+    uid = force_text(urlsafe_base64_decode(uidb64))
+    user_to_reset = User.objects.all().get(pk=uid)
+    if user_to_reset and TokenGenerator().check_token(user_to_reset, token):
+        print("Password for " + user_to_reset.username + " has been reset.")
+    return JsonResponse( {'username': user_to_reset.username, 'email': user_to_reset.email, 'status': 200, 'text': "Returned response." }
+    , status=201)
 
 
 def reset_email(request, username):
