@@ -887,26 +887,6 @@ font-size: 25px;
 
 
 
-/* NEW PROFILE IMAGE SLIDER START */
-.slider-container {
-  height: 450px;
-  width: 450px;
-  position: relative;
-  flex-direction: column;
-  overflow: hidden;
-  text-align: center;
-}
-
-.slider-menu {
-  position: absolute;
-  left: 0;
-  z-index: 900;
-  width: 100%;
-  bottom: 0;
-}
-
-/* NEW REACTIVE PIECHART DISPLAY END  */
-
 /* StackedBar start */
 
 Stacked {
@@ -943,18 +923,44 @@ Stacked {
   .bar-3 {
     background:  #11a8ab;
   }
+/*end stacked bar*/
+
+/* NEW PROFILE IMAGE SLIDER START */
+.slider-container {
+  height: 450px;
+  width: 450px;
+  position: relative;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: center;
+}
+
+.slider-menu {
+  position: absolute;
+  left: 0;
+  z-index: 900;
+  width: 100%;
+  bottom: 0;
+}
+
+
 .slider-menu label {
   cursor: pointer;
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: #fff;
+  background: hsla(173, 62%, 45%, 0.4);;
   border-radius: 50px;
   margin: 0 .2em 1em;
+  transition: 0.4s;
 }
 
+.slider-menu label:hover {
+  background: hsla(173, 62%, 45%, 1.0);;
+  transition: 0.4s
+}
 .slider:hover {
-    background: red;
+    background: #fff;
 }
 
 .slide {
@@ -965,12 +971,16 @@ Stacked {
   top: 0;
   background-size: cover;
   background-position: 50% 50%;
-  /* transition: left 0s .50s; */
+  transition: .50s;
+
 }
+
 
 [id^="slide"]:checked + .slide {
   z-index: 100;
   transition: left .50s ease-out;
+  
+
 }
 /* NEW PROFILE IMAGE SLIDER END */
 
@@ -1010,14 +1020,14 @@ Stacked {
 
 		.tick:after{
 			content: "👍🏻";
-			left:23px;
-			top:20px;
+			/* left:23px;
+			top:20px; */
 		}
 
 		.cross:after{
 			content: "👎🏻";
-			left: 24px;
-			top: 19px;
+			/* left: 24px;
+			top: 19px; */
 		}
 
 		.button:hover{

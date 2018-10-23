@@ -15,12 +15,13 @@ class PublicProfile extends Component {
 
   render(){
 
-    const imageStyle = {backgroundImage: `url(${this.props.data.picture})`}
-    const imageStyle2 = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture_two})`}
+    const imageStyle = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture_six})`}
+
+    const imageStyle2 = {backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
     const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
-    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture_six})`}
+    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
     console.log(this.props);
       const post = this.props.loggedInAs  ? (
 
@@ -47,8 +48,9 @@ class PublicProfile extends Component {
                       <fieldset>
                         <legend><span class="number"></span> Selfie Centre </legend>
                         <div class="slider-container">
-                          <div class="slider-menu"> */}
-                            {/* <label for="slide-dot-1"></label> */}
+
+                          <div class="slider-menu">
+                          <label for="slide-dot-1"></label>
                             <label for="slide-dot-2"></label>
                             <label for="slide-dot-3"></label>
                             <label for="slide-dot-4"></label>
@@ -56,10 +58,10 @@ class PublicProfile extends Component {
                             <label for="slide-dot-6"></label>
                           </div>
 
-                          {/* <input id="slide-dot-1" type="radio" name="slides" checked></input>
-                          <div class="slide slide-1" style={imageStyle}></div> */}
+                          <input id="slide-dot-1" type="radio" name="slides" ></input>
+                          <div class="slide slide-1" style={imageStyle}></div>
 
-                          /* <input id="slide-dot-2" type="radio" name="slides"></input>
+                           <input id="slide-dot-2" type="radio" name="slides"></input>
                           <div class="slide slide-2" style={imageStyle2}></div>
 
                           <input id="slide-dot-3" type="radio" name="slides"></input>
