@@ -16,6 +16,7 @@ class PublicProfile extends Component {
   render(){
 
     const imageStyle = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture})`}
+    console.log("IMAGE 1", this.props.data.picture);
     const imageStyle2 = {backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
@@ -48,7 +49,7 @@ class PublicProfile extends Component {
                         <legend><span class="number"></span> Selfie Centre </legend>
                         <div class="slider-container">
                           <div class="slider-menu"> */}
-                            {/* <label for="slide-dot-1"></label> */}
+                            <label for="slide-dot-1"></label>
                             <label for="slide-dot-2"></label>
                             <label for="slide-dot-3"></label>
                             <label for="slide-dot-4"></label>
