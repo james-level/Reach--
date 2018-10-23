@@ -50,7 +50,7 @@ class PublicProfile extends Component {
                         <div class="slider-container">
 
                           <div class="slider-menu">
-                            <label for="slide-dot-1"></label>
+                          <label for="slide-dot-1"></label>
                             <label for="slide-dot-2"></label>
                             <label for="slide-dot-3"></label>
                             <label for="slide-dot-4"></label>
