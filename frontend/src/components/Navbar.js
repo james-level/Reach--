@@ -24,7 +24,7 @@ class Navbar extends Component {
           <Link to="/publicprofile">PublicProfile</Link>
         </li>
         <li>
-          <Link to="/reachout">Reach Out!</Link>
+          <Link to="/settings">Settings</Link>
         </li>
         <li>
           <Link to="/browse">Browse</Link>
