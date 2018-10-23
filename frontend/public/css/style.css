@@ -952,7 +952,7 @@ Stacked {
   background: hsla(173, 62%, 45%, 0.4);;
   border-radius: 50px;
   margin: 0 .2em 1em;
-  transition: 0.4s
+  transition: 0.4s;
 }
 
 .slider-menu label:hover {
@@ -960,7 +960,7 @@ Stacked {
   transition: 0.4s
 }
 .slider:hover {
-    background: red;
+    background: #fff;
 }
 
 .slide {
@@ -971,12 +971,17 @@ Stacked {
   top: 0;
   background-size: cover;
   background-position: 50% 50%;
-  transition: left 0s .50s;
+  transition: .50s;
+
+
 }
+
 
 [id^="slide"]:checked + .slide {
   z-index: 100;
   transition: left .50s ease-out;
+  opacity: 1;
+
 }
 /* NEW PROFILE IMAGE SLIDER END */
 
@@ -1016,14 +1021,14 @@ Stacked {
 
 		.tick:after{
 			content: "👍🏻";
-			left:23px;
-			top:20px;
+			/* left:23px;
+			top:20px; */
 		}
 
 		.cross:after{
 			content: "👎🏻";
-			left: 24px;
-			top: 19px;
+			/* left: 24px;
+			top: 19px; */
 		}
 
 		.button:hover{
