@@ -99,6 +99,7 @@ class Settings extends Component {
 
         {/* AGE RANGE SELECTOR */}
         <fieldset>
+          <legend><span class="number"></span> Age & Location </legend>
           <div>
             <p>What age range do you want to checkout? Between...</p>
               <select onChange={this.handleChange} name="min_age">
