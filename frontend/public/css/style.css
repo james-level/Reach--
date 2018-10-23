@@ -822,6 +822,10 @@ body {
   box-sizing: border-box;
 }
 
+.social_reach_stats{
+  align-content: center;
+}
+
 
 ul {
 	list-style-type: none;
@@ -866,11 +870,12 @@ border-top-right-radius: 5px;
 		float: left;
 	}
 		.block {
+      position: relative;
 			margin: 25px 25px 0 0;
 			background: #f4f7f8;
 			border-radius: 5px;
       float: left;
-      width: 300px;
+      width: auto;
       overflow: hidden;
 		}
 
@@ -915,93 +920,6 @@ border-top-right-radius: 5px;
 						font-size: 25px;
 					}
 
-.donut-chart {
-  position: relative;
-	width: 200px;
-  height: 200px;
-	margin: 0 auto 2rem;
-	border-radius: 100%
- }
-p.center-date {
-  background: #394264;
-  color: #fff;
-  position: absolute;
-  text-align: center;
-	font-size: 28px;
-  top:0;left:0;bottom:0;right:0;
-  width: 130px;
-  height: 130px;
-  margin: auto;
-  border-radius: 50%;
-  line-height: 35px;
-  padding: 15% 0 0;
-}
-
-
-p.os-percentage{
-	color: #fff;
-}
-.center-date span.scnd-font-color {
- line-height: 0;
-}
-.recorte {
-    border-radius: 50%;
-    clip: rect(0px, 200px, 200px, 100px);
-    height: 100%;
-    position: absolute;
-    width: 100%;
-  }
-.quesito {
-    border-radius: 50%;
-    clip: rect(0px, 100px, 200px, 0px);
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    font-family: monospace;
-    font-size: 1.5rem;
-  }
-#porcion1 {
-    transform: rotate(0deg);
-  }
-
-#porcion1 .quesito {
-    background-color: #E64C65;
-    transform: rotate(76deg);
-  }
-#porcion2 {
-    transform: rotate(76deg);
-  }
-#porcion2 .quesito {
-    background-color: #11A8AB;
-    transform: rotate(140deg);
-  }
-#porcion3 {
-    transform: rotate(215deg);
-  }
-#porcion3 .quesito {
-    background-color: #4FC4F6;
-    transform: rotate(113deg);
-  }
-#porcionFin {
-    transform:rotate(-32deg);
-  }
-#porcionFin .quesito {
-    background-color: #FCB150;
-    transform: rotate(32deg);
-  }
-.nota-final {
-  clear: both;
-  color: #4FC4F6;
-  font-size: 1rem;
-  padding: 2rem 0;
-}
-.nota-final strong {
-  color: #E64C65;
-}
-.nota-final a {
-  color: #FCB150;
-  font-size: inherit;
-}
 
 
 /* NEW REACTIVE PIECHART DISPLAY END  */
@@ -1013,7 +931,7 @@ Stacked {
 }
 .stacked-bar-graph {
   width: 100%;
-  height: 38px;
+  height: 1vh;
   background: #eee;
   color:#414042;
 }
@@ -1036,11 +954,11 @@ Stacked {
   }
 
   .bar-2 {
-    background: #11a8ab;
+    background:#e64c65;
   }
 
   .bar-3 {
-    background: #e64c65;
+    background:  #11a8ab;
   }
 
 
