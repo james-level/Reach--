@@ -24,6 +24,7 @@ class Main extends Component {
       loggedInAs: '',
       activation_token: '',
       activation_user: '',
+      password_reset_jwt_token: '',
       reset_token: '',
       reset_uid: '',
       reroute: false,
@@ -58,6 +59,12 @@ set_signUpPassword(word){
 get_reset_token(token){
   this.setState({
     reset_token: token
+  })
+}
+
+get_password_reset_jwt_token(token){
+  this.setState({
+    password_reset_jwt_token: token
   })
 }
 

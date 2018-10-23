@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import requests
+import json
 
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import generics
@@ -132,20 +133,52 @@ def user_reset(request, uidb64, token):
         context = {'user': user_reset}
 
         data = {
-            'username': user_reset.username,
-            'password': user_reset.password
+            'username': 'omnipotent22',
+            'password': 'cutandthrust'
                 }
 
-        r = requests.post('http://localhost:8080/social_reach/api/auth/token/obtain/', data=data)
+        response = requests.post('http://localhost:8080/social_reach/jwt_login/', data=data)
+        content = response.content
+        token_dict = json.loads( content )
 
-    return JsonResponse( {'user': model_to_dict(user_reset), 'status': 200, 'text': "Returned response." }
+        print("CONTENT", token_dict)
+
+
+
+    return JsonResponse( {'user': model_to_dict(user_reset), 'jwt_token': token_dict['token'], 'status': 200, 'text': "Returned response." }
 , status=201)
+
+
+class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def get_object(self):
+        uid = force_text(urlsafe_base64_decode(self.kwargs['uidb64']))
+        user_to_reset = User.objects.get(pk=uid)
+        if user_to_reset and TokenGenerator().check_token(user_to_reset, self.kwargs['token']):
+            print("Password for " + user_to_reset.username + " has been reset.")
+        return JsonResponse( {'username': user_to_reset.username, 'email': user_to_reset.email, 'status': 200, 'text': "Returned response." }
+        , status=201)
+
+# def user_password_reset(request, uidb64, token):
+#     uid = force_text(urlsafe_base64_decode(uidb64))
+#     print("username", request.username)
+#     user_to_reset = User.objects.get(pk=uid)
+#     if user_to_reset and TokenGenerator().check_token(user_to_reset, token):
+#         print("Password for " + user_to_reset.username + " has been reset.")
+#         user_to_reset.username = request.username
+#         user_to_reset.email = request.email
+#         user_to_reset.password = request.password
+#         user_to_reset.save()
+#     return JsonResponse( {'username': user_to_reset.username, 'email': user_to_reset.email, 'status': 200, 'text': "Returned response." }
+#     , status=201)
 
 
 def initiate_password_reset(request, uidb64, token):
     uid = force_text(urlsafe_base64_decode(uidb64))
-    user_to_reset = User.objects.all().get(pk=uid)
-    if user_to_reset and TokenGenerator().check_token(user_to_reset, token):
+    user_to_reset = User.objects.get(pk=uid)
+    if user_to_reset and TokenGenerator().check_token(user_to_reset, self.kwargs['token']):
         print("Password for " + user_to_reset.username + " has been reset.")
     return JsonResponse( {'username': user_to_reset.username, 'email': user_to_reset.email, 'status': 200, 'text': "Returned response." }
     , status=201)

@@ -15,7 +15,8 @@ class PasswordReset extends Component {
       password_two: '',
       email: '',
       reset: false,
-      reset_user: null
+      reset_user: null,
+      jwt_token: null
     };
 
 
@@ -65,8 +66,10 @@ class PasswordReset extends Component {
     var url = `http://localhost:8080/social_reach/auth/users/getreset/${uid}/${token}`
      axios.get(`${url}/?format=json`).then(function (response) {
           self.setState({
-            reset_user: response.data.user
+            reset_user: response.data.user,
+            jwt_token: response.data.jwt_token
           })
+
       }).catch(function (error) {
               console.log(error);
       });
@@ -83,6 +86,9 @@ class PasswordReset extends Component {
     if ((this.state.password_one.length > 0
     || this.state.password_two.length > 0)
     && this.state.password_two !== this.state.password_one){
+
+        this.props.get_password_reset_jwt_token(this.state.jwt_token)
+        console.log("JWT TOKEN", this.state.jwt_token);
 
     return(
 

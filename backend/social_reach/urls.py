@@ -59,7 +59,7 @@ urlpatterns = [
     # For sending link to reset password
     url(r'^users/reset_password/(?P<username>[\w\-]+)/$', views.reset_email, name='specific_user_detail'),
     # For making post request to actually reset password
-    url(r'^users/reset_password/(?P<uidb64>[\w\-]+)/(?P<token>[\w\-]+)/$', views.initiate_password_reset, name='user_password_reset'),
+    url(r'^users/reset_password/(?P<uidb64>[\w\-]+)/(?P<token>[\w\-]+)/$', views.UserPasswordReset.as_view(), name='user_password_reset'),
     url(r'^mutual_likes/$', ListMatchView.as_view(), name="mutual_likes"),
     url(r'^mutual_likes/(?P<pk>[\w\-]+)/$', MatchDetail.as_view(), name="mutual_like_detail"),
     url(r'^likes/$', ListLikesView.as_view(), name="likes"),
