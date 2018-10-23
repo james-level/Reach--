@@ -60,7 +60,7 @@ class Profile extends Component {
             {/* <input id="slide-dot-1" type="radio" name="slides" checked></input>
             <div class="slide slide-1" style={imageStyle}></div> */}
 
-            /* <input id="slide-dot-2" type="radio" name="slides"></input>
+            <input id="slide-dot-2" type="radio" name="slides"></input>
             <div class="slide slide-2" style={imageStyle2}></div>
 
             <input id="slide-dot-3" type="radio" name="slides"></input>
@@ -132,7 +132,7 @@ class Profile extends Component {
 
 
   ) : (
-    <div className="center"> Oops! Sorry - You need to log in :) </div>
+    <div className="center"> Oops! Sorry - You need to log in  </div>
   )
 
   return(
