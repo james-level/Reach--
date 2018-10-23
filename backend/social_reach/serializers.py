@@ -13,6 +13,11 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     picture = serializers.ImageField(max_length=None, use_url=False, required=False)
+    picture_six = serializers.ImageField(max_length=None, use_url=False, required=False)
+    picture_two = serializers.ImageField(max_length=None, use_url=False, required=False)
+    picture_three = serializers.ImageField(max_length=None, use_url=False, required=False)
+    picture_four = serializers.ImageField(max_length=None, use_url=False, required=False)
+    picture_five = serializers.ImageField(max_length=None, use_url=False, required=False)
     # Following line converts user id to username
     def create(self, validated_data):
 
@@ -26,6 +31,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             location=validated_data.get('location', ""),
             likes=validated_data.get('likes', 0),
             greetings=validated_data.get('greetings', 0),
+            zeroth_picture=validated_data.get('zeroth_picture', None),
             picture=validated_data.get('picture', None),
             picture_two=validated_data.get('picture_two', None),
             picture_three=validated_data.get('picture_three', None),
@@ -81,7 +87,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
     class Meta:
         model = UserProfile
-        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles", "ignored_profiles")
+        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "zeroth_picture", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles", "ignored_profiles")
 
         extra_kwargs = {
             'url': {
