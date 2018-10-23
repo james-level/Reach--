@@ -47,7 +47,7 @@ class PublicProfile extends Component {
                       <fieldset>
                         <legend><span class="number"></span> Selfie Centre </legend>
                         <div class="slider-container">
-                          <div class="slider-menu"> */}
+                          <div class="slider-menu"> 
                             {/* <label for="slide-dot-1"></label> */}
                             <label for="slide-dot-2"></label>
                             <label for="slide-dot-3"></label>
@@ -59,7 +59,7 @@ class PublicProfile extends Component {
                           {/* <input id="slide-dot-1" type="radio" name="slides" checked></input>
                           <div class="slide slide-1" style={imageStyle}></div> */}
 
-                          /* <input id="slide-dot-2" type="radio" name="slides"></input>
+                           <input id="slide-dot-2" type="radio" name="slides"></input>
                           <div class="slide slide-2" style={imageStyle2}></div>
 
                           <input id="slide-dot-3" type="radio" name="slides"></input>

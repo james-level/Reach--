@@ -887,26 +887,6 @@ font-size: 25px;
 
 
 
-/* NEW PROFILE IMAGE SLIDER START */
-.slider-container {
-  height: 450px;
-  width: 450px;
-  position: relative;
-  flex-direction: column;
-  overflow: hidden;
-  text-align: center;
-}
-
-.slider-menu {
-  position: absolute;
-  left: 0;
-  z-index: 900;
-  width: 100%;
-  bottom: 0;
-}
-
-/* NEW REACTIVE PIECHART DISPLAY END  */
-
 /* StackedBar start */
 
 Stacked {
@@ -943,16 +923,42 @@ Stacked {
   .bar-3 {
     background:  #11a8ab;
   }
+/*end stacked bar*/
+
+/* NEW PROFILE IMAGE SLIDER START */
+.slider-container {
+  height: 450px;
+  width: 450px;
+  position: relative;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: center;
+}
+
+.slider-menu {
+  position: absolute;
+  left: 0;
+  z-index: 900;
+  width: 100%;
+  bottom: 0;
+}
+
+
 .slider-menu label {
   cursor: pointer;
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: #fff;
+  background: hsla(173, 62%, 45%, 0.4);;
   border-radius: 50px;
   margin: 0 .2em 1em;
+  transition: 0.4s
 }
 
+.slider-menu label:hover {
+  background: hsla(173, 62%, 45%, 1.0);;
+  transition: 0.4s
+}
 .slider:hover {
     background: red;
 }
@@ -965,7 +971,7 @@ Stacked {
   top: 0;
   background-size: cover;
   background-position: 50% 50%;
-  /* transition: left 0s .50s; */
+  transition: left 0s .50s;
 }
 
 [id^="slide"]:checked + .slide {
