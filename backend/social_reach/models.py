@@ -52,7 +52,6 @@ class UserProfile(models.Model):
 	likes = models.IntegerField(default=0)
 	greetings = models.IntegerField(default=0)
 	website = models.URLField(blank=True)
-	zeroth_picture = models.ImageField(upload_to='profile_images', blank=True)
 	picture = models.ImageField(upload_to='profile_images',blank=True)
 	picture_two = models.ImageField(upload_to='profile_images',blank=True)
 	picture_three = models.ImageField(upload_to='profile_images',blank=True)

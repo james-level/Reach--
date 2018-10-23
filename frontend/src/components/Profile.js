@@ -33,7 +33,7 @@ class Profile extends Component {
     console.log("PHOTO 4", this.props.data.picture_four);
     console.log("PHOTO 5", this.props.data.picture_five);
     console.log("PHOTO 6", this.props.data.picture_six);
-    const imageStyle2 = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture_two})`}
+    const imageStyle2 = { backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
     const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
