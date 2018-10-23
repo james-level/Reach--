@@ -130,7 +130,7 @@ class Profile extends Component {
 
 
   ) : (
-    <div className="center"> Oops! Sorry. You need to log in :) </div>
+    <div className="center"> Oops! Sorry - You need to log in :) </div>
   )
 
   return(
