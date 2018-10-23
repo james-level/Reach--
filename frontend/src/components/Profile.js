@@ -64,7 +64,7 @@ class Profile extends Component {
               <label for="slide-dot-6"></label>
             </div>
 
-             <input id="slide-dot-1" type="radio" name="slides" checked></input>
+             <input id="slide-dot-1" type="radio" name="slides"></input>
             <div class="slide slide-1" style={imageStyle}></div>
 
             <input id="slide-dot-2" type="radio" name="slides"></input>
