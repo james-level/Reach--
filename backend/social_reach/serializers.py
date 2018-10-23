@@ -12,12 +12,12 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ("name", "views")
 
 class ProfileSerializer(serializers.ModelSerializer):
-    picture = serializers.ImageField(max_length=None, use_url=False, required=False)
-    picture_six = serializers.ImageField(max_length=None, use_url=False, required=False)
-    picture_two = serializers.ImageField(max_length=None, use_url=False, required=False)
-    picture_three = serializers.ImageField(max_length=None, use_url=False, required=False)
-    picture_four = serializers.ImageField(max_length=None, use_url=False, required=False)
-    picture_five = serializers.ImageField(max_length=None, use_url=False, required=False)
+    # picture = serializers.ImageField(max_length=None, use_url=False, required=False)
+    # picture_six = serializers.ImageField(max_length=None, use_url=False, required=False)
+    # picture_two = serializers.ImageField(max_length=None, use_url=False, required=False)
+    # picture_three = serializers.ImageField(max_length=None, use_url=False, required=False)
+    # picture_four = serializers.ImageField(max_length=None, use_url=False, required=False)
+    # picture_five = serializers.ImageField(max_length=None, use_url=False, required=False)
     # Following line converts user id to username
     def create(self, validated_data):
 
