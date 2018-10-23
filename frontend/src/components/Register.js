@@ -162,9 +162,12 @@ class Register extends Component {
 
 
     fileChangedHandler(event){
+      console.log(event.target.id);
+      console.log(event.target.files);
       let photo = event.target.name
       let image = event.target.id
       let message = image + '_message'
+      console.log();
 
       let count = event.target.attributes.index.nodeValue
       let preview_image = "image" + count
@@ -257,7 +260,7 @@ class Register extends Component {
       var emptySlotPlaceholder = null;
 
       if (this.state.image_count.length === 6){
-        emptySlotPlaceholder == '';
+         emptySlotPlaceholder = '';
       }else{
       emptySlotPlaceholder = remaining_slots.map(index => {
         return (
