@@ -153,19 +153,17 @@ class UserPasswordReset(generics.RetrieveUpdateDestroyAPIView):
             print("Password for " + user_to_reset.username + " has been reset.")
         return user_to_reset
 
-class UserPasswordResetEmail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
 
 
-    def get_object(self):
-        queryset = self.filter_queryset(self.get_queryset())
+def reset_email(request, username):
+    print("RUNNING")
     # make sure to catch 404's below
-        obj = queryset.get(username=self.kwargs['username'])
-        context = {'user': obj}
-        to = [get_user_email(obj)]
-        settings.EMAIL.password_reset(self.request, context).send(to)
-        return obj
+    obj = User.objects.all().get(username=username)
+    context = {'user': obj}
+    to = [get_user_email(obj)]
+    settings.EMAIL.password_reset(request, context).send(to)
+    return JsonResponse( {'user': username , 'status': 200, 'text': "Returned response." }
+    , status=201)
 
 class UserCreateView(generics.CreateAPIView):
     """

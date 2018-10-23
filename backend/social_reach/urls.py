@@ -57,7 +57,7 @@ urlpatterns = [
     url(r'^users/(?P<username>[\w\-]+)/$', CurrentUserDetail.as_view(), name='current_user_detail'),
     url(r'^users/find/(?P<username>[\w\-]+)/$', views.SpecificUserDetail.as_view(), name='specific_user_detail'),
     # For sending link to reset password
-    url(r'^users/reset_password/(?P<username>[\w\-]+)/$', views.UserPasswordResetEmail.as_view(), name='specific_user_detail'),
+    url(r'^users/reset_password/(?P<username>[\w\-]+)/$', views.reset_email, name='specific_user_detail'),
     # For making post request to actually reset password
     url(r'^users/reset_password/(?P<uidb64>[\w\-]+)/(?P<token>[\w\-]+)/$', views.UserPasswordReset.as_view(), name='user_password_reset'),
     url(r'^mutual_likes/$', ListMatchView.as_view(), name="mutual_likes"),
