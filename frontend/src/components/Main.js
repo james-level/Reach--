@@ -41,6 +41,7 @@ class Main extends Component {
     this.handlePasswordResetSubmit = this.handlePasswordResetSubmit.bind(this)
     this.get_uniqueID = this.get_uniqueID.bind(this)
     this.get_reset_token = this.get_reset_token.bind(this)
+    this.get_password_reset_jwt_token = this.get_password_reset_jwt_token.bind(this)
     this.handleLoginFromRegistrationSubmit = this.handleLoginFromRegistrationSubmit.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
     console.log(this.props);
@@ -124,15 +125,18 @@ handlePasswordResetSubmit(evt){
   console.log(email);
   console.log(uname);
   console.log(password);
+  console.log("JWT", this.state.password_reset_jwt_token);
   var reset_url = `http://localhost:8080/social_reach/users/reset_password/${uid}/${token}`
    axios.put(`${reset_url}/?format=json`, {
      'username': uname,
      'password': password,
      'email': email
-   }).then(function (response) {
+   },
+ { headers: { 'Authorization': `JWT ${this.state.password_reset_jwt_token}` } }).then(function (response) {
     this.setState({
       resetPasswordSubmitted: true,
     })
+    console.log("RESET DONE");
 }).catch(function(error){
 console.log(error);
 console.log("Error resetting password");
@@ -275,7 +279,7 @@ console.log("Error resetting password");
                 <Navbar logout={this.handleLogOut}/>
                 <Route exact path="/" render={(props)=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute} signup_load={this.state.signup_load}/>}/>
                 <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
-                <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
+                <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_password_reset_jwt_token = {this.get_password_reset_jwt_token} get_reset_token = {this.get_reset_token} data={props}/>}/>
                 <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
                 <Route path="/publicProfile" render={(props) =>  <PublicProfile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
 
@@ -312,7 +316,7 @@ console.log("Error resetting password");
           <Navbar logout={this.handleLogOut}/>
           <Route exact path="/" render={()=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute} signup_load={this.state.signup_load} message={this.state.message}/>}/>
           <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
-          <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
+          <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_password_reset_jwt_token = {this.get_password_reset_jwt_token} get_reset_token = {this.get_reset_token} data={props}/>}/>
           <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/publicprofile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/reachout" render={(props) =>  <SearchUsers data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
