@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import $ from 'jquery';
 import jQuery from 'jquery'
 import {geolocated, geoPropTypes} from 'react-geolocated';
+import StackedBar from './Stacked';
 
 
 
@@ -45,7 +46,7 @@ youtube_followers(){
     var age = getAge(this.props.data.date_of_birth);
     console.log("age:",age);
     console.log(this.props);
-    
+
 
 
 //ternary to either display profile or log in message
@@ -71,6 +72,8 @@ youtube_followers(){
           <legend><span class="number"></span> {this.props.loggedInAs}, {age} </legend>
           <label type="text">{this.props.data.bio}</label>
         </fieldset>
+
+        <StackedBar twitter={this.twitter_followers()} youtube={this.youtube_followers()} instagram={this.instagram_followers()} totalReach={this.total_reach()} />
 
 {/* PIE CHART START  */}
         <fieldset>
