@@ -70,8 +70,10 @@ class Profile extends Component {
             <input id="slide-dot-2" type="radio" name="slides"></input>
              <div class="slide slide-2" style={imageStyle2}></div>
 
+
              <input id="slide-dot-3" type="radio" name="slides"></input>
              <div class="slide slide-3" style={imageStyle3}></div>
+
 
              <input id="slide-dot-4" type="radio" name="slides"></input>
              <div class="slide slide-4" style={imageStyle4}></div>
@@ -121,20 +123,22 @@ class Profile extends Component {
         <br></br><br></br>
 
           {/* YES OR NO BUTTONS   */}
-          <fieldset>
-            <div class="buttonHolder">
+
+            {/* <div class="buttonHolder">
               <a href="#" class="button tick"></a>
               <a href="#" class="button cross"></a>
             </div>
-          </fieldset>
+ */}
 
 
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
         <br></br>
-        <fieldset>
+        <div>
+
           <legend><span class="number"></span>About</legend>
           <label type="text">{this.props.data.bio}</label>
-        </fieldset>
+          </div>
+
 
       </div>
 
