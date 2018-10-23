@@ -26,7 +26,7 @@ class Profile extends Component {
 
   render(){
 
-    const imageStyle = {backgroundImage: `url(${this.props.data.picture})`}
+    const imageStyle = {backgroundImage: `url(${this.props.data.picture_six})`}
     console.log("PHOTO 1", this.props.data.picture);
     console.log("PHOTO 2", this.props.data.picture_two);
     console.log("PHOTO 3", this.props.data.picture_three);
@@ -37,7 +37,7 @@ class Profile extends Component {
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
     const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
-    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture_six})`}
+    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
 
@@ -64,16 +64,14 @@ class Profile extends Component {
               <label for="slide-dot-6"></label>
             </div>
 
-             <input id="slide-dot-1" type="radio" name="slides" checked></input>
+             <input id="slide-dot-1" type="radio" name="slides" ></input>
             <div class="slide slide-1" style={imageStyle}></div>
 
             <input id="slide-dot-2" type="radio" name="slides"></input>
              <div class="slide slide-2" style={imageStyle2}></div>
 
-
              <input id="slide-dot-3" type="radio" name="slides"></input>
              <div class="slide slide-3" style={imageStyle3}></div>
-
 
              <input id="slide-dot-4" type="radio" name="slides"></input>
              <div class="slide slide-4" style={imageStyle4}></div>

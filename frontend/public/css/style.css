@@ -973,14 +973,13 @@ Stacked {
   background-position: 50% 50%;
   transition: .50s;
 
-
 }
 
 
 [id^="slide"]:checked + .slide {
   z-index: 100;
   transition: left .50s ease-out;
-  opacity: 1;
+  
 
 }
 /* NEW PROFILE IMAGE SLIDER END */
