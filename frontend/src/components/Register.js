@@ -260,7 +260,7 @@ class Register extends Component {
       var emptySlotPlaceholder = null;
 
       if (this.state.image_count.length === 6){
-        emptySlotPlaceholder == '';
+         emptySlotPlaceholder = '';
       }else{
       emptySlotPlaceholder = remaining_slots.map(index => {
         return (
