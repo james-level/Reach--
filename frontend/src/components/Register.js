@@ -105,6 +105,7 @@ class Register extends Component {
       var twitter_handle = self.state.twitter_handle
       var instagram_handle = self.state.instagram_handle
       var youtube_handle = self.state.youtube_handle
+      var zeroth_picture = self.state.photo1
       var picture_one = self.state.photo1
       var picture_two = self.state.photo2
       var picture_three = self.state.photo3
@@ -115,6 +116,7 @@ class Register extends Component {
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
 
       const formData = new FormData();
+      formData.append('zeroth_picture', zeroth_picture);
       formData.append('picture', picture_one);
       formData.append('picture_two', picture_two);
       formData.append('picture_three', picture_three);

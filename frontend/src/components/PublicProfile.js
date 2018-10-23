@@ -15,8 +15,8 @@ class PublicProfile extends Component {
 
   render(){
 
-    const imageStyle = {backgroundImage: `url(${this.props.data.picture})`}
-    const imageStyle2 = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture_two})`}
+    const imageStyle = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture})`}
+    const imageStyle2 = {backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
     const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
