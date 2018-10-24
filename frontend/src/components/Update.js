@@ -29,7 +29,7 @@ class Update extends Component {
     var date_of_birth = this.props.data.date_of_birth;
     var gender = this.props.data.gender_identity;
     var twitter_handle = this.props.data.twitter_handle;
-    var instagram_handle = "david.pears";
+    var instagram_handle = this.props.data.instagram_handle;
     var youtube_handle = this.props.data.youtube_handle;
     var twitter_followers = this.props.data.twitter_followers;
     var instagram_followers = this.props.data.instagram_followers;
