@@ -4,7 +4,7 @@ import Landing from "./Landing";
 import Register from "./Register";
 import Profile from "./Profile";
 import PublicProfile from "./PublicProfile";
-import SearchUsers from "./SearchUsers";
+import Settings from "./Settings";
 import PasswordReset from "./PasswordReset";
 import Update from "./Update";
 import axios from 'axios';
@@ -275,7 +275,7 @@ console.log("Error resetting password");
                 <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
                 <Route path="/publicProfile" render={(props) =>  <PublicProfile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
                 <Route path="/updateReach" render={(props) =>  <Update data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
-                <Route path="/reachout" render={(props) =>  <SearchUsers data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
 
               </React.Fragment>
@@ -312,7 +312,7 @@ console.log("Error resetting password");
           <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/publicprofile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/updateReach" render={(props) =>  <Update data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-          <Route path="/reachout" render={(props) =>  <SearchUsers data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
         </React.Fragment>
       </Router>

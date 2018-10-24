@@ -888,7 +888,6 @@ font-size: 25px;
 
 
 /* StackedBar start */
-
 Stacked {
   width:  100%;
 }
@@ -983,6 +982,7 @@ Stacked {
 
 }
 /* NEW PROFILE IMAGE SLIDER END */
+
 
 
 /* YES OR NO BUTTONS (UNDER PROFILE IMAGES) START */
@@ -1128,3 +1128,105 @@ body {
 }
 
 /* PULSING REACH CIRCLE ENDS HERE */
+
+/* EMOJI TOGGLES (ON SETTINGS PAGE) START */
+
+.emoji-toggle {
+  position: relative;
+  width: 60px;
+  margin: 40px auto;
+}
+.emoji-toggle .well {
+  display: block;
+  background: #eee;
+  height: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.emoji-toggle .toggle {
+  opacity: 0;
+  border: 0;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  position: absolute;
+  cursor: pointer;
+  z-index: 100;
+}
+.emoji-toggle .toggle ~ .emoji:before {
+  content: "\01F431";
+  position: absolute;
+  left: 0;
+  top: -15px;
+  font-size: 40px;
+  transition: 0.2s;
+}
+.emoji-toggle .toggle:checked ~ .emoji:before {
+  left: 100%;
+  margin-left: -1em;
+}
+.emoji-toggle .toggle ~ label {
+  white-space: nowrap;
+}
+.emoji-toggle .toggle ~ label:before {
+  position: absolute;
+  right: 100%;
+  margin-right: 5px;
+  top: 0;
+}
+.emoji-toggle .toggle ~ label:after {
+  position: absolute;
+  left: 100%;
+  margin-left: 5px;
+  top: 0;
+}
+.emoji-diet .toggle ~ .emoji:before {
+  content: "\1F969";
+}
+.emoji-diet .toggle:checked ~ .emoji:before {
+  content: "\1f959";
+}
+.emoji-diet .toggle ~ label:before {
+  content: "A meat-eater";
+}
+.emoji-diet .toggle ~ label:after {
+  content: "a Vegan";
+}
+.emoji-lifestyle .toggle ~ .emoji:before {
+  content: "\1F4AA";
+}
+.emoji-lifestyle .toggle:checked ~ .emoji:before {
+  content: "\01F4a4";
+}
+.emoji-lifestyle .toggle ~ label:before {
+  content: "A gym bunny";
+}
+.emoji-lifestyle .toggle ~ label:after {
+  content: "chillaxed";
+}
+.emoji-passtime .toggle ~ .emoji:before {
+  content: "\01F378";
+}
+.emoji-passtime .toggle:checked ~ .emoji:before {
+  content: "\01F37F";
+}
+.emoji-passtime .toggle ~ label:before {
+  content: "Love a night out";
+}
+.emoji-passtime .toggle ~ label:after {
+  content: "a QNI";
+}
+.emoji-rate .toggle ~ .emoji:before {
+  content: "\01F496";
+}
+.emoji-rate .toggle:checked ~ .emoji:before {
+  content: "\01F494";
+}
+.emoji-rate .toggle ~ label:before {
+  content: "Hot, or  ";
+}
+.emoji-rate .toggle ~ label:after {
+  content: "  um, not";
+}
+/* EMOJI TOGGLES (ON SETTINGS PAGE) START */
