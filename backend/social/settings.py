@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from social_reach.access_tokens_fb import facebook_app_token , facebook_access_token
+from social_reach.email_details import password
 import json
 
 
@@ -109,7 +110,7 @@ INSTALLED_APPS = [
 EMAIL_USE_TLS=True
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_HOST_USER='reach.dating@gmail.com'
-EMAIL_HOST_PASSWORD='influencersE22'
+EMAIL_HOST_PASSWORD= password
 EMAIL_PORT=587
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

@@ -55,9 +55,9 @@ class Update extends Component {
     formData.append('picture_five', picture_five);
     formData.append('picture_six', picture_six);
     formData.append('name', name);
-    formData.append('user', username);
+    // formData.append('user', user);
     formData.append('bio', bio);
-    formData.append('looking_for', looking_for);
+    // formData.append('looking_for', looking_for);
     formData.append('location', location);
     formData.append('date_of_birth', date_of_birth);
     formData.append('gender_identity', gender);
@@ -69,7 +69,7 @@ class Update extends Component {
     formData.append('youtube_followers', youtube_followers);
     console.log(formData);
 
-    axios.put(`http://localhost:8080/social_reach/profiles/${username}/?format=json`, {
+    axios.patch(`http://localhost:8080/social_reach/profiles/${username}/?format=json`, {
       formData
    },
  { headers: { 'Authorization': `JWT ${token_passed_from_main}` } }).then(function (response) {
