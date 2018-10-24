@@ -1111,7 +1111,7 @@ Stacked {
   content: "\1f959";
 }
 .emoji-diet .toggle ~ label:before {
-  content: "A meat eater";
+  content: "A meat-eater";
 }
 .emoji-diet .toggle ~ label:after {
   content: "a Vegan";
@@ -1135,10 +1135,10 @@ Stacked {
   content: "\01F37F";
 }
 .emoji-passtime .toggle ~ label:before {
-  content: "Prefer a big night out";
+  content: "Love a night out";
 }
 .emoji-passtime .toggle ~ label:after {
-  content: "or a QNI";
+  content: "a QNI";
 }
 .emoji-rate .toggle ~ .emoji:before {
   content: "\01F496";
@@ -1147,9 +1147,9 @@ Stacked {
   content: "\01F494";
 }
 .emoji-rate .toggle ~ label:before {
-  content: "Hot, or..";
+  content: "Hot, or  ";
 }
 .emoji-rate .toggle ~ label:after {
-  content: "..um, not";
+  content: "  um, not";
 }
 /* EMOJI TOGGLES (ON SETTINGS PAGE) START */
