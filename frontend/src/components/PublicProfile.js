@@ -24,7 +24,6 @@ class PublicProfile extends Component {
   render(){
 
     const imageStyle = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture_six})`}
-
     const imageStyle2 = {backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
@@ -33,7 +32,6 @@ class PublicProfile extends Component {
     console.log(this.props);
       const post = this.props.loggedInAs  ? (
 
-
                     <div class="public-profile">
 
                       <form onSubmit={this.handleSubmit}>
@@ -41,8 +39,10 @@ class PublicProfile extends Component {
                       {/* Profile Info */}
                       <fieldset>
                         <legend><span class="number"></span> {this.props.data.name} </legend>
-                        <label type="date">Born: {this.props.data.date_of_birth}</label>
+                        <label type="date">DoB: {this.props.data.date_of_birth}</label>
                         <label type="text">Gender: {this.props.data.gender_identity}</label>
+                        <label type="text">Hometown: {this.props.data.location}</label>
+                        <label type="text">Looking for: {this.props.data.looking_for}</label>
                       </fieldset>
 
                       <fieldset>
@@ -52,7 +52,7 @@ class PublicProfile extends Component {
 
                       <fieldset>
                         <legend><span class="number"></span> Interests </legend>
-                        <label type="text"> ⚽️ 🐶 🥩 </label>
+                        <label className="interests" type="text"> ⚽️ 🐶 🥩 </label>
                       </fieldset>
 
                       {/* Photo Carousel */}

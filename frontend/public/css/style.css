@@ -120,15 +120,12 @@ div.app-title{
 
 }
 
-/* TAG LINE START */
+/* HOME PAGETAG LINE START */
 .tag-line {
   text-align: center;
   font-size: 3vw;
-
 }
-/* TAGLINE END */
-
-
+/* HOME PAGE TAGLINE END */
 
 
 /* PROFILE INFO INPUT FORM START (REGISTRATION PAGE) */
@@ -249,19 +246,13 @@ div.app-title{
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%
-
-
 }
-
 .photo_upload_container{
 
   width: 30%;
   height: 27vh;
   padding: none;
   border-radius: 25px;
-
-
-
 }
 
 .foto-upload {
@@ -311,7 +302,6 @@ input[type="file"] {
     display: none;
 }
 
-
 .foto-upload-ready{
   display: block;
   font-family: 'Raleway', sans-serif;
@@ -328,7 +318,6 @@ input[type="file"] {
    border-color: #2cbbad;
   outline: 0;
    flex: 1;
-
 }
 
 .foto-upload-ready:hover:after {
@@ -355,9 +344,7 @@ input[type="file"] {
   border-radius: 25px;
    flex: 1;
    border-style: solid;
-
    border-color: #2cbbad;
-
 }
 
 .empty_slot_placeholder {
@@ -393,207 +380,7 @@ input[type="file"] {
     font-size: 1.5vh;
     background-color: hsla(174, 62%, 45%, 0.8)
 }
-
 /*Photo Upload End*/
-
-/* PUBLIC PROFILE (VIEW) PHOTO CAROUSEL START. NB: external css: flickity.css */
-* {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.gallery {
-  background: white;
-}
-
-.gallery-cell {
-  width: 100%;
-  height: 500px;
-  margin: 5px;
-  background: #2cbbad;
-  counter-increment: gallery-cell;
-}
-
-/* cell number */
-.gallery-cell:before {
-  display: block;
-  text-align: center;
-  content: counter(gallery-cell);
-}
-
-/* big buttons, no circle */
-.flickity-prev-next-button {
-  width: 100px;
-  height: 100px;
-  background: transparent;
-}
-/* arrow color */
-.flickity-prev-next-button .arrow {
-  fill: #2cbbad;
-}
-.flickity-prev-next-button.no-svg {
-  color: #2cbbad;
-}
-.flickity-prev-next-button:hover {
-  background: transparent;
-}
-/* hide disabled button */
-.flickity-prev-next-button:disabled {
-  display: none;
-}
-
-/* position dots in gallery */
-.flickity-page-dots {
-  bottom: 0px;
-}
-/* white circles */
-.flickity-page-dots .dot {
-  width: 12px;
-  height: 12px;
-  opacity: 1;
-  background: transparent;
-  border: 2px solid #2cbbad;
-}
-/* fill-in selected dot */
-.flickity-page-dots .dot.is-selected {
-  background: white;
-}
-/* PROFILE (VIEWS) PHOTO CAROUSEL END */
-
-
-
-/* PIE CHART REACH STYLE */
-
-@import url(//fonts.googleapis.com/css?family=Oswald:400);
-body {
-  background: #222428;
-}
-.chart {
-  position: absolute;
-  width: 450px;
-  height: 450px;
-  top: 50%;
-  left: 50%;
-  margin: -225px 0 0 -225px;
-}
-.doughnutTip {
-  position: absolute;
-  min-width: 30px;
-  max-width: 300px;
-  padding: 5px 15px;
-  border-radius: 1px;
-  background: rgba(0,0,0,.8);
-  color: #ddd;
-  font-size: 17px;
-  text-shadow: 0 1px 0 #000;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 1.3;
-  letter-spacing: .06em;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  pointer-events: none;
-  &::after {
-      position: absolute;
-      left: 50%;
-      bottom: -6px;
-      content: "";
-      height: 0;
-      margin: 0 0 0 -6px;
-      border-right: 5px solid transparent;
-      border-left: 5px solid transparent;
-      border-top: 6px solid rgba(0,0,0,.7);
-      line-height: 0;
-  }
-}
-.doughnutSummary {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  color: #d5d5d5;
-  text-align: center;
-  text-shadow: 0 -1px 0 #111;
-  cursor: default;
-}
-.doughnutSummaryTitle {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  margin-top: -27%;
-  font-size: 22px;
-  letter-spacing: .06em;
-}
-.doughnutSummaryNumber {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  margin-top: -15%;
-  font-size: 55px;
-}
-.chart path:hover { opacity: 0.65; }
-
-/*  PIE CHART ENDS */
-/*Loading indicator */
-@import "compass/css3";
-.loader {
- width: 100px;
- height: 20px;
- position: absolute;
- top: 50%;
- left: 50%;
- transform: translate(-50%, -50%);
-}
-.loader > div {
- content: " ";
- width: 20px;
- height: 20px;
- background: #2196f3;
- border-radius: 100%;
- position: absolute;
- animation: shift 2s linear infinite;
-}
-.loader > div:nth-of-type(1) {
- animation-delay: -0.4s;
-}
-.loader > div:nth-of-type(2) {
- animation-delay: -0.8s;
-}
-.loader > div:nth-of-type(3) {
- animation-delay: -1.2s;
-}
-.loader > div:nth-of-type(4) {
- animation-delay: -1.6s;
-}
-@keyframes shift {
- 0% {
-   left: -60px;
-   opacity: 0;
-   background-color: white;
- }
- 10% {
-   left: 0;
-   opacity: 1;
- }
- 90% {
-   left: 100px;
-   opacity: 1;
- }
- 100% {
-   left: 160px;
-   background-color: #2cbbad;
-   opacity: 0;
- }
-}
-.info {
- position: absolute;
- bottom: 0;
- color: crimson;
-}
-.info .info-text {
- display: none;
-}
-.info input:checked + .info-text {
- display: block;
-}
 
 
 
@@ -707,9 +494,11 @@ body {
 /* TOTAL REACH HEADER START */
 .total-reach {
   font-weight:600;
-  font-size: 3vh;
+  font-size: 5vh;
   text-align: center;
   color: #2cbbad
+  /* color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #2cbbad, 0 0 30px #2cbbad, 0 0 40px #2cbbad, 0 0 55px #2cbbad, 0 0 75px #2cbbad; */
 }
 /* TOTAL REACH HEADER END */
 
@@ -820,7 +609,11 @@ body {
 }
 /* PUBLIC PROFILE PAGE END */
 
-
+/* Interests */
+.interests{
+  font-size: 4vh;
+  align-content: center;
+}
 
 /* REACH STATS (%'s) INFOGRAHIC' START */
 .scnd-font-color {
@@ -855,22 +648,22 @@ body {
 	font-size: 15px;
 	}
 .os.twitter {
-	border-top: 3px solid red;
+	border-bottom: 5px solid #0763f7;
 }
 .os.instagram {
-	border-top: 3px solid orange;
+	border-bottom: 5px solid #A529AF;
 }
 .os.youtube {
-	border-top: 3px solid yellow;
+	border-bottom: 5px solid #F02621;
 }
 .os.facebook {
-	border-top: 3px solid green;
+	border-bottom: 5px solid #000be0;
 }
 .os.snapchat {
-	border-top: 3px solid blue;
+	border-bottom: 5px solid yellow;
 }
 .os.spotify {
-	border-top: 3px solid indigo;
+	border-bottom: 5px solid #62CC68;
 }
 	.os-percentage {
 margin: 0;
@@ -887,12 +680,12 @@ font-size: 25px;
 
 
 
-/* StackedBar start */
+/* HORIZONTAL / STACKED BAR START */
 Stacked {
-  width:  100%;
+  width:  97%;
 }
 .stacked-bar-graph {
-  width: 100%;
+  width: 97%;
   height: 1vh;
   background: #eee;
   color:#414042;
@@ -908,23 +701,35 @@ Stacked {
     font-family: arial, sans-serif;
     padding: 0px;
     overflow:hidden;
-
   }
-
+/* NB: bar-1 is YouTube, bar-2 is Twitter, bar-3 is Instagram, ba4-4 is Facebook, bar-5 is Snapchat and bar-6 is Spotify */
   .bar-1 {
-    background: #fcb150;
+    background: #F02621;
   }
 
   .bar-2 {
-    background:#e64c65;
+    background: #0763f7;
   }
 
   .bar-3 {
-    background:  #11a8ab;
+    background: #A529AF;
   }
-/*end stacked bar*/
 
-/* NEW PROFILE IMAGE SLIDER START */
+  .bar-4 {
+    background: #000be0;
+  }
+
+  .bar-5 {
+    background: yellow;
+  }
+
+  .bar-6 {
+    background: #62CC68;
+  }
+/* HORIZONTAL / STACKED BAR END  */
+
+
+/* NEW PROFILE IMAGE SLIDER/CAROUSEL START */
 .slider-container {
   height: 450px;
   width: 450px;
@@ -981,7 +786,7 @@ Stacked {
 
 
 }
-/* NEW PROFILE IMAGE SLIDER END */
+/* NEW PROFILE IMAGE SLIDER/CAROUSEL END */
 
 
 
@@ -992,7 +797,6 @@ Stacked {
   justify-content: center;
 
 }
-
 		.button{
 			background-image: -webkit-linear-gradient(top, #f4f1ee, #fff);
 			background-image: linear-gradient(top, #f4f1ee, #fff);
@@ -1061,13 +865,8 @@ Stacked {
 /* YES OR NO BUTTONS (UNDER PROFILE IMAGES) END */
 
 
-/*  PULSING REACH CIRCLE BEGINS HERE */
+/*  PULSING 'REACH CIRCLE' BEGINS HERE */
 
-
-
-body {
-  background: #454a59;
-}
 
 .pulsating-circle {
   position: absolute;
@@ -1088,7 +887,8 @@ body {
   margin-left: -100%;
   margin-top: -100%;
   border-radius: 90px;
-  background-color: #CC3333;
+  /* background-color: #CC3333;     <- RED*/
+  background-color: #2cbbad;
   animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 .pulsating-circle:after {
@@ -1099,8 +899,9 @@ body {
   display: block;
   width: 100%;
   height: 100%;
-  /* background-color: #993333; */
-  background: url('/images/app_images/Reach_Logo.png') no-repeat;
+  background-color: #993333;
+  /* background: url('/images/app_images/Reach_Logo.png') no-repeat;  <- RED Logo*/
+  background: url('/images/app_images/update1.png') no-repeat;
   background-size:cover;
   border-radius: 40px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
@@ -1126,11 +927,11 @@ body {
     transform: scale(0.8);
   }
 }
-
 /* PULSING REACH CIRCLE ENDS HERE */
 
-/* EMOJI TOGGLES (ON SETTINGS PAGE) START */
 
+
+/* EMOJI TOGGLES (ON SETTINGS PAGE) START */
 .emoji-toggle {
   position: relative;
   width: 60px;
