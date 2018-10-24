@@ -11,6 +11,14 @@ class PublicProfile extends Component {
       login: false,
       data: {}
     };
+
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(evt){
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
   }
 
   render(){
@@ -25,11 +33,14 @@ class PublicProfile extends Component {
     console.log(this.props);
       const post = this.props.loggedInAs  ? (
 
+
                     <div class="public-profile">
+
+                      <form onSubmit={this.handleSubmit}>
 
                       {/* Profile Info */}
                       <fieldset>
-                        <legend><span class="number"></span> {this.props.loggedInAs} </legend>
+                        <legend><span class="number"></span> {this.props.data.name} </legend>
                         <label type="date">Born: {this.props.data.date_of_birth}</label>
                         <label type="text">Gender: {this.props.data.gender_identity}</label>
                       </fieldset>
@@ -78,6 +89,9 @@ class PublicProfile extends Component {
                         </div>
                       </fieldset>
 
+                      <br></br>
+
+                          </form>
                     </div>
 
                   ) : (

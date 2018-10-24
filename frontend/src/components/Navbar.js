@@ -19,15 +19,18 @@ class Navbar extends Component {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/profile">Profile</Link>
+          <Link to="/profile">Deck View</Link>
         </li><li>
-          <Link to="/publicprofile">PublicProfile</Link>
+          <Link to="/publicprofile">Edit Profile</Link>
         </li>
         <li>
-          <Link to="/reachout">Reach Out!</Link>
+          <Link to="/settings">Settings</Link>
         </li>
         <li>
           <Link to="/browse">Browse</Link>
+        </li>
+        <li>
+          <Link to="/updateReach">Update Reach</Link>
         </li>
         <li>
           <Link to="/" onClick={this.props.logout}>Sign Out</Link>
