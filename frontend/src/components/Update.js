@@ -23,6 +23,8 @@ class Update extends Component {
     var name = this.props.data.name;
     var bio = this.props.data.bio;
     var looking_for = this.props.data.looking_for;
+    console.log("LOOKING FOR", looking_for);
+    console.log("USER", user);
     var location = this.props.data.location;
     var date_of_birth = this.props.data.date_of_birth;
     var gender = this.props.data.gender_identity;
@@ -45,26 +47,30 @@ class Update extends Component {
 
     var update_reach_url = `http://localhost:8080/social_reach/profiles`
 
+    const formData = new FormData();
+    formData.append('picture', picture_one);
+    formData.append('picture_two', picture_two);
+    formData.append('picture_three', picture_three);
+    formData.append('picture_four', picture_four);
+    formData.append('picture_five', picture_five);
+    formData.append('picture_six', picture_six);
+    formData.append('name', name);
+    formData.append('user', user);
+    formData.append('bio', bio);
+    formData.append('looking_for', looking_for);
+    formData.append('location', location);
+    formData.append('date_of_birth', date_of_birth);
+    formData.append('gender_identity', gender);
+    formData.append('twitter_handle', twitter_handle);
+    formData.append('instagram_handle', instagram_handle);
+    formData.append('youtube_handle', youtube_handle);
+    formData.append('twitter_followers', twitter_followers);
+    formData.append('instagram_followers', instagram_followers);
+    formData.append('youtube_followers', youtube_followers);
+    console.log(formData);
+
     axios.put(`http://localhost:8080/social_reach/profiles/${username}/?format=json`, {
-     'user': user,
-     'name': name,
-     'bio': bio,
-     'looking_for': looking_for,
-     'date_of_birth': date_of_birth,
-     'gender_identity': gender,
-     'location': location,
-     'picture': picture_one,
-     'picture_two': picture_two,
-     'picture_three': picture_three,
-     'picture_four': picture_four,
-     'picture_five': picture_five,
-     'picture_six': picture_six,
-     'instagram_handle': instagram_handle,
-     'twitter_handle': twitter_handle,
-     'youtube_handle': youtube_handle,
-     'instagram_followers': instagram_followers,
-     'twitter_followers': twitter_followers,
-     'youtube_followers': youtube_followers
+      formData
    },
  { headers: { 'Authorization': `JWT ${token_passed_from_main}` } }).then(function (response) {
     self.setState({
