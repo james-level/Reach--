@@ -74,10 +74,6 @@ class Update extends Component {
 
   }
 
-  hasProfileBeenUpdated(){
-    return this.state.updatedProfile;
-  }
-
   // countNumberOfUserPhotos(){
   //   var count = 0;
   //
@@ -351,12 +347,6 @@ console.log("Error updating Reach.");
    fontSize: '0.7em'
   }
 
-
-  if (this.hasProfileBeenUpdated = true){
-   return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
- }
-
- else{
     return(
 
       <div>
@@ -463,7 +453,7 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
     )
   }
-  }
+  
 }
 
 
