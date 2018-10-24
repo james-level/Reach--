@@ -69,7 +69,7 @@ class Update extends Component {
     formData.append('youtube_followers', youtube_followers);
     console.log(formData);
 
-    axios.put(`http://localhost:8080/social_reach/profiles/${username}/?format=json`, {
+    axios.put(`http://localhost:8080/social_reach/profiles/${user}/?format=json`, {
       formData
    },
  { headers: { 'Authorization': `JWT ${token_passed_from_main}` } }).then(function (response) {
