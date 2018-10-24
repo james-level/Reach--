@@ -86,7 +86,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
     class Meta:
         model = UserProfile
-        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles", "ignored_profiles")
+        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "latitude", "longitude", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles", "ignored_profiles")
 
         extra_kwargs = {
             'url': {

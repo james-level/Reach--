@@ -40,6 +40,7 @@ class Profile extends Component {
     const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
+    console.log(this.props.coords);
 
 //ternary to either display profile or log in message
   const post = this.props.loggedInAs  ? (
