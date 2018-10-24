@@ -49,7 +49,7 @@ class Profile extends Component {
 
         {/* DISPLAY NAME & AGE*/}
         <fieldset>
-          <legend><span class="number"></span> {this.props.data.name} ({this.props.data.location}), {age}yrs </legend>
+          <legend><span class="number"></span> {this.props.data.name}. {this.props.data.location} ({age}yrs) </legend>
           <label className="total-reach" type="text">Reach: {this.total_reach()}</label>
         </fieldset>
 
@@ -84,10 +84,9 @@ class Profile extends Component {
            </div>
            <br></br>
 
-
-        <StackedBar twitter={this.twitter_followers()} youtube={this.youtube_followers()} instagram={this.instagram_followers()} totalReach={this.total_reach()} />
-
-
+          {/* Horizontal % Bar - Stacked */}
+          <StackedBar twitter={this.twitter_followers()} youtube={this.youtube_followers()} instagram={this.instagram_followers()} totalReach={this.total_reach()} />
+          <br></br>
 
           {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
           <div className="reach-stats">
@@ -118,7 +117,7 @@ class Profile extends Component {
               </li>
           </ul>
         </div>
-        <br></br><br></br>
+        <br></br><br></br><br></br>
 
           {/* YES OR NO BUTTONS   */}
 
@@ -131,11 +130,16 @@ class Profile extends Component {
 
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
         <br></br><br></br>
-        <div>
 
+        <div>
           <legend><span class="number"></span>About</legend>
           <label type="text">{this.props.data.bio}</label>
-          </div>
+        </div>
+
+        <div>
+          <legend><span class="number"></span>Interests</legend>
+          <label className="interests" type="text"> 🇬🇧 💣 🥑 🏋️‍ ⚽️</label>
+        </div>
 
 
       </div>
