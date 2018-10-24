@@ -28,17 +28,17 @@ class Update extends Component {
         activation_user: null,
         activation_user_password: '',
         password: '',
-          name: 'test',
-          looking_for: 'Any',
-          location: '',
-          date_of_birth: '',
-          gender: 0,
-          description: '',
+          name: this.props.data.name,
+          looking_for: this.props.data.looking_for,
+          location: this.props.data.location,
+          date_of_birth: this.props.data.date_of_birth,
+          gender: this.props.data.gender_identity,
+          description: this.props.data.bio,
           interests: '',
-          twitter_handle: '',
+          twitter_handle: this.props.data.twitter_handle,
           facebook_handle: '',
-          instagram_handle: '',
-          youtube_handle: '',
+          instagram_handle: this.props.data.instagram_handle,
+          youtube_handle: this.props.data.youtube_handle,
           spotify_handle: '',
           snapchat: '',
           additional_info: '',
@@ -64,8 +64,72 @@ class Update extends Component {
 
         }
 
-      this.updateReach = this.updateReach.bind(this)
+      this.updateReach = this.updateReach.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
 
+  }
+
+  handleSubmit(evt){
+    console.log(this.state);
+    var self = this;
+    evt.preventDefault();
+    console.log("pw", this.state.activation_user_password);
+    console.log("username",self.state.activation_user['username']);
+    var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
+    console.log(self.state.password);
+// poST request currently meaningless as no JWT is needed to make profile currently
+    axios.post(session_url, {
+        'username': self.state.activation_user['username'],
+        'password': self.state.password
+      }).then(function(response) {
+        console.log(response);
+      console.log('Authenticated');
+      var token = response.data['access']
+    var user = self.state.activation_user['id']
+    var name = self.state.name
+    var bio = self.state.description
+    var looking_for = self.state.looking_for
+    console.log(looking_for);
+    var location = self.state.location
+    var date_of_birth = self.state.date_of_birth
+    var gender = self.state.gender
+    var twitter_handle = self.state.twitter_handle
+    var instagram_handle = self.state.instagram_handle
+    var youtube_handle = self.state.youtube_handle
+    var picture_one = self.state.photo1
+    var picture_two = self.state.photo2
+    var picture_three = self.state.photo3
+    var picture_four = self.state.photo4
+    var picture_five = self.state.photo5
+    var picture_six = self.state.photo6
+    console.log(picture_one);
+    var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
+
+    const formData = new FormData();
+    formData.append('picture', picture_one);
+    formData.append('picture_two', picture_two);
+    formData.append('picture_three', picture_three);
+    formData.append('picture_four', picture_four);
+    formData.append('picture_five', picture_five);
+    formData.append('picture_six', picture_six);
+    formData.append('name', name);
+    formData.append('user', user);
+    formData.append('bio', bio);
+    formData.append('looking_for', looking_for);
+    formData.append('location', location);
+    formData.append('date_of_birth', date_of_birth);
+    formData.append('gender_identity', gender);
+    formData.append('twitter_handle', twitter_handle);
+    formData.append('instagram_handle', instagram_handle);
+    formData.append('youtube_handle', youtube_handle);
+    axios.post(create_profile_url, formData).then(()=>{
+      console.log("Done");
+      self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
+      })
+    }).catch(function(e){
+      console.log(e);
+    })
   }
 
   handleChange(evt){
@@ -264,7 +328,7 @@ console.log("Error updating Reach.");
 
       <div className="register">
 
-      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.loggedInAs}! {"This is where you can update your profile."}</h6>
+      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.loggedInAs}! {"Feel free to update your profile details here!"}</h6>
 <p></p>
 
     {/* PROFILE INFO INPUT FORM START */}
@@ -274,13 +338,11 @@ console.log("Error updating Reach.");
     {/* BASIC INFO SECTION */}
     <fieldset>
           <legend><span class="number"></span> Basic Info</legend>
-          <PasswordMask id="password" name="password" placeholder="Enter password" value={this.state.password}
-onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} inputStyles={inputStyles}
-/>
 
-          <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
+          <p>Your name:</p>
+          <input onChange={this.handleChange} type="text" name="name" value={this.state.name}></input>
           <p>Looking for:</p>
-          <select onChange={this.handleChange} name="looking_for">
+          <select onChange={this.handleChange} name="looking_for" value={this.state.looking_for}>
             <option value="Any">Any</option>
             <option value="Girls">Girls</option>
             <option value="Guys">Guys</option>
@@ -288,19 +350,21 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
 
           {/* LOCATION INPUT */}
-          <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
+          <p>Location:</p>
+          <input type="text" onChange={this.handleChange} name="location" value={this.state.location}></input>
 
           {/* DOB INPUT */}
-          <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Date Of Birth *"></input>
+          <p>Date of Birth:</p>
+          <input type="date" onChange={this.handleChange} name="date_of_birth" value={this.state.date_of_birth}></input>
 
           {/* GENDER INPUT */}
           <p> Gender Identity? </p>
-          <span> Female  <input type="range"  onChange={this.handleChange} max="99" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male </span>
+          <span> Female  <input type="range"  onChange={this.handleChange} max="99" min="-100" step="1" name="gender" value={this.state.gender}></input>  Male </span>
           <br></br><br></br>
 
           {/* BIO/DESCRIPTION INPUT  */}
           <p>About You:</p>
-          <textarea name="description" onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
+          <textarea name="description" onChange={this.handleChange} value={this.state.bio} maxlength="500"></textarea>
 
           {/*INTERESTS INPUT (EMOJI's)  */}
           <label for="job">Interests:</label>
@@ -315,11 +379,17 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
     {/* SOCIAL MEDIA SECTION */}
           <fieldset>
             <legend><span class="number"></span>Social Reach</legend>
-            <input type="text" onChange={this.handleChange} name="twitter_handle" placeholder="Twitter         (enter the bit after 'twitter.com/') "></input>
-            <input type="text" onChange={this.handleChange} name="instagram_handle" placeholder="Instagram   (enter the bit after 'instagram.com/') "></input>
-            <input type="text" onChange={this.handleChange} name="youtube_handle" placeholder="YouTube     (enter the bit after 'youtube.com/user/') "></input>
+            <p>Twitter Handle:</p>
+            <input type="text" onChange={this.handleChange} name="twitter_handle" value={this.state.twitter_handle}></input>
+            <p>Instagram Handle:</p>
+            <input type="text" onChange={this.handleChange} name="instagram_handle" value={this.state.instagram_handle} ></input>
+            <p>YouTube Handle:</p>
+            <input type="text" onChange={this.handleChange} name="youtube_handle" value={this.state.youtube_handle}></input>
+            <p>Facebook Handle:</p>
             <input type="text" onChange={this.handleChange} name="facebook_handle" placeholder="Facebook     (enter the bit after 'facebook.com/') "></input>
+            <p>SnapChat Handle:</p>
             <input type="text" onChange={this.handleChange} name="snapchat" placeholder="SnapChat     (enter the bit after 'snapchat.com') "></input>
+            <p>Spotify Handle:</p>
             <input type="text" onChange={this.handleChange} name="spotify_handle" placeholder="Spotify    (ARTISTS ONLY!)"></input>
           </fieldset>
 
