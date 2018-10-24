@@ -29,7 +29,7 @@ class Update extends Component {
     var date_of_birth = this.props.data.date_of_birth;
     var gender = this.props.data.gender_identity;
     var twitter_handle = this.props.data.twitter_handle;
-    var instagram_handle = this.props.data.instagram_handle;
+    var instagram_handle = "david.pears";
     var youtube_handle = this.props.data.youtube_handle;
     var twitter_followers = this.props.data.twitter_followers;
     var instagram_followers = this.props.data.instagram_followers;
@@ -48,12 +48,12 @@ class Update extends Component {
     var update_reach_url = `http://localhost:8080/social_reach/profiles`
 
     const formData = new FormData();
-    formData.append('picture', picture_one);
-    formData.append('picture_two', picture_two);
-    formData.append('picture_three', picture_three);
-    formData.append('picture_four', picture_four);
-    formData.append('picture_five', picture_five);
-    formData.append('picture_six', picture_six);
+    // formData.append('picture', picture_one);
+    // formData.append('picture_two', picture_two);
+    // formData.append('picture_three', picture_three);
+    // formData.append('picture_four', picture_four);
+    // formData.append('picture_five', picture_five);
+    // formData.append('picture_six', picture_six);
     formData.append('name', name);
     // formData.append('user', user);
     formData.append('bio', bio);
@@ -67,12 +67,13 @@ class Update extends Component {
     formData.append('twitter_followers', twitter_followers);
     formData.append('instagram_followers', instagram_followers);
     formData.append('youtube_followers', youtube_followers);
+
     console.log(formData);
 
-    axios.patch(`http://localhost:8080/social_reach/profiles/${username}/?format=json`, {
+    axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
-   },
- { headers: { 'Authorization': `JWT ${token_passed_from_main}` } }).then(function (response) {
+   ,
+ { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
     self.setState({
       reachUpdated: true
     })

@@ -206,7 +206,9 @@ class ListProfileView(generics.ListCreateAPIView):
     serializer_class = ProfileSerializer
 
 class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = ProfileSerializer
+    serializer_class = ProfileSerializer(partial=True)
+    parser_classes = ReachSettings.DEFAULT_PARSER_CLASSES
+
 
     def get_queryset(self):
         # from IPython import embed; embed();
