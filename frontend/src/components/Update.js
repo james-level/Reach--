@@ -62,7 +62,7 @@ class Update extends Component {
           photo4: '',
           photo5: '',
           photo6: '',
-          updatedProfile: null
+          userUpdated: null
 
 
         }
@@ -143,7 +143,7 @@ class Update extends Component {
     formData.append('youtube_handle', youtube_handle);
     axios.put(edit_profile_url, formData).then(()=>{
       self.setState({
-        updatedProfile: true
+        userUpdated: true
       })
       console.log("Done");
       self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, self.state.password)
@@ -198,13 +198,10 @@ class Update extends Component {
 
 }
 
-componentDidMount(){
+componentWillMount() {
 
-  this.setState({
-    updatedProfile: false
-  })
-
-}
+    this.setState({ userUpdated: null });
+  }
 
 
 
@@ -280,6 +277,8 @@ console.log("Error updating Reach.");
 
   render(){
 
+    var userUpdated = this.state.userUpdated
+
     var photoUpload =  this.state.image_count.map(index => {
       let name = "photo" + index
       let id = "image" + index
@@ -347,6 +346,11 @@ console.log("Error updating Reach.");
    fontSize: '0.7em'
   }
 
+  if (userUpdated){
+      return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+    }
+
+    else{
     return(
 
       <div>
@@ -453,8 +457,10 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
     )
   }
-  
 }
+  }
+
+
 
 
 export default Update;
