@@ -26,12 +26,18 @@ class Profile extends Component {
 
   render(){
 
-    const imageStyle = {backgroundImage: `url(${this.props.data.picture})`}
-    const imageStyle2 = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture_two})`}
+    const imageStyle = {backgroundImage: `url(${this.props.data.picture_six})`}
+    console.log("PHOTO 1", this.props.data.picture);
+    console.log("PHOTO 2", this.props.data.picture_two);
+    console.log("PHOTO 3", this.props.data.picture_three);
+    console.log("PHOTO 4", this.props.data.picture_four);
+    console.log("PHOTO 5", this.props.data.picture_five);
+    console.log("PHOTO 6", this.props.data.picture_six);
+    const imageStyle2 = { backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
     const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
-    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture_six})`}
+    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
 
@@ -50,7 +56,7 @@ class Profile extends Component {
       {/* PHOTO CAROUSEL */}
           <div class="slider-container">
             <div class="slider-menu">
-              {/* <label for="slide-dot-1"></label> */}
+              <label for="slide-dot-1"></label>
               <label for="slide-dot-2"></label>
               <label for="slide-dot-3"></label>
               <label for="slide-dot-4"></label>
@@ -58,8 +64,9 @@ class Profile extends Component {
               <label for="slide-dot-6"></label>
             </div>
 
-            {/* <input id="slide-dot-1" type="radio" name="slides" checked></input>
-            <div class="slide slide-1" style={imageStyle}></div> */}
+             <input id="slide-dot-1" type="radio" name="slides"></input>
+            <div class="slide slide-1" style={imageStyle}></div>
+
             <input id="slide-dot-2" type="radio" name="slides"></input>
              <div class="slide slide-2" style={imageStyle2}></div>
 
@@ -114,20 +121,22 @@ class Profile extends Component {
         <br></br><br></br>
 
           {/* YES OR NO BUTTONS   */}
-          <fieldset>
-            <div class="buttonHolder">
+
+            {/* <div class="buttonHolder">
               <a href="#" class="button tick"></a>
               <a href="#" class="button cross"></a>
             </div>
-          </fieldset>
+ */}
 
 
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
         <br></br>
-        <fieldset>
+        <div>
+
           <legend><span class="number"></span>About</legend>
           <label type="text">{this.props.data.bio}</label>
-        </fieldset>
+          </div>
+
 
       </div>
 
