@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
+import { Redirect } from 'react-router-dom'
 
 class Update extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Update extends Component {
         activation_user: null,
         activation_user_password: '',
         password: '',
+          id: this.props.data.user,
           name: this.props.data.name,
           looking_for: this.props.data.looking_for,
           location: this.props.data.location,
@@ -59,7 +61,8 @@ class Update extends Component {
           photo3: '',
           photo4: '',
           photo5: '',
-          photo6: ''
+          photo6: '',
+          updatedProfile: null
 
 
         }
@@ -67,26 +70,45 @@ class Update extends Component {
       this.updateReach = this.updateReach.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
+      this.fileChangedHandler = this.fileChangedHandler.bind(this);
 
   }
+
+  hasProfileBeenUpdated(){
+    return this.state.updatedProfile;
+  }
+
+  // countNumberOfUserPhotos(){
+  //   var count = 0;
+  //
+  //   if (this.props.data.picture){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_two){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_three){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_four){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_five){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_six){
+  //     count += 1;
+  //   }
+  //
+  //   return count;
+  // }
 
   handleSubmit(evt){
     console.log(this.state);
     var self = this;
     evt.preventDefault();
-    console.log("pw", this.state.activation_user_password);
-    console.log("username",self.state.activation_user['username']);
-    var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
-    console.log(self.state.password);
-// poST request currently meaningless as no JWT is needed to make profile currently
-    axios.post(session_url, {
-        'username': self.state.activation_user['username'],
-        'password': self.state.password
-      }).then(function(response) {
-        console.log(response);
-      console.log('Authenticated');
-      var token = response.data['access']
-    var user = self.state.activation_user['id']
+
+    var user = self.state.id
     var name = self.state.name
     var bio = self.state.description
     var looking_for = self.state.looking_for
@@ -104,7 +126,7 @@ class Update extends Component {
     var picture_five = self.state.photo5
     var picture_six = self.state.photo6
     console.log(picture_one);
-    var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
+    var edit_profile_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/`
 
     const formData = new FormData();
     formData.append('picture', picture_one);
@@ -123,11 +145,14 @@ class Update extends Component {
     formData.append('twitter_handle', twitter_handle);
     formData.append('instagram_handle', instagram_handle);
     formData.append('youtube_handle', youtube_handle);
-    axios.post(create_profile_url, formData).then(()=>{
-      console.log("Done");
-      self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
+    axios.put(edit_profile_url, formData).then(()=>{
+      self.setState({
+        updatedProfile: true
       })
-    }).catch(function(e){
+      console.log("Done");
+      self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, self.state.password)
+      })
+    .catch(function(e){
       console.log(e);
     })
   }
@@ -174,6 +199,14 @@ class Update extends Component {
     [message]: "tap to change"
 
       })
+
+}
+
+componentDidMount(){
+
+  this.setState({
+    updatedProfile: false
+  })
 
 }
 
@@ -319,12 +352,16 @@ console.log("Error updating Reach.");
   }
 
 
+  if (this.hasProfileBeenUpdated = true){
+   return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+ }
 
+ else{
     return(
 
       <div>
 
-      <div className="pulsating-circle" onClick={this.updateReach}>Update My Reach!</div>
+      <div className="pulsating-circle" onClick={this.updateReach}></div>
 
       <div className="register">
 
@@ -337,6 +374,9 @@ console.log("Error updating Reach.");
 
     {/* BASIC INFO SECTION */}
     <fieldset>
+    <PasswordMask id="password" name="password" placeholder="Enter password - just so we know it's really you" value={this.state.password}
+onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} inputStyles={inputStyles}
+/>
           <legend><span class="number"></span> Basic Info</legend>
 
           <p>Your name:</p>
@@ -364,7 +404,7 @@ console.log("Error updating Reach.");
 
           {/* BIO/DESCRIPTION INPUT  */}
           <p>About You:</p>
-          <textarea name="description" onChange={this.handleChange} value={this.state.bio} maxlength="500"></textarea>
+          <textarea name="description" onChange={this.handleChange} value={this.state.description} maxlength="500"></textarea>
 
           {/*INTERESTS INPUT (EMOJI's)  */}
           <label for="job">Interests:</label>
@@ -422,6 +462,7 @@ console.log("Error updating Reach.");
       </div>
 
     )
+  }
   }
 }
 
