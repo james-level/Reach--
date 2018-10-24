@@ -11,6 +11,14 @@ class PublicProfile extends Component {
       login: false,
       data: {}
     };
+
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(evt){
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
   }
 
   render(){
@@ -26,6 +34,8 @@ class PublicProfile extends Component {
       const post = this.props.loggedInAs  ? (
 
                     <div class="public-profile">
+
+                      <form onSubmit={this.handleSubmit}>
 
                       {/* Profile Info */}
                       <fieldset>
@@ -77,6 +87,11 @@ class PublicProfile extends Component {
                           <div class="slide slide-6" style={imageStyle6}></div>
                         </div>
                       </fieldset>
+
+                      <br></br>
+                        <input type="submit"  name="field12" class="Save"></input>
+
+                      </form>
 
                     </div>
 
