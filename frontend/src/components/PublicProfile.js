@@ -33,6 +33,7 @@ class PublicProfile extends Component {
     console.log(this.props);
       const post = this.props.loggedInAs  ? (
 
+
                     <div class="public-profile">
 
                       <form onSubmit={this.handleSubmit}>
@@ -89,10 +90,8 @@ class PublicProfile extends Component {
                       </fieldset>
 
                       <br></br>
-                        <input type="submit"  name="field12" class="Save"></input>
 
-                      </form>
-
+                          </form>
                     </div>
 
                   ) : (
