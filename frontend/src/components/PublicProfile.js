@@ -39,7 +39,7 @@ class PublicProfile extends Component {
 
                       {/* Profile Info */}
                       <fieldset>
-                        <legend><span class="number"></span> {this.props.loggedInAs} </legend>
+                        <legend><span class="number"></span> {this.props.data.name} </legend>
                         <label type="date">Born: {this.props.data.date_of_birth}</label>
                         <label type="text">Gender: {this.props.data.gender_identity}</label>
                       </fieldset>

@@ -49,7 +49,7 @@ class Profile extends Component {
 
         {/* DISPLAY NAME & AGE*/}
         <fieldset>
-          <legend><span class="number"></span> {this.props.loggedInAs} ({this.props.data.location}), {age}yrs </legend>
+          <legend><span class="number"></span> {this.props.data.name} ({this.props.data.location}), {age}yrs </legend>
           <label className="total-reach" type="text">Reach: {this.total_reach()}</label>
         </fieldset>
 
@@ -130,7 +130,7 @@ class Profile extends Component {
 
 
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
-        <br></br>
+        <br></br><br></br>
         <div>
 
           <legend><span class="number"></span>About</legend>

@@ -53,7 +53,7 @@ class Settings extends Component {
 
       {/* INTRO TEXT  */}
       <fieldset>
-        <legend><span class="number"></span> Hey {this.props.loggedInAs} 👋 </legend>
+        <legend><span class="number"></span> Hey {this.props.data.name} 👋 </legend>
         <label className="intro" type="text">Lets help you find your bae! Adjust your search settings here:</label>
       </fieldset>
 
