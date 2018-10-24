@@ -70,6 +70,17 @@ class Settings extends Component {
         <fieldset>
           <legend><span class="number"></span> I would like them to be: </legend>
 
+
+          {/* ATTEMPTING 3 STATE TOGGLE */}
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+          <div class="toggle"></div>
+        </div>
+
+          {/* END OF ATTEMPTED 3 STATE TOGGLE */}
+
             <div class="emoji-toggle emoji-diet">
               <input type="checkbox" id="toggle1" class="toggle"></input>
               <div class="emoji"></div>
