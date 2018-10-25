@@ -3,6 +3,7 @@ import $ from 'jquery';
 import jQuery from 'jquery'
 import {geolocated, geoPropTypes} from 'react-geolocated';
 import StackedBar from './Stacked';
+import axios from 'axios';
 
 // DELETE THIS COMMENT  DURING MERE PLEASE
 
@@ -35,14 +36,32 @@ class Profile extends Component {
     console.log("getting location");
 
 let self = this
+const token_passed_from_main = this.props.token_to_pass_on;
+const username = this.props.loggedInAs;
   navigator.geolocation.getCurrentPosition(function(position) {
     if (position.coords.latitude && position.coords.longitude) {
+      const formData = new FormData();
      self.setState({
        longitude: position.coords.longitude ,
        latitude: position.coords.latitude
-
      })
+     formData.append('latitude', self.state.latitude);
+     formData.append('longitude', self.state.longitude);
+     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
+       formData
+    ,
+  { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+     self.setState({
+       reachUpdated: true
+     })
+     console.log("REACH UPDATED");
+ }).catch(function(error){
+ console.log(error);
+ console.log("Error updating Reach.");
+ })
+
    }
+
     console.log(position.coords.latitude, position.coords.longitude);
 
   });
