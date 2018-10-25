@@ -104,7 +104,6 @@ class Update extends Component {
 
       this.showLoadingIndicator()
 
-    console.log(this.state);
     var self = this;
     evt.preventDefault();
 
@@ -112,7 +111,6 @@ class Update extends Component {
     var name = self.state.name
     var bio = self.state.description
     var looking_for = self.state.looking_for
-    console.log(looking_for);
     var location = self.state.location
     var date_of_birth = self.state.date_of_birth
     var gender = self.state.gender
