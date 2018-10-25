@@ -13,7 +13,8 @@ class Settings extends Component {
       min_age: 0,
       max_age: 99,
       entered_search_query: false,
-      query_results: null
+      query_results: null,
+      distance: 0
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -140,8 +141,6 @@ class Settings extends Component {
             <p>What age range do you want to checkout? Between...</p>
               <select onChange={this.handleChange} name="min_age">
                 <option disabled hidden value=''></option>
-                <option value="14">14</option>
-                <option value="15">15</option>
                 <option value="16">16</option>
                 <option value="17">17</option>
                 <option value="18">18</option>
@@ -243,8 +242,9 @@ class Settings extends Component {
 
         {/* DISTANCE RANGE SLIDER  */}
           <fieldset>
-              <p>Max Distance (1-100 km's):</p>
+              <p>Max Distance (1-100 kilometres):</p>
               <span> <input type="range"  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
+              <p>Your current choice: {this.state.distance}km</p>
               <br></br><br></br>
               <input type="submit"  name="fieldb" class="Save"></input>
             </fieldset>
