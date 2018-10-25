@@ -72,6 +72,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         for field in validated_data:
             if field == 'instagram_followers':
                 instagram_scraper =  InstagramScraper()
+                print("RUNNING INSTA")
                 if validated_data.get('instagram_handle') is not None:
                     insta_results = instagram_scraper.scrape_instagram_followers(validated_data.get('instagram_handle'))
                     instance.__setattr__('instagram_followers',  insta_results )

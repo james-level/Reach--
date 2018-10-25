@@ -115,12 +115,17 @@ class Update extends Component {
     var twitter_handle = self.state.twitter_handle
     var instagram_handle = self.state.instagram_handle
     var youtube_handle = self.state.youtube_handle
+    var twitter_followers = this.props.data.twitter_followers;
+    var instagram_followers = this.props.data.instagram_followers;
+    var youtube_followers = this.props.data.youtube_followers;
     var picture_one = self.state.photo1
     var picture_two = self.state.photo2
     var picture_three = self.state.photo3
     var picture_four = self.state.photo4
     var picture_five = self.state.photo5
     var picture_six = self.state.photo6
+
+    var token_passed_from_main = this.props.token_to_pass_on;
     console.log(picture_one);
     var edit_profile_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/`
 
@@ -141,7 +146,11 @@ class Update extends Component {
     formData.append('twitter_handle', twitter_handle);
     formData.append('instagram_handle', instagram_handle);
     formData.append('youtube_handle', youtube_handle);
-    axios.put(edit_profile_url, formData).then(()=>{
+    formData.append('twitter_followers', twitter_followers);
+    formData.append('instagram_followers', instagram_followers);
+    formData.append('youtube_followers', youtube_followers);
+    axios.put(edit_profile_url, formData,
+  { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(()=>{
       self.setState({
         userUpdated: true
       })
