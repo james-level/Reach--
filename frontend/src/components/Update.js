@@ -64,9 +64,9 @@ class Update extends Component {
           photo6: '',
           userUpdated: null,
           veganChecked: this.props.data.vegan,
-          smokingChecked: this.props.data.smoker,
-          gymChecked: this.props.data.gym,
-          childrenChecked: this.props.data.children
+          nonSmokingChecked: this.props.data.non_smoker,
+          prefersChillToGymChecked: this.props.data.prefers_chill_to_gym,
+          childlessChecked: this.props.data.childless
 
 
         }
@@ -77,10 +77,10 @@ class Update extends Component {
       this.fileChangedHandler = this.fileChangedHandler.bind(this);
       this.showLoadingIndicator = this.showLoadingIndicator.bind(this);
 
-      this.handleGymCheckClick = this.handleGymCheckClick.bind(this);
-      this.handleChildrenCheckClick = this.handleChildrenCheckClick.bind(this);
+      this.handlePrefersChillToGymClicked = this.handlePrefersChillToGymClicked.bind(this);
+      this.handleChildlessCheckClick = this.handleChildlessCheckClick.bind(this);
       this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
-      this.handleSmokingCheckClick = this.handleSmokingCheckClick.bind(this);
+      this.handleNonSmokingCheckClick = this.handleNonSmokingCheckClick.bind(this);
 
   }
 
@@ -138,9 +138,9 @@ class Update extends Component {
     var password = self.state.password
 
     var vegan = self.state.veganChecked
-    var smoker = !self.state.smokingChecked
-    var gym = self.state.gymChecked
-    var children = self.state.childrenChecked
+    var non_smoker = self.state.nonSmokingChecked
+    var prefers_chill_to_gym = self.state.prefersChillToGymChecked
+    var childless = self.state.childlessChecked
 
     var token_passed_from_main = this.props.token_to_pass_on;
     console.log(picture_one);
@@ -166,10 +166,10 @@ class Update extends Component {
     formData.append('twitter_followers', twitter_followers);
     formData.append('instagram_followers', instagram_followers);
     formData.append('youtube_followers', youtube_followers);
-    formData.append('smoker', smoker);
+    formData.append('non_smoker', non_smoker);
     formData.append('vegan', vegan);
-    formData.append('gym', gym);
-    formData.append('kids', children);
+    formData.append('prefers_chill_to_gym', prefers_chill_to_gym);
+    formData.append('childless', childless);
     axios.put(edit_profile_url, formData,
   { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(()=>{
       self.setState({
@@ -243,16 +243,16 @@ componentWillMount() {
       this.setState({ veganChecked: !this.state.veganChecked });
     }
 
-  handleSmokingCheckClick = () => {
-      this.setState({ smokingChecked: !this.state.smokingChecked });
+  handleNonSmokingCheckClick = () => {
+      this.setState({ nonSmokingChecked: !this.state.nonSmokingChecked });
     }
 
-  handleChildrenCheckClick = () => {
-      this.setState({ childrenChecked: !this.state.childrenChecked });
+  handleChildlessCheckClick = () => {
+      this.setState({ childlessChecked: !this.state.childlessChecked });
     }
 
-  handleGymCheckClick = () => {
-      this.setState({ gymChecked: !this.state.gymChecked });
+  handlePrefersChillToGymClicked = () => {
+      this.setState({ prefersChillToGymChecked: !this.state.prefersChillToGymChecked });
     }
 
 
@@ -480,19 +480,19 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
           </div>
 
           <div class="emoji-toggle emoji-lifestyle">
-            <input type="checkbox" checked={this.state.smokingChecked} onChange={this.handleSmokingCheckClick} id="toggle2" class="toggle"></input>
+            <input type="checkbox" checked={this.state.nonSmokingChecked} onChange={this.handleNonSmokingCheckClick} id="toggle2" class="toggle"></input>
             <div class="emoji"></div>
             <label for="toggle2" class="well"></label>
           </div>
 
           <div class="emoji-toggle emoji-passtime">
-            <input type="checkbox" checked={this.state.gymChecked} onChange={this.handleGymCheckClick} id="toggle3" class="toggle"></input>
+            <input type="checkbox" checked={this.state.prefersChillToGymChecked} onChange={this.handlePrefersChillToGymClicked} id="toggle3" class="toggle"></input>
             <div class="emoji"></div>
             <label for="toggle3" class="well"></label>
           </div>
 
           <div class="emoji-toggle emoji-rate">
-            <input type="checkbox" checked={this.state.childrenChecked} onChange={this.handleChildrenCheckClick} id="toggle5" class="toggle"></input>
+            <input type="checkbox" checked={this.state.childlessChecked} onChange={this.handleChildlessCheckClick} id="toggle5" class="toggle"></input>
             <div class="emoji"></div>
             <label for="toggle5" class="well"></label>
           </div>

@@ -62,9 +62,9 @@ class Register extends Component {
           photo5: '',
           photo6: '',
           veganChecked: false,
-          smokingChecked: false,
-          gymChecked: false,
-          childrenChecked: false
+          nonSmokingChecked: false,
+          prefersChillToGym: false,
+          childlessChecked: false
 
 
         }
@@ -73,10 +73,10 @@ class Register extends Component {
         // this.removeImageSelection = this.removeImageSelection.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.handleGymCheckClick = this.handleGymCheckClick.bind(this);
-        this.handleChildrenCheckClick = this.handleChildrenCheckClick.bind(this);
+        this.handlePrefersChillToGymClicked = this.handlePrefersChillToGymClicked.bind(this);
+        this.handleChildlessCheckClick = this.handleChildlessCheckClick.bind(this);
         this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
-        this.handleSmokingCheckClick = this.handleSmokingCheckClick.bind(this);
+        this.handleNonSmokingCheckClick = this.handleNonSmokingCheckClick.bind(this);
 
 
 
@@ -120,9 +120,9 @@ class Register extends Component {
       var picture_five = self.state.photo5
       var picture_six = self.state.photo6
       var vegan = self.state.veganChecked
-      var smoker = !self.state.smokingChecked
-      var gym = self.state.gymChecked
-      var children = !self.state.childrenChecked
+      var non_smoker = self.state.nonSmokingChecked
+      var prefers_chill_to_gym = self.state.prefersChillToGym
+      var childless = self.state.childlessChecked
       console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
 
@@ -143,10 +143,10 @@ class Register extends Component {
       formData.append('twitter_handle', twitter_handle);
       formData.append('instagram_handle', instagram_handle);
       formData.append('youtube_handle', youtube_handle);
-      formData.append('smoker', smoker);
+      formData.append('non_smoker', non_smoker);
       formData.append('vegan', vegan);
-      formData.append('gym', gym);
-      formData.append('kids', children);
+      formData.append('prefers_chill_to_gym', prefers_chill_to_gym);
+      formData.append('childless', childless);
       axios.post(create_profile_url, formData).then(()=>{
         console.log("Done");
         self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
@@ -220,16 +220,16 @@ class Register extends Component {
         this.setState({ veganChecked: !this.state.veganChecked });
       }
 
-    handleSmokingCheckClick = () => {
-        this.setState({ smokingChecked: !this.state.smokingChecked });
+    handleNonSmokingCheckClick = () => {
+        this.setState({ nonSmokingChecked: !this.state.nonSmokingChecked });
       }
 
-    handleChildrenCheckClick = () => {
-        this.setState({ childrenChecked: !this.state.childrenChecked });
+    handleChildlessCheckClick = () => {
+        this.setState({ childlessChecked: !this.state.childlessChecked });
       }
 
-    handleGymCheckClick = () => {
-        this.setState({ gymChecked: !this.state.gymChecked });
+    handlePrefersChillToGymClicked = () => {
+        this.setState({ prefersChillToGym: !this.state.prefersChillToGym });
       }
 
 
@@ -381,19 +381,19 @@ class Register extends Component {
             </div>
 
             <div class="emoji-toggle emoji-lifestyle">
-              <input type="checkbox" checked={this.state.smokingChecked} onChange={this.handleSmokingCheckClick} id="toggle2" class="toggle"></input>
+              <input type="checkbox" checked={this.state.nonSmokingChecked} onChange={this.handleNonSmokingCheckClick} id="toggle2" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle2" class="well"></label>
             </div>
 
             <div class="emoji-toggle emoji-passtime">
-              <input type="checkbox" checked={this.state.gymChecked} onChange={this.handleGymCheckClick} id="toggle3" class="toggle"></input>
+              <input type="checkbox" checked={this.state.prefersChillToGym} onChange={this.handlePrefersChillToGymClicked} id="toggle3" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle3" class="well"></label>
             </div>
 
             <div class="emoji-toggle emoji-rate">
-              <input type="checkbox" checked={this.state.childrenChecked} onChange={this.handleChildrenCheckClick} id="toggle5" class="toggle"></input>
+              <input type="checkbox" checked={this.state.childlessChecked} onChange={this.handleChildlessCheckClick} id="toggle5" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle5" class="well"></label>
             </div>
