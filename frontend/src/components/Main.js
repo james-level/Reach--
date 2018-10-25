@@ -10,6 +10,7 @@ import Update from "./Update";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Redirect } from 'react-router-dom'
+import {geolocated, geoPropTypes} from 'react-geolocated';
 
 class Main extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class Main extends Component {
     this.get_reset_token = this.get_reset_token.bind(this)
     this.handleLoginFromRegistrationSubmit = this.handleLoginFromRegistrationSubmit.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
-    console.log(this.props);
+    console.log(this.props.coords);
   }
 
 get_uniqueID(uid){
@@ -320,4 +321,4 @@ console.log("Error resetting password");
   }
 }
 
-export default Main;
+export default geolocated()(Main);
