@@ -243,8 +243,8 @@ class Settings extends Component {
 
         {/* DISTANCE RANGE SLIDER  */}
           <fieldset>
-              <p>Distance (KMs):</p>
-              <span> <input type="range"  onChange={this.handleChange} max="99" min="0" step="1" name="distance" placeholder="Max Distance (0-100km's) *"></input> </span>
+              <p>Max Distance (1-100 km's):</p>
+              <span> <input type="range"  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
               <br></br><br></br>
               <input type="submit"  name="fieldb" class="Save"></input>
             </fieldset>
