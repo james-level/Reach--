@@ -49,6 +49,8 @@ class UserProfile(models.Model):
 	date_of_birth = models.DateField(default=datetime.now())
 	gender_identity = models.IntegerField(choices=GENDER_CHOICES, default=0)
 	location = models.CharField(max_length=128, default="")
+	latitude = models.FloatField(default=0)
+	longitude = models.FloatField(default=0)
 	likes = models.IntegerField(default=0)
 	greetings = models.IntegerField(default=0)
 	website = models.URLField(blank=True)

@@ -62,11 +62,17 @@ class ProfileSerializer(serializers.ModelSerializer):
         profile.save()
         return profile
 
+    # def partial_update(self, request, *args, **kwargs):
+    #     kwargs['partial'] = True
+    #     print("HELLO RUNNING")
+    #     return self.update(request, instance, validated_data)
+
     def update(self, instance, validated_data):
 
         for field in validated_data:
             if field == 'instagram_followers':
                 instagram_scraper =  InstagramScraper()
+                print("RUNNING INSTA")
                 if validated_data.get('instagram_handle') is not None:
                     insta_results = instagram_scraper.scrape_instagram_followers(validated_data.get('instagram_handle'))
                     instance.__setattr__('instagram_followers',  insta_results )
@@ -84,9 +90,11 @@ class ProfileSerializer(serializers.ModelSerializer):
                 instance.__setattr__(field, validated_data.get(field))
         instance.save()
         return instance
+
+
     class Meta:
         model = UserProfile
-        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles", "ignored_profiles")
+        fields = ("user", "name", "bio", "looking_for", "date_of_birth", "gender_identity", "location", "latitude", "longitude", "likes", "greetings", "picture", "picture_two", "picture_three", "picture_four", "picture_five", "picture_six", "instagram_handle", "twitter_handle", "youtube_handle", "instagram_followers", "twitter_followers", "youtube_followers", "liked_profiles", "ignored_profiles")
 
         extra_kwargs = {
             'url': {
