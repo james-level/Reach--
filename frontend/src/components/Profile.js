@@ -3,6 +3,7 @@ import $ from 'jquery';
 import jQuery from 'jquery'
 import {geolocated, geoPropTypes} from 'react-geolocated';
 import StackedBar from './Stacked';
+import axios from 'axios';
 
 // DELETE THIS COMMENT  DURING MERE PLEASE
 
@@ -15,6 +16,8 @@ class Profile extends Component {
       password: '',
       login: this.props.login,
       data: {},
+      longitude: 0,
+      latitude: 0
     };
   }
 
@@ -24,7 +27,71 @@ class Profile extends Component {
   total_reach(){return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers}
 
 
+  componentDidMount(){
+    this.getLocation()
+
+    }
+
+  getLocation(){
+    console.log("getting location");
+
+var self = this
+const token_passed_from_main = this.props.token_to_pass_on;
+const username = this.props.loggedInAs;
+  navigator.geolocation.getCurrentPosition(function(position) {
+    if (position.coords.latitude && position.coords.longitude) {
+      const formData = new FormData();
+     self.setState({
+       longitude: position.coords.longitude ,
+       latitude: position.coords.latitude
+     })
+     formData.append('latitude', self.state.latitude);
+     formData.append('longitude', self.state.longitude);
+     var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+     axios.post(session_url, {
+         'username': username,
+         'password': self.props.password
+       }).then(function(response) {
+         console.log('response:', response);
+       console.log('Obtained token. (PROFILE)');
+       var token = response.data['token']
+       axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+           "token": token,
+           'username': username,
+           'password': self.props.password
+         }).then(function(second_response) {
+     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
+       formData
+    ,
+  { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+
+     console.log("location UPDATED");
+ }).catch(function(error){
+ console.log(error);
+ console.log("Error updating Reach.");
+}).catch(function (error){
+  console.log(error);
+})})})
+
+   }
+
+
+  });
+}
+
+
+
+
+
+
   render(){
+        console.log(this.props.coords);
+
+
+
+
+
+
 
     const imageStyle = {backgroundImage: `url(${this.props.data.picture_six})`}
     console.log("PHOTO 1", this.props.data.picture);
@@ -40,7 +107,6 @@ class Profile extends Component {
     const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
-    console.log(this.props.coords);
 
 //ternary to either display profile or log in message
   const post = this.props.loggedInAs  ? (
@@ -119,6 +185,7 @@ class Profile extends Component {
                 <p class="os-percentage">0<sup>%</sup></p>
               </li>
           </ul>
+
         </div>
         <br></br><br></br>
 
@@ -160,6 +227,8 @@ class Profile extends Component {
     </div>
 
     )
+
+
   }
 }
 
