@@ -70,7 +70,7 @@ class UserProfile(models.Model):
 	ignored_profiles = models.ManyToManyField(User, related_name='ignored_user', blank=True)
 	non_smoker = models.NullBooleanField( default=False)
 	vegan = models.NullBooleanField(  default=False)
-	gym = models.NullBooleanField( default=False)
+	prefers_chill_to_gym = models.NullBooleanField( default=False)
 	childless = models.NullBooleanField(  default=False)
 	see_only_non_parents = models.NullBooleanField(null=True , default=None)
 	see_only_gym = models.NullBooleanField(null=True , default=None)
