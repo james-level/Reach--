@@ -68,12 +68,12 @@ class Settings extends Component {
 
         {/* LIFTSTYLE CHOICES */}
         <fieldset>
-          <legend><span class="number"></span> Show me:</legend>
-          <label type="text">(Please select <i>'Yes', 'Don't Care'</i><i> or </i><i>'No'</i> below)</label>
+          <legend><span class="number"></span> I want to see:</legend>
+          <label type="text">(<i>The following choices will determine the result of your searches</i>)</label>
           <br></br>
 
           {/*  3 STATE TOGGLE */}
-          <p>Vegan? </p>
+          <p>Vegans </p>
           <div class="wrapper">
             <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
             <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
@@ -81,7 +81,7 @@ class Settings extends Component {
             <div class="toggle"></div>
           </div>
 
-          <p>Smoker? </p>
+          <p>Non-Smoker? </p>
           <div class="wrapper">
             <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
             <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
