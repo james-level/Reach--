@@ -7,6 +7,7 @@ from rest_framework import generics
 from activation_tokens import TokenGenerator
 from datetime import datetime
 from .models import Category
+from .distance import approximate_distance_between_two_points;
 from .serializers import CategorySerializer, ProfileSerializer, UserSerializer, MatchSerializer, LikeSerializer
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -226,21 +227,24 @@ class ProfileByUsername(generics.RetrieveUpdateDestroyAPIView):
         obj = queryset.get(user=user)
         return obj
 
-class ProfilesWithinAgeRange(generics.ListCreateAPIView):
+class ProfilesWhichMeetSearchCriteria(generics.ListCreateAPIView):
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
 
-        today = datetime.today()
+        return self.orientation_and_gender_filter(self.age_filter())
 
+    def age_filter(self):
+
+        today = datetime.today()
 
         earliest_year = today.year - int(self.kwargs['max_age'])
         latest_year = today.year - int(self.kwargs['min_age'])
         earliest_permissible_dob = datetime(earliest_year, today.month, today.day)
         latest_permissible_dob = datetime(latest_year, today.month, today.day)
 
-        queryset = UserProfile.objects.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob)
-        return self.orientation_and_gender_filter(queryset)
+        return UserProfile.objects.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob)
+
 
     def orientation_and_gender_filter(self, queryset):
 
