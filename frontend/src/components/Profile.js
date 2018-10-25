@@ -35,7 +35,7 @@ class Profile extends Component {
   getLocation(){
     console.log("getting location");
 
-let self = this
+var self = this
 const token_passed_from_main = this.props.token_to_pass_on;
 const username = this.props.loggedInAs;
   navigator.geolocation.getCurrentPosition(function(position) {
@@ -47,22 +47,34 @@ const username = this.props.loggedInAs;
      })
      formData.append('latitude', self.state.latitude);
      formData.append('longitude', self.state.longitude);
+     var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+     axios.post(session_url, {
+         'username': username,
+         'password': self.props.password
+       }).then(function(response) {
+         console.log('response:', response);
+       console.log('Obtained token. (PROFILE)');
+       var token = response.data['token']
+       axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+           "token": token,
+           'username': username,
+           'password': self.props.password
+         }).then(function(second_response) {
      axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
        formData
     ,
-  { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
-     self.setState({
-       reachUpdated: true
-     })
-     console.log("REACH UPDATED");
+  { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+
+     console.log("location UPDATED");
  }).catch(function(error){
  console.log(error);
  console.log("Error updating Reach.");
- })
+}).catch(function (error){
+  console.log(error);
+})})})
 
    }
 
-    console.log(position.coords.latitude, position.coords.longitude);
 
   });
 }
