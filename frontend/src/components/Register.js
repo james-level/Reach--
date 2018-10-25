@@ -380,7 +380,7 @@ class Register extends Component {
       </fieldset>
 
 
-      {/* SOCIAL MEDIA SECTION */}
+      {/* SOCIAL MEDIA SECTION HERE */}
             <fieldset>
               <legend><span class="number"></span>Social Reach</legend>
               <input type="text" onChange={this.handleChange} name="twitter_handle" placeholder="Twitter         (enter the bit after 'twitter.com/') "></input>
