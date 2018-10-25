@@ -71,6 +71,7 @@ class Update extends Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.fileChangedHandler = this.fileChangedHandler.bind(this);
+      this.showLoadingIndicator = this.showLoadingIndicator.bind(this);
 
   }
 
@@ -100,6 +101,9 @@ class Update extends Component {
   // }
 
   handleSubmit(evt){
+
+
+
     console.log(this.state);
     var self = this;
     evt.preventDefault();
@@ -213,6 +217,11 @@ componentWillMount() {
     this.setState({ userUpdated: null });
   }
 
+  showLoadingIndicator(){
+    this.setState({ loadingInProgress: true })
+    console.log("LOADING INDICATOR STATE");
+  }
+
 
 
 
@@ -270,7 +279,7 @@ componentWillMount() {
     formData.append('youtube_followers', youtube_followers);
 
     console.log(formData);
-
+    this.showLoadingIndicator()
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
    ,
@@ -286,6 +295,8 @@ console.log("Error updating Reach.");
 }
 
   render(){
+
+    console.log("RENDERING and it is:", this.state.loadingInProgress);
 
     var userUpdated = this.state.userUpdated
 
@@ -360,7 +371,22 @@ console.log("Error updating Reach.");
       return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
     }
 
-    else{
+    // else if (this.state.loadingInProgress === true) {
+    //   return (
+    //
+    //     <div class="loader">
+    //
+    //       <div>HELLO THIS DOESNT WORK</div>
+    //       <div></div>
+    //       <div></div>
+    //       <div></div>
+    //       <div></div>
+    //     </div>
+    //   )
+    // }
+
+   else{
+     console.log("loadingInProgress is false");
     return(
 
       <div>
@@ -453,7 +479,7 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
     {/*  SAVE BUTTON */}
       <br></br>
-        <input type="submit"  name="field12" class="Save"></input>
+        <input type="submit" name="field12" class="Save"></input>
 
       </form>
     </div>
@@ -467,6 +493,7 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
     )
   }
+
 }
   }
 
