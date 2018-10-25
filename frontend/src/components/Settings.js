@@ -31,7 +31,8 @@ class Settings extends Component {
     evt.preventDefault();
     var min_age = this.state.min_age;
     var max_age = this.state.max_age;
-    var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/?format=json`;
+    var max_distance = this.state.distance;
+    var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/maxdistance=${max_distance}/?format=json`;
       axios.get(filtering_url)
       .then(res =>{
         this.setState({
