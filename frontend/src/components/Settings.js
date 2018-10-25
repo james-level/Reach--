@@ -68,20 +68,45 @@ class Settings extends Component {
 
         {/* LIFTSTYLE CHOICES */}
         <fieldset>
-          <legend><span class="number"></span> I would like them to be: </legend>
+          <legend><span class="number"></span> Show me:</legend>
+          <label type="text">(Please select <i>'Yes', 'Don't Care'</i><i> or </i><i>'No'</i> below)</label>
+          <br></br>
 
-
-          {/* ATTEMPTING 3 STATE TOGGLE */}
+          {/*  3 STATE TOGGLE */}
+          <p>Vegan? </p>
           <div class="wrapper">
             <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
             <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
             <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
-          <div class="toggle"></div>
-        </div>
+            <div class="toggle"></div>
+          </div>
 
-          {/* END OF ATTEMPTED 3 STATE TOGGLE */}
+          <p>Smoker? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
 
-            <div class="emoji-toggle emoji-diet">
+          <p>Gym-goer? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
+
+          <p>Has kids? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
+
+          {/* Emoji 2-state toggles NB: DO NOT DELETE AS MAY USE IN 'EDIT PAGE'*/}
+            {/* <div class="emoji-toggle emoji-diet">
               <input type="checkbox" id="toggle1" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle1" class="well"></label>
@@ -99,12 +124,12 @@ class Settings extends Component {
               <label for="toggle3" class="well"></label>
             </div>
 
-
             <div class="emoji-toggle emoji-rate">
               <input type="checkbox" id="toggle5" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle5" class="well"></label>
-            </div>
+            </div>*/}
+
         </fieldset>
 
 
