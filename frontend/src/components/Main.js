@@ -10,6 +10,7 @@ import Update from "./Update";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Redirect } from 'react-router-dom'
+import {geolocated, geoPropTypes} from 'react-geolocated';
 
 class Main extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class Main extends Component {
     this.get_reset_token = this.get_reset_token.bind(this)
     this.handleLoginFromRegistrationSubmit = this.handleLoginFromRegistrationSubmit.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
-    console.log(this.props);
+    console.log(this.props.coords);
   }
 
 get_uniqueID(uid){
@@ -272,7 +273,7 @@ console.log("Error resetting password");
                 <Route exact path="/" render={(props)=> <Landing handleLoginSubmit= {this.handleLoginSubmit} handleSignUpSubmit = {this.handleSignUpSubmit} handleForgottenPassword = {this.handleForgottenPassword} login={this.state.login_required} reroute={this.state.reroute} signup_load={this.state.signup_load}/>}/>
                 <Route exact path="/activate/:id/:token" render={(props)=> <Register  data={props} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} signUpPassword = {this.signUpPassword} info= {this.state.data}/>}/>
                 <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
-                <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
+                <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} token_to_pass_on = {this.state.token_to_pass_on} />} />
                 <Route path="/publicProfile" render={(props) =>  <PublicProfile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
                 <Route path="/updateReach" render={(props) =>  <Update data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
                 <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
@@ -320,4 +321,4 @@ console.log("Error resetting password");
   }
 }
 
-export default Main;
+export default geolocated()(Main);
