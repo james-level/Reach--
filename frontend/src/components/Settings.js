@@ -13,7 +13,8 @@ class Settings extends Component {
       min_age: 0,
       max_age: 99,
       entered_search_query: false,
-      query_results: null
+      query_results: null,
+      distance: 0
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -26,11 +27,34 @@ class Settings extends Component {
      })
   }
 
+  approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
+
+    var R = 6371.0
+
+    var lat1_rad = lat1 * (Math.PI / 180)
+    var long1_rad = long1 * (Math.PI / 180)
+    var lat2_rad = lat2 * (Math.PI / 180)
+    var long2_rad = long2 * (Math.PI / 180)
+
+    var dlong = long2_rad - long1_rad
+    var dlat = lat2_rad - lat1_rad
+
+    var a = Math.sin(dlat / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlong / 2)**2
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+    var distance = R * c
+
+    return distance
+
+  }
+
+
   handleSubmit(evt){
     evt.preventDefault();
     var min_age = this.state.min_age;
     var max_age = this.state.max_age;
-    var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/?format=json`;
+    var max_distance = this.state.distance;
+    var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/maxdistance=${max_distance}/?format=json`;
       axios.get(filtering_url)
       .then(res =>{
         this.setState({
@@ -140,8 +164,6 @@ class Settings extends Component {
             <p>What age range do you want to checkout? Between...</p>
               <select onChange={this.handleChange} name="min_age">
                 <option disabled hidden value=''></option>
-                <option value="14">14</option>
-                <option value="15">15</option>
                 <option value="16">16</option>
                 <option value="17">17</option>
                 <option value="18">18</option>
@@ -243,8 +265,9 @@ class Settings extends Component {
 
         {/* DISTANCE RANGE SLIDER  */}
           <fieldset>
-              <p>Max Distance (1-100 km's):</p>
+              <p>Max Distance (1-100 kilometres):</p>
               <span> <input type="range"  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
+              <p>Your current choice: {this.state.distance}km</p>
               <br></br><br></br>
               <input type="submit"  name="fieldb" class="Save"></input>
             </fieldset>
@@ -285,6 +308,8 @@ class Settings extends Component {
   <div>
   <p>User {user.user} - their name is {user.name}</p>
   <p>{user.bio}</p>
+  <h4>{this.approxDistanceBetweenTwoPoints(user.latitude, user.longitude, this.props.data.latitude, this.props.data.longitude).toFixed(2)}km away from you!</h4>
+  <br></br>
   <p>{user.instagram_followers} is their Instagram Reach!</p>
   <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
   <br></br>

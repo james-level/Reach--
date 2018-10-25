@@ -76,6 +76,9 @@ class UserProfile(models.Model):
 	see_only_gym = models.NullBooleanField(null=True , default=None)
 	see_only_vegans = models.NullBooleanField(null=True ,default=None)
 	see_only_non_smokers = models.NullBooleanField(null=True, default=None)
+	min_age_desired = models.IntegerField(default=16)
+	max_age_desired = models.IntegerField(default=99)
+	max_distance_acceptable = models.IntegerField(default=50)
 
 	def __unicode__(self):
 		return self.user.username

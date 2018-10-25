@@ -7,6 +7,7 @@ from rest_framework import generics
 from activation_tokens import TokenGenerator
 from datetime import datetime
 from .models import Category
+from .distance import approximate_distance_between_two_points;
 from .serializers import CategorySerializer, ProfileSerializer, UserSerializer, MatchSerializer, LikeSerializer
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -226,21 +227,24 @@ class ProfileByUsername(generics.RetrieveUpdateDestroyAPIView):
         obj = queryset.get(user=user)
         return obj
 
-class ProfilesWithinAgeRange(generics.ListCreateAPIView):
+class ProfilesWhichMeetSearchCriteria(generics.ListCreateAPIView):
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
+        return self.orientation_and_gender_filter(self.age_filter(self.distance_filter()))
+
+
+    def age_filter(self, queryset):
 
         today = datetime.today()
-
 
         earliest_year = today.year - int(self.kwargs['max_age'])
         latest_year = today.year - int(self.kwargs['min_age'])
         earliest_permissible_dob = datetime(earliest_year, today.month, today.day)
         latest_permissible_dob = datetime(latest_year, today.month, today.day)
 
-        queryset = UserProfile.objects.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob)
-        return self.orientation_and_gender_filter(queryset)
+        return queryset.filter(date_of_birth__gte=earliest_permissible_dob).filter(date_of_birth__lte=latest_permissible_dob)
+
 
     def orientation_and_gender_filter(self, queryset):
 
@@ -275,6 +279,36 @@ class ProfilesWithinAgeRange(generics.ListCreateAPIView):
             compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any")).exclude(user__username=current_user_profile.user)
 
         return compatible_profiles
+
+
+    def distance_filter(self):
+
+        max_acceptable_distance = int(self.kwargs['max_distance'])
+
+        current_user_profile = UserProfile.objects.get(user__username = self.kwargs['username'])
+
+        all_profiles = UserProfile.objects.all().exclude(user__username = self.kwargs['username']).order_by('id')
+
+        number_of_profiles = len(User.objects.all().filter(userprofile__isnull = False).exclude(username = self.kwargs['username']).exclude(is_superuser = True, is_staff = True).distinct())
+
+        distances_array = []
+
+        for profile in all_profiles:
+            distance_apart = approximate_distance_between_two_points(current_user_profile.latitude, current_user_profile.longitude, profile.latitude, profile.longitude)
+            distances_array.append(distance_apart)
+
+        all_profiles_as_list = list(all_profiles)
+
+        profile_ids_to_ignore = []
+
+        for i in range(number_of_profiles - 1, -1, -1):
+            if distances_array[i] > max_acceptable_distance:
+                profile_ids_to_ignore.append(all_profiles_as_list[i].id)
+
+        profiles_filtered_by_distance = all_profiles.exclude(id__in = profile_ids_to_ignore)
+
+        return profiles_filtered_by_distance
+
 
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LikeSerializer
