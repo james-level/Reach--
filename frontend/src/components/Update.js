@@ -10,7 +10,7 @@ class Update extends Component {
       this.state = {
 
         reachUpdated: false,
-
+        submitButtonMessage: "Update my profile",
         image_count: [1],
         upload_status: {
           photo1: 'foto-upload',
@@ -71,6 +71,7 @@ class Update extends Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.fileChangedHandler = this.fileChangedHandler.bind(this);
+      this.showLoadingIndicator = this.showLoadingIndicator.bind(this);
 
   }
 
@@ -100,7 +101,9 @@ class Update extends Component {
   // }
 
   handleSubmit(evt){
-    console.log(this.state);
+
+      this.showLoadingIndicator()
+
     var self = this;
     evt.preventDefault();
 
@@ -108,7 +111,6 @@ class Update extends Component {
     var name = self.state.name
     var bio = self.state.description
     var looking_for = self.state.looking_for
-    console.log(looking_for);
     var location = self.state.location
     var date_of_birth = self.state.date_of_birth
     var gender = self.state.gender
@@ -213,10 +215,16 @@ componentWillMount() {
     this.setState({ userUpdated: null });
   }
 
+  showLoadingIndicator(){
+    this.setState({ submitButtonMessage: "Loading..." })
+    console.log("LOADING INDICATOR STATE:", this.state.submitButtonMessage);
+  }
+
 
 
 
   updateReach(){
+
 
     var username = this.props.loggedInAs;
 
@@ -270,7 +278,6 @@ componentWillMount() {
     formData.append('youtube_followers', youtube_followers);
 
     console.log(formData);
-
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
    ,
@@ -286,6 +293,8 @@ console.log("Error updating Reach.");
 }
 
   render(){
+
+    console.log("RENDERING and it is:", this.state.loadingInProgress);
 
     var userUpdated = this.state.userUpdated
 
@@ -360,7 +369,22 @@ console.log("Error updating Reach.");
       return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
     }
 
-    else{
+    // else if (this.state.loadingInProgress === true) {
+    //   return (
+    //
+    //     <div class="loader">
+    //
+    //       <div>HELLO THIS DOESNT WORK</div>
+    //       <div></div>
+    //       <div></div>
+    //       <div></div>
+    //       <div></div>
+    //     </div>
+    //   )
+    // }
+
+   else{
+     console.log("loadingInProgress is false");
     return(
 
       <div>
@@ -453,7 +477,7 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
     {/*  SAVE BUTTON */}
       <br></br>
-        <input type="submit"  name="field12" class="Save"></input>
+        <input type="submit" name="field12" value={this.state.submitButtonMessage} class="Save"></input>
 
       </form>
     </div>
@@ -467,6 +491,7 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
     )
   }
+
 }
   }
 

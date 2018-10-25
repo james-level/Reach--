@@ -54,6 +54,26 @@ class ProfileSerializer(serializers.ModelSerializer):
         profile.twitter_followers=profile.twitter_followers + twitter_results
         youtube_scraper =  YoutubeScraper()
         youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
+        if youtube_results == 0:
+            youtube_results = youtube_scraper.scrape_youtube_followers(profile.youtube_handle)
         profile.youtube_followers=profile.youtube_followers + youtube_results
         profile.save()
         # Adding liked profiles after saving the profile as the ManyToMany relationship requires the object to have an ID before being used
@@ -85,6 +105,26 @@ class ProfileSerializer(serializers.ModelSerializer):
                 if validated_data.get('youtube_handle') is not None:
                     youtube_scraper =  YoutubeScraper()
                     youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
+                    if youtube_results == 0:
+                        youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
                     instance.__setattr__('youtube_followers',  youtube_results )
             else:
                 instance.__setattr__(field, validated_data.get(field))
