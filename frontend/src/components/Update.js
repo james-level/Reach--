@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import PasswordMask from 'react-password-mask';
+import { Redirect } from 'react-router-dom'
 
 class Update extends Component {
   constructor(props) {
@@ -7,13 +9,212 @@ class Update extends Component {
 
       this.state = {
 
-        reachUpdated: false
+        reachUpdated: false,
 
-      }
+        image_count: [1],
+        upload_status: {
+          photo1: 'foto-upload',
+          photo2: 'foto-upload',
+          photo3: 'foto-upload',
+          photo4: 'foto-upload',
+          photo5: 'foto-upload',
+          photo6: 'foto-upload'
+        },
+        username: '',
+        password: '',
+        login: false,
+        signUpSubmit: false,
+        data: {},
+        activation_token: '',
+        activation_user: null,
+        activation_user_password: '',
+        password: '',
+          id: this.props.data.user,
+          name: this.props.data.name,
+          looking_for: this.props.data.looking_for,
+          location: this.props.data.location,
+          date_of_birth: this.props.data.date_of_birth,
+          gender: this.props.data.gender_identity,
+          description: this.props.data.bio,
+          interests: '',
+          twitter_handle: this.props.data.twitter_handle,
+          facebook_handle: '',
+          instagram_handle: this.props.data.instagram_handle,
+          youtube_handle: this.props.data.youtube_handle,
+          spotify_handle: '',
+          snapchat: '',
+          additional_info: '',
+          image1:'empty',
+          image2:'empty',
+          image3:'empty',
+          image4:'empty',
+          image5:'empty',
+          image6:'empty',
+          image1_message: 'choose a picture',
+          image2_message: '5 slots left',
+          image3_message: '4 slots left',
+          image4_message: '3 slots left',
+          image5_message: '2 slots left',
+          image6_message: '1 slot left, make it count!',
+          photo1: '',
+          photo2: '',
+          photo3: '',
+          photo4: '',
+          photo5: '',
+          photo6: '',
+          userUpdated: null
 
-      this.updateReach = this.updateReach.bind(this)
+
+        }
+
+      this.updateReach = this.updateReach.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.fileChangedHandler = this.fileChangedHandler.bind(this);
 
   }
+
+  // countNumberOfUserPhotos(){
+  //   var count = 0;
+  //
+  //   if (this.props.data.picture){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_two){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_three){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_four){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_five){
+  //     count += 1;
+  //   }
+  //   if (this.props.data.picture_six){
+  //     count += 1;
+  //   }
+  //
+  //   return count;
+  // }
+
+  handleSubmit(evt){
+    console.log(this.state);
+    var self = this;
+    evt.preventDefault();
+
+    var user = self.state.id
+    var name = self.state.name
+    var bio = self.state.description
+    var looking_for = self.state.looking_for
+    console.log(looking_for);
+    var location = self.state.location
+    var date_of_birth = self.state.date_of_birth
+    var gender = self.state.gender
+    var twitter_handle = self.state.twitter_handle
+    var instagram_handle = self.state.instagram_handle
+    var youtube_handle = self.state.youtube_handle
+    var twitter_followers = this.props.data.twitter_followers;
+    var instagram_followers = this.props.data.instagram_followers;
+    var youtube_followers = this.props.data.youtube_followers;
+    var picture_one = self.state.photo1
+    var picture_two = self.state.photo2
+    var picture_three = self.state.photo3
+    var picture_four = self.state.photo4
+    var picture_five = self.state.photo5
+    var picture_six = self.state.photo6
+    var password = self.state.password
+
+    var token_passed_from_main = this.props.token_to_pass_on;
+    console.log(picture_one);
+    var edit_profile_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/`
+
+    const formData = new FormData();
+    formData.append('picture', picture_one);
+    formData.append('picture_two', picture_two);
+    formData.append('picture_three', picture_three);
+    formData.append('picture_four', picture_four);
+    formData.append('picture_five', picture_five);
+    formData.append('picture_six', picture_six);
+    formData.append('name', name);
+    formData.append('user', user);
+    formData.append('bio', bio);
+    formData.append('looking_for', looking_for);
+    formData.append('location', location);
+    formData.append('date_of_birth', date_of_birth);
+    formData.append('gender_identity', gender);
+    formData.append('twitter_handle', twitter_handle);
+    formData.append('instagram_handle', instagram_handle);
+    formData.append('youtube_handle', youtube_handle);
+    formData.append('twitter_followers', twitter_followers);
+    formData.append('instagram_followers', instagram_followers);
+    formData.append('youtube_followers', youtube_followers);
+    axios.put(edit_profile_url, formData,
+  { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(()=>{
+      self.setState({
+        userUpdated: true
+      })
+      console.log("Done");
+      self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, password)
+      })
+    .catch(function(e){
+      console.log(e);
+    })
+  }
+
+  handleChange(evt){
+     this.setState({
+       [evt.target.name]: evt.target.value
+     })
+  }
+
+
+  fileChangedHandler(event){
+    console.log(event.target.id);
+    console.log(event.target.files);
+    let photo = event.target.name
+    let image = event.target.id
+    let message = image + '_message'
+    console.log();
+
+    let count = event.target.attributes.index.nodeValue
+    let preview_image = "image" + count
+    let reader = new FileReader()
+    reader.onloadend = () => {
+      /* do not draw new upload button if 6 photos have been uploaded or image is being replaced */
+      if (this.state.image_count.length < 6 && this.state[preview_image] === 'empty'){
+      this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
+    }
+      this.setState({
+        [image]: reader.result
+        })
+
+       }
+  if (event.target.files[0] != undefined ){
+    reader.readAsDataURL(event.target.files[0])
+    }
+  this.setState(prevState => ({
+  upload_status: {
+      ...prevState.upload_status,
+      [photo]: 'foto-upload-ready'
+  }
+  }))
+  this.setState({
+    [event.target.name]: event.target.files[0],
+    [message]: "tap to change"
+
+      })
+
+}
+
+componentWillMount() {
+
+    this.setState({ userUpdated: null });
+  }
+
+
+
 
   updateReach(){
 
@@ -48,16 +249,16 @@ class Update extends Component {
     var update_reach_url = `http://localhost:8080/social_reach/profiles`
 
     const formData = new FormData();
-    formData.append('picture', picture_one);
-    formData.append('picture_two', picture_two);
-    formData.append('picture_three', picture_three);
-    formData.append('picture_four', picture_four);
-    formData.append('picture_five', picture_five);
-    formData.append('picture_six', picture_six);
+    // formData.append('picture', picture_one);
+    // formData.append('picture_two', picture_two);
+    // formData.append('picture_three', picture_three);
+    // formData.append('picture_four', picture_four);
+    // formData.append('picture_five', picture_five);
+    // formData.append('picture_six', picture_six);
     formData.append('name', name);
-    formData.append('user', username);
+    // formData.append('user', user);
     formData.append('bio', bio);
-    formData.append('looking_for', looking_for);
+    // formData.append('looking_for', looking_for);
     formData.append('location', location);
     formData.append('date_of_birth', date_of_birth);
     formData.append('gender_identity', gender);
@@ -67,12 +268,13 @@ class Update extends Component {
     formData.append('twitter_followers', twitter_followers);
     formData.append('instagram_followers', instagram_followers);
     formData.append('youtube_followers', youtube_followers);
+
     console.log(formData);
 
-    axios.put(`http://localhost:8080/social_reach/profiles/${username}/?format=json`, {
+    axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
-   },
- { headers: { 'Authorization': `JWT ${token_passed_from_main}` } }).then(function (response) {
+   ,
+ { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
     self.setState({
       reachUpdated: true
     })
@@ -85,13 +287,190 @@ console.log("Error updating Reach.");
 
   render(){
 
+    var userUpdated = this.state.userUpdated
+
+    var photoUpload =  this.state.image_count.map(index => {
+      let name = "photo" + index
+      let id = "image" + index
+      let message = id + '_message'
+      let backgroundImage = {
+        backgroundImage: `url(${this.state[id]})`,
+        backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'noRepeat'
+      }
+      return (
+        <fieldset class="photo_upload_container">
+
+          <label for={id}  style={backgroundImage} altText="uploaded image" class={this.state.upload_status[`${name}`]}></label>
+           <div class="overlay" index={index} >{this.state[message]}</div>
+          <input type="file" index={index} onChange={this.fileChangedHandler} name={name} id={id} class={this.state.upload_status[`${name}`]} ></input>
+
+        </fieldset>
+
+      )
+    })
+
+    var test = new Array(0);
+
+
+    var remaining_slots = new Array(6 -  this.state.image_count.length).join().split(',')
+  .map(function(item, index){ return ++index;})
+    console.log("hello slots",remaining_slots);
+    var emptySlotPlaceholder = null;
+
+    if (this.state.image_count.length === 6){
+       emptySlotPlaceholder = '';
+    }else{
+    emptySlotPlaceholder = remaining_slots.map(index => {
+      return (
+            <fieldset class="photo_upload_container">
+
+        <div class="empty_slot_placeholder">
+        </div>
+          </fieldset>
+
+      )
+    })
+  }
+
+  var inputStyles = {
+    width: '100%',
+    marginBottom: 'none'
+    // fontSize: '0.8em'
+  };
+
+  var buttonStyles = {
+   top: '50%',
+   right: '0.1em',
+   marginTop: '-13px',
+   padding: '4px ',
+   background: 'rgb(43, 187, 173)',
+   borderRadius: '2px',
+   color: 'rgb(255, 255, 255)',
+   textAlign: 'center',
+   textDecoration: 'none',
+   textTransform: 'uppercase',
+   userSelect: 'none',
+   display: 'inline',
+   fontSize: '0.7em'
+  }
+
+  if (userUpdated){
+      return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+    }
+
+    else{
     return(
 
-      <div className="pulsating-circle" onClick={this.updateReach}>Update My Reach!</div>
+      <div>
+
+      <div className="pulsating-circle" onClick={this.updateReach}></div>
+
+      <div className="register">
+
+      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.loggedInAs}! {"Feel free to update your profile details here!"}</h6>
+<p></p>
+
+    {/* PROFILE INFO INPUT FORM START */}
+    <div class="user-input-form">
+      <form onSubmit={this.handleSubmit}>
+
+    {/* BASIC INFO SECTION */}
+    <fieldset>
+    <PasswordMask id="password" name="password" placeholder="Enter password - just so we know it's really you" value={this.state.password}
+onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} inputStyles={inputStyles}
+/>
+          <legend><span class="number"></span> Basic Info</legend>
+
+          <p>Your name:</p>
+          <input onChange={this.handleChange} type="text" name="name" value={this.state.name}></input>
+          <p>Looking for:</p>
+          <select onChange={this.handleChange} name="looking_for" value={this.state.looking_for}>
+            <option value="Any">Any</option>
+            <option value="Girls">Girls</option>
+            <option value="Guys">Guys</option>
+          </select>
+
+
+          {/* LOCATION INPUT */}
+          <p>Location:</p>
+          <input type="text" onChange={this.handleChange} name="location" value={this.state.location}></input>
+
+          {/* DOB INPUT */}
+          <p>Date of Birth:</p>
+          <input type="date" onChange={this.handleChange} name="date_of_birth" value={this.state.date_of_birth}></input>
+
+          {/* GENDER INPUT */}
+          <p> Gender Identity? </p>
+          <span> Female  <input type="range"  onChange={this.handleChange} max="99" min="-100" step="1" name="gender" value={this.state.gender}></input>  Male </span>
+          <br></br><br></br>
+
+          {/* BIO/DESCRIPTION INPUT  */}
+          <p>About You:</p>
+          <textarea name="description" onChange={this.handleChange} value={this.state.description} maxlength="500"></textarea>
+
+          {/*INTERESTS INPUT (EMOJI's)  */}
+          <label for="job">Interests:</label>
+            <input type="text" onChange={this.handleChange} data-emojiable="true"  maxlength="5" name="interests" placeholder="Pick five emojis that represent your interests"></input>
+
+    </fieldset>
+
+
+
+
+
+    {/* SOCIAL MEDIA SECTION */}
+          <fieldset>
+            <legend><span class="number"></span>Social Reach</legend>
+            <p>Twitter Handle:</p>
+            <input type="text" onChange={this.handleChange} name="twitter_handle" value={this.state.twitter_handle}></input>
+            <p>Instagram Handle:</p>
+            <input type="text" onChange={this.handleChange} name="instagram_handle" value={this.state.instagram_handle} ></input>
+            <p>YouTube Handle:</p>
+            <input type="text" onChange={this.handleChange} name="youtube_handle" value={this.state.youtube_handle}></input>
+            <p>Facebook Handle:</p>
+            <input type="text" onChange={this.handleChange} name="facebook_handle" placeholder="Facebook     (enter the bit after 'facebook.com/') "></input>
+            <p>SnapChat Handle:</p>
+            <input type="text" onChange={this.handleChange} name="snapchat" placeholder="SnapChat     (enter the bit after 'snapchat.com') "></input>
+            <p>Spotify Handle:</p>
+            <input type="text" onChange={this.handleChange} name="spotify_handle" placeholder="Spotify    (ARTISTS ONLY!)"></input>
+          </fieldset>
+
+
+    {/* OTHER INFO ECTION */}
+      <fieldset>
+        <legend><span class="number"></span>Additional Info</legend>
+        <textarea name="additional_info" onChange={this.handleChange} placeholder="Anything else you want to tell the world?" maxlength="120"></textarea>
+      </fieldset>
+
+    {/* PHOTO UPLOAD SECTION */}
+      <legend><span class="number"></span>Photos</legend>
+            <div class="flex_upload">
+    {photoUpload}
+    {emptySlotPlaceholder}
+  </div>
+
+    {/*  SAVE BUTTON */}
+      <br></br>
+        <input type="submit"  name="field12" class="Save"></input>
+
+      </form>
+    </div>
+
+
+    {/* PROFILE INFO INPUT FORM END */}
+
+      </div>
+
+      </div>
 
     )
   }
 }
+  }
+
+
 
 
 export default Update;

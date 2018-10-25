@@ -122,34 +122,35 @@ let self = this
 
 
         <StackedBar twitter={this.twitter_followers()} youtube={this.youtube_followers()} instagram={this.instagram_followers()} totalReach={this.total_reach()} />
-
+        <br></br>
 
 
           {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
           <div className="reach-stats">
           <ul class="os-percentages horizontal-list">
               <li>
-                <p class="youtube os scnd-font-color">Youtube</p>
+                {/* <p class="youtube os scnd-font-color">Youtube</p> */}
+                <p class="youtube os scnd-font-color"><img src="../images/app_images/youtube-icon.png" height="30" width="30"></img></p>
                 <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.youtube_followers())}<sup>%</sup></p>
               </li>
               <li>
-                <p class="twitter os scnd-font-color">Twitter</p>
+                <p class="twitter os scnd-font-color"><img src="../images/app_images/twitter-icon.png" height="30" width="30"></img></p>
                 <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.twitter_followers())}<sup>%</sup></p>
               </li>
               <li>
-                <p class="instagram os scnd-font-color">Instagram</p>
+                <p class="instagram os scnd-font-color"><img src="../images/app_images/instagram-icon.png" height="30" width="30"></img></p>
                 <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.instagram_followers())}<sup>%</sup></p>
               </li>
               <li>
-                <p class="facebook os scnd-font-color">Facebook</p>
+                <p class="facebook os scnd-font-color"><img src="../images/app_images/facebook-icon.png" height="30" width="30"></img></p>
                 <p class="os-percentage">0<sup>%</sup></p>
               </li>
               <li>
-                <p class="snapchat os scnd-font-color">Snapchat</p>
+                <p class="snapchat os scnd-font-color"><img src="../images/app_images/snapchat-icon.png" height="30" width="30"></img></p>
                 <p class="os-percentage">0<sup>%</sup></p>
               </li>
               <li>
-                <p class="spotify os scnd-font-color">Spotify</p>
+                <p class="spotify os scnd-font-color"><img src="../images/app_images/spotify-icon.png" height="30" width="30"></img></p>
                 <p class="os-percentage">0<sup>%</sup></p>
               </li>
           </ul>
@@ -167,12 +168,19 @@ let self = this
 
 
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
-        <br></br><br></br>
-        <div>
+        <br></br><br></br><br></br>
 
+        <div>
           <legend><span class="number"></span>About</legend>
           <label type="text">{this.props.data.bio}</label>
-          </div>
+        </div>
+
+        <div>
+          <legend><span class="number"></span>Further Info:</legend>
+          <label type="text">Interests: 🥃 🇬🇧 ⚽️ 🥑 😬 </label>
+          <label type="text">Distance: [ x ] miles (from you)</label>
+          <label type="text">Liked by: {this.props.data.likes} people</label>
+        </div>
 
 
       </div>
