@@ -62,7 +62,11 @@ class Update extends Component {
           photo4: '',
           photo5: '',
           photo6: '',
-          userUpdated: null
+          userUpdated: null,
+          veganChecked: this.props.data.vegan,
+          smokingChecked: this.props.data.smoker,
+          gymChecked: this.props.data.gym,
+          childrenChecked: this.props.data.children
 
 
         }
@@ -72,6 +76,11 @@ class Update extends Component {
       this.handleChange = this.handleChange.bind(this);
       this.fileChangedHandler = this.fileChangedHandler.bind(this);
       this.showLoadingIndicator = this.showLoadingIndicator.bind(this);
+
+      this.handleGymCheckClick = this.handleGymCheckClick.bind(this);
+      this.handleChildrenCheckClick = this.handleChildrenCheckClick.bind(this);
+      this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
+      this.handleSmokingCheckClick = this.handleSmokingCheckClick.bind(this);
 
   }
 
@@ -128,6 +137,11 @@ class Update extends Component {
     var picture_six = self.state.photo6
     var password = self.state.password
 
+    var vegan = self.state.veganChecked
+    var smoker = !self.state.smokingChecked
+    var gym = self.state.gymChecked
+    var children = self.state.childrenChecked
+
     var token_passed_from_main = this.props.token_to_pass_on;
     console.log(picture_one);
     var edit_profile_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/`
@@ -152,6 +166,10 @@ class Update extends Component {
     formData.append('twitter_followers', twitter_followers);
     formData.append('instagram_followers', instagram_followers);
     formData.append('youtube_followers', youtube_followers);
+    formData.append('smoker', smoker);
+    formData.append('vegan', vegan);
+    formData.append('gym', gym);
+    formData.append('kids', children);
     axios.put(edit_profile_url, formData,
   { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(()=>{
       self.setState({
@@ -219,6 +237,23 @@ componentWillMount() {
     this.setState({ submitButtonMessage: "Loading..." })
     console.log("LOADING INDICATOR STATE:", this.state.submitButtonMessage);
   }
+
+
+  handleVeganCheckClick = () => {
+      this.setState({ veganChecked: !this.state.veganChecked });
+    }
+
+  handleSmokingCheckClick = () => {
+      this.setState({ smokingChecked: !this.state.smokingChecked });
+    }
+
+  handleChildrenCheckClick = () => {
+      this.setState({ childrenChecked: !this.state.childrenChecked });
+    }
+
+  handleGymCheckClick = () => {
+      this.setState({ gymChecked: !this.state.gymChecked });
+    }
 
 
 
@@ -433,6 +468,35 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
           {/* BIO/DESCRIPTION INPUT  */}
           <p>About You:</p>
           <textarea name="description" onChange={this.handleChange} value={this.state.description} maxlength="500"></textarea>
+
+          {/*LIFESTYLE EMOJI TOGGLES  */}
+          <legend><span class="number"></span> Lifestyle</legend>
+          <p> (select which apply to you) </p>
+
+          <div class="emoji-toggle emoji-diet">
+            <input type="checkbox" checked={this.state.veganChecked} onChange={this.handleVeganCheckClick} id="toggle1" class="toggle"></input>
+            <div class="emoji"></div>
+            <label for="toggle1" class="well"></label>
+          </div>
+
+          <div class="emoji-toggle emoji-lifestyle">
+            <input type="checkbox" checked={this.state.smokingChecked} onChange={this.handleSmokingCheckClick} id="toggle2" class="toggle"></input>
+            <div class="emoji"></div>
+            <label for="toggle2" class="well"></label>
+          </div>
+
+          <div class="emoji-toggle emoji-passtime">
+            <input type="checkbox" checked={this.state.gymChecked} onChange={this.handleGymCheckClick} id="toggle3" class="toggle"></input>
+            <div class="emoji"></div>
+            <label for="toggle3" class="well"></label>
+          </div>
+
+          <div class="emoji-toggle emoji-rate">
+            <input type="checkbox" checked={this.state.childrenChecked} onChange={this.handleChildrenCheckClick} id="toggle5" class="toggle"></input>
+            <div class="emoji"></div>
+            <label for="toggle5" class="well"></label>
+          </div>
+
 
           {/*INTERESTS INPUT (EMOJI's)  */}
           <label for="job">Interests:</label>
