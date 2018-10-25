@@ -68,6 +68,17 @@ class UserProfile(models.Model):
 	youtube_followers = models.IntegerField(default=0)
 	liked_profiles = models.ManyToManyField(User, related_name='liked_user', blank=True)
 	ignored_profiles = models.ManyToManyField(User, related_name='ignored_user', blank=True)
+	non_smoker = models.NullBooleanField( default=False)
+	vegan = models.NullBooleanField(  default=False)
+	prefers_chill_to_gym = models.NullBooleanField( default=False)
+	childless = models.NullBooleanField(  default=False)
+	see_only_non_parents = models.NullBooleanField(null=True , default=None)
+	see_only_gym = models.NullBooleanField(null=True , default=None)
+	see_only_vegans = models.NullBooleanField(null=True ,default=None)
+	see_only_non_smokers = models.NullBooleanField(null=True, default=None)
+	min_age_desired = models.IntegerField(default=16)
+	max_age_desired = models.IntegerField(default=99)
+	max_distance_acceptable = models.IntegerField(default=50)
 
 	def __unicode__(self):
 		return self.user.username
