@@ -124,6 +124,7 @@ class Update extends Component {
     var picture_four = self.state.photo4
     var picture_five = self.state.photo5
     var picture_six = self.state.photo6
+    var password = self.state.password
 
     var token_passed_from_main = this.props.token_to_pass_on;
     console.log(picture_one);
@@ -155,7 +156,7 @@ class Update extends Component {
         userUpdated: true
       })
       console.log("Done");
-      self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, self.state.password)
+      self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, password)
       })
     .catch(function(e){
       console.log(e);
