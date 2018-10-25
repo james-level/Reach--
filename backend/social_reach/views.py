@@ -283,7 +283,7 @@ class ProfilesWhichMeetSearchCriteria(generics.ListCreateAPIView):
 
     def distance_filter(self):
 
-        max_acceptable_distance = self.kwargs['max_distance']
+        max_acceptable_distance = int(self.kwargs['max_distance'])
 
         current_user_profile = UserProfile.objects.get(user__username = self.kwargs['username'])
 
@@ -302,7 +302,7 @@ class ProfilesWhichMeetSearchCriteria(generics.ListCreateAPIView):
         profile_ids_to_ignore = []
 
         for i in range(number_of_profiles - 1, -1, -1):
-            if distances_array[i] > current_user_profile.max_distance_acceptable:
+            if distances_array[i] > max_acceptable_distance:
                 profile_ids_to_ignore.append(all_profiles_as_list[i].id)
 
         profiles_filtered_by_distance = all_profiles.exclude(id__in = profile_ids_to_ignore)

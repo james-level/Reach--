@@ -19,7 +19,7 @@ def approximate_distance_between_two_points(lat1, long1, lat2, long2):
 
     # method for distance calculation
     # approximate radius of earth in km
-    R = 6371.0
+    R = 6371
 
     lat1_rad = radians(lat1)
     long1_rad = radians(long1)
