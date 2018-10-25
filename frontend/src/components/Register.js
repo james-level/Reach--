@@ -300,7 +300,7 @@ class Register extends Component {
 
 
        if (this.props.info.user){
-        return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+        return <Redirect to='/profile' password= {this.state.password} data={this.state} loggedInAs={this.state.username} login= {true}/>
       }
 
       if (this.state.activation_user){
