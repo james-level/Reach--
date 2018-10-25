@@ -60,7 +60,11 @@ class Register extends Component {
           photo3: '',
           photo4: '',
           photo5: '',
-          photo6: ''
+          photo6: '',
+          veganChecked: false,
+          smokingChecked: false,
+          gymClicked: false,
+          childrenClicked: false
 
 
         }
@@ -69,6 +73,10 @@ class Register extends Component {
         // this.removeImageSelection = this.removeImageSelection.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleGymCheckClick = this.handleGymCheckClick.bind(this);
+        this.handleChildrenCheckClick = this.handleChildrenCheckClick.bind(this);
+        this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
+        this.handleSmokingCheckClick = this.handleSmokingCheckClick.bind(this);
 
 
 
@@ -111,6 +119,8 @@ class Register extends Component {
       var picture_four = self.state.photo4
       var picture_five = self.state.photo5
       var picture_six = self.state.photo6
+      var vegan = self.state.veganChecked
+      var smoker = !self.state.smokingChecked
       console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
 
@@ -200,6 +210,21 @@ class Register extends Component {
 }
 
 
+    handleVeganCheckClick = () => {
+        this.setState({ veganChecked: !this.state.veganChecked });
+      }
+
+    handleSmokingCheckClick = () => {
+        this.setState({ smokingChecked: !this.state.smokingChecked });
+      }
+
+    handleChildrenCheckClick = () => {
+        this.setState({ childrenClicked: !this.state.childrenClicked });
+      }
+
+    handleGymCheckClick = () => {
+        this.setState({ gymClicked: !this.state.gymClicked });
+      }
 
 
 
@@ -344,25 +369,25 @@ class Register extends Component {
             <p> (select which apply to you) </p>
 
             <div class="emoji-toggle emoji-diet">
-              <input type="checkbox" id="toggle1" class="toggle"></input>
+              <input type="checkbox" checked={this.state.veganChecked} onChange={this.handleVeganCheckClick} id="toggle1" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle1" class="well"></label>
             </div>
 
             <div class="emoji-toggle emoji-lifestyle">
-              <input type="checkbox" id="toggle2" class="toggle"></input>
+              <input type="checkbox" checked={this.state.smokingChecked} onChange={this.handleSmokingCheckClick} id="toggle2" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle2" class="well"></label>
             </div>
 
             <div class="emoji-toggle emoji-passtime">
-              <input type="checkbox" id="toggle3" class="toggle"></input>
+              <input type="checkbox" checked={this.state.gymClicked} onChange={this.handleGymCheckClick} id="toggle3" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle3" class="well"></label>
             </div>
 
             <div class="emoji-toggle emoji-rate">
-              <input type="checkbox" id="toggle5" class="toggle"></input>
+              <input type="checkbox" checked={this.state.childrenClicked} onChange={this.handleChildrenCheckClick} id="toggle5" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle5" class="well"></label>
             </div>
