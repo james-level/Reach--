@@ -43,11 +43,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             instagram_followers=validated_data.get('instagram_followers', 0),
             twitter_followers=validated_data.get('twitter_followers', 0),
             youtube_followers=validated_data.get('youtube_followers', 0),
-            smoker = validated_data.get('smoker', False),
-        	vegan = validated_data.get('vegan', False),
-        	gym = validated_data.get('gym', False),
-        	kids = validated_data.get('kids', False),
-        	
+            # smoker = validated_data.get('smoker', False),
+        	# vegan = validated_data.get('vegan', False),
+        	# gym = validated_data.get('gym', False),
+        	# kids = validated_data.get('kids', False),
+
         )
         if profile.bio is None:
             profile.bio = "No description yet... this user must be shy!"
