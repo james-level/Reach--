@@ -16,7 +16,7 @@ class Navbar extends Component {
     return(
       <ul className="nav-bar">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/"><img src="../images/app_images/homeicon.png" alt="home icon" width="25" height="25"></img></Link>
         </li>
         <li>
           <Link to="/profile">Deck View</Link>
@@ -24,7 +24,7 @@ class Navbar extends Component {
           <Link to="/publicprofile">Edit Profile</Link>
         </li>
         <li>
-          <Link to="/settings">Settings</Link>
+          <Link to="/settings"><img src="../images/app_images/settingsicon.png" alt="home icon" width="25" height="25"></img></Link>
         </li>
         <li>
           <Link to="/browse">Browse</Link>
@@ -33,7 +33,7 @@ class Navbar extends Component {
           <Link to="/updateReach">Update Reach</Link>
         </li>
         <li>
-          <Link to="/" onClick={this.props.logout}>Sign Out</Link>
+          <Link to="/" onClick={this.props.logout}><img src="../images/app_images/signout.png" alt="home icon" width="25" height="25"></img></Link>
         </li>
       </ul>
 
