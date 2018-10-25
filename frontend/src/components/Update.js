@@ -10,7 +10,7 @@ class Update extends Component {
       this.state = {
 
         reachUpdated: false,
-
+        submitButtonMessage: "Update my profile",
         image_count: [1],
         upload_status: {
           photo1: 'foto-upload',
@@ -102,7 +102,7 @@ class Update extends Component {
 
   handleSubmit(evt){
 
-
+      this.showLoadingIndicator()
 
     console.log(this.state);
     var self = this;
@@ -218,14 +218,15 @@ componentWillMount() {
   }
 
   showLoadingIndicator(){
-    this.setState({ loadingInProgress: true })
-    console.log("LOADING INDICATOR STATE");
+    this.setState({ submitButtonMessage: "Loading..." })
+    console.log("LOADING INDICATOR STATE:", this.state.submitButtonMessage);
   }
 
 
 
 
   updateReach(){
+
 
     var username = this.props.loggedInAs;
 
@@ -279,7 +280,6 @@ componentWillMount() {
     formData.append('youtube_followers', youtube_followers);
 
     console.log(formData);
-    this.showLoadingIndicator()
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
    ,
@@ -479,7 +479,7 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
     {/*  SAVE BUTTON */}
       <br></br>
-        <input type="submit" name="field12" class="Save"></input>
+        <input type="submit" name="field12" value={this.state.submitButtonMessage} class="Save"></input>
 
       </form>
     </div>
