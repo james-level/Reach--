@@ -27,6 +27,28 @@ class Settings extends Component {
      })
   }
 
+  approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
+
+    var R = 6371.0
+
+    var lat1_rad = lat1 * (Math.PI / 180)
+    var long1_rad = long1 * (Math.PI / 180)
+    var lat2_rad = lat2 * (Math.PI / 180)
+    var long2_rad = long2 * (Math.PI / 180)
+
+    var dlong = long2_rad - long1_rad
+    var dlat = lat2_rad - lat1_rad
+
+    var a = Math.sin(dlat / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlong / 2)**2
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+    var distance = R * c
+
+    return distance
+
+  }
+
+
   handleSubmit(evt){
     evt.preventDefault();
     var min_age = this.state.min_age;
@@ -286,6 +308,8 @@ class Settings extends Component {
   <div>
   <p>User {user.user} - their name is {user.name}</p>
   <p>{user.bio}</p>
+  <h4>{this.approxDistanceBetweenTwoPoints(user.latitude, user.longitude, this.props.data.latitude, this.props.data.longitude).toFixed(2)}km away from you!</h4>
+  <br></br>
   <p>{user.instagram_followers} is their Instagram Reach!</p>
   <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
   <br></br>
