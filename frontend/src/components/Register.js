@@ -317,42 +317,67 @@ class Register extends Component {
       {/* BASIC INFO SECTION */}
       <fieldset>
             <legend><span class="number"></span> Basic Info</legend>
+
+            {/* NAME & PASSWORD FIELDS  */}
+            <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
             <PasswordMask id="password" name="password" placeholder="Enter password" value={this.state.password}
  onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} inputStyles={inputStyles}
 />
 
-            <input onChange={this.handleChange} type="text" name="name" placeholder="Your Name *"></input>
-            <p>Looking for:</p>
-            <select onChange={this.handleChange} name="looking_for">
-              <option value="Any">Any</option>
-              <option value="Girls">Girls</option>
-              <option value="Guys">Guys</option>
-            </select>
-
-
-            {/* LOCATION INPUT */}
-            <input type="text" onChange={this.handleChange} name="location" placeholder="The Nearest Town/City To Where You Live *"></input>
+            {/* HOMETOWN INPUT */}
+            <input type="text" onChange={this.handleChange} name="location" placeholder="Your hometown *"></input>
 
             {/* DOB INPUT */}
             <input type="date" onChange={this.handleChange} name="date_of_birth" placeholder="Date Of Birth *"></input>
 
             {/* GENDER INPUT */}
-            <p> Gender Identity? </p>
-            <span> Female  <input type="range"  onChange={this.handleChange} max="99" min="-100" step="1" name="gender" placeholder="Your Gender *"></input>  Male </span>
+            <p> Gender Identity: </p>
+            <span> female <input type="range"  onChange={this.handleChange} max="99" min="-100" step="1" name="gender" placeholder="Your Gender *"></input> male </span>
             <br></br><br></br>
 
             {/* BIO/DESCRIPTION INPUT  */}
             <p>About You:</p>
             <textarea name="description" onChange={this.handleChange} placeholder="Description (max 500 characters) *" maxlength="500"></textarea>
 
+            {/*LIFESTYLE EMOJI TOGGLES  */}
+            <legend><span class="number"></span> Lifestyle</legend>
+            <p> (select which apply to you) </p>
+
+            <div class="emoji-toggle emoji-diet">
+              <input type="checkbox" id="toggle1" class="toggle"></input>
+              <div class="emoji"></div>
+              <label for="toggle1" class="well"></label>
+            </div>
+
+            <div class="emoji-toggle emoji-lifestyle">
+              <input type="checkbox" id="toggle2" class="toggle"></input>
+              <div class="emoji"></div>
+              <label for="toggle2" class="well"></label>
+            </div>
+
+            <div class="emoji-toggle emoji-passtime">
+              <input type="checkbox" id="toggle3" class="toggle"></input>
+              <div class="emoji"></div>
+              <label for="toggle3" class="well"></label>
+            </div>
+
+            <div class="emoji-toggle emoji-rate">
+              <input type="checkbox" id="toggle5" class="toggle"></input>
+              <div class="emoji"></div>
+              <label for="toggle5" class="well"></label>
+            </div>
+
             {/*INTERESTS INPUT (EMOJI's)  */}
-            <label for="job">Interests:</label>
-              <input type="text" onChange={this.handleChange} data-emojiable="true"  maxlength="5" name="interests" placeholder="Pick five emojis that represent your interests"></input>
+              {/* <input type="text" onChange={this.handleChange} data-emojiable="true"  maxlength="5" name="interests" placeholder="Pick five emojis that represent your interests"></input> */}
 
+            {/* 'LOOKING FOR' Field */}
+            <p>Looking for:</p>
+            <select onChange={this.handleChange} name="looking_for">
+              <option value="Any">Any</option>
+              <option value="Girls">Girls</option>
+              <option value="Guys">Guys</option>
+            </select>
       </fieldset>
-
-
-
 
 
       {/* SOCIAL MEDIA SECTION */}
@@ -368,10 +393,10 @@ class Register extends Component {
 
 
       {/* OTHER INFO ECTION */}
-        <fieldset>
+        {/* <fieldset>
           <legend><span class="number"></span>Additional Info</legend>
           <textarea name="additional_info" onChange={this.handleChange} placeholder="Anything else you want to tell the world?" maxlength="120"></textarea>
-        </fieldset>
+        </fieldset> */}
 
       {/* PHOTO UPLOAD SECTION */}
         <legend><span class="number"></span>Photos</legend>
@@ -386,9 +411,6 @@ class Register extends Component {
 
         </form>
       </div>
-
-
-      {/* PROFILE INFO INPUT FORM END */}
 
         </div>
       )

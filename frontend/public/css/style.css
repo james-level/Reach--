@@ -983,205 +983,250 @@ Stacked {
   top: 0;
 }
 .emoji-diet .toggle ~ .emoji:before {
-  content: "\1F969";
+  content: "\1F355";
 }
 .emoji-diet .toggle:checked ~ .emoji:before {
   content: "\1f959";
 }
 .emoji-diet .toggle ~ label:before {
-  content: "A meat-eater";
+  content: "non-vegan";
 }
 .emoji-diet .toggle ~ label:after {
-  content: "a Vegan";
+  content: "vegan";
 }
 .emoji-lifestyle .toggle ~ .emoji:before {
-  content: "\1F4AA";
+  content: "\1F6AC";
 }
 .emoji-lifestyle .toggle:checked ~ .emoji:before {
-  content: "\01F4a4";
+  content: "\1F6AD";
 }
 .emoji-lifestyle .toggle ~ label:before {
-  content: "A gym bunny";
+  content: "smoker";
 }
 .emoji-lifestyle .toggle ~ label:after {
-  content: "chillaxed";
+  content: "non-smoker";
 }
 .emoji-passtime .toggle ~ .emoji:before {
-  content: "\01F378";
+  content: "\1F4AA";
 }
 .emoji-passtime .toggle:checked ~ .emoji:before {
-  content: "\01F37F";
+  content: "\1F9D8";
 }
 .emoji-passtime .toggle ~ label:before {
-  content: "Love a night out";
+  content: "gym-goer";
 }
 .emoji-passtime .toggle ~ label:after {
-  content: "a QNI";
+  content: "chilled";
 }
 .emoji-rate .toggle ~ .emoji:before {
-  content: "\01F496";
+  content: "\1F47C";
 }
 .emoji-rate .toggle:checked ~ .emoji:before {
-  content: "\01F494";
+  content: "\1F645";
 }
 .emoji-rate .toggle ~ label:before {
-  content: "Hot, or  ";
+  content: "have kids";
 }
 .emoji-rate .toggle ~ label:after {
-  content: "  um, not";
+  content: "nope";
 }
 /* EMOJI TOGGLES (ON SETTINGS PAGE) START */
 
 
 /* THREE TOGGLE SELECTOR (SETTINGS PAGE) START */
-
-@import "compass/css3";
-
-/* height */
-$h: 4rem;
-/* width */
-$w: $h * 3;
-/* toggle dimensions */
-$tw: $h * 1.2;
-/* font size */
-$fs: 2rem;
-/* toggle's border thickness */
-$bt: 0.1rem;
-/* toggle box shadow */
-$bs: $bt * 2;
-/* labels animation time */
-$ta: 6s;
-/* label text color */
-$text-color: white;
-
-/* colors: si, ?, no*/
-$colors: #008000, #ff6c00, #ff0000;
-
-@mixin borderColor($i) {
-  border: $bt solid nth($colors, $i);
-  background: lighten(nth($colors, $i), 10%);
-  box-shadow: 0 0 $bs $bs/2 nth($colors, $i) inset,
-              0 0 $bs $bs/2 nth($colors, $i);
-}
-
-@mixin animationDelay($time) {
-  -webkit-animation-delay: $time;
-  -o-animation-delay: $time;
-  -moz-animation-delay: $time;
-  animation-delay: $time;
-}
-
-@mixin animation($time) {
-  -webkit-animation: $time rot-label ease-in-out infinite;
-  -moz-animation: $time rot-label ease-in-out infinite;
-  -o-animation: $time rot-label ease-in-out infinite;
-  animation: $time rot-label ease-in-out infinite;
-}
-
 .wrapper {
-  width: $w;
-  height: $h;
+  width: 12rem;
+  height: 4rem;
   position: relative;
   margin: 2rem auto;
-  border-radius: $h/2;
-  background: gray;
-
-
-  & .toggle {
-    width: $tw;
-    height: $tw;
-    position: absolute;
-    left: $w / 3 - ($tw - $h) / 2;
-    top: -($tw - $h) / 2;
-    border-radius: 50%;
-    box-sizing: border-box;
-    @include borderColor(2);
-
-    transition:
-        all .3s cubic-bezier(
-          0.175, 0.885, 0.320, 1.275
-        );
-  }
-
-  & label {
-    cursor: pointer;
-    width: $h;
-    height: $h;
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    z-index: 1;
-    display: inline-block;
-
-    text-align: center;
-    line-height: $h;
-    text-transform: uppercase;
-    font-family: 'Lato', sans-serif;
-    font-size: $fs;
-    font-weight: bold;
-    color: $text-color;
-    @include animation($ta);
-  }
-
-  & input {
-    position: absolute;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-  }
+  border-radius: 2rem;
+  background: #2cbbad;
+}
+.wrapper .toggle {
+  width: 4.8rem;
+  height: 4.8rem;
+  position: absolute;
+  left: 3.6rem;
+  top: -0.4rem;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 0.1rem solid #ff6c00;
+  background: #ff8933;
+  box-shadow: 0 0 0.2rem 0.1rem #ff6c00 inset, 0 0 0.2rem 0.1rem #ff6c00;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.wrapper label {
+  cursor: pointer;
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  display: inline-block;
+  text-align: center;
+  line-height: 4rem;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  -webkit-animation: 3s rot-label ease-in-out infinite;
+  -moz-animation: 3s rot-label ease-in-out infinite;
+  -o-animation: 3s rot-label ease-in-out infinite;
+  animation: 3s rot-label ease-in-out infinite;
+}
+.wrapper input {
+  position: absolute;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
 }
 
+/* 'Yes'/green option  */
 #yes_radio:checked {
   background: red;
-
-  ~ .toggle {
-    @include borderColor(1);
-    left: -($tw - $h) / 2;
-  }
 }
-
+#yes_radio:checked ~ .toggle {
+  border: 0.1rem solid #008000;
+  background: #00b300;
+  box-shadow: 0 0 0.2rem 0.1rem #008000 inset, 0 0 0.2rem 0.1rem #008000;
+  left: -0.4rem;
+}
+/* 'No'/red option */
 #no_radio:checked {
   background: red;
-
-  ~ .toggle {
-    @include borderColor(3);
-    left: $w * 2 / 3 - ($tw - $h) / 2;
-  }
 }
-
+#no_radio:checked ~ .toggle {
+  border: 0.1rem solid #ff0000;
+  background: #ff3333;
+  box-shadow: 0 0 0.2rem 0.1rem #ff0000 inset, 0 0 0.2rem 0.1rem #ff0000;
+  left: 7.6rem;
+}
+/* middle option */
 #maybe_radio, #maybe-lbl {
-  left: 100% * 1 / 3;
+  left: 33.3333333333%;
 }
 
 #no_radio, #no-lbl {
-  left: 100% * 2 / 3;
+  left: 66.6666666667%;
 }
 
 #maybe-lbl {
-  @include animationDelay($ta / 3);
+  -webkit-animation-delay: 2s;
+  -o-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  animation-delay: 2s;
 }
 
 #no-lbl {
-  @include animationDelay($ta * 2 / 3);
+  -webkit-animation-delay: 4s;
+  -o-animation-delay: 4s;
+  -moz-animation-delay: 4s;
+  animation-delay: 4s;
+}
+/* THREE TOGGLE SELECTOR (SETTINGS PAGE) END */
+
+
+/* GENDER SLIDER/RANGE INPUT START */
+
+input[type=range] {
+  /*removes default webkit styles*/
+  -webkit-appearance: none;
+  /*fix for FF unable to apply focus style bug */
+  border: 1px solid white;
+  /*required for proper track sizing in FF*/
+  width: 300px;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #2cbbad;
+  margin-top: -4px;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
+}
+
+input[type=range]::-moz-range-track {
+  width: 300px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-moz-range-thumb {
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #2cbbad;
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring {
+  outline: 1px solid white;
+  outline-offset: -1px;
+}
+
+input[type=range]::-ms-track {
+  width: 300px;
+  height: 5px;
+  /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+  background: transparent;
+  /*leave room for the larger thumb to overflow with a transparent border */
+  border-color: transparent;
+  border-width: 6px 0;
+  /*remove default tick marks*/
+  color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #777;
+  border-radius: 10px;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: #ddd;
+  border-radius: 10px;
+}
+
+input[type=range]::-ms-thumb {
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #2cbbad;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: #888;
 }
 
 
-@mixin keyframess($name) {
-  @-webkit-keyframes $name { @content };
-  @-o-keyframes $name { @content };
-  @-moz-keyframes $name { @content };
-  @keyframes $name { @content };
+input[type=range]:focus::-ms-fill-upper {
+  background: #ccc;
 }
+/* GENDER SLIDER/RANGE INPUT START */
 
-@include keyframes(rot-label) {
-  0% { transform: rotate(0deg); }
-  15% { transform: rotate(-400deg); }
-  18% { transform: rotate(-340deg); }
-  20% { transform: rotate(-360deg); }
-  30% { transform: rotate(-360deg); }
-  100% { transform: rotate(-360deg); }
-}
 /* THREE TOGGLE SELECTOR (SETTINGS PAGE) END */
 
 

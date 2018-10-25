@@ -68,20 +68,45 @@ class Settings extends Component {
 
         {/* LIFTSTYLE CHOICES */}
         <fieldset>
-          <legend><span class="number"></span> I would like them to be: </legend>
+          <legend><span class="number"></span> Show me:</legend>
+          <label type="text">(Please select <i>'Yes', 'Don't Care'</i><i> or </i><i>'No'</i> below)</label>
+          <br></br>
 
-
-          {/* ATTEMPTING 3 STATE TOGGLE */}
+          {/*  3 STATE TOGGLE */}
+          <p>Vegan? </p>
           <div class="wrapper">
             <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
             <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
             <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
-          <div class="toggle"></div>
-        </div>
+            <div class="toggle"></div>
+          </div>
 
-          {/* END OF ATTEMPTED 3 STATE TOGGLE */}
+          <p>Smoker? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
 
-            <div class="emoji-toggle emoji-diet">
+          <p>Gym-goer? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
+
+          <p>Has kids? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
+
+          {/* Emoji 2-state toggles NB: DO NOT DELETE AS MAY USE IN 'EDIT PAGE'*/}
+            {/* <div class="emoji-toggle emoji-diet">
               <input type="checkbox" id="toggle1" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle1" class="well"></label>
@@ -99,12 +124,12 @@ class Settings extends Component {
               <label for="toggle3" class="well"></label>
             </div>
 
-
             <div class="emoji-toggle emoji-rate">
               <input type="checkbox" id="toggle5" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle5" class="well"></label>
-            </div>
+            </div>*/}
+
         </fieldset>
 
 
@@ -218,37 +243,13 @@ class Settings extends Component {
 
         {/* DISTANCE RANGE SLIDER  */}
           <fieldset>
-              <p>What kind of distance suits you?</p>
-                <select onChange={this.handleChange} name="miles">
-                  <option disabled hidden value=''></option>
-                  <option value=">5">5 miles</option>
-                  <option value=">10">10 miles</option>
-                  <option value="15">15 miles</option>
-                  <option value="20">20 miles</option>
-                  <option value="25">25 miles</option>
-                  <option value="30">30 miles</option>
-                  <option value="35">35 miles</option>
-                  <option value="40">40 miles</option>
-                  <option value="45">45 miles</option>
-                  <option value="50">50 miles</option>
-                  <option value="55">55 miles</option>
-                  <option value="60">60 miles</option>
-                  <option value="65">65 miles</option>
-                  <option value="70">70 miles</option>
-                  <option value="75">75 miles</option>
-                  <option value="80">80 miles</option>
-                  <option value="85">85 miles</option>
-                  <option value="90">90 miles</option>
-                  <option value="95">95 miles</option>
-                </select>
+              <p>Max Distance (1-100 km's):</p>
+              <span> <input type="range"  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
+              <br></br><br></br>
               <input type="submit"  name="fieldb" class="Save"></input>
             </fieldset>
-
-
-
-            </form>
-          </div>
-
+          </form>
+        </div>
       </div>
 
 
