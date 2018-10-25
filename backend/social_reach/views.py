@@ -232,6 +232,8 @@ class ProfilesWhichMeetSearchCriteria(generics.ListCreateAPIView):
 
     def get_queryset(self):
 
+        hello = self.distance_filter()
+
         return self.orientation_and_gender_filter(self.age_filter())
 
     def age_filter(self):
@@ -279,6 +281,26 @@ class ProfilesWhichMeetSearchCriteria(generics.ListCreateAPIView):
             compatible_profiles = queryset.filter(Q(looking_for=gender_group_current_user_belongs_to) | Q(looking_for="Any")).exclude(user__username=current_user_profile.user)
 
         return compatible_profiles
+
+
+    def distance_filter(self):
+
+        max_acceptable_distance = self.kwargs['maxdistance']
+
+        current_user_profile = UserProfile.objects.get(user__username = self.kwargs['username'])
+
+        profiles = UserProfile.objects.all().exclude(user__username = self.kwargs['username']).order_by('id')
+
+        distances_array = []
+
+        for profile in profiles:
+            distance_apart = approximate_distance_between_two_points(current_user_profile.latitude, current_user_profile.longitude, profile.latitude, profile.longitude)
+            distances_array.append(distance_apart)
+
+        print("DISTANCES ARRAY", distances_array)
+
+        return "hello"
+
 
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LikeSerializer

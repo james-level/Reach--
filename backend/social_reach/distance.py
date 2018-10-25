@@ -29,7 +29,7 @@ def approximate_distance_between_two_points(lat1, long1, lat2, long2):
     dlong = long2_rad - long1_rad
     dlat = lat2_rad - lat1_rad
 
-    a = sin(dlat / 2)**2 + cos(lat1_rad) * cos(lat2_rad) * sin(dlon / 2)**2
+    a = sin(dlat / 2)**2 + cos(lat1_rad) * cos(lat2_rad) * sin(dlong / 2)**2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
     distance = R * c
