@@ -71,13 +71,21 @@ class Settings extends Component {
  // SWIPE-DECK swipe function (start)
  swiping(){
    <script src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>,
-   <script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
+   <script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>,
+   <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
   $(document).ready(function(){
+
     $(".ui-loader").hide();
     console.log("Swipe-deck: Document ready" );
     console.log("BUDDY BEFORE",  $(".buddy"));
-    $('.buddy').attr('draggable','true');
+
+    // $('.buddy').attr('draggable','true');    <- makes drag happen...but not right
     console.log("BUDDY AFTER",  $(".buddy"));
+
+    $(".buddy").on("swipe", function(){
+      console.log("Banana");
+    });
+
      $(".buddy").on("swiperight",function(){
        console.log("Swipe-deck: swiped right" );
        $(this).addClass('rotate-left').delay(700).fadeOut(1);
