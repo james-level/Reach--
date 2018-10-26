@@ -1316,15 +1316,15 @@ input[type=range]:focus::-ms-fill-upper {
 
 .buddy {
   /* display: none; */
-  background: red;
+  background: #2cbbad;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  color: red;
+  color: white;
   padding: 20px;
-  width: 700px;
-  height: 700px;
-  top: 50%;
-  left: 50%;
+  width: 50vw;
+  height: 80vh;
+  top: 20%;
+  left: 30%;
   position: absolute;
   cursor: hand;
 }

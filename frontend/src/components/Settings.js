@@ -306,22 +306,15 @@ class Settings extends Component {
     else
     {
       return(
+
+      /* SWIPE DECK STARTS HERE ? */
       <div className="container">
-      <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
 
-
-{/* SWIPE DECK STARTS HERE ? */}
-
-
-
+        <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
 
         <div class="buddy" >HI<div class="avatar"  style={swipeDeckCardStyle}></div>HELLO</div>
 
         <div class="buddy">🦃<div class="avatar" style={swipeDeckCardStyle}></div>DAVID</div>
-
-
-
-
 
 {/* SWIPE DECK FINISHES HERE ? */}
 
