@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import $ from 'jquery';
 
 
 class Settings extends Component {
@@ -67,8 +68,83 @@ class Settings extends Component {
         })
   }
 
+  swipeDeck(){
+
+
+    $(document).ready(function(event) {
+
+	$("div#swipe_like").on( "click", function() {
+		swipeLike();
+	});
+
+	$("div#swipe_dislike").on( "click", function() {
+		swipeDislike();
+	});
+
+	addNewProfile();
+
+	function swipe() {
+		Draggable.create("#photo", {
+		   	throwProps:true,
+		   	onDragEnd:function(endX) {
+	   			if(Math.round(this.endX) > 0 ) {
+	   				swipeLike();
+	   			}
+	   			else {
+	   				swipeDislike();
+	   			}
+	   			console.log(Math.round(this.endX));
+			}
+		});
+	}
+
+	function swipeLike() {
+
+			var $photo = $("div.content").find('#photo');
+
+			var swipe = new TimelineMax({repeat:0, yoyo:false, repeatDelay:0, onComplete:remove, onCompleteParams:[$photo]});
+			swipe.staggerTo($photo, 0.8, {bezier:[{left:"+=400", top:"+=300", rotation:"60"}], ease:Power1.easeInOut});
+
+			addNewProfile();
+	}
+
+	function swipeDislike() {
+
+			var $photo = $("div.content").find('#photo');
+
+			var swipe = new TimelineMax({repeat:0, yoyo:false, repeatDelay:0, onComplete:remove, onCompleteParams:[$photo]});
+			swipe.staggerTo($photo, 0.8, {bezier:[{left:"+=-350", top:"+=300", rotation:"-60"}], ease:Power1.easeInOut});
+
+			addNewProfile();
+	}
+
+	function remove(photo) {
+	    $(photo).remove();
+	}
+
+	function addNewProfile() {
+		var names = ['Lieke', 'Christina', 'Sanne', 'Soraya', 'Chanella', 'Larissa', 'Michelle'][Math.floor(Math.random() * 7)];
+		var ages = ['19','22','18','27','21', '18', '24'][Math.floor(Math.random() * 7)]
+		var photos = ['1', '2', '3', '4', '5', '6', '7'][Math.floor(Math.random() * 7)]
+		$("div.content").prepend('<div class="photo" id="photo" style="background-image:url(http://web.arjentienkamp.com/codepen/tinder/photo'+photos+'.jpg)">'
+    	+ '<span class="meta">'
+    	+ '<p>'+names+', '+ages+'</p>'
+    	+ '<span class="moments">0</span>'
+    	+ '<span class="users">0</span>'
+    	+ '</span>'
+    	+ '</div>');
+
+    	swipe();
+	}
+
+});
+  }
+
 
   render(){
+
+
+    this.swipeDeck();
 
       const post = this.props.loggedInAs  ? (
 
@@ -300,26 +376,66 @@ class Settings extends Component {
     {
       return(
       <div className="container">
+
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js" type="text/javascript"></script>,
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js" type="text/javascript"></script>,
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js" type="text/javascript"></script>,
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js" type="text/javascript"></script>,
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/utils/Draggable.min.js" type="text/javascript"></script>,
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> type="text/javascript"></script>
+
       <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
       <br></br>
-      {this.state.query_results.map(user =>
 
-// BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
-  <div>
-  <p>User {user.user} - their name is {user.name}</p>
-  <p>{user.bio}</p>
-  <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km away from you!</h4>
-  <br></br>
-  <p>{user.instagram_followers} is their Instagram Reach!</p>
-  <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
-  <br></br>
-  <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
-  <br></br>
-  <p>Go check out this user, {this.props.loggedInAs}!</p>
-  <br></br>
-  </div>
-)}
-      </div>
+      <div class="phone">
+
+	<div class="app">
+
+			<div class="header">
+
+				<span class="settings"></span>
+
+				<img src="http://web.arjentienkamp.com/codepen/tinder/logo.jpg"/>
+
+				<span class="chat"></span>
+
+			</div>
+
+			<div class="content">
+
+			</div>
+
+			<div class="footer">
+				<div id="swipe_dislike" class="rate"></div>
+
+				<div class="info"></div>
+
+				<div id="swipe_like" class="rate"></div>
+			</div>
+
+	</div>
+
+</div>
+</div>
+
+//       {this.state.query_results.map(user =>
+//
+// // BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
+//   <div>
+//   <p>User {user.user} - their name is {user.name}</p>
+//   <p>{user.bio}</p>
+//   <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km away from you!</h4>
+//   <br></br>
+//   <p>{user.instagram_followers} is their Instagram Reach!</p>
+//   <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
+//   <br></br>
+//   <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
+//   <br></br>
+//   <p>Go check out this user, {this.props.loggedInAs}!</p>
+//   <br></br>
+//   </div>
+// )}
+
 
       )
     }
