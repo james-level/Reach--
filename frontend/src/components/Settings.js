@@ -54,7 +54,8 @@ class Settings extends Component {
     evt.preventDefault();
     var min_age = this.state.min_age;
     var max_age = this.state.max_age;
-    var max_distance = this.state.distance;
+    // var max_distance = this.state.distance;
+    var max_distance = 100000;
     var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/maxdistance=${max_distance}/?format=json`;
       axios.get(filtering_url)
       .then(res =>{
@@ -386,35 +387,33 @@ class Settings extends Component {
       return(
       <div className="container">
 
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js" type="text/javascript"></script>,
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js" type="text/javascript"></script>,
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js" type="text/javascript"></script>,
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js" type="text/javascript"></script>,
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/utils/Draggable.min.js" type="text/javascript"></script>,
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> type="text/javascript"></script>
+
 
       <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
       <br></br>
 
       {/* SWIPEDECK NO.3 START */}
 
-
         <div class="demo">
           <header class="demo__header"></header>
             <div class="demo__content">
               <div class="demo__card-cont">
+
+                {this.state.query_results.map(user =>
+
                 <div class="demo__card">
                   <div class="demo__card__top brown">
                     <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat 6</p>
+                    <p class="demo__card__name">{user.name}</p>
                   </div>
                   <div class="demo__card__btm">
-                    <p class="demo__card__we">Whatever</p>
+                    <p class="demo__card__we">{user.bio}</p>
                   </div>
                    <div class="demo__card__choice m--reject"></div>
                    <div class="demo__card__choice m--like"></div>
                    <div class="demo__card__drag"></div>
-                 </div>
+                 </div>)}
+{/*
                  <div class="demo__card">
                   <div class="demo__card__top lime">
                     <div class="demo__card__img"></div>
@@ -474,7 +473,7 @@ class Settings extends Component {
                   <div class="demo__card__choice m--reject"></div>
                   <div class="demo__card__choice m--like"></div>
                   <div class="demo__card__drag"></div>
-                </div>
+                </div> */}
               </div>
               <p class="demo__tip">Swipe left or right</p>
             </div>
@@ -485,23 +484,23 @@ class Settings extends Component {
       {/* SWIPEDECK NO.3 END */}
 </div>
 
-//       {this.state.query_results.map(user =>
-//
-// // BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
-//   <div>
-//   <p>User {user.user} - their name is {user.name}</p>
-//   <p>{user.bio}</p>
-//   <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km away from you!</h4>
-//   <br></br>
-//   <p>{user.instagram_followers} is their Instagram Reach!</p>
-//   <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
-//   <br></br>
-//   <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
-//   <br></br>
-//   <p>Go check out this user, {this.props.loggedInAs}!</p>
-//   <br></br>
-//   </div>
-// )}
+
+
+// BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
+  // <div>
+  // <p>User {user.user} - their name is {user.name}</p>
+  // <p>{user.bio}</p>
+  // <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km away from you!</h4>
+  // <br></br>
+  // <p>{user.instagram_followers} is their Instagram Reach!</p>
+  // <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
+  // <br></br>
+  // <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
+  // <br></br>
+  // <p>Go check out this user, {this.props.loggedInAs}!</p>
+  // <br></br>
+  // </div>
+
 
 
       )

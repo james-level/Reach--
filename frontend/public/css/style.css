@@ -1303,13 +1303,7 @@ input[type=range]:focus::-ms-fill-upper {
   margin: 0;
   padding: 0;
 }
-html, body {
-  font-size: 62.5%;
-}
-body {
-  background: #63bdf7;
-  overflow: hidden;
-}
+
 .demo {
   position: absolute;
   left: 50%;
