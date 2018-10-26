@@ -308,7 +308,7 @@ class Settings extends Component {
   <div>
   <p>User {user.user} - their name is {user.name}</p>
   <p>{user.bio}</p>
-  <h4>{this.approxDistanceBetweenTwoPoints(user.latitude, user.longitude, this.props.data.latitude, this.props.data.longitude).toFixed(2)}km away from you!</h4>
+  <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km away from you!</h4>
   <br></br>
   <p>{user.instagram_followers} is their Instagram Reach!</p>
   <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
