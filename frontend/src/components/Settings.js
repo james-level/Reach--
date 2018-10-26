@@ -70,6 +70,13 @@ class Settings extends Component {
 
   render(){
 
+      // Swipe-deck styling starts
+      const swipeDeckCardStyle = {
+        display: "block",
+        backgroundImage: 'url('+"https://telegraph.co.uk/content/dam/Pets/spark/pets-at-home-2017/fluffy-white-puppy.jpg?imwidth=1400"+')'
+      }
+      // Swipe-deck styling ends
+
       const post = this.props.loggedInAs  ? (
 
 
@@ -301,7 +308,28 @@ class Settings extends Component {
       return(
       <div className="container">
       <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
-      <br></br>
+
+
+{/* SWIPE DECK STARTS HERE ? */}
+
+
+
+
+        <div class="buddy" >HI<div class="avatar"  style={swipeDeckCardStyle}></div>HELLO</div>
+
+        <div class="buddy">🦃<div class="avatar" style={swipeDeckCardStyle}></div>DAVID</div>
+
+
+
+
+
+{/* SWIPE DECK FINISHES HERE ? */}
+
+
+
+
+
+      {/* <br></br>
       {this.state.query_results.map(user =>
 
 // BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
@@ -318,7 +346,7 @@ class Settings extends Component {
   <p>Go check out this user, {this.props.loggedInAs}!</p>
   <br></br>
   </div>
-)}
+)} */}
       </div>
 
       )
