@@ -94,17 +94,18 @@ const username = this.props.loggedInAs;
 
 
     const imageStyle = {backgroundImage: `url(${this.props.data.picture_six})`}
+
+    const imageStyle2 = { backgroundImage: `url(${this.props.data.picture_two})`}
+    const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
+    const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
+    const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
+    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
     console.log("PHOTO 1", this.props.data.picture);
     console.log("PHOTO 2", this.props.data.picture_two);
     console.log("PHOTO 3", this.props.data.picture_three);
     console.log("PHOTO 4", this.props.data.picture_four);
     console.log("PHOTO 5", this.props.data.picture_five);
     console.log("PHOTO 6", this.props.data.picture_six);
-    const imageStyle2 = { backgroundImage: `url(${this.props.data.picture_two})`}
-    const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
-    const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
-    const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
-    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
 

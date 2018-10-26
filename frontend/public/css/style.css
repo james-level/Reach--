@@ -1365,7 +1365,7 @@ input[type=range]:focus::-ms-fill-upper {
   height: 20.5rem;
   padding-top: 4rem;
 }
-.demo__card__top.purple {
+/* .demo__card__top.purple {
   background: #7132b9;
 }
 .demo__card__top.blue {
@@ -1379,7 +1379,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .demo__card__top.lime {
   background: #afb42b;
-}
+} */
 .demo__card__top.brown {
   background: #2cbbad;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import $ from 'jquery';
+import StackedBar from './Stacked';
 
 
 class Settings extends Component {
@@ -153,7 +154,14 @@ class Settings extends Component {
 // SWIPE DECK 3 FUNCTION ENDS
   }
 
+
+  total_reach(instagram_followers, twitter_followers, youtube_followers){return instagram_followers + twitter_followers + youtube_followers}
+
   render(){
+
+
+      const getAge = require('get-age');
+
 
       this.swipdeDeck();
       const post = this.props.loggedInAs  ? (
@@ -403,6 +411,118 @@ class Settings extends Component {
 
                 <div class="demo__card">
                   <div class="demo__card__top brown">
+
+{/* Putting profile card div here for testing */}
+
+<div className="profile">
+
+  {/* DISPLAY NAME & AGE*/}
+  <fieldset>
+    <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs </legend>
+    <label className="total-reach" type="text">Reach: {this.total_reach()}</label>
+  </fieldset>
+
+{/* PHOTO CAROUSEL */}
+    <div class="slider-container">
+      <div class="slider-menu">
+        <label for="slide-dot-1"></label>
+        <label for="slide-dot-2"></label>
+        <label for="slide-dot-3"></label>
+        <label for="slide-dot-4"></label>
+        <label for="slide-dot-5"></label>
+        <label for="slide-dot-6"></label>
+      </div>
+
+       <input id="slide-dot-1" type="radio" name="slides"></input>
+      <div class="slide slide-1" style={{backgroundImage: `url(${user.picture_six})`}}></div>
+
+      <input id="slide-dot-2" type="radio" name="slides"></input>
+       <div class="slide slide-2" style={{backgroundImage: `url(${user.picture_two})`}}></div>
+
+       <input id="slide-dot-3" type="radio" name="slides"></input>
+       <div class="slide slide-3" style={{backgroundImage: `url(${user.picture_three})`}}></div>
+
+       <input id="slide-dot-4" type="radio" name="slides"></input>
+       <div class="slide slide-4" style={{backgroundImage: `url(${user.picture_four})`}}></div>
+
+       <input id="slide-dot-5" type="radio" name="slides"></input>
+       <div class="slide slide-5" style={{backgroundImage: `url(${user.picture_five})`}}></div>
+
+       <input id="slide-dot-6" type="radio" name="slides"></input>
+       <div class="slide slide-6" style={{backgroundImage: `url(${user.picture})`}}></div>
+     </div>
+     <br></br>
+
+
+  <StackedBar twitter={user.twitter_followers} youtube={user.youtube_followers} instagram={user.instagram_followers} totalReach={this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)} />
+  <br></br>
+
+
+    {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
+    <div className="reach-stats">
+    <ul class="os-percentages horizontal-list">
+        <li>
+          {/* <p class="youtube os scnd-font-color">Youtube</p> */}
+          <p class="youtube os scnd-font-color"><img src="../images/app_images/youtube-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.youtube_followers)}<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="twitter os scnd-font-color"><img src="../images/app_images/twitter-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.twitter_followers)}<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="instagram os scnd-font-color"><img src="../images/app_images/instagram-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.instagram_followers)}<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="facebook os scnd-font-color"><img src="../images/app_images/facebook-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">0<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="snapchat os scnd-font-color"><img src="../images/app_images/snapchat-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">0<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="spotify os scnd-font-color"><img src="../images/app_images/spotify-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">0<sup>%</sup></p>
+        </li>
+    </ul>
+
+  </div>
+  <br></br><br></br>
+
+    {/* YES OR NO BUTTONS   */}
+
+      {/* <div class="buttonHolder">
+        <a href="#" class="button tick"></a>
+        <a href="#" class="button cross"></a>
+      </div>
+*/}
+
+
+  {/* DISPLAY HOMETOWN & BIO OF USER*/}
+  <br></br><br></br><br></br>
+
+  <div>
+    <legend><span class="number"></span>About</legend>
+    <label type="text">{user.bio}</label>
+  </div>
+
+  <div>
+    <legend><span class="number"></span>Further Info:</legend>
+    <label type="text">Interests: 🥃 🇬🇧 ⚽️ 🥑 😬 </label>
+    <label type="text">Distance: [ x ] miles (from you)</label>
+    <label type="text">Liked by: {user.likes} people</label>
+  </div>
+
+
+</div>
+
+{/* End */}
+
+
+
+
                     <div class="demo__card__img"><img src="{user.picture}"></img></div>
                     <p class="demo__card__name">{user.name}</p>
                   </div>
