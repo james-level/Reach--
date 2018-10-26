@@ -68,84 +68,93 @@ class Settings extends Component {
         })
   }
 
-  swipeDeck(){
+// SWIPE DECK 3 FUNCTION WORDS
+  swipdeDeck() {
+    $(document).ready(function() {
 
+  var animating = false;
+  var cardsCounter = 0;
+  var numOfCards = 6;
+  var decisionVal = 80;
+  var pullDeltaX = 0;
+  var deg = 0;
+  var $card, $cardReject, $cardLike;
 
-    $(document).ready(function(event) {
+  function pullChange() {
+    animating = true;
+    deg = pullDeltaX / 10;
+    $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
 
-	$("div#swipe_like").on( "click", function() {
-		swipeLike();
-	});
+    var opacity = pullDeltaX / 100;
+    var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
+    var likeOpacity = (opacity <= 0) ? 0 : opacity;
+    $cardReject.css("opacity", rejectOpacity);
+    $cardLike.css("opacity", likeOpacity);
+  };
 
-	$("div#swipe_dislike").on( "click", function() {
-		swipeDislike();
-	});
+  function release() {
 
-	addNewProfile();
+    if (pullDeltaX >= decisionVal) {
+      $card.addClass("to-right");
+    } else if (pullDeltaX <= -decisionVal) {
+      $card.addClass("to-left");
+    }
 
-	function swipe() {
-		Draggable.create("#photo", {
-		   	throwProps:true,
-		   	onDragEnd:function(endX) {
-	   			if(Math.round(this.endX) > 0 ) {
-	   				swipeLike();
-	   			}
-	   			else {
-	   				swipeDislike();
-	   			}
-	   			console.log(Math.round(this.endX));
-			}
-		});
-	}
+    if (Math.abs(pullDeltaX) >= decisionVal) {
+      $card.addClass("inactive");
 
-	function swipeLike() {
+      setTimeout(function() {
+        $card.addClass("below").removeClass("inactive to-left to-right");
+        cardsCounter++;
+        if (cardsCounter === numOfCards) {
+          cardsCounter = 0;
+          $(".demo__card").removeClass("below");
+        }
+      }, 300);
+    }
 
-			var $photo = $("div.content").find('#photo');
+    if (Math.abs(pullDeltaX) < decisionVal) {
+      $card.addClass("reset");
+    }
 
-			var swipe = new TimelineMax({repeat:0, yoyo:false, repeatDelay:0, onComplete:remove, onCompleteParams:[$photo]});
-			swipe.staggerTo($photo, 0.8, {bezier:[{left:"+=400", top:"+=300", rotation:"60"}], ease:Power1.easeInOut});
+    setTimeout(function() {
+      $card.attr("style", "").removeClass("reset")
+        .find(".demo__card__choice").attr("style", "");
 
-			addNewProfile();
-	}
+      pullDeltaX = 0;
+      animating = false;
+    }, 300);
+  };
 
-	function swipeDislike() {
+  $(document).on("mousedown touchstart", ".demo__card:not(.inactive)", function(e) {
+    if (animating) return;
 
-			var $photo = $("div.content").find('#photo');
+    $card = $(this);
+    $cardReject = $(".demo__card__choice.m--reject", $card);
+    $cardLike = $(".demo__card__choice.m--like", $card);
+    var startX =  e.pageX || e.originalEvent.touches[0].pageX;
 
-			var swipe = new TimelineMax({repeat:0, yoyo:false, repeatDelay:0, onComplete:remove, onCompleteParams:[$photo]});
-			swipe.staggerTo($photo, 0.8, {bezier:[{left:"+=-350", top:"+=300", rotation:"-60"}], ease:Power1.easeInOut});
+    $(document).on("mousemove touchmove", function(e) {
+      var x = e.pageX || e.originalEvent.touches[0].pageX;
+      pullDeltaX = (x - startX);
+      if (!pullDeltaX) return;
+      pullChange();
+    });
 
-			addNewProfile();
-	}
-
-	function remove(photo) {
-	    $(photo).remove();
-	}
-
-	function addNewProfile() {
-		var names = ['Lieke', 'Christina', 'Sanne', 'Soraya', 'Chanella', 'Larissa', 'Michelle'][Math.floor(Math.random() * 7)];
-		var ages = ['19','22','18','27','21', '18', '24'][Math.floor(Math.random() * 7)]
-		var photos = ['1', '2', '3', '4', '5', '6', '7'][Math.floor(Math.random() * 7)]
-		$("div.content").prepend('<div class="photo" id="photo" style="background-image:url(http://web.arjentienkamp.com/codepen/tinder/photo'+photos+'.jpg)">'
-    	+ '<span class="meta">'
-    	+ '<p>'+names+', '+ages+'</p>'
-    	+ '<span class="moments">0</span>'
-    	+ '<span class="users">0</span>'
-    	+ '</span>'
-    	+ '</div>');
-
-    	swipe();
-	}
+    $(document).on("mouseup touchend", function() {
+      $(document).off("mousemove touchmove mouseup touchend");
+      if (!pullDeltaX) return; // prevents from rapid click events
+      release();
+    });
+  });
 
 });
+// SWIPE DECK 3 FUNCTION ENDS
   }
-
 
   render(){
 
-
-    this.swipeDeck();
-
+      this.swipdeDeck();
       const post = this.props.loggedInAs  ? (
 
 
@@ -387,35 +396,93 @@ class Settings extends Component {
       <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
       <br></br>
 
-      <div class="phone">
+      {/* SWIPEDECK NO.3 START */}
 
-	<div class="app">
 
-			<div class="header">
+        <div class="demo">
+          <header class="demo__header"></header>
+            <div class="demo__content">
+              <div class="demo__card-cont">
+                <div class="demo__card">
+                  <div class="demo__card__top brown">
+                    <div class="demo__card__img"></div>
+                    <p class="demo__card__name">Hungry cat 6</p>
+                  </div>
+                  <div class="demo__card__btm">
+                    <p class="demo__card__we">Whatever</p>
+                  </div>
+                   <div class="demo__card__choice m--reject"></div>
+                   <div class="demo__card__choice m--like"></div>
+                   <div class="demo__card__drag"></div>
+                 </div>
+                 <div class="demo__card">
+                  <div class="demo__card__top lime">
+                    <div class="demo__card__img"></div>
+                    <p class="demo__card__name">Hungry cat 5</p>
+                </div>
+                <div class="demo__card__btm">
+                  <p class="demo__card__we">Whatever</p>
+                </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+                <div class="demo__card">
+                  <div class="demo__card__top cyan">
+                  <div class="demo__card__img"></div>
+                  <p class="demo__card__name">Hungry cat 4</p>
+                </div>
+                  <div class="demo__card__btm">
+                    <p class="demo__card__we">Whatever</p>
+                  </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+                <div class="demo__card">
+                  <div class="demo__card__top indigo">
+                  <div class="demo__card__img"></div>
+                  <p class="demo__card__name">Hungry cat 3</p>
+                </div>
+                  <div class="demo__card__btm">
+                  <p class="demo__card__we">Whatever</p>
+                </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+                <div class="demo__card">
+                  <div class="demo__card__top blue">
+                  <div class="demo__card__img"></div>
+                  <p class="demo__card__name">Hungry cat 2</p>
+                </div>
+                  <div class="demo__card__btm">
+                    <p class="demo__card__we">Whatever</p>
+                </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+                <div class="demo__card">
+                  <div class="demo__card__top purple">
+                  <div class="demo__card__img"></div>
+                  <p class="demo__card__name">Hungry cat</p>
+                </div>
+                  <div class="demo__card__btm">
+                  <p class="demo__card__we">Whatever</p>
+                </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+              </div>
+              <p class="demo__tip">Swipe left or right</p>
+            </div>
+            </div>
 
-				<span class="settings"></span>
 
-				<img src="http://web.arjentienkamp.com/codepen/tinder/logo.jpg"/>
 
-				<span class="chat"></span>
-
-			</div>
-
-			<div class="content">
-
-			</div>
-
-			<div class="footer">
-				<div id="swipe_dislike" class="rate"></div>
-
-				<div class="info"></div>
-
-				<div id="swipe_like" class="rate"></div>
-			</div>
-
-	</div>
-
-</div>
+      {/* SWIPEDECK NO.3 END */}
 </div>
 
 //       {this.state.query_results.map(user =>
