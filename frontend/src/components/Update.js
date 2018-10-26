@@ -239,19 +239,19 @@ componentWillMount() {
   }
 
 
-  handleVeganCheckClick = () => {
+  handleVeganCheckClick() {
       this.setState({ veganChecked: !this.state.veganChecked });
     }
 
-  handleNonSmokingCheckClick = () => {
+  handleNonSmokingCheckClick() {
       this.setState({ nonSmokingChecked: !this.state.nonSmokingChecked });
     }
 
-  handleChildlessCheckClick = () => {
+  handleChildlessCheckClick() {
       this.setState({ childlessChecked: !this.state.childlessChecked });
     }
 
-  handlePrefersChillToGymClicked = () => {
+  handlePrefersChillToGymClicked() {
       this.setState({ prefersChillToGymChecked: !this.state.prefersChillToGymChecked });
     }
 
