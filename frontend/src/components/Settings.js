@@ -410,11 +410,11 @@ class Settings extends Component {
                 {this.state.query_results.map(user =>
 
                 <div class="demo__card">
-                  <div class="demo__card__top brown">
+                  <div class="demo__card__top">
 
 {/* Putting profile card div here for testing */}
 
-<div className="profile">
+<div className="profile" style={{maxWidth:'600'}}>
 
   {/* DISPLAY NAME & AGE*/}
   <fieldset>
