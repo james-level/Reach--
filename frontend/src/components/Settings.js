@@ -403,8 +403,9 @@ class Settings extends Component {
 
                 <div class="demo__card">
                   <div class="demo__card__top brown">
-                    <div class="demo__card__img"></div>
+                    <div class="demo__card__img"><img src="{user.picture}"></img></div>
                     <p class="demo__card__name">{user.name}</p>
+                    <p class="demo__card__name">{user.bio}</p>
                   </div>
                   <div class="demo__card__btm">
                     <p class="demo__card__we">{user.bio}</p>
