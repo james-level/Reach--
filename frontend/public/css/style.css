@@ -1382,7 +1382,7 @@ input[type=range]:focus::-ms-fill-upper {
 } */
 .demo__card__top
  {
-  background: #2cbbad;
+  background: white;
 }
 .demo__card__img {
   overflow: hidden;
@@ -1398,11 +1398,11 @@ input[type=range]:focus::-ms-fill-upper {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
-  color: #fff;
+  color: transparent;
 }
 .demo__card__btm {
   height: 11.5rem;
-  background: #fff;
+  background: transparent;
 }
 .demo__card__we {
   text-align: center;

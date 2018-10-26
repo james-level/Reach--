@@ -524,10 +524,10 @@ class Settings extends Component {
 
 
                     <div class="demo__card__img"><img src="{user.picture}"></img></div>
-                    <p class="demo__card__name">{user.name}</p>
+
                   </div>
                   <div class="demo__card__btm">
-                    <p class="demo__card__we">{user.bio}</p>
+
                   </div>
                    <div class="demo__card__choice m--reject"></div>
                    <div class="demo__card__choice m--like"></div>
@@ -595,7 +595,7 @@ class Settings extends Component {
                   <div class="demo__card__drag"></div>
                 </div> */}
               </div>
-              <p class="demo__tip">Swipe left or right</p>
+      
             </div>
             </div>
 
