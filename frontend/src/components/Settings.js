@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import $ from 'jquery';
+import StackedBar from './Stacked';
 
 
 class Settings extends Component {
@@ -53,7 +55,8 @@ class Settings extends Component {
     evt.preventDefault();
     var min_age = this.state.min_age;
     var max_age = this.state.max_age;
-    var max_distance = this.state.distance;
+    // var max_distance = this.state.distance;
+    var max_distance = 100000;
     var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/maxdistance=${max_distance}/?format=json`;
       axios.get(filtering_url)
       .then(res =>{
@@ -67,9 +70,100 @@ class Settings extends Component {
         })
   }
 
+// SWIPE DECK 3 FUNCTION WORDS
+  swipdeDeck() {
+    $(document).ready(function() {
+
+  var animating = false;
+  var cardsCounter = 0;
+  var numOfCards = 6;
+  var decisionVal = 80;
+  var pullDeltaX = 0;
+  var deg = 0;
+  var $card, $cardReject, $cardLike;
+
+  function pullChange() {
+    animating = true;
+    deg = pullDeltaX / 10;
+    $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
+
+    var opacity = pullDeltaX / 100;
+    var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
+    var likeOpacity = (opacity <= 0) ? 0 : opacity;
+    $cardReject.css("opacity", rejectOpacity);
+    $cardLike.css("opacity", likeOpacity);
+  };
+
+  function release() {
+
+    if (pullDeltaX >= decisionVal) {
+      $card.addClass("to-right");
+    } else if (pullDeltaX <= -decisionVal) {
+      $card.addClass("to-left");
+    }
+
+    if (Math.abs(pullDeltaX) >= decisionVal) {
+      $card.addClass("inactive");
+
+      setTimeout(function() {
+        $card.addClass("below").removeClass("inactive to-left to-right");
+        cardsCounter++;
+        if (cardsCounter === numOfCards) {
+          cardsCounter = 0;
+          $(".demo__card").removeClass("below");
+        }
+      }, 300);
+    }
+
+    if (Math.abs(pullDeltaX) < decisionVal) {
+      $card.addClass("reset");
+    }
+
+    setTimeout(function() {
+      $card.attr("style", "").removeClass("reset")
+        .find(".demo__card__choice").attr("style", "");
+
+      pullDeltaX = 0;
+      animating = false;
+    }, 300);
+  };
+
+  $(document).on("mousedown touchstart", ".demo__card:not(.inactive)", function(e) {
+    if (animating) return;
+
+    $card = $(this);
+    $cardReject = $(".demo__card__choice.m--reject", $card);
+    $cardLike = $(".demo__card__choice.m--like", $card);
+    var startX =  e.pageX || e.originalEvent.touches[0].pageX;
+
+    $(document).on("mousemove touchmove", function(e) {
+      var x = e.pageX || e.originalEvent.touches[0].pageX;
+      pullDeltaX = (x - startX);
+      if (!pullDeltaX) return;
+      pullChange();
+    });
+
+    $(document).on("mouseup touchend", function() {
+      $(document).off("mousemove touchmove mouseup touchend");
+      if (!pullDeltaX) return; // prevents from rapid click events
+      release();
+    });
+  });
+
+});
+// SWIPE DECK 3 FUNCTION ENDS
+  }
+
+
+  total_reach(instagram_followers, twitter_followers, youtube_followers){return instagram_followers + twitter_followers + youtube_followers}
 
   render(){
 
+
+      const getAge = require('get-age');
+
+
+      this.swipdeDeck();
       const post = this.props.loggedInAs  ? (
 
 
@@ -300,26 +394,234 @@ class Settings extends Component {
     {
       return(
       <div className="container">
+
+
+
       <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
       <br></br>
-      {this.state.query_results.map(user =>
+
+      {/* SWIPEDECK NO.3 START */}
+
+        <div class="demo">
+          <header class="demo__header"></header>
+            <div class="demo__content">
+              <div class="demo__card-cont">
+
+                {this.state.query_results.map(user =>
+
+                <div class="demo__card">
+                  <div class="demo__card__top">
+
+{/* Putting profile card div here for testing */}
+
+<div className="profile" style={{maxWidth:'600'}}>
+
+  {/* DISPLAY NAME & AGE*/}
+  <fieldset>
+    <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs </legend>
+    <label className="total-reach" type="text">Reach: {this.total_reach()}</label>
+  </fieldset>
+
+{/* PHOTO CAROUSEL */}
+    <div class="slider-container">
+      <div class="slider-menu">
+        <label for="slide-dot-1"></label>
+        <label for="slide-dot-2"></label>
+        <label for="slide-dot-3"></label>
+        <label for="slide-dot-4"></label>
+        <label for="slide-dot-5"></label>
+        <label for="slide-dot-6"></label>
+      </div>
+
+       <input id="slide-dot-1" type="radio" name="slides"></input>
+      <div class="slide slide-1" style={{backgroundImage: `url(${user.picture_six})`}}></div>
+
+      <input id="slide-dot-2" type="radio" name="slides"></input>
+       <div class="slide slide-2" style={{backgroundImage: `url(${user.picture_two})`}}></div>
+
+       <input id="slide-dot-3" type="radio" name="slides"></input>
+       <div class="slide slide-3" style={{backgroundImage: `url(${user.picture_three})`}}></div>
+
+       <input id="slide-dot-4" type="radio" name="slides"></input>
+       <div class="slide slide-4" style={{backgroundImage: `url(${user.picture_four})`}}></div>
+
+       <input id="slide-dot-5" type="radio" name="slides"></input>
+       <div class="slide slide-5" style={{backgroundImage: `url(${user.picture_five})`}}></div>
+
+       <input id="slide-dot-6" type="radio" name="slides"></input>
+       <div class="slide slide-6" style={{backgroundImage: `url(${user.picture})`}}></div>
+     </div>
+     <br></br>
+
+
+  <StackedBar twitter={user.twitter_followers} youtube={user.youtube_followers} instagram={user.instagram_followers} totalReach={this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)} />
+  <br></br>
+
+
+    {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
+    <div className="reach-stats">
+    <ul class="os-percentages horizontal-list">
+        <li>
+          {/* <p class="youtube os scnd-font-color">Youtube</p> */}
+          <p class="youtube os scnd-font-color"><img src="../images/app_images/youtube-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.youtube_followers)}<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="twitter os scnd-font-color"><img src="../images/app_images/twitter-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.twitter_followers)}<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="instagram os scnd-font-color"><img src="../images/app_images/instagram-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.instagram_followers)}<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="facebook os scnd-font-color"><img src="../images/app_images/facebook-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">0<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="snapchat os scnd-font-color"><img src="../images/app_images/snapchat-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">0<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="spotify os scnd-font-color"><img src="../images/app_images/spotify-icon.png" height="30" width="30"></img></p>
+          <p class="os-percentage">0<sup>%</sup></p>
+        </li>
+    </ul>
+
+  </div>
+  <br></br><br></br>
+
+    {/* YES OR NO BUTTONS   */}
+
+      {/* <div class="buttonHolder">
+        <a href="#" class="button tick"></a>
+        <a href="#" class="button cross"></a>
+      </div>
+*/}
+
+
+  {/* DISPLAY HOMETOWN & BIO OF USER*/}
+  <br></br><br></br><br></br>
+
+  <div>
+    <legend><span class="number"></span>About</legend>
+    <label type="text">{user.bio}</label>
+  </div>
+
+  <div>
+    <legend><span class="number"></span>Further Info:</legend>
+    <label type="text">Interests: 🥃 🇬🇧 ⚽️ 🥑 😬 </label>
+    <label type="text">Distance: [ x ] miles (from you)</label>
+    <label type="text">Liked by: {user.likes} people</label>
+  </div>
+
+
+</div>
+
+{/* End */}
+
+
+
+
+                    <div class="demo__card__img"><img src="{user.picture}"></img></div>
+
+                  </div>
+                  <div class="demo__card__btm">
+
+                  </div>
+                   <div class="demo__card__choice m--reject"></div>
+                   <div class="demo__card__choice m--like"></div>
+                   <div class="demo__card__drag"></div>
+                 </div>)}
+{/*
+                 <div class="demo__card">
+                  <div class="demo__card__top lime">
+                    <div class="demo__card__img"></div>
+                    <p class="demo__card__name">Hungry cat 5</p>
+                </div>
+                <div class="demo__card__btm">
+                  <p class="demo__card__we">Whatever</p>
+                </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+                <div class="demo__card">
+                  <div class="demo__card__top cyan">
+                  <div class="demo__card__img"></div>
+                  <p class="demo__card__name">Hungry cat 4</p>
+                </div>
+                  <div class="demo__card__btm">
+                    <p class="demo__card__we">Whatever</p>
+                  </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+                <div class="demo__card">
+                  <div class="demo__card__top indigo">
+                  <div class="demo__card__img"></div>
+                  <p class="demo__card__name">Hungry cat 3</p>
+                </div>
+                  <div class="demo__card__btm">
+                  <p class="demo__card__we">Whatever</p>
+                </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+                <div class="demo__card">
+                  <div class="demo__card__top blue">
+                  <div class="demo__card__img"></div>
+                  <p class="demo__card__name">Hungry cat 2</p>
+                </div>
+                  <div class="demo__card__btm">
+                    <p class="demo__card__we">Whatever</p>
+                </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div>
+                <div class="demo__card">
+                  <div class="demo__card__top purple">
+                  <div class="demo__card__img"></div>
+                  <p class="demo__card__name">Hungry cat</p>
+                </div>
+                  <div class="demo__card__btm">
+                  <p class="demo__card__we">Whatever</p>
+                </div>
+                  <div class="demo__card__choice m--reject"></div>
+                  <div class="demo__card__choice m--like"></div>
+                  <div class="demo__card__drag"></div>
+                </div> */}
+              </div>
+      
+            </div>
+            </div>
+
+
+
+      {/* SWIPEDECK NO.3 END */}
+</div>
+
+
 
 // BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
-  <div>
-  <p>User {user.user} - their name is {user.name}</p>
-  <p>{user.bio}</p>
-  <h4>{this.approxDistanceBetweenTwoPoints(user.latitude, user.longitude, this.props.data.latitude, this.props.data.longitude).toFixed(2)}km away from you!</h4>
-  <br></br>
-  <p>{user.instagram_followers} is their Instagram Reach!</p>
-  <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
-  <br></br>
-  <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
-  <br></br>
-  <p>Go check out this user, {this.props.loggedInAs}!</p>
-  <br></br>
-  </div>
-)}
-      </div>
+  // <div>
+  // <p>User {user.user} - their name is {user.name}</p>
+  // <p>{user.bio}</p>
+  // <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km away from you!</h4>
+  // <br></br>
+  // <p>{user.instagram_followers} is their Instagram Reach!</p>
+  // <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
+  // <br></br>
+  // <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
+  // <br></br>
+  // <p>Go check out this user, {this.props.loggedInAs}!</p>
+  // <br></br>
+  // </div>
+
+
 
       )
     }

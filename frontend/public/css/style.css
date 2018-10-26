@@ -1294,3 +1294,174 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 /* REGISTRATION LOADER ENDS */
+
+
+/* SWIPE DECK START */
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.demo {
+  position: absolute;
+  left: 50%;
+  top: 23%;
+  width: 36rem;
+  height: 54rem;
+  margin-left: -18rem;
+  margin-top: 0rem;
+  background: transparent;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+.demo__header {
+  height: 0rem;
+  background: #2cbbad;
+}
+.demo__content {
+  overflow: hidden;
+  position: relative;
+  height: 48rem;
+  padding-top: 0.25rem;
+  user-select: none;
+}
+.demo__card-cont {
+  position: relative;
+  width: 30rem;
+  height: 32rem;
+  margin: 0 auto 0.5rem;
+}
+.demo__card {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 50%;
+  transform-origin: 50% 100%;
+}
+.demo__card.reset {
+  transition: transform 0.3s;
+  transform: translateX(0) !important;
+}
+.demo__card.reset .demo__card__choice {
+  transition: opacity 0.3s;
+  opacity: 0 !important;
+}
+.demo__card.inactive {
+  transition: transform 0.3s;
+}
+.demo__card.to-left {
+  transform: translateX(-30rem) rotate(-30deg) !important;
+}
+.demo__card.to-right {
+  transform: translate(30rem) rotate(30deg) !important;
+}
+.demo__card.below {
+  z-index: 1;
+}
+.demo__card__top {
+  height: 20.5rem;
+  padding-top: 4rem;
+}
+/* .demo__card__top.purple {
+  background: #7132b9;
+}
+.demo__card__top.blue {
+  background: #248cb6;
+}
+.demo__card__top.indigo {
+  background: #303f9f;
+}
+.demo__card__top.cyan {
+  background: #26c6da;
+}
+.demo__card__top.lime {
+  background: #afb42b;
+} */
+.demo__card__top
+ {
+  background: white;
+}
+.demo__card__img {
+  overflow: hidden;
+  width: 10rem;
+  height: 10rem;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  border: 0.5rem solid #fff;
+  /* background-image: url('//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg'); */
+  /* background-size: cover; */
+}
+.demo__card__name {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: transparent;
+}
+.demo__card__btm {
+  height: 11.5rem;
+  background: transparent;
+}
+.demo__card__we {
+  text-align: center;
+  font-size: 2.2rem;
+  line-height: 11.5rem;
+}
+.demo__card__choice {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.demo__card__choice:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin-left: -1rem;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: -2rem -3rem #fff, 2rem -3rem #fff;
+}
+.demo__card__choice:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4rem;
+  height: 1.5rem;
+  margin-left: -2rem;
+  border: 0.6rem solid #fff;
+  border-bottom: none;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+}
+.demo__card__choice.m--reject {
+  background: #ff945a;
+}
+.demo__card__choice.m--like {
+  background: #b1da96;
+}
+.demo__card__choice.m--like:after {
+  transform: scaleY(-1);
+}
+.demo__card__drag {
+  z-index: 5;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+.demo__tip {
+  text-align: center;
+  font-size: 2.2rem;
+}
+/* SWIPE DECK END */

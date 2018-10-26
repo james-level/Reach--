@@ -77,9 +77,6 @@ class Register extends Component {
         this.handleChildlessCheckClick = this.handleChildlessCheckClick.bind(this);
         this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
         this.handleNonSmokingCheckClick = this.handleNonSmokingCheckClick.bind(this);
-
-
-
       };
 
 
@@ -216,19 +213,19 @@ class Register extends Component {
 }
 
 
-    handleVeganCheckClick = () => {
+    handleVeganCheckClick() {
         this.setState({ veganChecked: !this.state.veganChecked });
       }
 
-    handleNonSmokingCheckClick = () => {
+    handleNonSmokingCheckClick() {
         this.setState({ nonSmokingChecked: !this.state.nonSmokingChecked });
       }
 
-    handleChildlessCheckClick = () => {
+    handleChildlessCheckClick() {
         this.setState({ childlessChecked: !this.state.childlessChecked });
       }
 
-    handlePrefersChillToGymClicked = () => {
+    handlePrefersChillToGymClicked() {
         this.setState({ prefersChillToGym: !this.state.prefersChillToGym });
       }
 
