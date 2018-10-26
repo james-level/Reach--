@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import $ from 'jquery';
 
 
 class Settings extends Component {
@@ -67,13 +68,52 @@ class Settings extends Component {
         })
   }
 
+ // SWIPE-DECK swipe function (start)
+ swiping(){
+   <script src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>,
+   <script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
+  $(document).ready(function(){
+    $(".ui-loader").hide();
+    console.log("Swipe-deck: Document ready" );
+    console.log("BUDDY BEFORE",  $(".buddy"));
+    $('.buddy').attr('draggable','true');
+    console.log("BUDDY AFTER",  $(".buddy"));
+     $(".buddy").on("swiperight",function(){
+       console.log("Swipe-deck: swiped right" );
+       $(this).addClass('rotate-left').delay(700).fadeOut(1);
+       $('.buddy').find('.status').remove();
+
+       $(this).append('<div class="status like">Like!</div>');
+       if ( $(this).is(':last-child') ) {
+         $('.buddy:nth-child(1)').removeClass ('rotate-left rotate-right').fadeIn(300);
+        } else {
+           $(this).next().removeClass('rotate-left rotate-right').fadeIn(400);
+        }
+     });
+
+    $(".buddy").on("swipeleft",function(){
+      console.log("Swipe-deck: swipe-left" );
+     $(this).addClass('rotate-right').delay(700).fadeOut(1);
+     $('.buddy').find('.status').remove();
+     $(this).append('<div class="status dislike">Dislike!</div>');
+
+     if ( $(this).is(':last-child') ) {
+      $('.buddy:nth-child(1)').removeClass ('rotate-left rotate-right').fadeIn(300);
+       alert('OUPS');
+      } else {
+         $(this).next().removeClass('rotate-left rotate-right').fadeIn(400);
+     }
+   });
+ // SWIPE-DECK swipe function (end)
+});}
 
   render(){
 
+      this.swiping();
       // Swipe-deck styling starts
       const swipeDeckCardStyle = {
         display: "block",
-        backgroundImage: 'url('+"https://telegraph.co.uk/content/dam/Pets/spark/pets-at-home-2017/fluffy-white-puppy.jpg?imwidth=1400"+')'
+        backgroundImage: 'url('+"http://hircsarda.hu/wp-content/uploads/2016/03/orban1.jpeg"+')'
       }
       // Swipe-deck styling ends
 
@@ -307,16 +347,20 @@ class Settings extends Component {
     {
       return(
 
-      /* SWIPE DECK STARTS HERE ? */
+      /* SWIPE DECK STARTS HERE */
       <div className="container">
 
-        <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
+        {/* <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5> */}
 
-        <div class="buddy" >HI<div class="avatar"  style={swipeDeckCardStyle}></div>HELLO</div>
+        <div class="buddy" >BANANA <div class="avatar"  style={swipeDeckCardStyle}></div> BANANA</div>
 
-        <div class="buddy">🦃<div class="avatar" style={swipeDeckCardStyle}></div>DAVID</div>
+        <div class="buddy"> APPLE <div class="avatar" style={swipeDeckCardStyle}></div>APPLE</div>
 
-{/* SWIPE DECK FINISHES HERE ? */}
+        <div class="buddy"> ORANGE <div class="avatar" style={swipeDeckCardStyle}></div>ORANGE</div>
+
+        <div class="buddy"> PEAR <div class="avatar" style={swipeDeckCardStyle}></div>PEAR</div>
+
+{/* SWIPE DECK FINISHES HERE */}
 
 
 

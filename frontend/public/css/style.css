@@ -1298,7 +1298,6 @@ input[type=range]:focus::-ms-fill-upper {
 
 
 /* SWIPEDECK CSS STARTS */
-
 .container {
   width: 500px;
   margin: auto !important;
@@ -1320,6 +1319,7 @@ input[type=range]:focus::-ms-fill-upper {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   color: white;
+  border-radius: 5px ;
   padding: 20px;
   width: 50vw;
   height: 80vh;
