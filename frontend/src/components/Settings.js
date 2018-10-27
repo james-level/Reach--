@@ -69,12 +69,12 @@ class Settings extends Component {
   }
 
 // SWIPE DECK 3 FUNCTION WORDS
-  swipdeDeck() {
+  swipdeDeck(numberOfResults) {
     $(document).ready(function() {
 
   var animating = false;
   var cardsCounter = 0;
-  var numOfCards = 3;
+  var numOfCards = numberOfResults;
   var decisionVal = 80;
   var pullDeltaX = 0;
   var deg = 0;
@@ -160,8 +160,10 @@ class Settings extends Component {
 
       const getAge = require('get-age');
 
+      if (this.state.query_results){
+        this.swipdeDeck(this.state.query_results.length);
+      }
 
-      this.swipdeDeck();
       const post = this.props.loggedInAs  ? (
 
 
