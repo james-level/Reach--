@@ -1312,7 +1312,7 @@ input[type=range]:focus::-ms-fill-upper {
   height: 54rem;
   margin-left: -18rem;
   margin-top: 0rem;
-  background: transparent;
+  background: #fff;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 .demo__header {
@@ -1320,7 +1320,7 @@ input[type=range]:focus::-ms-fill-upper {
   background: #2cbbad;
 }
 .demo__content {
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   height: 48rem;
   padding-top: 0.25rem;
@@ -1398,11 +1398,11 @@ input[type=range]:focus::-ms-fill-upper {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
-  color: transparent;
+  color: #fff;
 }
 .demo__card__btm {
   height: 11.5rem;
-  background: transparent;
+  background: #fff;
 }
 .demo__card__we {
   text-align: center;
