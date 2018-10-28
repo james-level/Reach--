@@ -115,7 +115,7 @@ DATABASES = {
     }
 }
 
-Then... 
+Then...
 
 createdb reach
 
@@ -127,7 +127,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 
-IF THERE ARE SERVERS RUNNING: 
+IF THERE ARE SERVERS RUNNING:
 
 {
 pg_ctl -D /usr/local/var/postgres stop -s -m fast
@@ -157,14 +157,15 @@ pip install python-jose
  FRONTEND (REACT):
 
  npm install flickity
- 
+
  npm i get-age --save
 
  npm i get-age --save
- 
+
  npm install --save-dev babel-plugin-transform-function-bind
 
  npm run build (possibly)
+ npm install jquery
 
  npm start
 
