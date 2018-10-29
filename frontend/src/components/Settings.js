@@ -418,7 +418,7 @@ class Settings extends Component {
 
   {/* DISPLAY NAME & AGE*/}
   <fieldset>
-    <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs </legend>
+    <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
     <label className="total-reach" type="text">Reach: {this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)}</label>
   </fieldset>
 
@@ -604,13 +604,13 @@ class Settings extends Component {
       {/* SWIPEDECK NO.3 END */}
 </div>
 
-
+// {this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(1)}km from you!
 
 // BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
   // <div>
   // <p>User {user.user} - their name is {user.name}</p>
   // <p>{user.bio}</p>
-  // <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km away from you!</h4>
+  // <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km from you!</h4>
   // <br></br>
   // <p>{user.instagram_followers} is their Instagram Reach!</p>
   // <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
