@@ -160,6 +160,7 @@ class Settings extends Component {
   };
 
   $(document).on("mousedown touchstart", ".demo__card:not(.inactive)", function(e) {
+    console.log("MOUSEDOWN TOUCHDOWN RUNNING");
     if (animating) return;
 
     $card = $(this);
