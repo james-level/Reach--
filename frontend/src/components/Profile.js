@@ -94,12 +94,13 @@ const username = this.props.loggedInAs;
 
 
     const imageStyle = {backgroundImage: `url(${this.props.data.picture_six})`}
-
     const imageStyle2 = { backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
     const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
     const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
+    const imageArray = [this.props.data.picture, this.props.data.picture_two, this.props.data.picture_three, this.props.data.picture_four, this.props.data.picture_five, this.props.data.picture_six]
+    console.log(imageArray);
     console.log("PHOTO 1", this.props.data.picture);
     console.log("PHOTO 2", this.props.data.picture_two);
     console.log("PHOTO 3", this.props.data.picture_three);
@@ -108,6 +109,10 @@ const username = this.props.loggedInAs;
     console.log("PHOTO 6", this.props.data.picture_six);
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
+
+    var galleryElements = imageArray.filter(image => image !== null) ;
+    console.log(galleryElements);
+
 
 //ternary to either display profile or log in message
   const post = this.props.loggedInAs  ? (
