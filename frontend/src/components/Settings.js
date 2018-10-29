@@ -73,6 +73,51 @@ class Settings extends Component {
         })
   }
 
+  // componentWillUnmount() {
+  //   this.saveLikesAndIgnores();
+  // }
+
+  saveLikesAndIgnores(){
+
+
+
+    var username = this.props.loggedInAs;
+    var token_passed_from_main = this.props.token_to_pass_on;
+    console.log(this.props.token_to_pass_on);
+    var liked_profile_ids = this.state.liked_profiles.map(profile => profile.user);
+    var ignored_profile_ids = this.state.ignored_profiles.map(profile => profile.user);
+
+    console.log("IGNORED IDS", ignored_profile_ids);
+    console.log("LIKED IDS", liked_profile_ids);
+
+    var self = this;
+
+    var update_reach_url = `http://localhost:8080/social_reach/profiles/`
+
+    const formData = new FormData();
+    if (liked_profile_ids.length > 0){
+    formData.append('liked_profiles', liked_profile_ids);
+  }
+
+    if (ignored_profile_ids.length > 0){
+    formData.append('ignored_profiles', ignored_profile_ids);
+  }
+
+
+
+    console.log(formData);
+    axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
+      formData
+   ,
+ { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+
+    console.log("LIKES AND IGNORES UPDATED");
+}).catch(function(error){
+console.log(error);
+console.log("Error updating likes and ignores.");
+})
+}
+
   handleLike(cardsCounter){
 
     console.log("CARDS COUNTER", cardsCounter);
@@ -85,6 +130,9 @@ class Settings extends Component {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
     })
 
+    console.log("Liked profiles state", this.state.liked_profiles);
+
+    console.log("State updated for likes");
   }
 
   handleIgnore(cardsCounter){
@@ -157,6 +205,8 @@ class Settings extends Component {
         if (pullDeltaX <=  -decisionVal) {
             self.handleIgnore(cardsCounter);
           }
+
+        self.saveLikesAndIgnores();
 
         cardsCounter++;
 
