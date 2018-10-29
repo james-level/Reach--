@@ -89,7 +89,10 @@ class Settings extends Component {
 
   handleIgnore(cardsCounter){
 
+    console.log("CARDS COUNTER", cardsCounter);
+
     var ignoredProfile = this.state.query_results[cardsCounter];
+        console.log("QUERY RESULTS AT INDEX", ignoredProfile);
 
     this.setState({
       ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
@@ -150,6 +153,11 @@ class Settings extends Component {
         if (pullDeltaX >= decisionVal) {
             self.handleLike(cardsCounter);
           }
+
+        if (pullDeltaX <=  -decisionVal) {
+            self.handleIgnore(cardsCounter);
+          }
+
         cardsCounter++;
 
         if (cardsCounter === numOfCards) {
