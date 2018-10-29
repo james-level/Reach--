@@ -74,10 +74,14 @@ class Settings extends Component {
 
   handleLike(cardsCounter){
 
-    console.log("QUERY RESULTS AT INDEX", this.state.query_results[cardsCounter]);
+    console.log("CARDS COUNTER", cardsCounter);
+
+    var likedProfile = this.state.query_results[cardsCounter];
+
+    console.log("QUERY RESULTS AT INDEX", likedProfile);
 
     this.setState({
-      liked_profiles: [...this.state.liked_profiles, this.state.query_results[cardsCounter]]
+      liked_profiles: [...this.state.liked_profiles, likedProfile]
     })
 
   }
@@ -115,7 +119,7 @@ class Settings extends Component {
     if (pullDeltaX >= decisionVal) {
       $card.addClass("to-right");
       // Add current card to liked profiles array in state
-      self.handleLike(cardsCounter);
+      // self.handleLike(cardsCounter);
       // self.setState({
       //   liked_profiles: [...state.liked_profiles, state.query_results[cardsCounter]]
       // })
@@ -130,6 +134,10 @@ class Settings extends Component {
 
       setTimeout(function() {
         $card.addClass("below").removeClass("inactive to-left to-right");
+        // Adding profile to liked array if pull delta exceeds decisive value
+        if (pullDeltaX >= decisionVal) {
+            self.handleLike(cardsCounter);
+          }
         cardsCounter++;
         if (cardsCounter === numOfCards) {
           cardsCounter = 0;
@@ -169,6 +177,7 @@ class Settings extends Component {
     $(document).on("mouseup touchend", function() {
       $(document).off("mousemove touchmove mouseup touchend");
       if (!pullDeltaX) return; // prevents from rapid click events
+      console.log("ABOUT TO CALL RELEASE");
       release();
     });
   });
