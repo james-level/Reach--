@@ -25,6 +25,7 @@ class Settings extends Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.swipdeDeck = this.swipdeDeck.bind(this);
       this.handleLike = this.handleLike.bind(this);
+      this.handleIgnore = this.handleIgnore.bind(this);
   }
 
   handleChange(evt){
@@ -82,6 +83,16 @@ class Settings extends Component {
 
     this.setState({
       liked_profiles: [...this.state.liked_profiles, likedProfile]
+    })
+
+  }
+
+  handleIgnore(cardsCounter){
+
+    var ignoredProfile = this.state.query_results[cardsCounter];
+
+    this.setState({
+      ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
     })
 
   }
