@@ -8,7 +8,7 @@ class PublicProfile extends Component {
     this.state = {
       username: '',
       password: '',
-      login: false,
+
       data: {}
     };
 
@@ -22,6 +22,7 @@ class PublicProfile extends Component {
   }
 
   render(){
+    console.log(this.props);
 
     const imageStyle = {backgroundSize: "cover", backgroundImage: `url(${this.props.data.picture_six})`}
     const imageStyle2 = {backgroundImage: `url(${this.props.data.picture_two})`}
@@ -30,7 +31,7 @@ class PublicProfile extends Component {
     const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
     const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
     console.log(this.props);
-      const post = this.props.loggedInAs  ? (
+      const post = (
 
                     <div class="public-profile">
 
@@ -93,10 +94,9 @@ class PublicProfile extends Component {
 
                           </form>
                     </div>
-
-                  ) : (
-                    <div className="center"> Oops! You need to log in :/ </div>
                   )
+
+
 
                   return(
                     <div className="container">
