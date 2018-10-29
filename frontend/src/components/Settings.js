@@ -16,11 +16,15 @@ class Settings extends Component {
       max_age: 99,
       entered_search_query: false,
       query_results: null,
-      distance: 0
+      distance: 0,
+      liked_profiles: [],
+      ignored_profiles: []
     };
 
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.swipdeDeck = this.swipdeDeck.bind(this);
+      this.handleLike = this.handleLike.bind(this);
   }
 
   handleChange(evt){
@@ -68,8 +72,21 @@ class Settings extends Component {
         })
   }
 
+  handleLike(cardsCounter){
+
+    console.log("QUERY RESULTS AT INDEX", this.state.query_results[cardsCounter]);
+
+    this.setState({
+      liked_profiles: [...this.state.liked_profiles, this.state.query_results[cardsCounter]]
+    })
+
+  }
+
 // SWIPE DECK 3 FUNCTION WORDS
   swipdeDeck(numberOfResults) {
+
+  const self = this;
+
     $(document).ready(function() {
 
   var animating = false;
@@ -79,6 +96,7 @@ class Settings extends Component {
   var pullDeltaX = 0;
   var deg = 0;
   var $card, $cardReject, $cardLike;
+
 
   function pullChange() {
     animating = true;
@@ -96,12 +114,19 @@ class Settings extends Component {
 
     if (pullDeltaX >= decisionVal) {
       $card.addClass("to-right");
+      // Add current card to liked profiles array in state
+      self.handleLike(cardsCounter);
+      // self.setState({
+      //   liked_profiles: [...state.liked_profiles, state.query_results[cardsCounter]]
+      // })
     } else if (pullDeltaX <= -decisionVal) {
       $card.addClass("to-left");
+      // Add current card to ignored profiles array in state
     }
 
     if (Math.abs(pullDeltaX) >= decisionVal) {
       $card.addClass("inactive");
+
 
       setTimeout(function() {
         $card.addClass("below").removeClass("inactive to-left to-right");
