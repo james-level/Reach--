@@ -96,6 +96,7 @@ class Settings extends Component {
   var animating = false;
   var cardsCounter = 0;
   var numOfCards = numberOfResults;
+  console.log("RESULTS", numberOfResults);
   var decisionVal = 80;
   var pullDeltaX = 0;
   var deg = 0;
@@ -139,6 +140,7 @@ class Settings extends Component {
             self.handleLike(cardsCounter);
           }
         cardsCounter++;
+
         if (cardsCounter === numOfCards) {
           cardsCounter = 0;
           $(".demo__card").removeClass("below");
@@ -161,6 +163,7 @@ class Settings extends Component {
 
   $(document).on("mousedown touchstart", ".demo__card:not(.inactive)", function(e) {
     console.log("MOUSEDOWN TOUCHDOWN RUNNING");
+    e.stopImmediatePropagation();
     if (animating) return;
 
     $card = $(this);
