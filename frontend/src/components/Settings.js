@@ -28,6 +28,7 @@ class Settings extends Component {
       this.swipdeDeck = this.swipdeDeck.bind(this);
       this.handleLike = this.handleLike.bind(this);
       this.handleIgnore = this.handleIgnore.bind(this);
+      this.handleLookingForChange = this.handleLookingForChange.bind(this);
   }
 
   handleChange(evt){
@@ -305,7 +306,8 @@ console.log("Error updating likes and ignores.");
         this.swipdeDeck(this.state.query_results.length);
       }
 
-      const post = this.props.loggedInAs  ? (
+      if (this.state.settingsUpdated == false){
+        return (
 
       <div className="profile">
 
@@ -514,20 +516,15 @@ console.log("Error updating likes and ignores.");
         </div>
       </div>
 
-) : (
+)}
+
+if (!this.props.loggedInAs) {return (
     <div className="center"> Oops! You need to log in </div>
-  )
+  )}
 
-  if (this.state.entered_search_query ===  false)
-    {
-      return(
-      <div className="container">
-      {post}
-      </div>
-      )
-    }
 
-    else if (this.state.query_results === {})
+
+    if (this.state.query_results === {})
     {
       return(
       <div className="container"></div>
