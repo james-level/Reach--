@@ -18,8 +18,8 @@ class ResultsView extends Component {
       entered_search_query: false,
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
-      liked_profiles: [],
-      ignored_profiles: []
+      liked_profiles: this.props.data.liked_profiles,
+      ignored_profiles: this.props.data.ignored_profiles
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -337,17 +337,11 @@ console.log("Error updating likes and ignores.");
         this.swipdeDeck(this.state.query_results.length);
       }
 
-        if (!this.state.query_results) {
+        if (!this.props.loggedInAs) {
 
           return (
 
-            <div class="loader">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <div className="center"> Oops! You need to log in </div>
           )
 
         }
@@ -589,7 +583,13 @@ console.log("Error updating likes and ignores.");
 
 else {
   return (
-      <div className="center"> Oops! You need to log in </div>
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     )
 }
 
