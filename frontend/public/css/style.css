@@ -1465,3 +1465,60 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 2.2rem;
 }
 /* SWIPE DECK END */
+
+
+/* LOADING/SEARCHING LOGO PULSE CIRCLE (START) */
+
+@import url("https://fonts.googleapis.com/css?family=Reem+Kufi");
+.circles {
+  width: 100%;
+  position: relative;
+  height:500px;
+}
+.circles img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 50%;
+  border: solid 3px #fff;
+}
+
+.circle1,
+.circle2 {
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 2px solid #02c6c7;
+  background-color: #02c6c7;
+  transform: translateX(-50%) translateY(-50%);
+  animation: pulsate 3s infinite;
+}
+
+.circle2 {
+  animation: pulsate 3s -0.5s infinite;
+}
+
+@keyframes pulsate {
+  0%, 100% {
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  99.999% {
+    width: 350px;
+    height: 350px;
+    opacity: 0;
+  }
+}
+/* LOADING/SEARCHING LOGO PULSE CIRCLE (END) */

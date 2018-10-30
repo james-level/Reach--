@@ -94,12 +94,13 @@ const username = this.props.loggedInAs;
 
 
     const imageStyle = {backgroundImage: `url(${this.props.data.picture_six})`}
-
     const imageStyle2 = { backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
     const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
     const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
     const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
+    const imageArray = [this.props.data.picture, this.props.data.picture_two, this.props.data.picture_three, this.props.data.picture_four, this.props.data.picture_five, this.props.data.picture_six]
+    console.log(imageArray);
     console.log("PHOTO 1", this.props.data.picture);
     console.log("PHOTO 2", this.props.data.picture_two);
     console.log("PHOTO 3", this.props.data.picture_three);
@@ -108,6 +109,17 @@ const username = this.props.loggedInAs;
     console.log("PHOTO 6", this.props.data.picture_six);
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
+
+    var galleryElements = imageArray.filter(image => image !== null) ;
+    console.log(galleryElements);
+    const GalleryDots = galleryElements.map(image =>{
+      var dot = `slide-dot-` + imageArray.indexOf(image)
+      return (
+          <label for={dot}> </label>)
+    })
+
+      // )
+
 
 //ternary to either display profile or log in message
   const post = this.props.loggedInAs  ? (
@@ -124,30 +136,25 @@ const username = this.props.loggedInAs;
       {/* PHOTO CAROUSEL */}
           <div class="slider-container">
             <div class="slider-menu">
-              <label for="slide-dot-1"></label>
-              <label for="slide-dot-2"></label>
-              <label for="slide-dot-3"></label>
-              <label for="slide-dot-4"></label>
-              <label for="slide-dot-5"></label>
-              <label for="slide-dot-6"></label>
+              {GalleryDots }
             </div>
 
-             <input id="slide-dot-1" type="radio" name="slides"></input>
+             <input id="slide-dot-0" type="radio" name="slides"></input>
             <div class="slide slide-1" style={imageStyle}></div>
 
-            <input id="slide-dot-2" type="radio" name="slides"></input>
+            <input id="slide-dot-1" type="radio" name="slides"></input>
              <div class="slide slide-2" style={imageStyle2}></div>
 
-             <input id="slide-dot-3" type="radio" name="slides"></input>
+             <input id="slide-dot-2" type="radio" name="slides"></input>
              <div class="slide slide-3" style={imageStyle3}></div>
 
-             <input id="slide-dot-4" type="radio" name="slides"></input>
+             <input id="slide-dot-3" type="radio" name="slides"></input>
              <div class="slide slide-4" style={imageStyle4}></div>
 
-             <input id="slide-dot-5" type="radio" name="slides"></input>
+             <input id="slide-dot-4" type="radio" name="slides"></input>
              <div class="slide slide-5" style={imageStyle5}></div>
 
-             <input id="slide-dot-6" type="radio" name="slides"></input>
+             <input id="slide-dot-5" type="radio" name="slides"></input>
              <div class="slide slide-6" style={imageStyle6}></div>
            </div>
            <br></br>

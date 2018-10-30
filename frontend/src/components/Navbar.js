@@ -33,6 +33,9 @@ class Navbar extends Component {
           <Link to="/updateReach">Update Reach</Link>
         </li>
         <li>
+          <Link to="/loading">Loading</Link>
+        </li>
+        <li>
           <Link to="/" onClick={this.props.logout}><img src="/images/app_images/signout.png" alt="home icon" width="25" height="25"></img></Link>
         </li>
       </ul>
