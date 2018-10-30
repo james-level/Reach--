@@ -25,18 +25,6 @@ class Navbar extends Component {
           <Link to="/usersection"><img src="/images/app_images/image.png" alt="home icon" width="25" height="25"></img></Link>
         </li>
         <li>
-          <Link to="/publicprofile">Edit Profile</Link>
-        </li>
-        <li>
-          <Link to="/settings"><img src="/images/app_images/settingsicon.png" alt="home icon" width="25" height="25"></img></Link>
-        </li>
-        <li>
-          <Link to="/updateReach">Update</Link>
-        </li>
-        <li>
-          <Link to="/loading">Loading</Link>
-        </li>
-        <li>
           <Link to="/" onClick={this.props.logout}><img src="/images/app_images/signout.png" alt="home icon" width="25" height="25"></img></Link>
         </li>
       </ul>
