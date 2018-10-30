@@ -20,7 +20,7 @@ class Navbar extends Component {
         </li>
         <li>
           <Link to="/results"><img src="/images/app_images/Reach.png" alt="home icon" width="25" height="25"></img></Link>
-        </li><li>
+        </li>
         <li>
           <Link to="/profile">Deck View</Link>
         </li><li>
