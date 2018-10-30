@@ -1526,13 +1526,10 @@ input[type=range]:focus::-ms-fill-upper {
 
 /*  USER SECTION START */
 
-/* url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600); */
 @import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
 
 .user_card{
-
 justify-content: center;
-
 }
 
 .snip1344 {
