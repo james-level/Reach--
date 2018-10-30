@@ -80,6 +80,7 @@ class Settings extends Component {
   saveLikesAndIgnores(){
 
 
+      console.log("Liked profiles state", this.state.liked_profiles);
 
     var username = this.props.loggedInAs;
     var token_passed_from_main = this.props.token_to_pass_on;
@@ -94,22 +95,23 @@ class Settings extends Component {
 
     var update_reach_url = `http://localhost:8080/social_reach/profiles/`
 
-    const formData = new FormData();
-    if (liked_profile_ids.length > 0){
-    formData.append('liked_profiles', liked_profile_ids);
+
+    if (liked_profile_ids.length > 0 && ignored_profile_ids.length > 0){
+    var request_dict = {'liked_profiles': liked_profile_ids, 'ignored_profiles': ignored_profile_ids};
   }
 
-    if (ignored_profile_ids.length > 0){
-    formData.append('ignored_profiles', ignored_profile_ids);
+    else if (ignored_profile_ids.length > 0){
+    var request_dict = {'ignored_profiles': ignored_profile_ids};
   }
 
+    else if (liked_profile_ids.length > 0){
+    var request_dict = {'liked_profiles': liked_profile_ids};
+  }
 
-
-    console.log(formData);
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
-      formData
+      request_dict
    ,
- { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+ { headers: { 'Authorization': `JWT ${token_passed_from_main}`} }).then(function (response) {
 
     console.log("LIKES AND IGNORES UPDATED");
 }).catch(function(error){
@@ -128,9 +130,8 @@ console.log("Error updating likes and ignores.");
 
     this.setState({
       liked_profiles: [...this.state.liked_profiles, likedProfile]
-    })
+    }, function(){this.saveLikesAndIgnores()})
 
-    console.log("Liked profiles state", this.state.liked_profiles);
 
     console.log("State updated for likes");
   }
@@ -144,7 +145,7 @@ console.log("Error updating likes and ignores.");
 
     this.setState({
       ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
-    })
+    }, function(){this.saveLikesAndIgnores()})
 
   }
 
@@ -206,7 +207,7 @@ console.log("Error updating likes and ignores.");
             self.handleIgnore(cardsCounter);
           }
 
-        self.saveLikesAndIgnores();
+        // self.saveLikesAndIgnores();
 
         cardsCounter++;
 
