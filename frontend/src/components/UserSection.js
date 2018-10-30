@@ -87,13 +87,13 @@ else{
 
       <div class="usericons">
         <ul>
-          <li>
+          <li className="userbutton">
             <input type='image' src="/images/app_images/editicon.svg" width="40" height="40" onClick={this.onEditClick}></input>
           </li>
-          <li>
+          <li className="userbutton">
             <input type='image' src="/images/app_images/viewicon.svg" width="40" height="40" onClick={this.onViewClick}></input>
           </li>
-          <li>
+          <li className="userbutton">
             <input type='image' src="/images/app_images/settingicon.svg" width="40" height="40" onClick={this.onSettingsClick}></input>
           </li>
         </ul>

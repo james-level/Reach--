@@ -1603,7 +1603,7 @@ justify-content: center;
 
 .usericons {
   text-align: center;
-  margin: 3vh;
+  /* margin: 3vh; */
   cursor: pointer;
   float:none;
   padding: 3vw;
@@ -1611,7 +1611,6 @@ justify-content: center;
    align-items: stretch; /* Default */
    justify-content: center;
    background: white;
-   margin: 0;
    padding: 0;
 
 }
@@ -1624,8 +1623,14 @@ li {
     padding: 3vw;
 }
 
-.usericons:hover {
+
+
+.userbutton:hover {
+  background-color: #2cbbad;
+  color: white;
   animation: pulse 1s;
+  /* animation: bounce 1s; */
+  border-radius: 10px;
 }
 
 @keyframes pulse {
@@ -1633,5 +1638,9 @@ li {
   50% {transform: scale(1.1);}
   100% {transform: scale(1);}
 }
-
+/* @keyframes bounce {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+} */
 /*  USER SECTION END */
