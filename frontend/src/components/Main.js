@@ -192,8 +192,6 @@ console.log("Error resetting password");
 
   handleLoginFromRegistrationSubmit(username, password){
 
-
-
   var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
 
   // self = this , a workaround to access 'this' within axios
