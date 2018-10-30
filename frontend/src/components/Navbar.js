@@ -19,7 +19,7 @@ class Navbar extends Component {
           <Link to="/"><img src="/images/app_images/homeicon.png" alt="home icon" width="25" height="25"></img></Link>
         </li>
         <li>
-          <Link to="/results"><img src="/images/app_images/Reach.png" alt="home icon" width="25" height="25"></img></Link>
+          <Link to="/results"><img src="/images/app_images/Reach.png" alt="home icon" width="33" height="33"></img></Link>
         </li>
         <li>
           <Link to="/profile">Deck View</Link>
@@ -28,9 +28,6 @@ class Navbar extends Component {
         </li>
         <li>
           <Link to="/settings"><img src="/images/app_images/settingsicon.png" alt="home icon" width="25" height="25"></img></Link>
-        </li>
-        <li>
-          <Link to="/browse">Browse</Link>
         </li>
         <li>
           <Link to="/updateReach">Update Reach</Link>
