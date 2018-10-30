@@ -18,8 +18,8 @@ class ResultsView extends Component {
       entered_search_query: false,
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
-      liked_profiles: [],
-      ignored_profiles: []
+      liked_profiles: this.props.data.liked_profiles,
+      ignored_profiles: this.props.data.ignored_profiles
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -69,42 +69,81 @@ class ResultsView extends Component {
           entered_search_query: true,
           query_results: res.data,
         })
-      }).catch(function(error){
+      console.log("Retrieved results.");
+      }
+    ).catch(function(error){
         })
-
-
   }
+
+  getLocation(){
+
+    console.log("getting location");
+
+  var self = this
+  const token_passed_from_main = this.props.token_to_pass_on;
+  const username = this.props.loggedInAs;
+  navigator.geolocation.getCurrentPosition(function(position) {
+    if (position.coords.latitude && position.coords.longitude) {
+      const formData = new FormData();
+     self.setState({
+       longitude: position.coords.longitude ,
+       latitude: position.coords.latitude
+     })
+     formData.append('latitude', self.state.latitude);
+     formData.append('longitude', self.state.longitude);
+     var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+     axios.post(session_url, {
+         'username': username,
+         'password': self.props.password
+       }).then(function(response) {
+       console.log('response:', response);
+       console.log('Obtained token. (PROFILE)');
+       var token = response.data['token']
+       axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+           "token": token,
+           'username': username,
+           'password': self.props.password
+         }).then(function(second_response) {
+     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
+       formData
+    ,
+  { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+    self.obtainUserPreferencesFromAPI()
+     console.log("location UPDATED");
+ }).catch(function(error){
+ console.log(error);
+ console.log("Error updating Reach.");
+}).catch(function (error){
+  console.log(error);
+})})})
+
+   }
+
+
+  });
+}
+
+obtainUserPreferencesFromAPI(){
+
+  this.setState({
+  min_age: this.props.data.min_age_desired,
+  max_age: this.props.data.max_age_desired,
+  distance: this.props.max_distance_acceptable,
+  my_profile: this.props.loggedInAs},
+  function(){this.fireSearchRequest()})
+
+
+}
 
 
   componentDidMount(evt){
 
-    this.setState({
-    min_age: this.props.data.min_age_desired,
-    max_age: this.props.data.max_age_desired,
-    distance: this.props.max_distance_acceptable,
-    my_profile: this.props.loggedInAs},
-    function(){this.fireSearchRequest()})
+    this.getLocation();
 
-
-    // var max_distance = this.state.distance;
-    // var max_distance = 100000;
-    // var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/maxdistance=${max_distance}/?format=json`;
-    //   axios.get(filtering_url)
-    //   .then(res =>{
-    //     this.setState({
-    //       entered_search_query: true,
-    //       query_results: res.data,
-    //     })
-    //   }).catch(function(error){
-    //     })
   }
 
-  // componentWillUnmount() {
-  //   this.saveLikesAndIgnores();
-  // }
 
   saveLikesAndIgnores(){
-
 
       console.log("Liked profiles state", this.state.liked_profiles);
 
@@ -298,6 +337,15 @@ console.log("Error updating likes and ignores.");
         this.swipdeDeck(this.state.query_results.length);
       }
 
+        if (!this.props.loggedInAs) {
+
+          return (
+
+            <div className="center"> Oops! You need to log in </div>
+          )
+
+        }
+
       if (this.state.query_results) {
 
         return(
@@ -326,7 +374,7 @@ console.log("Error updating likes and ignores.");
 
     {/* DISPLAY NAME & AGE*/}
     <fieldset>
-      <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
+      <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
       <label className="total-reach" type="text">Reach: {this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)}</label>
     </fieldset>
 
@@ -535,7 +583,13 @@ console.log("Error updating likes and ignores.");
 
 else {
   return (
-      <div className="center"> Oops! You need to log in </div>
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     )
 }
 
