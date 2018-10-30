@@ -192,8 +192,6 @@ console.log("Error resetting password");
 
   handleLoginFromRegistrationSubmit(username, password){
 
-
-
   var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
 
   // self = this , a workaround to access 'this' within axios
@@ -277,7 +275,7 @@ console.log("Error resetting password");
                 <Route path="/updateReach" render={(props) =>  <Update data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
                 <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-                <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
                 <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
               </React.Fragment>
@@ -315,7 +313,7 @@ console.log("Error resetting password");
           <Route path="/publicprofile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/updateReach" render={(props) =>  <Update data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
           <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-          <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password}  loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
           <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
