@@ -509,7 +509,7 @@ input[type="file"] {
     padding: 10px 20px;
     background: #f4f7f8;
     margin: 10px auto;
-    padding: 20px;
+    padding: 2px;
     background: #f4f7f8;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
@@ -1558,7 +1558,8 @@ justify-content: center;
 .snip1344 figcaption {
   width: 100%;
   padding: 15px 25px;
-    position: absolute;
+  position: absolute;
+  display: inline-block;
   left: 0;
   top: 50%;
 }
@@ -1581,9 +1582,8 @@ justify-content: center;
 }
 .snip1344 h3 span {
   display: block;
-  font-size: 0.6em;
-  color: #f39c12;
-  opacity: 0.75;
+  font-size: 0.70em;
+  color: black;
 }
 .snip1344 i {
   padding: 10px 5px;
@@ -1591,7 +1591,6 @@ justify-content: center;
   font-size: 32px;
   color: #ffffff;
   text-align: center;
-  opacity: 0.65;
 }
 .snip1344 a {
   text-decoration: none;
@@ -1602,8 +1601,37 @@ justify-content: center;
   transition: all 0.35s ease;
 }
 
-/* Demo purposes only */
-body {
-  background-color: #212121;
+.usericons {
+  text-align: center;
+  margin: 3vh;
+  cursor: pointer;
+  float:none;
+  padding: 3vw;
+  display: flex;
+   align-items: stretch; /* Default */
+   justify-content: center;
+   background: white;
+   margin: 0;
+   padding: 0;
+
 }
+
+li {
+    display: inline-block;
+    flex:auto;
+    list-style-type: none;
+    background: white;
+    padding: 3vw;
+}
+
+.usericons:hover {
+  animation: pulse 1s;
+}
+
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}
+
 /*  USER SECTION END */
