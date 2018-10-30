@@ -14,6 +14,8 @@ class UserSection extends Component {
     }
 
     this.onEditClick = this.onEditClick.bind(this);
+    this.onSettingsClick = this.onSettingsClick.bind(this);
+    this.onViewClick = this.onViewClick.bind(this);
 
   }
 
@@ -24,14 +26,37 @@ onEditClick(){
   this.setState({
     editClicked: true
   })
+}
+
+onSettingsClick(){
+
+  this.setState({
+    settingsClicked: true
+  })
+
+}
+
+onViewClick(){
+
+  this.setState({
+    viewClicked: true
+  })
 
 }
 
 render(){
 
   if (this.state.editClicked === true){
-   return <Redirect to='/publicprofile' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+   return <Redirect to='/updatereach' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
  }
+
+ if (this.state.settingsClicked === true){
+  return <Redirect to='/settings' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+}
+
+if (this.state.viewClicked === true){
+ return <Redirect to='/profile' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+}
 
 else{
   return (
@@ -44,8 +69,8 @@ else{
     <h3>{this.props.loggedInAs}<span>Reach: {this.total_reach(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)}</span><span>{this.props.data.location}</span></h3>
     <div class="icons">
     <div><input type='image' src="/images/app_images/editicon.svg" width="40" height="40" onClick={this.onEditClick}></input></div>
-      <div><img src="/images/app_images/viewicon.svg" width="40" height="40"></img></div>
-    <div><img src="/images/app_images/settingicon.svg" width="40" height="40"></img></div>
+      <div><input type='image' src="/images/app_images/viewicon.svg" width="40" height="40" onClick={this.onViewClick}></input></div>
+    <div><input type='image' src="/images/app_images/settingicon.svg" width="40" height="40" onClick={this.onSettingsClick}></input></div>
     </div>
   </figcaption>
 </figure>
