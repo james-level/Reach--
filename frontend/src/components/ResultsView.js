@@ -79,9 +79,9 @@ class ResultsView extends Component {
 
     console.log("getting location");
 
-var self = this
-const token_passed_from_main = this.props.token_to_pass_on;
-const username = this.props.loggedInAs;
+  var self = this
+  const token_passed_from_main = this.props.token_to_pass_on;
+  const username = this.props.loggedInAs;
   navigator.geolocation.getCurrentPosition(function(position) {
     if (position.coords.latitude && position.coords.longitude) {
       const formData = new FormData();
@@ -96,7 +96,7 @@ const username = this.props.loggedInAs;
          'username': username,
          'password': self.props.password
        }).then(function(response) {
-         console.log('response:', response);
+       console.log('response:', response);
        console.log('Obtained token. (PROFILE)');
        var token = response.data['token']
        axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
