@@ -1522,3 +1522,88 @@ input[type=range]:focus::-ms-fill-upper {
   }
 }
 /* LOADING/SEARCHING LOGO PULSE CIRCLE (END) */
+
+
+/*  USER SECTION START */
+
+/* url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600); */
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+
+.user_card{
+
+justify-content: center;
+
+}
+
+.snip1344 {
+  font-family: 'Open Sans', Arial, sans-serif;
+  /* position: absolute; */
+  justify-content: center;
+  overflow: hidden;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.4em;
+  background-color: #141414;
+}
+.snip1344 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.snip1344 figcaption {
+  width: 100%;
+  padding: 15px 25px;
+    position: absolute;
+  left: 0;
+  top: 50%;
+}
+.snip1344 .profile {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  max-width: 250px;
+  opacity: 1;
+  box-shadow: 3px 3px 20px #2cbbad;
+  border: 0.5px #2cbbad;
+  -webkit-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+}
+.snip1344 h3 {
+  margin: 0 0 5px;
+  color: black;
+  font-weight: 400;
+}
+.snip1344 h3 span {
+  display: block;
+  font-size: 0.6em;
+  color: #f39c12;
+  opacity: 0.75;
+}
+.snip1344 i {
+  padding: 10px 5px;
+  display: inline-block;
+  font-size: 32px;
+  color: #ffffff;
+  text-align: center;
+  opacity: 0.65;
+}
+.snip1344 a {
+  text-decoration: none;
+}
+.snip1344 i:hover {
+  opacity: 1;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+
+/* Demo purposes only */
+body {
+  background-color: #212121;
+}
+/*  USER SECTION END */

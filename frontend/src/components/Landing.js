@@ -95,7 +95,7 @@ render(){
    const load = this.props.signup_load
 
     if (this.props.reroute === true){
-     return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
+     return <Redirect to='/results' data={this.state} loggedInAs={this.state.username} login= {true}/>
    }
 
 
