@@ -227,11 +227,7 @@ console.log("Error resetting password");
   })}).catch(function(error) {
     console.log(error);
   });
-
   }
-
-
-
 
   handleSignUpSubmit(evt){
       evt.preventDefault();

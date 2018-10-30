@@ -1567,7 +1567,7 @@ justify-content: center;
   position: absolute;
   bottom: 50%;
   left: 50%;
-  max-width: 100px;
+  max-width: 250px;
   opacity: 1;
   box-shadow: 3px 3px 20px #2cbbad;
   border: 0.5px #2cbbad;
