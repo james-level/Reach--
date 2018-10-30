@@ -69,42 +69,80 @@ class ResultsView extends Component {
           entered_search_query: true,
           query_results: res.data,
         })
-      }).catch(function(error){
+      console.log("Retrieved results.");
+      }
+    ).catch(function(error){
         })
-
-
   }
+
+  getLocation(){
+    console.log("getting location");
+
+var self = this
+const token_passed_from_main = this.props.token_to_pass_on;
+const username = this.props.loggedInAs;
+  navigator.geolocation.getCurrentPosition(function(position) {
+    if (position.coords.latitude && position.coords.longitude) {
+      const formData = new FormData();
+     self.setState({
+       longitude: position.coords.longitude ,
+       latitude: position.coords.latitude
+     })
+     formData.append('latitude', self.state.latitude);
+     formData.append('longitude', self.state.longitude);
+     var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+     axios.post(session_url, {
+         'username': username,
+         'password': self.props.password
+       }).then(function(response) {
+         console.log('response:', response);
+       console.log('Obtained token. (PROFILE)');
+       var token = response.data['token']
+       axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+           "token": token,
+           'username': username,
+           'password': self.props.password
+         }).then(function(second_response) {
+     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
+       formData
+    ,
+  { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+    this.obtainUserPreferencesFromAPI()
+     console.log("location UPDATED");
+ }).catch(function(error){
+ console.log(error);
+ console.log("Error updating Reach.");
+}).catch(function (error){
+  console.log(error);
+})})})
+
+   }
+
+
+  });
+}
+
+obtainUserPreferencesFromAPI(){
+
+  this.setState({
+  min_age: this.props.data.min_age_desired,
+  max_age: this.props.data.max_age_desired,
+  distance: this.props.max_distance_acceptable,
+  my_profile: this.props.loggedInAs},
+  function(){this.fireSearchRequest()})
+
+
+}
 
 
   componentDidMount(evt){
 
-    this.setState({
-    min_age: this.props.data.min_age_desired,
-    max_age: this.props.data.max_age_desired,
-    distance: this.props.max_distance_acceptable,
-    my_profile: this.props.loggedInAs},
-    function(){this.fireSearchRequest()})
+    this.getLocation();
 
-
-    // var max_distance = this.state.distance;
-    // var max_distance = 100000;
-    // var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/maxdistance=${max_distance}/?format=json`;
-    //   axios.get(filtering_url)
-    //   .then(res =>{
-    //     this.setState({
-    //       entered_search_query: true,
-    //       query_results: res.data,
-    //     })
-    //   }).catch(function(error){
-    //     })
   }
 
-  // componentWillUnmount() {
-  //   this.saveLikesAndIgnores();
-  // }
 
   saveLikesAndIgnores(){
-
 
       console.log("Liked profiles state", this.state.liked_profiles);
 
