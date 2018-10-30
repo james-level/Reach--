@@ -67,17 +67,44 @@ else{
 
     <div className="user_card">
 
-    <figure class="snip1344">
-  <img src="{this.props.data.picture}" alt="profile-sample1" class="profile"></img>
-  <figcaption>
-    <h3>{this.props.loggedInAs}<span>Reach: {this.total_reach(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)}</span><span>{this.props.data.location}</span></h3>
-    <div class="icons">
-    <div><input type='image' src="/images/app_images/editicon.svg" width="40" height="40" onClick={this.onEditClick}></input></div>
-      <div><input type='image' src="/images/app_images/viewicon.svg" width="40" height="40" onClick={this.onViewClick}></input></div>
-    <div><input type='image' src="/images/app_images/settingicon.svg" width="40" height="40" onClick={this.onSettingsClick}></input></div>
-    </div>
-  </figcaption>
-</figure>
+
+
+  <figure class="snip1344">
+    <img src="./images/app_images/user3.jpeg" alt="profile-image" class="profile"></img>
+
+    {/*TODO: Image on 'user' page should be of user, not logo. To be addressed.  */}
+    {/* <img src="{this.props.data.picture}" alt="profile-image" class="profile"></img> */}
+
+    <figcaption>
+
+      <h3>{this.props.data.name}
+
+        <span>Reach: {this.total_reach(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)}</span>
+
+         <span> Location: 🌏 {this.props.data.location}</span>
+
+         <span> Likes: 👍🏻 {this.props.data.likes}</span>
+
+         <span> Dislikes: 👎🏻 {this.props.data.greetings}</span>
+
+       </h3>
+
+      <div class="usericons">
+        <ul>
+          <li className="userbutton">
+            <input type='image' src="/images/app_images/editicon.svg" width="40" height="40" onClick={this.onEditClick}></input>
+          </li>
+          <li className="userbutton">
+            <input type='image' src="/images/app_images/viewicon.svg" width="40" height="40" onClick={this.onViewClick}></input>
+          </li>
+          <li className="userbutton">
+            <input type='image' src="/images/app_images/settingicon.svg" width="40" height="40" onClick={this.onSettingsClick}></input>
+          </li>
+        </ul>
+      </div>
+
+    </figcaption>
+  </figure>
 
     </div>
   )
