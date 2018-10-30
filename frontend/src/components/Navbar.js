@@ -16,9 +16,6 @@ class Navbar extends Component {
     return(
       <ul className="nav-bar">
         <li>
-          <Link to="/"><img src="/images/app_images/homeicon.png" alt="home icon" width="29" height="29"></img></Link>
-        </li>
-        <li>
           <Link to="/results"><img src="/images/app_images/Reach.png" alt="home icon" width="33" height="33"></img></Link>
         </li>
         <li>
