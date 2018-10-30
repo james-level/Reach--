@@ -66,7 +66,7 @@ else{
 
 
   <figure class="snip1344">
-    <img src="./images/app_images/reach.png" alt="profile-image" class="profile"></img>
+    <img src="./images/app_images/user3.jpeg" alt="profile-image" class="profile"></img>
 
     {/*TODO: Image on 'user' page should be of user, not logo. To be addressed.  */}
     {/* <img src="{this.props.data.picture}" alt="profile-image" class="profile"></img> */}
