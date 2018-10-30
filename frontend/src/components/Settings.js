@@ -65,18 +65,16 @@ class Settings extends Component {
           query_results: res.data,
         })
       }).catch(function(error){
-          console.log(error);
-          console.log("Error retrieving profiles.");
         })
   }
 
 // SWIPE DECK 3 FUNCTION WORDS
-  swipdeDeck() {
+  swipdeDeck(numberOfResults) {
     $(document).ready(function() {
 
   var animating = false;
   var cardsCounter = 0;
-  var numOfCards = 6;
+  var numOfCards = numberOfResults;
   var decisionVal = 80;
   var pullDeltaX = 0;
   var deg = 0;
@@ -150,9 +148,9 @@ class Settings extends Component {
     });
   });
 
-});
+})};
 // SWIPE DECK 3 FUNCTION ENDS
-  }
+
 
 
   total_reach(instagram_followers, twitter_followers, youtube_followers){return instagram_followers + twitter_followers + youtube_followers}
@@ -162,8 +160,10 @@ class Settings extends Component {
 
       const getAge = require('get-age');
 
+      if (this.state.query_results){
+        this.swipdeDeck(this.state.query_results.length);
+      }
 
-      this.swipdeDeck();
       const post = this.props.loggedInAs  ? (
 
 
@@ -418,8 +418,8 @@ class Settings extends Component {
 
   {/* DISPLAY NAME & AGE*/}
   <fieldset>
-    <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs </legend>
-    <label className="total-reach" type="text">Reach: {this.total_reach()}</label>
+    <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
+    <label className="total-reach" type="text">Reach: {this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)}</label>
   </fieldset>
 
 {/* PHOTO CAROUSEL */}
@@ -595,7 +595,7 @@ class Settings extends Component {
                   <div class="demo__card__drag"></div>
                 </div> */}
               </div>
-      
+
             </div>
             </div>
 
@@ -604,13 +604,13 @@ class Settings extends Component {
       {/* SWIPEDECK NO.3 END */}
 </div>
 
-
+// {this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(1)}km from you!
 
 // BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
   // <div>
   // <p>User {user.user} - their name is {user.name}</p>
   // <p>{user.bio}</p>
-  // <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km away from you!</h4>
+  // <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km from you!</h4>
   // <br></br>
   // <p>{user.instagram_followers} is their Instagram Reach!</p>
   // <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
