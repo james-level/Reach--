@@ -4,8 +4,6 @@ import $ from 'jquery';
 import StackedBar from './Stacked';
 import { Redirect } from 'react-router-dom'
 
-
-
 class Settings extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,8 @@ class Settings extends Component {
       distance: 0,
       liked_profiles: [],
       ignored_profiles: [],
-      settingsUpdated: false
+      settingsUpdated: false,
+      looking_for: null
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -35,6 +34,12 @@ class Settings extends Component {
      this.setState({
        [evt.target.name]: parseInt(evt.target.value)
      })
+  }
+
+  handleLookingForChange(evt){
+    this.setState({
+      looking_for: evt.target.value
+    })
   }
 
   approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
@@ -68,9 +73,15 @@ class Settings extends Component {
     // var max_distance = this.state.distance;
     var token_passed_from_main = this.props.token_to_pass_on;
     var max_distance = this.state.distance;
+    var looking_for = this.state.looking_for;
     var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/?format=json`;
 
     const formData = new FormData();
+
+    formData.append('min_age_desired', min_age);
+    formData.append('max_age_desired', max_age);
+    formData.append('max_distance_acceptable', max_distance);
+    formData.append('looking_for', looking_for);
 
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
@@ -102,7 +113,7 @@ console.log("Error updating settings.");
   saveLikesAndIgnores(){
 
 
-      console.log("Liked profiles state", this.state.liked_profiles);
+    console.log("Liked profiles state", this.state.liked_profiles);
 
     var username = this.props.loggedInAs;
     var token_passed_from_main = this.props.token_to_pass_on;
@@ -484,7 +495,7 @@ console.log("Error updating likes and ignores.");
           </fieldset>
 
           <p>Looking for:</p>
-          <select onChange={this.handleChange} name="looking_for">
+          <select onChange={this.handleLookingForChange} name="looking_for">
             <option value="Any">Any</option>
             <option value="Girls">Girls</option>
             <option value="Guys">Guys</option>
@@ -502,7 +513,6 @@ console.log("Error updating likes and ignores.");
           </form>
         </div>
       </div>
-
 
 ) : (
     <div className="center"> Oops! You need to log in </div>
