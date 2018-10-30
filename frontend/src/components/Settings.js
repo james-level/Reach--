@@ -12,8 +12,8 @@ class Settings extends Component {
       password: '',
       login: false,
       data: {},
-      min_age: 0,
-      max_age: 99,
+      min_age: this.props.data.min_age_desired,
+      max_age: this.props.data.max_age_desired,
       entered_search_query: false,
       query_results: null,
       distance: 0,
@@ -306,7 +306,7 @@ console.log("Error updating likes and ignores.");
         this.swipdeDeck(this.state.query_results.length);
       }
 
-      if (this.state.settingsUpdated == false){
+      if (this.state.settingsUpdated === false){
         return (
 
       <div className="profile">
@@ -518,29 +518,17 @@ console.log("Error updating likes and ignores.");
 
 )}
 
-if (!this.props.loggedInAs) {return (
+else if (!this.props.loggedInAs) {return (
     <div className="center"> Oops! You need to log in </div>
   )}
 
 
 
-    if (this.state.query_results === {})
-    {
-      return(
-      <div className="container"></div>
-      )
-    }
-
     else
     {
-      return
-
-        <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
-
+      return <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
 
     }
-
-
 
                   }
                   }
