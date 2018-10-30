@@ -16,11 +16,11 @@ class Settings extends Component {
       max_age: this.props.data.max_age_desired,
       entered_search_query: false,
       query_results: null,
-      distance: 0,
+      distance: this.props.data.max_distance_acceptable,
       liked_profiles: [],
       ignored_profiles: [],
       settingsUpdated: false,
-      looking_for: null
+      looking_for: this.props.data.looking_for
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -507,7 +507,7 @@ console.log("Error updating likes and ignores.");
         {/* DISTANCE RANGE SLIDER  */}
           <fieldset>
               <p>Max Distance (1-100 kilometres):</p>
-              <span> <input type="range"  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
+              <span> <input type="range" value={this.state.distance}  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
               <p>Your current choice: {this.state.distance}km</p>
               <br></br><br></br>
               <input type="submit"  name="fieldb" class="Save"></input>
