@@ -510,7 +510,7 @@ console.log("Error updating likes and ignores.");
               <span> <input type="range" value={this.state.distance}  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
               <p>Your current choice: {this.state.distance}km</p>
               <br></br><br></br>
-              <input type="submit"  name="fieldb" class="Save"></input>
+              <input type="submit" value="Update my settings"  name="fieldb" class="Save"></input>
             </fieldset>
           </form>
         </div>
