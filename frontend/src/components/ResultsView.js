@@ -76,6 +76,7 @@ class ResultsView extends Component {
   }
 
   getLocation(){
+
     console.log("getting location");
 
 var self = this
@@ -107,7 +108,7 @@ const username = this.props.loggedInAs;
        formData
     ,
   { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
-    this.obtainUserPreferencesFromAPI()
+    self.obtainUserPreferencesFromAPI()
      console.log("location UPDATED");
  }).catch(function(error){
  console.log(error);
@@ -336,6 +337,21 @@ console.log("Error updating likes and ignores.");
         this.swipdeDeck(this.state.query_results.length);
       }
 
+        if (!this.state.query_results) {
+
+          return (
+
+            <div class="loader">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          )
+
+        }
+
       if (this.state.query_results) {
 
         return(
@@ -364,7 +380,7 @@ console.log("Error updating likes and ignores.");
 
     {/* DISPLAY NAME & AGE*/}
     <fieldset>
-      <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
+      <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
       <label className="total-reach" type="text">Reach: {this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)}</label>
     </fieldset>
 
