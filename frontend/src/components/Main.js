@@ -9,6 +9,7 @@ import ResultsView from "./ResultsView";
 import PasswordReset from "./PasswordReset";
 import Update from "./Update";
 import Loading from "./Loading";
+import UserSection from "./UserSection";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Redirect } from 'react-router-dom'
@@ -281,6 +282,7 @@ console.log("Error resetting password");
                 <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
               </React.Fragment>
             </Router>
@@ -319,6 +321,7 @@ console.log("Error resetting password");
           <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
         </React.Fragment>
       </Router>
