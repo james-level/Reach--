@@ -27,6 +27,9 @@ class ResultsView extends Component {
       this.swipdeDeck = this.swipdeDeck.bind(this);
       this.handleLike = this.handleLike.bind(this);
       this.handleIgnore = this.handleIgnore.bind(this);
+      this.componentDidMount = this.componentDidMount.bind(this);
+      this.handleLikeState = this.handleLikeState.bind(this);
+      this.handleIgnoreState = this.handleIgnoreState.bind(this);
   }
 
   handleChange(evt){
@@ -76,18 +79,17 @@ class ResultsView extends Component {
         })
   }
 
-  getLocation(){
+  getLocation(username, password){
 
     console.log("getting location");
 
   var self = this
   const token_passed_from_main = this.props.token_to_pass_on;
-  const username = this.props.loggedInAs;
   navigator.geolocation.getCurrentPosition(function(position) {
     if (position.coords.latitude && position.coords.longitude) {
       const formData = new FormData();
      self.setState({
-       longitude: position.coords.longitude ,
+       longitude: position.coords.longitude,
        latitude: position.coords.latitude
      })
      formData.append('latitude', self.state.latitude);
@@ -95,7 +97,7 @@ class ResultsView extends Component {
      var session_url = 'http://localhost:8080/social_reach/jwt_login/';
      axios.post(session_url, {
          'username': username,
-         'password': self.props.password
+         'password': password
        }).then(function(response) {
        console.log('response:', response);
        console.log('Obtained token. (PROFILE)');
@@ -139,7 +141,17 @@ obtainUserPreferencesFromAPI(){
 
   componentDidMount(evt){
 
-    this.getLocation();
+    console.log("USERNAME", this.props.loggedInAs);
+    console.log("PASSWORD", this.props.password);
+    const username = this.props.loggedInAs;
+    const password = this.props.password;
+
+    this.getLocation(username, password);
+
+    this.setState({
+    liked_profiles: this.props.data.liked_profiles,
+    ignored_profiles: this.props.data.ignored_profiles
+  })
 
   }
 
@@ -151,8 +163,8 @@ obtainUserPreferencesFromAPI(){
     var username = this.props.loggedInAs;
     var token_passed_from_main = this.props.token_to_pass_on;
     console.log(this.props.token_to_pass_on);
-    var liked_profile_ids = this.state.liked_profiles.map(profile => profile.user);
-    var ignored_profile_ids = this.state.ignored_profiles.map(profile => profile.user);
+    var liked_profile_ids = this.state.liked_profiles
+    var ignored_profile_ids = this.state.ignored_profiles
 
     console.log("IGNORED IDS", ignored_profile_ids);
     console.log("LIKED IDS", liked_profile_ids);
@@ -190,28 +202,43 @@ console.log("Error updating likes and ignores.");
 
     console.log("CARDS COUNTER", cardsCounter);
 
-    var likedProfile = this.state.query_results[cardsCounter];
+    var likedProfile = this.state.query_results[cardsCounter].user;
+
+    console.log("likedProf", likedProfile);
 
     console.log("QUERY RESULTS AT INDEX", likedProfile);
 
-    this.setState({
+    this.setState(
+      {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
     }, function(){this.saveLikesAndIgnores()})
 
+  }
 
-    console.log("State updated for likes");
+  handleLikeState(likedProfile){
+
+
+
+  }
+
+  handleIgnoreState(ignoredProfile){
+
+
+
+
   }
 
   handleIgnore(cardsCounter){
 
     console.log("CARDS COUNTER", cardsCounter);
 
-    var ignoredProfile = this.state.query_results[cardsCounter];
+    var ignoredProfile = this.state.query_results[cardsCounter].user;
         console.log("QUERY RESULTS AT INDEX", ignoredProfile);
 
-    this.setState({
-      ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
-    }, function(){this.saveLikesAndIgnores()})
+        this.setState(
+          {
+          ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
+        }, function(){this.saveLikesAndIgnores()})
 
   }
 
@@ -300,7 +327,6 @@ console.log("Error updating likes and ignores.");
 
     if (Math.abs(pullDeltaX) >= decisionVal) {
       $card.addClass("inactive");
-
 
       setTimeout(function() {
         $card.addClass("below").removeClass("inactive to-left to-right");
