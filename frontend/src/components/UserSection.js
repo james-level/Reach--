@@ -49,7 +49,7 @@ render(){
   var commaNumber = require('comma-number')
 
   if (this.state.editClicked === true){
-   return <Redirect to='/updatereach' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+   return <Redirect to='/editprofile' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
  }
 
  if (this.state.settingsClicked === true){

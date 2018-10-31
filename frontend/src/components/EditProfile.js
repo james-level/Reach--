@@ -3,7 +3,7 @@ import axios from 'axios';
 import PasswordMask from 'react-password-mask';
 import { Redirect } from 'react-router-dom'
 
-class Update extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
 
@@ -562,4 +562,4 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
 
 
-export default Update;
+export default EditProfile;
