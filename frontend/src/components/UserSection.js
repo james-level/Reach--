@@ -9,12 +9,14 @@ class UserSection extends Component {
     this.state = {
       editClicked: false,
       settingsClicked: false,
-      viewClicked: false
+      viewClicked: false,
+      exitClicked: false
     }
 
     this.onEditClick = this.onEditClick.bind(this);
     this.onSettingsClick = this.onSettingsClick.bind(this);
     this.onViewClick = this.onViewClick.bind(this);
+    this.onExitClick = this.onExitClick.bind(this);
   }
 
     total_reach(instagram_followers, twitter_followers, youtube_followers){return instagram_followers + twitter_followers + youtube_followers}
@@ -29,11 +31,17 @@ class UserSection extends Component {
       this.setState({
         settingsClicked: true
       })
-}
+    }
 
     onViewClick(){
       this.setState({
         viewClicked: true
+      })
+    }
+
+    onExitClick(){
+      this.setState({
+        exitClicked: true
       })
     }
 
@@ -53,9 +61,14 @@ render(){
      return <Redirect to='/profile' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
     }
 
+    if (this.state.exitClicked === true){
+     return <Redirect to='/' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+    }
+
     if (this.props.loggedInAs === ""){
       return <div className="center"> Oops! You need to log in </div>
     }
+
 
     else{
       return (
@@ -78,7 +91,7 @@ render(){
           <span> 🌏 Location: {this.props.data.location}</span><br></br>
           <span> 👍🏻 Likes: {this.props.data.likes}</span><br></br>
           <span> 👎🏻 Dislikes: {this.props.data.greetings}</span><br></br>
-          <span> 💙 Matches: [to be added]</span>
+          <span> 💚 Matches: [to be added]</span>
         </div>
         </div>
         </div>
@@ -89,6 +102,9 @@ render(){
           <span class="devicons devicons-python"><input type='image' src="/images/app_images/viewicon.svg" width="40" height="40" onClick={this.onViewClick}></input></span>
 
           <span class="devicons devicons-codepen"><input type='image' src="/images/app_images/settingicon.svg" width="40" height="40" onClick={this.onSettingsClick}></input></span>
+
+          <span class="devicons devicons-codepen"><input type='image' src="/images/app_images/exiticon.svg" width="40" height="40" onClick={this.onExitClick}></input></span>
+          {/* TODO: The last of these <spans> above needs to log user out, i.e onExitClick needs amending */}
         </div>
         </div>
 // {/* USER PROFILE CARD (End) */}
