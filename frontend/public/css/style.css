@@ -74,8 +74,9 @@ div.app-title{
 /* NAVIGATION BAR START */
 .nav-bar {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  height: 15vh;
+  margin: 1vw;
+  padding: 1vw;
   overflow: hidden;
   background-color: white;
 }
@@ -83,10 +84,12 @@ div.app-title{
     li {
         text-decoration: none;
         float: left;
+        border-radius: 50px;
     }
 
     li a {
         text-decoration: none;
+        border-radius: 50px;
         display: block;
         color: black;
         text-align: center;
@@ -96,9 +99,17 @@ div.app-title{
 
     li a:hover {
         text-decoration: none;
+        border-radius: 50px;
         background-color: #2cbbad;
         color: white;
-    }
+        animation: pulse 1s;
+       }
+
+       @keyframes pulse {
+         0% {transform: scale(1);}
+         50% {transform: scale(1.1);}
+         100% {transform: scale(1);}
+       }
 
 .nav-bar li a:hover:not(.active) {background-color: #2cbbad;}
 
@@ -1634,7 +1645,6 @@ justify-content: center;
    justify-content: center;
    background: white;
    padding: 0;
-
 }
 
 .li {

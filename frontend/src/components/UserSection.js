@@ -79,11 +79,10 @@ render(){
         <div class="user-card">
         {/* DISPLAY USER PROFILE */}
         <div class="firstinfo">  <img style={imageStyle}></img>
-
         <div class="userprofileinfo">
 
           {/* USER NAME  */}
-          <h1>{this.props.data.name}</h1>
+          <h3>{this.props.data.name}, {this.props.data.username} </h3>
 
           {/* USER INFO */}
           <h3>Reach: {commaNumber(this.total_reach(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers))}</h3>
@@ -96,6 +95,7 @@ render(){
         </div>
         </div>
 
+        {/* USER TOOLBAR  */}
         <div class="badgescard">
           <span class="devicons devicons-django"><input type='image' src="/images/app_images/editicon.svg" width="40" height="40" onClick={this.onEditClick}></input></span>
 
