@@ -20,7 +20,8 @@ class Settings extends Component {
       liked_profiles: [],
       ignored_profiles: [],
       settingsUpdated: false,
-      looking_for: this.props.data.looking_for
+      looking_for: this.props.data.looking_for,
+      submitted: false
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -42,6 +43,13 @@ class Settings extends Component {
       looking_for: evt.target.value
     })
   }
+
+  handleSubmitClick(){
+    this.setState({
+      submitted: true
+    })
+  }
+
 
   approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
 
@@ -510,7 +518,7 @@ console.log("Error updating likes and ignores.");
               <span> <input type="range" value={this.state.distance}  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
               <p>Your current choice: {this.state.distance}km</p>
               <br></br><br></br>
-              <input type="submit" value="Update my settings"  name="fieldb" class="Save"></input>
+              <input type="submit" onClick={this.handleSubmitClick} value="Update my settings"  name="fieldb" class="Save"></input>
             </fieldset>
           </form>
         </div>
@@ -521,6 +529,16 @@ console.log("Error updating likes and ignores.");
 else if (!this.props.loggedInAs) {return (
     <div className="center"> Oops! You need to log in </div>
   )}
+
+else if (this.state.submitted === true){
+  <div class="loader">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+}
 
 
 
