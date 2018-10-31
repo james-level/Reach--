@@ -211,19 +211,20 @@ console.log("Error updating likes and ignores.");
     this.setState(
       {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){this.handleLikeState(likedProfile), function(){this.saveLikesAndIgnores()}})
+    }, function(){this.saveLikesAndIgnores()})
 
   }
 
   handleLikeState(likedProfile){
 
-    this.setState: [...this.state.liked_profiles, likedProfile]
+
 
   }
 
   handleIgnoreState(ignoredProfile){
 
-    this.setState: [...this.state.ignored_profiles, ignoredProfile]
+
+
 
   }
 
@@ -237,7 +238,7 @@ console.log("Error updating likes and ignores.");
         this.setState(
           {
           ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
-        }, function(){this.handleIgnoreState(ignoredProfile), function(){this.saveLikesAndIgnores()}})
+        }, function(){this.saveLikesAndIgnores()})
 
   }
 
