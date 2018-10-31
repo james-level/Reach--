@@ -75,18 +75,15 @@ div.app-title{
 .nav-bar {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 2em;
   overflow: hidden;
   background-color: white;
 }
-
     li {
-        text-decoration: none;
         float: left;
     }
-
+    
     li a {
-        text-decoration: none;
         display: block;
         color: black;
         text-align: center;
@@ -95,14 +92,13 @@ div.app-title{
     }
 
     li a:hover {
-        text-decoration: none;
-        background-color: #2cbbad;
-        color: white;
+        /* background-color: #2cbbad;
+        color: white; */
     }
 
-.nav-bar li a:hover:not(.active) {background-color: #2cbbad;}
+/* .nav-bar li a:hover:not(.active) {background-color: #2cbbad;} */
 
-.nav-barli a.active {background-color: #2cbbad;}
+/* .nav-barli a.active {background-color: #2cbbad;} */
 
 .nav-barli.right {float: right;}
 
@@ -113,6 +109,7 @@ div.app-title{
 /* NAVIGATION BAR END */
 
 
+/* LANDING PAGE IMAGE (Start) */
 .landing-image {
   display: block;
   margin-left: auto;
@@ -120,18 +117,18 @@ div.app-title{
   width: 70%;
   border-radius: 7px;
   border-color: #2cbbad;
-
 }
+/* LANDING PAGE IMAGE (End) */
 
-/* HOME PAGETAG LINE START */
+/* HOME PAGETAG LINE (Start) */
 .tag-line {
   text-align: center;
   font-size: 3vw;
 }
-/* HOME PAGE TAGLINE END */
+/* HOME PAGE TAGLINE (End) */
 
 
-/* PROFILE INFO INPUT FORM START (REGISTRATION PAGE) */
+/* PROFILE INFO INPUT FORM (REGISTRATION PAGE) (Start) */
 .user-input-form{
     max-width: 500px;
     padding: 10px 20px;
@@ -235,7 +232,7 @@ div.app-title{
 {
     background: #109177;
 }
-/* PROFILE INFO INPUT FORM END */
+/* PROFILE INFO INPUT FORM (End) */
 
 
 
@@ -255,7 +252,7 @@ div.app-title{
   width: 30%;
   height: 27vh;
   padding: none;
-  border-radius: 10px;
+  border-radius: 25px;
 }
 
 .foto-upload {
@@ -276,18 +273,15 @@ div.app-title{
 
 }
 .foto-upload:hover:after {
-    background: white;
-    color: #2cbbad;
-    border-style: dotted;
-    border: 1%;
-    border-color: #2cbbad;
+    background: #f96585;
+    color: white;
 
 }
 .foto-upload:after {
     transition: 200ms all ease;
      border-bottom: 3px solid rgba(0,0,0,.2);
     background: #2cbbad;
-    /* text-shadow: 0 2px 0 rgba(0,0,0,.2); */
+    text-shadow: 0 2px 0 rgba(0,0,0,.2);
     color: white;
     font-size: 20px;
     text-align: center;
@@ -297,9 +291,9 @@ div.app-title{
     width: 100%;
     height: 27vh;
     display: block;
-    content: 'Add image';
+    content: 'Add an image';
     /* line-height: 60px; */
-    border-radius: 10px;
+    border-radius: 25px;
      flex: 1;
 }
 /* PHOTO UPLOADER END (REGISTRATION PAGE) */
@@ -319,7 +313,7 @@ input[type="file"] {
   left: 0;
   cursor: pointer;
   border: 1%;
-  border-radius: 10px;
+  border-radius: 25px;
    border-style: solid;
    border-color: #2cbbad;
   outline: 0;
@@ -347,7 +341,7 @@ input[type="file"] {
   height: 27vh;
   display: block;
   line-height: 60px;
-  border-radius: 10px;
+  border-radius: 25px;
    flex: 1;
    border-style: solid;
    border-color: #2cbbad;
@@ -367,7 +361,7 @@ input[type="file"] {
   width: 100%;
   height: 27vh;
   display: block;
-  border-radius: 10px;
+  border-radius: 25px;
    flex: 1;
    border-style: dotted;
    border: 1%;
@@ -378,17 +372,15 @@ input[type="file"] {
 .overlay {
     position: relative;
     align-items: flex-end;
-    border-radius: 5px;
-    top: -65%;
-    right: -35%;
+    top: -13vh;
+    right: -5.5vw;
     width: 34%;
     text-align: center;
-    color: black;
+    color: white;
     font-size: 1.5vh;
     background-color: hsla(174, 62%, 45%, 0.8)
 }
-/*Photo Upload End*/
-
+/* PHOTO UPLOADER (End)*/
 
 
 /* PUBLIC PROFILE PAGE START */
@@ -509,17 +501,8 @@ input[type="file"] {
 }
 /* TOTAL REACH HEADER END */
 
-/* DISTANCE FROM USER START */
-.distance_from_user {
-  font-weight: 200;
-  font-size: 2.25vh;
-  text-align: center;
-  color: black;
-}
-/* DISTANCE FROM USER END */
 
-
-/* PROFILE PAGE START */
+/* PROFILE PAGE (Start) */
 .profile {
     max-width: 500px;
     padding: 10px 20px;
@@ -529,10 +512,6 @@ input[type="file"] {
     background: #f4f7f8;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
-}
-.reach_table {
-  display: table;
-  margin: 0 auto;
 }
 .profile fieldset{
     border: none;
@@ -627,7 +606,8 @@ input[type="file"] {
 {
     background: #109177;
 }
-/* PUBLIC PROFILE PAGE END */
+/* PUBLIC PROFILE PAGE (End)) */
+
 
 /* Interests */
 .interests{
@@ -655,14 +635,11 @@ input[type="file"] {
 }
 
 .os-percentages li {
-    text-decoration: none;
 	width: 75px;
 	border: 1px solid white;
 	text-align: center;
 	background: #2cbbad;
   border-radius: 5px;
-  display: inline;
-  float: left;
 }
 
 .os {
@@ -703,13 +680,13 @@ font-size: 25px;
 
 
 
-/* HORIZONTAL / STACKED BAR START */
+/* HORIZONTAL / STACKED BAR (Start) */
 Stacked {
   width:  97%;
 }
 .stacked-bar-graph {
-  width: 100%;
-  height: 1.2vh;
+  width: 97%;
+  height: 1vh;
   background: #eee;
   color:#414042;
 }
@@ -749,13 +726,13 @@ Stacked {
   .bar-6 {
     background: #62CC68;
   }
-/* HORIZONTAL / STACKED BAR END  */
+/* HORIZONTAL / STACKED BAR (End)  */
 
 
-/* NEW PROFILE IMAGE SLIDER/CAROUSEL START */
+/* NEW PROFILE IMAGE SLIDER/CAROUSEL (Start) */
 .slider-container {
-  height: 55vh;
-  width: 100%;
+  height: 450px;
+  width: 450px;
   position: relative;
   flex-direction: column;
   overflow: hidden;
@@ -809,88 +786,10 @@ Stacked {
 
 
 }
-/* NEW PROFILE IMAGE SLIDER/CAROUSEL END */
+/* NEW PROFILE IMAGE SLIDER/CAROUSEL (End) */
 
 
-
-/* YES OR NO BUTTONS (UNDER PROFILE IMAGES) START */
-.buttonHolder{
-  margin:80px auto;
-  width:200px;
-  justify-content: center;
-
-}
-		.button{
-			background-image: -webkit-linear-gradient(top, #f4f1ee, #fff);
-			background-image: linear-gradient(top, #f4f1ee, #fff);
-			border-radius: 50%;
-			box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), inset 0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
-			float:left;
-			height: 70px;
-			margin: 0 30px 30px 0;
-			position: relative;
-			width: 70px;
-			-webkit-transition: all .1s linear;
-			transition: all .1s linear;
-		}
-
-		.button:after{
-			color:#e9e6e4;
-			content: "";
-			display: block;
-			font-size: 30px;
-			height: 30px;
-			text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
-			position: absolute;
-			width: 30px;
-		}
-
-		.tick:after{
-			content: "👍🏻";
-			/* left:23px;
-			top:20px; */
-		}
-
-		.cross:after{
-			content: "👎🏻";
-			/* left: 24px;
-			top: 19px; */
-		}
-
-		.button:hover{
-			background-image: -webkit-linear-gradient(top, #fff, #f4f1ee);
-			background-image: linear-gradient(top, #fff, #f4f1ee);
-			color:#0088cc;
-		}
-
-		.tick:hover:after{
-			color:#83d244;
-			text-shadow:0px 0px 6px #83d244;
-		}
-
-		.cross:hover:after{
-			color:#eb2f2f;
-			text-shadow:0px 0px 6px #eb2f2f;
-		}
-
-
-
-		.button:active{
-			background-image: -webkit-linear-gradient(top, #efedec, #f7f4f4);
-			background-image: linear-gradient(top, #efedec, #f7f4f4);
-			box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
-		}
-
-		.button:active:after{
-			color:#dbd2d2;
-			text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
-		}
-/* YES OR NO BUTTONS (UNDER PROFILE IMAGES) END */
-
-
-/*  PULSING 'REACH CIRCLE' BEGINS HERE */
-
-
+/*  PULSING 'REACH CIRCLE' (Start)) */
 .pulsating-circle {
   position: absolute;
   left: 50%;
@@ -950,7 +849,7 @@ Stacked {
     transform: scale(0.8);
   }
 }
-/* PULSING REACH CIRCLE ENDS HERE */
+/* PULSING REACH CIRCLE (End)*/
 
 
 
@@ -1330,9 +1229,9 @@ input[type=range]:focus::-ms-fill-upper {
 .demo {
   position: absolute;
   left: 50%;
-  top: 10%;
+  top: 23%;
   width: 36rem;
-  height: 80rem;
+  height: 54rem;
   margin-left: -18rem;
   margin-top: 0rem;
   background: #fff;
@@ -1464,13 +1363,12 @@ input[type=range]:focus::-ms-fill-upper {
   border-bottom: none;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
-
 }
 .demo__card__choice.m--reject {
-  background: red;
+  background: #ff945a;
 }
 .demo__card__choice.m--like {
-  background: green;
+  background: #b1da96;
 }
 .demo__card__choice.m--like:after {
   transform: scaleY(-1);
@@ -1495,9 +1393,9 @@ input[type=range]:focus::-ms-fill-upper {
 
 @import url("https://fonts.googleapis.com/css?family=Reem+Kufi");
 .circles {
-  width: 100%;
+  width: 50%;
   position: relative;
-  height:500px;
+  height:50px;
 }
 .circles img {
   position: absolute;
@@ -1512,8 +1410,8 @@ input[type=range]:focus::-ms-fill-upper {
 .circle1,
 .circle2 {
   position: absolute;
-  height: 120px;
-  width: 120px;
+  height: 50px;
+  width: 50px;
   top: 50%;
   left: 50%;
   border-radius: 50%;
@@ -1529,8 +1427,8 @@ input[type=range]:focus::-ms-fill-upper {
 
 @keyframes pulsate {
   0%, 100% {
-    width: 120px;
-    height: 120px;
+    width: 50px;
+    height: 50px;
     opacity: 0;
   }
   1% {
@@ -1540,8 +1438,8 @@ input[type=range]:focus::-ms-fill-upper {
     opacity: 0.5;
   }
   99.999% {
-    width: 350px;
-    height: 350px;
+    width: 75px;
+    height: 75px;
     opacity: 0;
   }
 }
@@ -1637,13 +1535,11 @@ justify-content: center;
 }
 
 .li {
-    text-decoration: none;
     display: inline-block;
     flex:auto;
     list-style-type: none;
     background: white;
     padding: 3vw;
-
 }
 
 
@@ -1666,19 +1562,3 @@ justify-content: center;
   100% {transform: scale(1);}
 } */
 /*  USER SECTION END */
-
-/* LIFESTYLE EMOJIS UNORDERED LIST START */
-
-.lifestyle_emojis {
-  text-decoration: none;
-}
-
-.emoji_lifestyle_dec {
-  text-decoration: none;
-}
-
-.emoji-li {
-    text-decoration: none;
-}
-
-/* LIFESTYLE EMOJIS END */
