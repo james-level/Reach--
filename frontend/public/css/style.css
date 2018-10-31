@@ -81,10 +81,12 @@ div.app-title{
 }
 
     li {
+        text-decoration: none;
         float: left;
     }
 
     li a {
+        text-decoration: none;
         display: block;
         color: black;
         text-align: center;
@@ -93,6 +95,7 @@ div.app-title{
     }
 
     li a:hover {
+        text-decoration: none;
         background-color: #2cbbad;
         color: white;
     }
@@ -252,7 +255,7 @@ div.app-title{
   width: 30%;
   height: 27vh;
   padding: none;
-  border-radius: 25px;
+  border-radius: 10px;
 }
 
 .foto-upload {
@@ -273,15 +276,18 @@ div.app-title{
 
 }
 .foto-upload:hover:after {
-    background: #f96585;
-    color: white;
+    background: white;
+    color: #2cbbad;
+    border-style: dotted;
+    border: 1%;
+    border-color: #2cbbad;
 
 }
 .foto-upload:after {
     transition: 200ms all ease;
      border-bottom: 3px solid rgba(0,0,0,.2);
     background: #2cbbad;
-    text-shadow: 0 2px 0 rgba(0,0,0,.2);
+    /* text-shadow: 0 2px 0 rgba(0,0,0,.2); */
     color: white;
     font-size: 20px;
     text-align: center;
@@ -291,9 +297,9 @@ div.app-title{
     width: 100%;
     height: 27vh;
     display: block;
-    content: 'Add an image';
+    content: 'Add image';
     /* line-height: 60px; */
-    border-radius: 25px;
+    border-radius: 10px;
      flex: 1;
 }
 /* PHOTO UPLOADER END (REGISTRATION PAGE) */
@@ -313,7 +319,7 @@ input[type="file"] {
   left: 0;
   cursor: pointer;
   border: 1%;
-  border-radius: 25px;
+  border-radius: 10px;
    border-style: solid;
    border-color: #2cbbad;
   outline: 0;
@@ -341,7 +347,7 @@ input[type="file"] {
   height: 27vh;
   display: block;
   line-height: 60px;
-  border-radius: 25px;
+  border-radius: 10px;
    flex: 1;
    border-style: solid;
    border-color: #2cbbad;
@@ -361,7 +367,7 @@ input[type="file"] {
   width: 100%;
   height: 27vh;
   display: block;
-  border-radius: 25px;
+  border-radius: 10px;
    flex: 1;
    border-style: dotted;
    border: 1%;
@@ -372,11 +378,12 @@ input[type="file"] {
 .overlay {
     position: relative;
     align-items: flex-end;
-    top: -13vh;
-    right: -5.5vw;
+    border-radius: 5px;
+    top: -65%;
+    right: -35%;
     width: 34%;
     text-align: center;
-    color: white;
+    color: black;
     font-size: 1.5vh;
     background-color: hsla(174, 62%, 45%, 0.8)
 }
@@ -502,6 +509,15 @@ input[type="file"] {
 }
 /* TOTAL REACH HEADER END */
 
+/* DISTANCE FROM USER START */
+.distance_from_user {
+  font-weight: 200;
+  font-size: 2.25vh;
+  text-align: center;
+  color: black;
+}
+/* DISTANCE FROM USER END */
+
 
 /* PROFILE PAGE START */
 .profile {
@@ -513,6 +529,10 @@ input[type="file"] {
     background: #f4f7f8;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
+}
+.reach_table {
+  display: table;
+  margin: 0 auto;
 }
 .profile fieldset{
     border: none;
@@ -635,11 +655,14 @@ input[type="file"] {
 }
 
 .os-percentages li {
+    text-decoration: none;
 	width: 75px;
 	border: 1px solid white;
 	text-align: center;
 	background: #2cbbad;
   border-radius: 5px;
+  display: inline;
+  float: left;
 }
 
 .os {
@@ -685,8 +708,8 @@ Stacked {
   width:  97%;
 }
 .stacked-bar-graph {
-  width: 97%;
-  height: 1vh;
+  width: 100%;
+  height: 1.2vh;
   background: #eee;
   color:#414042;
 }
@@ -731,8 +754,8 @@ Stacked {
 
 /* NEW PROFILE IMAGE SLIDER/CAROUSEL START */
 .slider-container {
-  height: 450px;
-  width: 450px;
+  height: 55vh;
+  width: 100%;
   position: relative;
   flex-direction: column;
   overflow: hidden;
@@ -1307,9 +1330,9 @@ input[type=range]:focus::-ms-fill-upper {
 .demo {
   position: absolute;
   left: 50%;
-  top: 23%;
+  top: 10%;
   width: 36rem;
-  height: 54rem;
+  height: 80rem;
   margin-left: -18rem;
   margin-top: 0rem;
   background: #fff;
@@ -1441,12 +1464,13 @@ input[type=range]:focus::-ms-fill-upper {
   border-bottom: none;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
+
 }
 .demo__card__choice.m--reject {
-  background: #ff945a;
+  background: red;
 }
 .demo__card__choice.m--like {
-  background: #b1da96;
+  background: green;
 }
 .demo__card__choice.m--like:after {
   transform: scaleY(-1);
@@ -1613,12 +1637,13 @@ justify-content: center;
 }
 
 .li {
+    text-decoration: none;
     display: inline-block;
     flex:auto;
     list-style-type: none;
     background: white;
     padding: 3vw;
-    
+
 }
 
 
@@ -1641,3 +1666,19 @@ justify-content: center;
   100% {transform: scale(1);}
 } */
 /*  USER SECTION END */
+
+/* LIFESTYLE EMOJIS UNORDERED LIST START */
+
+.lifestyle_emojis {
+  text-decoration: none;
+}
+
+.emoji_lifestyle_dec {
+  text-decoration: none;
+}
+
+.emoji-li {
+    text-decoration: none;
+}
+
+/* LIFESTYLE EMOJIS END */

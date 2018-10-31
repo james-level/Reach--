@@ -70,6 +70,7 @@ class ResultsView extends Component {
           query_results: res.data,
         })
       console.log("Retrieved results.");
+      console.log("SMOKER STATUS", res.data[2].non_smoker);
       }
     ).catch(function(error){
         })
@@ -214,6 +215,46 @@ console.log("Error updating likes and ignores.");
 
   }
 
+
+
+    returnParentStatus(user){
+      if (user.childless === false){
+        return '👼'
+      }
+      else {
+        return '🙅‍♀️'
+      }
+    }
+
+    returnDiet(user){
+      if (user.vegan === false){
+        return '🍕'
+      }
+      else {
+        return '🥗'
+      }
+    }
+
+
+    returnGymStatus(user){
+      if (user.prefers_chill_to_gym === false){
+        return '💪'
+      }
+      else {
+        return '🧘‍♀️'
+      }
+    }
+
+  returnSmokerStatus(user){
+    if (user.non_smoker === false){
+      return '🚬'
+    }
+    else {
+      return '🚭'
+    }
+  }
+
+
 // SWIPE DECK 3 FUNCTION WORDS
   swipdeDeck(numberOfResults) {
 
@@ -330,6 +371,7 @@ console.log("Error updating likes and ignores.");
 
   render(){
 
+      var commaNumber = require('comma-number')
 
       const getAge = require('get-age');
 
@@ -351,11 +393,6 @@ console.log("Error updating likes and ignores.");
         return(
         <div className="container">
 
-
-
-        <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
-        <br></br>
-
         {/* SWIPEDECK NO.3 START */}
 
           <div class="demo">
@@ -374,8 +411,9 @@ console.log("Error updating likes and ignores.");
 
     {/* DISPLAY NAME & AGE*/}
     <fieldset>
-      <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
-      <label className="total-reach" type="text">Reach: {this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)}</label>
+      <legend><span class="number"></span> {user.name}, from {user.location}, {getAge(user.date_of_birth)}yrs</legend>
+      <label className="total-reach" type="text">Reach: {commaNumber(this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers))}</label>
+      <label className="distance_from_user" type="text"> {this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, user.latitude, user.longitude).toFixed(1)}km away</label>
     </fieldset>
 
   {/* PHOTO CAROUSEL */}
@@ -409,13 +447,13 @@ console.log("Error updating likes and ignores.");
        </div>
        <br></br>
 
-
     <StackedBar twitter={user.twitter_followers} youtube={user.youtube_followers} instagram={user.instagram_followers} totalReach={this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)} />
     <br></br>
 
 
       {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
       <div className="reach-stats">
+      <div className="reach_table">
       <ul class="os-percentages horizontal-list">
           <li>
             {/* <p class="youtube os scnd-font-color">Youtube</p> */}
@@ -443,42 +481,20 @@ console.log("Error updating likes and ignores.");
             <p class="os-percentage">0<sup>%</sup></p>
           </li>
       </ul>
-
+      </div>
     </div>
-    <br></br><br></br>
-
-      {/* YES OR NO BUTTONS   */}
-
-        {/* <div class="buttonHolder">
-          <a href="#" class="button tick"></a>
-          <a href="#" class="button cross"></a>
-        </div>
-  */}
 
 
     {/* DISPLAY HOMETOWN & BIO OF USER*/}
-    <br></br><br></br><br></br>
+    <br></br>
 
     <div>
       <legend><span class="number"></span>About</legend>
       <label type="text">{user.bio}</label>
     </div>
-
-    <div>
-      <legend><span class="number"></span>Further Info:</legend>
-      <label type="text">Interests: 🥃 🇬🇧 ⚽️ 🥑 😬 </label>
-      <label type="text">Distance: [ x ] miles (from you)</label>
-      <label type="text">Liked by: {user.likes} people</label>
-    </div>
-
-
   </div>
 
   {/* End */}
-
-
-
-
                       <div class="demo__card__img"><img src="{user.picture}"></img></div>
 
                     </div>
@@ -489,73 +505,11 @@ console.log("Error updating likes and ignores.");
                      <div class="demo__card__choice m--like"></div>
                      <div class="demo__card__drag"></div>
                    </div>)}
-  {/*
-                   <div class="demo__card">
-                    <div class="demo__card__top lime">
-                      <div class="demo__card__img"></div>
-                      <p class="demo__card__name">Hungry cat 5</p>
-                  </div>
-                  <div class="demo__card__btm">
-                    <p class="demo__card__we">Whatever</p>
-                  </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div>
-                  <div class="demo__card">
-                    <div class="demo__card__top cyan">
-                    <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat 4</p>
-                  </div>
-                    <div class="demo__card__btm">
-                      <p class="demo__card__we">Whatever</p>
-                    </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div>
-                  <div class="demo__card">
-                    <div class="demo__card__top indigo">
-                    <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat 3</p>
-                  </div>
-                    <div class="demo__card__btm">
-                    <p class="demo__card__we">Whatever</p>
-                  </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div>
-                  <div class="demo__card">
-                    <div class="demo__card__top blue">
-                    <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat 2</p>
-                  </div>
-                    <div class="demo__card__btm">
-                      <p class="demo__card__we">Whatever</p>
-                  </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div>
-                  <div class="demo__card">
-                    <div class="demo__card__top purple">
-                    <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat</p>
-                  </div>
-                    <div class="demo__card__btm">
-                    <p class="demo__card__we">Whatever</p>
-                  </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div> */}
+
                 </div>
 
               </div>
               </div>
-
-
 
         {/* SWIPEDECK NO.3 END */}
   </div>
