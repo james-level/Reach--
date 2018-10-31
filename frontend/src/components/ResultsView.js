@@ -370,8 +370,9 @@ console.log("Error updating likes and ignores.");
 
     {/* DISPLAY NAME & AGE*/}
     <fieldset>
-      <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
+      <legend><span class="number"></span> {user.name}, from {user.location}, {getAge(user.date_of_birth)}yrs</legend>
       <label className="total-reach" type="text">Reach: {commaNumber(this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers))}</label>
+      <label className="distance_from_user" type="text"> {this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, user.latitude, user.longitude).toFixed(1)}km away</label>
     </fieldset>
 
   {/* PHOTO CAROUSEL */}

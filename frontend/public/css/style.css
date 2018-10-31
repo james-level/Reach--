@@ -502,6 +502,15 @@ input[type="file"] {
 }
 /* TOTAL REACH HEADER END */
 
+/* DISTANCE FROM USER START */
+.distance_from_user {
+  font-weight: 200;
+  font-size: 3.25vh;
+  text-align: center;
+  color: black;
+}
+/* DISTANCE FROM USER END */
+
 
 /* PROFILE PAGE START */
 .profile {
