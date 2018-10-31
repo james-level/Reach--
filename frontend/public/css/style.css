@@ -1612,14 +1612,14 @@ justify-content: center;
 
 }
 
-li {
+.li {
     display: inline-block;
     flex:auto;
     list-style-type: none;
     background: white;
     padding: 3vw;
+    
 }
-
 
 
 .userbutton:hover {

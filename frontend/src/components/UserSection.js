@@ -65,16 +65,22 @@ if (this.props.loggedInAs === ""){
 else{
   return (
 
+    <div className="user-section">
+
+
     <div className="user_card">
 
 
+      {/* DISPLAY USER PROFILE */}
+        <figure class="snip1344">
+          <img src="./images/app_images/user3.jpeg" alt="profile-image" class="profile"></img>
+        </figure>
 
-  <figure class="snip1344">
-    <img src="./images/app_images/user3.jpeg" alt="profile-image" class="profile"></img>
+        {/* TODO: Image on 'user' page should be of user, not logo. To be addressed */}
+        {/* <img src="{this.props.data.picture}" alt="profile-image" class="profile"></img> */}
 
-    {/*TODO: Image on 'user' page should be of user, not logo. To be addressed.  */}
-    {/* <img src="{this.props.data.picture}" alt="profile-image" class="profile"></img> */}
 
+    <figure class="snip1344">
     <figcaption>
 
       <h3>{this.props.data.name}
@@ -107,6 +113,10 @@ else{
   </figure>
 
     </div>
+
+
+
+      </div>
   )
 }
 
