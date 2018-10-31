@@ -50,7 +50,7 @@ class EditProfile extends Component {
           image4:'empty',
           image5:'empty',
           image6:'empty',
-          image1_message: 'choose a picture',
+          image1_message: 'Choose a picture',
           image2_message: '5 slots left',
           image3_message: '4 slots left',
           image4_message: '3 slots left',
@@ -83,31 +83,6 @@ class EditProfile extends Component {
       this.handleNonSmokingCheckClick = this.handleNonSmokingCheckClick.bind(this);
 
   }
-
-  // countNumberOfUserPhotos(){
-  //   var count = 0;
-  //
-  //   if (this.props.data.picture){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_two){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_three){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_four){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_five){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_six){
-  //     count += 1;
-  //   }
-  //
-  //   return count;
-  // }
 
   handleSubmit(evt){
 
@@ -222,7 +197,7 @@ class EditProfile extends Component {
   }))
   this.setState({
     [event.target.name]: event.target.files[0],
-    [message]: "tap to change"
+    [message]: "Tap to change"
 
       })
 
@@ -424,11 +399,10 @@ console.log("Error updating Reach.");
 
       <div>
 
-      <div className="pulsating-circle" onClick={this.updateReach}></div>
 
       <div className="register">
 
-      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.loggedInAs}! {"Feel free to update your profile details here!"}</h6>
+      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.data.name}! {"Update your profile here"}</h6>
 <p></p>
 
     {/* PROFILE INFO INPUT FORM START */}
@@ -497,16 +471,12 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
             <label for="toggle5" class="well"></label>
           </div>
 
-
           {/*INTERESTS INPUT (EMOJI's)  */}
           <label for="job">Interests:</label>
             <input type="text" onChange={this.handleChange} data-emojiable="true"  maxlength="5" name="interests" placeholder="Pick five emojis that represent your interests"></input>
 
     </fieldset>
-
-
-
-
+<br></br>
 
     {/* SOCIAL MEDIA SECTION */}
           <fieldset>
@@ -518,11 +488,11 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
             <p>YouTube Handle:</p>
             <input type="text" onChange={this.handleChange} name="youtube_handle" value={this.state.youtube_handle}></input>
             <p>Facebook Handle:</p>
-            <input type="text" onChange={this.handleChange} name="facebook_handle" placeholder="Facebook     (enter the bit after 'facebook.com/') "></input>
+            <input type="text" onChange={this.handleChange} name="facebook_handle" placeholder="Facebook     (coming soon) "></input>
             <p>SnapChat Handle:</p>
-            <input type="text" onChange={this.handleChange} name="snapchat" placeholder="SnapChat     (enter the bit after 'snapchat.com') "></input>
+            <input type="text" onChange={this.handleChange} name="snapchat" placeholder="SnapChat     (coming soon) "></input>
             <p>Spotify Handle:</p>
-            <input type="text" onChange={this.handleChange} name="spotify_handle" placeholder="Spotify    (ARTISTS ONLY!)"></input>
+            <input type="text" onChange={this.handleChange} name="spotify_handle" placeholder="Spotify    (coming soon)"></input>
           </fieldset>
 
 

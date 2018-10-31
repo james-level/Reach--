@@ -49,7 +49,7 @@ class Register extends Component {
           image4:'empty',
           image5:'empty',
           image6:'empty',
-          image1_message: 'choose a picture',
+          image1_message: 'Choose a picture',
           image2_message: '5 slots left',
           image3_message: '4 slots left',
           image4_message: '3 slots left',
@@ -203,7 +203,7 @@ class Register extends Component {
     }))
     this.setState({
       [event.target.name]: event.target.files[0],
-      [message]: "tap to change"
+      [message]: "Tap to change"
 
         })
 
