@@ -217,14 +217,9 @@ console.log("Error updating likes and ignores.");
 
   handleLikeState(likedProfile){
 
-
-
   }
 
   handleIgnoreState(ignoredProfile){
-
-
-
 
   }
 
@@ -241,8 +236,6 @@ console.log("Error updating likes and ignores.");
         }, function(){this.saveLikesAndIgnores()})
 
   }
-
-
 
     returnParentStatus(user){
       if (user.childless === false){
