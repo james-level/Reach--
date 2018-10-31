@@ -88,7 +88,7 @@ render(){
 
           <span class="devicons devicons-python"><input type='image' src="/images/app_images/viewicon.svg" width="40" height="40" onClick={this.onViewClick}></input></span>
 
-          <span class="devicons devicons-codepen"><input type='image' src="/images/app_images/settingicon.svg" width="40" height="20" onClick={this.onSettingsClick}></input></span>
+          <span class="devicons devicons-codepen"><input type='image' src="/images/app_images/settingicon.svg" width="40" height="40" onClick={this.onSettingsClick}></input></span>
         </div>
         </div>
 // {/* USER PROFILE CARD (End) */}
