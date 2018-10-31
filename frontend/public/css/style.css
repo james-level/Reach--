@@ -278,6 +278,9 @@ div.app-title{
 .foto-upload:hover:after {
     background: white;
     color: #2cbbad;
+    border-style: dotted;
+    border: 1%;
+    border-color: #2cbbad;
 
 }
 .foto-upload:after {
@@ -380,7 +383,7 @@ input[type="file"] {
     right: -35%;
     width: 34%;
     text-align: center;
-    color: white;
+    color: black;
     font-size: 1.5vh;
     background-color: hsla(174, 62%, 45%, 0.8)
 }
