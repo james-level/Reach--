@@ -166,6 +166,7 @@ const username = this.props.loggedInAs;
 
           {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
           <div className="reach-stats">
+          <div className="reach_table">
           <ul class="os-percentages horizontal-list">
               <li>
                 {/* <p class="youtube os scnd-font-color">Youtube</p> */}
@@ -193,6 +194,7 @@ const username = this.props.loggedInAs;
                 <p class="os-percentage">0<sup>%</sup></p>
               </li>
           </ul>
+          </div>
 
         </div>
         <br></br><br></br>

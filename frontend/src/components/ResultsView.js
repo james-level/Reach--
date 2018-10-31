@@ -406,13 +406,13 @@ console.log("Error updating likes and ignores.");
        </div>
        <br></br>
 
-
     <StackedBar twitter={user.twitter_followers} youtube={user.youtube_followers} instagram={user.instagram_followers} totalReach={this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)} />
     <br></br>
 
 
       {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
       <div className="reach-stats">
+      <div className="reach_table">
       <ul class="os-percentages horizontal-list">
           <li>
             {/* <p class="youtube os scnd-font-color">Youtube</p> */}
@@ -440,6 +440,7 @@ console.log("Error updating likes and ignores.");
             <p class="os-percentage">0<sup>%</sup></p>
           </li>
       </ul>
+      </div>
 
     </div>
     <br></br><br></br>
