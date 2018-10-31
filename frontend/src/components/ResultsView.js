@@ -301,7 +301,6 @@ console.log("Error updating likes and ignores.");
     if (Math.abs(pullDeltaX) >= decisionVal) {
       $card.addClass("inactive");
 
-
       setTimeout(function() {
         $card.addClass("below").removeClass("inactive to-left to-right");
         // Adding profile to liked array if pull delta exceeds decisive value
