@@ -441,21 +441,11 @@ console.log("Error updating likes and ignores.");
           </li>
       </ul>
       </div>
-
     </div>
-    <br></br><br></br>
-
-      {/* YES OR NO BUTTONS   */}
-
-        {/* <div class="buttonHolder">
-          <a href="#" class="button tick"></a>
-          <a href="#" class="button cross"></a>
-        </div>
-  */}
 
 
     {/* DISPLAY HOMETOWN & BIO OF USER*/}
-    <br></br><br></br><br></br>
+    <br></br>
 
     <div>
       <legend><span class="number"></span>About</legend>
@@ -463,10 +453,9 @@ console.log("Error updating likes and ignores.");
     </div>
 
     <div>
-      <legend><span class="number"></span>Further Info:</legend>
+      <legend><span class="number"></span>Interests:</legend>
       <label type="text">Interests: 🥃 🇬🇧 ⚽️ 🥑 😬 </label>
-      <label type="text">Distance: [ x ] miles (from you)</label>
-      <label type="text">Liked by: {user.likes} people</label>
+      <label type="text"></label>
     </div>
 
 

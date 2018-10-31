@@ -701,7 +701,7 @@ Stacked {
 }
 .stacked-bar-graph {
   width: 100%;
-  height: 1vh;
+  height: 1.2vh;
   background: #eee;
   color:#414042;
 }
@@ -746,8 +746,8 @@ Stacked {
 
 /* NEW PROFILE IMAGE SLIDER/CAROUSEL START */
 .slider-container {
-  height: 450px;
-  width: 450px;
+  height: 55vh;
+  width: 100%;
   position: relative;
   flex-direction: column;
   overflow: hidden;
