@@ -492,27 +492,9 @@ console.log("Error updating likes and ignores.");
       <legend><span class="number"></span>About</legend>
       <label type="text">{user.bio}</label>
     </div>
-
-    <div className='emoji_lifestyle_dec'>
-      <legend><span class="number"></span>Lifestyle:</legend>
-        <div className="reach_table">
-        <ul className="lifestyle_emojis">
-      <li className='emoji-li' type="text">{this.returnSmokerStatus(user)}</li>
-      <li className='emoji-li' type="text">{this.returnParentStatus(user)}</li>
-      <li className='emoji-li' type="text">{this.returnDiet(user)}</li>
-      <li className='emoji-li' type="text">{this.returnGymStatus(user)}</li>
-      </ul>
-      </div>
-    </div>
-
-
   </div>
 
   {/* End */}
-
-
-
-
                       <div class="demo__card__img"><img src="{user.picture}"></img></div>
 
                     </div>
@@ -523,73 +505,11 @@ console.log("Error updating likes and ignores.");
                      <div class="demo__card__choice m--like"></div>
                      <div class="demo__card__drag"></div>
                    </div>)}
-  {/*
-                   <div class="demo__card">
-                    <div class="demo__card__top lime">
-                      <div class="demo__card__img"></div>
-                      <p class="demo__card__name">Hungry cat 5</p>
-                  </div>
-                  <div class="demo__card__btm">
-                    <p class="demo__card__we">Whatever</p>
-                  </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div>
-                  <div class="demo__card">
-                    <div class="demo__card__top cyan">
-                    <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat 4</p>
-                  </div>
-                    <div class="demo__card__btm">
-                      <p class="demo__card__we">Whatever</p>
-                    </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div>
-                  <div class="demo__card">
-                    <div class="demo__card__top indigo">
-                    <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat 3</p>
-                  </div>
-                    <div class="demo__card__btm">
-                    <p class="demo__card__we">Whatever</p>
-                  </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div>
-                  <div class="demo__card">
-                    <div class="demo__card__top blue">
-                    <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat 2</p>
-                  </div>
-                    <div class="demo__card__btm">
-                      <p class="demo__card__we">Whatever</p>
-                  </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div>
-                  <div class="demo__card">
-                    <div class="demo__card__top purple">
-                    <div class="demo__card__img"></div>
-                    <p class="demo__card__name">Hungry cat</p>
-                  </div>
-                    <div class="demo__card__btm">
-                    <p class="demo__card__we">Whatever</p>
-                  </div>
-                    <div class="demo__card__choice m--reject"></div>
-                    <div class="demo__card__choice m--like"></div>
-                    <div class="demo__card__drag"></div>
-                  </div> */}
+
                 </div>
 
               </div>
               </div>
-
-
 
         {/* SWIPEDECK NO.3 END */}
   </div>
