@@ -70,6 +70,7 @@ class ResultsView extends Component {
           query_results: res.data,
         })
       console.log("Retrieved results.");
+      console.log("SMOKER STATUS", res.data[2].non_smoker);
       }
     ).catch(function(error){
         })
@@ -213,6 +214,46 @@ console.log("Error updating likes and ignores.");
     }, function(){this.saveLikesAndIgnores()})
 
   }
+
+
+
+    returnParentStatus(user){
+      if (user.non_smoker === false){
+        return '🚬'
+      }
+      else {
+        return '🚭'
+      }
+    }
+
+    returnDiet(user){
+      if (user.vegan === false){
+        return '🚬'
+      }
+      else {
+        return '🚭'
+      }
+    }
+
+
+    returnGymStatus(user){
+      if (user.non_smoker === false){
+        return '🚬'
+      }
+      else {
+        return '🚭'
+      }
+    }
+
+  returnSmokerStatus(user){
+    if (user.non_smoker === false){
+      return '🚬'
+    }
+    else {
+      return '🚭'
+    }
+  }
+
 
 // SWIPE DECK 3 FUNCTION WORDS
   swipdeDeck(numberOfResults) {
@@ -455,7 +496,7 @@ console.log("Error updating likes and ignores.");
     <div>
       <legend><span class="number"></span>Interests:</legend>
       <label type="text">Interests: 🥃 🇬🇧 ⚽️ 🥑 😬 </label>
-      <label type="text"></label>
+      <label type="text">{this.returnSmokerStatus(user)}</label>
     </div>
 
 
