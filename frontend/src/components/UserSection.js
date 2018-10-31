@@ -53,10 +53,6 @@ render(){
      return <Redirect to='/profile' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
     }
 
-    if (this.state.resultsClicked === true){
-     return <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
-    }
-
     if (this.props.loggedInAs === ""){
       return <div className="center"> Oops! You need to log in </div>
     }
