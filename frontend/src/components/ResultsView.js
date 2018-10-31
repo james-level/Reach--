@@ -28,6 +28,8 @@ class ResultsView extends Component {
       this.handleLike = this.handleLike.bind(this);
       this.handleIgnore = this.handleIgnore.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
+      this.handleLikeState = this.handleLikeState.bind(this);
+      this.handleIgnoreState = this.handleIgnoreState.bind(this);
   }
 
   handleChange(evt){
@@ -206,12 +208,23 @@ console.log("Error updating likes and ignores.");
 
     console.log("QUERY RESULTS AT INDEX", likedProfile);
 
-    this.setState({
+    this.setState(
+      {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){this.saveLikesAndIgnores()})
+    }, function(){this.handleLikeState(likedProfile), function(){this.saveLikesAndIgnores()}})
 
+  }
 
-    console.log("State updated for likes");
+  handleLikeState(likedProfile){
+
+    this.setState: [...this.state.liked_profiles, likedProfile]
+
+  }
+
+  handleIgnoreState(ignoredProfile){
+
+    this.setState: [...this.state.ignored_profiles, ignoredProfile]
+
   }
 
   handleIgnore(cardsCounter){
@@ -221,9 +234,10 @@ console.log("Error updating likes and ignores.");
     var ignoredProfile = this.state.query_results[cardsCounter].user;
         console.log("QUERY RESULTS AT INDEX", ignoredProfile);
 
-    this.setState({
-      ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
-    }, function(){this.saveLikesAndIgnores()})
+        this.setState(
+          {
+          ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
+        }, function(){this.handleIgnoreState(ignoredProfile), function(){this.saveLikesAndIgnores()}})
 
   }
 

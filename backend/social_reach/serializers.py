@@ -136,14 +136,15 @@ class ProfileSerializer(serializers.ModelSerializer):
             elif field == 'liked_profiles':
                 print("RUNNINGNGGGG")
                 for profile in validated_data.get('liked_profiles'):
-                    related_profile = UserProfile.objects.filter(user=profile)
+                    related_profile = UserProfile.objects.get(user=profile)
                     print("RELATED PROFILE", related_profile)
                     related_profile.likes = related_profile.likes + 1
                     related_profile.save()
             elif field == 'ignored_profiles':
                 print("RUNNINGNGGGG")
                 for profile in validated_data.get('ignored_profiles'):
-                    related_profile = UserProfile.objects.filter(user=profile)
+                    related_profile = UserProfile.objects.get(user=profile)
+                    print("IGNORE RELATED PROFILE", related_profile)
                     related_profile.greetings = related_profile.greetings + 1
                     related_profile.save()
             else:
