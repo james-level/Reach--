@@ -19,7 +19,7 @@ class Settings extends Component {
       distance: this.props.data.max_distance_acceptable,
       liked_profiles: [],
       ignored_profiles: [],
-      settingsUpdated: false,
+      settingsUpdated: null,
       looking_for: this.props.data.looking_for,
       submitted: false
     };
@@ -46,6 +46,14 @@ class Settings extends Component {
     this.setState({
       submitted: true
     })
+  }
+
+  componentDidMount(){
+    if (this.props.loggedInAs){
+    this.setState({
+      settingsUpdated: false
+    })
+  }
   }
 
 
@@ -118,12 +126,14 @@ console.log("Error updating settings.");
 
   render(){
 
+    console.log("TOKEN", this.props.token_to_pass_on);
+
 
       const getAge = require('get-age');
 
 
 
-      if (this.state.settingsUpdated === false){
+      if (!this.state.settingsUpdated === false){
         return (
 
       <div className="profile">
@@ -335,9 +345,11 @@ console.log("Error updating settings.");
 
 )}
 
-else if (!this.props.loggedInAs) {return (
+else if (!this.props.token_to_pass_on) {
+  return (
     <div className="center"> Oops! You need to log in </div>
   )}
+
 
 else if (this.state.submitted === true){
   return(
