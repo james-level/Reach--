@@ -218,30 +218,30 @@ console.log("Error updating likes and ignores.");
 
 
     returnParentStatus(user){
-      if (user.non_smoker === false){
-        return '🚬'
+      if (user.childless === false){
+        return '👼'
       }
       else {
-        return '🚭'
+        return '🙅‍♀️'
       }
     }
 
     returnDiet(user){
       if (user.vegan === false){
-        return '🚬'
+        return '🍕'
       }
       else {
-        return '🚭'
+        return '🥗'
       }
     }
 
 
     returnGymStatus(user){
-      if (user.non_smoker === false){
-        return '🚬'
+      if (user.prefers_chill_to_gym === false){
+        return '💪'
       }
       else {
-        return '🚭'
+        return '🧘‍♀️'
       }
     }
 
@@ -493,10 +493,16 @@ console.log("Error updating likes and ignores.");
       <label type="text">{user.bio}</label>
     </div>
 
-    <div>
-      <legend><span class="number"></span>Interests:</legend>
-      <label type="text">Interests: 🥃 🇬🇧 ⚽️ 🥑 😬 </label>
-      <label type="text">{this.returnSmokerStatus(user)}</label>
+    <div className='emoji_lifestyle_dec'>
+      <legend><span class="number"></span>Lifestyle:</legend>
+        <div className="reach_table">
+        <ul className="lifestyle_emojis">
+      <li className='emoji-li' type="text">{this.returnSmokerStatus(user)}</li>
+      <li className='emoji-li' type="text">{this.returnParentStatus(user)}</li>
+      <li className='emoji-li' type="text">{this.returnDiet(user)}</li>
+      <li className='emoji-li' type="text">{this.returnGymStatus(user)}</li>
+      </ul>
+      </div>
     </div>
 
 

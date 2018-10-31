@@ -323,4 +323,9 @@ console.log("Error resetting password");
   }
 }
 
-export default geolocated()(Main);
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(Main);

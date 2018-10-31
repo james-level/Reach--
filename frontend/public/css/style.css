@@ -81,10 +81,12 @@ div.app-title{
 }
 
     li {
+        text-decoration: none;
         float: left;
     }
 
     li a {
+        text-decoration: none;
         display: block;
         color: black;
         text-align: center;
@@ -93,6 +95,7 @@ div.app-title{
     }
 
     li a:hover {
+        text-decoration: none;
         background-color: #2cbbad;
         color: white;
     }
@@ -648,6 +651,7 @@ input[type="file"] {
 }
 
 .os-percentages li {
+    text-decoration: none;
 	width: 75px;
 	border: 1px solid white;
 	text-align: center;
@@ -1629,6 +1633,7 @@ justify-content: center;
 }
 
 .li {
+    text-decoration: none;
     display: inline-block;
     flex:auto;
     list-style-type: none;
@@ -1657,3 +1662,19 @@ justify-content: center;
   100% {transform: scale(1);}
 } */
 /*  USER SECTION END */
+
+/* LIFESTYLE EMOJIS UNORDERED LIST START */
+
+.lifestyle_emojis {
+  text-decoration: none;
+}
+
+.emoji_lifestyle_dec {
+  text-decoration: none;
+}
+
+.emoji-li {
+    text-decoration: none;
+}
+
+/* LIFESTYLE EMOJIS END */
