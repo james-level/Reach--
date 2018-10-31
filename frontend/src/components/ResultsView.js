@@ -204,6 +204,8 @@ console.log("Error updating likes and ignores.");
 
     var likedProfile = this.state.query_results[cardsCounter].user;
 
+    
+
     console.log("likedProf", likedProfile);
 
     console.log("QUERY RESULTS AT INDEX", likedProfile);
@@ -217,14 +219,9 @@ console.log("Error updating likes and ignores.");
 
   handleLikeState(likedProfile){
 
-
-
   }
 
   handleIgnoreState(ignoredProfile){
-
-
-
 
   }
 
@@ -242,6 +239,22 @@ console.log("Error updating likes and ignores.");
 
   }
 
+createMutualLike(){
+
+
+
+}
+
+checkForMutualLike(){
+
+  var likedUserId = this.state.query_results[cardsCounter];
+  var likerId = this.props.data.user;
+
+  if (likedUserId.liked_profiles.includes(likerId)){
+    this.createMutualLike(likedUserId, likerId)
+  }
+
+}
 
 
     returnParentStatus(user){
