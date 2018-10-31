@@ -53,6 +53,10 @@ render(){
      return <Redirect to='/profile' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
     }
 
+    if (this.state.resultsClicked === true){
+     return <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+    }
+
     if (this.props.loggedInAs === ""){
       return <div className="center"> Oops! You need to log in </div>
     }
@@ -66,7 +70,6 @@ render(){
         <div class="user-card">
         {/* DISPLAY USER PROFILE */}
         <div class="firstinfo">  <img style={imageStyle}></img>
-        {/*TODO: Image is hard coded, NOT dynami. Should be ->   src="{this.props.data.picture}"  */}
 
         <div class="userprofileinfo">
 
@@ -76,9 +79,10 @@ render(){
           {/* USER INFO */}
           <h3>Reach: {commaNumber(this.total_reach(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers))}</h3>
           <p class="bio">Bio: {this.props.data.bio}</p>
-          <span> Location: 🌏 {this.props.data.location}</span>
-          <span> Likes: 👍🏻 {this.props.data.likes}</span>
-          <span> Dislikes: 👎🏻 {this.props.data.greetings}</span>
+          <span> 🌏 Location: {this.props.data.location}</span><br></br>
+          <span> 👍🏻 Likes: {this.props.data.likes}</span><br></br>
+          <span> 👎🏻 Dislikes: {this.props.data.greetings}</span><br></br>
+          <span> 💙 Matches: [to be added]</span>
         </div>
         </div>
         </div>
