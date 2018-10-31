@@ -38,7 +38,7 @@ class UserSection extends Component {
     }
 
 render(){
-
+  const imageStyle = {backgroundImage: `url(${this.props.data.picture})`}
   var commaNumber = require('comma-number')
 
     if (this.state.editClicked === true){
@@ -65,7 +65,7 @@ render(){
 
         <div class="user-card">
         {/* DISPLAY USER PROFILE */}
-        <div class="firstinfo"><img src="./images/app_images/user3.jpeg"/>
+        <div class="firstinfo">  <img style={imageStyle}></img>
         {/*TODO: Image is hard coded, NOT dynami. Should be ->   src="{this.props.data.picture}"  */}
 
         <div class="userprofileinfo">
