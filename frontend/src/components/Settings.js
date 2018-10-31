@@ -345,7 +345,7 @@ console.log("Error updating settings.");
 
 )}
 
-else if (!this.props.token_to_pass_on) {
+else if (!this.props.loggedInAs) {
   return (
     <div className="center"> Oops! You need to log in </div>
   )}

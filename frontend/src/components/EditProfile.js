@@ -375,6 +375,12 @@ console.log("Error updating Reach.");
    fontSize: '0.7em'
   }
 
+  if (!this.props.loggedInAs){
+    return (
+      <div className="center"> Oops! You need to log in </div>
+    )
+  }
+
   if (userUpdated){
       return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
     }
