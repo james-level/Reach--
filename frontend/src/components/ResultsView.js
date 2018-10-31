@@ -330,6 +330,7 @@ console.log("Error updating likes and ignores.");
 
   render(){
 
+      var commaNumber = require('comma-number')
 
       const getAge = require('get-age');
 
@@ -351,11 +352,6 @@ console.log("Error updating likes and ignores.");
         return(
         <div className="container">
 
-
-
-        <h5>The hottest Reach prospects served up just for you, {this.props.loggedInAs}</h5>
-        <br></br>
-
         {/* SWIPEDECK NO.3 START */}
 
           <div class="demo">
@@ -375,7 +371,7 @@ console.log("Error updating likes and ignores.");
     {/* DISPLAY NAME & AGE*/}
     <fieldset>
       <legend><span class="number"></span> {user.name} ({user.location}), {getAge(user.date_of_birth)}yrs {this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, user.latitude, user.longitude).toFixed(1)}km from you! </legend>
-      <label className="total-reach" type="text">Reach: {this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)}</label>
+      <label className="total-reach" type="text">Reach: {commaNumber(this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers))}</label>
     </fieldset>
 
   {/* PHOTO CAROUSEL */}

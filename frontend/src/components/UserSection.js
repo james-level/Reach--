@@ -46,6 +46,8 @@ onViewClick(){
 
 render(){
 
+  var commaNumber = require('comma-number')
+
   if (this.state.editClicked === true){
    return <Redirect to='/updatereach' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
  }
@@ -85,7 +87,7 @@ else{
 
       <h3>{this.props.data.name}
 
-        <span>Reach: {this.total_reach(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers)}</span>
+        <span>Reach: {commaNumber(this.total_reach(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers))}</span>
 
          <span> Location: 🌏 {this.props.data.location}</span>
 

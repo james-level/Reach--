@@ -1307,7 +1307,7 @@ input[type=range]:focus::-ms-fill-upper {
 .demo {
   position: absolute;
   left: 50%;
-  top: 23%;
+  top: 10%;
   width: 36rem;
   height: 54rem;
   margin-left: -18rem;
@@ -1441,12 +1441,13 @@ input[type=range]:focus::-ms-fill-upper {
   border-bottom: none;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
+
 }
 .demo__card__choice.m--reject {
-  background: #ff945a;
+  background: red;
 }
 .demo__card__choice.m--like {
-  background: #b1da96;
+  background: green;
 }
 .demo__card__choice.m--like:after {
   transform: scaleY(-1);
@@ -1618,7 +1619,7 @@ justify-content: center;
     list-style-type: none;
     background: white;
     padding: 3vw;
-    
+
 }
 
 
