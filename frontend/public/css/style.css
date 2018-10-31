@@ -75,14 +75,15 @@ div.app-title{
 .nav-bar {
   list-style-type: none;
   margin: 0;
-  padding: 2em;
+  padding: 0;
   overflow: hidden;
   background-color: white;
 }
+
     li {
         float: left;
     }
-    
+
     li a {
         display: block;
         color: black;
@@ -92,13 +93,13 @@ div.app-title{
     }
 
     li a:hover {
-        /* background-color: #2cbbad;
-        color: white; */
+        background-color: #2cbbad;
+        color: white;
     }
 
-/* .nav-bar li a:hover:not(.active) {background-color: #2cbbad;} */
+.nav-bar li a:hover:not(.active) {background-color: #2cbbad;}
 
-/* .nav-barli a.active {background-color: #2cbbad;} */
+.nav-barli a.active {background-color: #2cbbad;}
 
 .nav-barli.right {float: right;}
 
@@ -849,7 +850,7 @@ Stacked {
     transform: scale(0.8);
   }
 }
-/* PULSING REACH CIRCLE (End)*/
+/* PULSING REACH CIRCLE (End))*/
 
 
 
