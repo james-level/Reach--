@@ -26,10 +26,8 @@ class Settings extends Component {
 
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.swipdeDeck = this.swipdeDeck.bind(this);
-      this.handleLike = this.handleLike.bind(this);
-      this.handleIgnore = this.handleIgnore.bind(this);
       this.handleLookingForChange = this.handleLookingForChange.bind(this);
+      this.handleSubmitClick = this.handleSubmitClick.bind(this);
   }
 
   handleChange(evt){
@@ -97,7 +95,8 @@ class Settings extends Component {
    ,
  { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
     self.setState({
-      settingsUpdated: true
+      settingsUpdated: true,
+      submitted: false
     })
     console.log("SETTINGS UPDATED");
 }).catch(function(error){
@@ -115,194 +114,6 @@ console.log("Error updating settings.");
       //   })
   }
 
-  // componentWillUnmount() {
-  //   this.saveLikesAndIgnores();
-  // }
-
-  saveLikesAndIgnores(){
-
-
-    console.log("Liked profiles state", this.state.liked_profiles);
-
-    var username = this.props.loggedInAs;
-    var token_passed_from_main = this.props.token_to_pass_on;
-    console.log(this.props.token_to_pass_on);
-    var liked_profile_ids = this.state.liked_profiles.map(profile => profile.user);
-    var ignored_profile_ids = this.state.ignored_profiles.map(profile => profile.user);
-
-    console.log("IGNORED IDS", ignored_profile_ids);
-    console.log("LIKED IDS", liked_profile_ids);
-
-    var self = this;
-
-    var update_reach_url = `http://localhost:8080/social_reach/profiles/`
-
-
-    if (liked_profile_ids.length > 0 && ignored_profile_ids.length > 0){
-    var request_dict = {'liked_profiles': liked_profile_ids, 'ignored_profiles': ignored_profile_ids};
-  }
-
-    else if (ignored_profile_ids.length > 0){
-    var request_dict = {'ignored_profiles': ignored_profile_ids};
-  }
-
-    else if (liked_profile_ids.length > 0){
-    var request_dict = {'liked_profiles': liked_profile_ids};
-  }
-
-    axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
-      request_dict
-   ,
- { headers: { 'Authorization': `JWT ${token_passed_from_main}`} }).then(function (response) {
-
-    console.log("LIKES AND IGNORES UPDATED");
-}).catch(function(error){
-console.log(error);
-console.log("Error updating likes and ignores.");
-})
-}
-
-  handleLike(cardsCounter){
-
-    console.log("CARDS COUNTER", cardsCounter);
-
-    var likedProfile = this.state.query_results[cardsCounter];
-
-    console.log("QUERY RESULTS AT INDEX", likedProfile);
-
-    this.setState({
-      liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){this.saveLikesAndIgnores()})
-
-
-    console.log("State updated for likes");
-  }
-
-  handleIgnore(cardsCounter){
-
-    console.log("CARDS COUNTER", cardsCounter);
-
-    var ignoredProfile = this.state.query_results[cardsCounter];
-        console.log("QUERY RESULTS AT INDEX", ignoredProfile);
-
-    this.setState({
-      ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
-    }, function(){this.saveLikesAndIgnores()})
-
-  }
-
-// SWIPE DECK 3 FUNCTION WORDS
-  swipdeDeck(numberOfResults) {
-
-  const self = this;
-
-    $(document).ready(function() {
-
-  var animating = false;
-  var cardsCounter = 0;
-  var numOfCards = numberOfResults;
-  console.log("RESULTS", numberOfResults);
-  var decisionVal = 80;
-  var pullDeltaX = 0;
-  var deg = 0;
-  var $card, $cardReject, $cardLike;
-
-
-  function pullChange() {
-    animating = true;
-    deg = pullDeltaX / 10;
-    $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
-
-    var opacity = pullDeltaX / 100;
-    var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
-    var likeOpacity = (opacity <= 0) ? 0 : opacity;
-    $cardReject.css("opacity", rejectOpacity);
-    $cardLike.css("opacity", likeOpacity);
-  };
-
-  function release() {
-
-    if (pullDeltaX >= decisionVal) {
-      $card.addClass("to-right");
-      // Add current card to liked profiles array in state
-      // self.handleLike(cardsCounter);
-      // self.setState({
-      //   liked_profiles: [...state.liked_profiles, state.query_results[cardsCounter]]
-      // })
-    } else if (pullDeltaX <= -decisionVal) {
-      $card.addClass("to-left");
-      // Add current card to ignored profiles array in state
-    }
-
-    if (Math.abs(pullDeltaX) >= decisionVal) {
-      $card.addClass("inactive");
-
-
-      setTimeout(function() {
-        $card.addClass("below").removeClass("inactive to-left to-right");
-        // Adding profile to liked array if pull delta exceeds decisive value
-        if (pullDeltaX >= decisionVal) {
-            self.handleLike(cardsCounter);
-          }
-
-        if (pullDeltaX <=  -decisionVal) {
-            self.handleIgnore(cardsCounter);
-          }
-
-        // self.saveLikesAndIgnores();
-
-        cardsCounter++;
-
-        if (cardsCounter === numOfCards) {
-          cardsCounter = 0;
-          $(".demo__card").removeClass("below");
-        }
-      }, 300);
-    }
-
-    if (Math.abs(pullDeltaX) < decisionVal) {
-      $card.addClass("reset");
-    }
-
-    setTimeout(function() {
-      $card.attr("style", "").removeClass("reset")
-        .find(".demo__card__choice").attr("style", "");
-
-      pullDeltaX = 0;
-      animating = false;
-    }, 300);
-  };
-
-  $(document).on("mousedown touchstart", ".demo__card:not(.inactive)", function(e) {
-    console.log("MOUSEDOWN TOUCHDOWN RUNNING");
-    e.stopImmediatePropagation();
-    if (animating) return;
-
-    $card = $(this);
-    $cardReject = $(".demo__card__choice.m--reject", $card);
-    $cardLike = $(".demo__card__choice.m--like", $card);
-    var startX =  e.pageX || e.originalEvent.touches[0].pageX;
-
-    $(document).on("mousemove touchmove", function(e) {
-      var x = e.pageX || e.originalEvent.touches[0].pageX;
-      pullDeltaX = (x - startX);
-      if (!pullDeltaX) return;
-      pullChange();
-    });
-
-    $(document).on("mouseup touchend", function() {
-      $(document).off("mousemove touchmove mouseup touchend");
-      if (!pullDeltaX) return; // prevents from rapid click events
-      console.log("ABOUT TO CALL RELEASE");
-      release();
-    });
-  });
-
-})};
-// SWIPE DECK 3 FUNCTION ENDS
-
-
-
   total_reach(instagram_followers, twitter_followers, youtube_followers){return instagram_followers + twitter_followers + youtube_followers}
 
   render(){
@@ -310,9 +121,7 @@ console.log("Error updating likes and ignores.");
 
       const getAge = require('get-age');
 
-      if (this.state.query_results){
-        this.swipdeDeck(this.state.query_results.length);
-      }
+
 
       if (this.state.settingsUpdated === false){
         return (
@@ -531,6 +340,7 @@ else if (!this.props.loggedInAs) {return (
   )}
 
 else if (this.state.submitted === true){
+  return(
   <div class="loader">
     <div></div>
     <div></div>
@@ -538,6 +348,7 @@ else if (this.state.submitted === true){
     <div></div>
     <div></div>
   </div>
+)
 }
 
 
