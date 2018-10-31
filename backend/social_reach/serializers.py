@@ -84,19 +84,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         # Adding liked profiles after saving the profile as the ManyToMany relationship requires the object to have an ID before being used
         profile.liked_profiles=validated_data.get('liked_profiles', [])
         profile.ignored_profiles=validated_data.get('ignored_profiles', [])
-        
-        # Implementing funtionality for incrementing likes and dislikes of swiped profiles
-        for profile in profile.liked_profiles:
-            related_profile = UserProfile.get(user=profile)
-            related_profile.likes = related_profile.likes + 1
-            related_profile.save()
-
-        for profile in profile.ignored_profiles:
-            related_profile = UserProfile.get(user=profile)
-            related_profile.greetings = related_profile.greetings + 1
-            related_profile.save()
-        profile.save()
-        return profile
 
     # def partial_update(self, request, *args, **kwargs):
     #     kwargs['partial'] = True
@@ -142,6 +129,20 @@ class ProfileSerializer(serializers.ModelSerializer):
                     if youtube_results == 0:
                         youtube_results = youtube_scraper.scrape_youtube_followers(validated_data.get('youtube_handle'))
                     instance.__setattr__('youtube_followers',  youtube_results )
+
+            # Implementing funtionality for incrementing likes and dislikes of swiped profiles
+            elif field == 'liked_profiles':
+                for profile in validated_data.get('liked_profiles'):
+                    related_profile = UserProfile.get(user=profile)
+                    print("RELATED PROFILE", related_profile)
+                    related_profile.likes = related_profile.likes + 1
+                    related_profile.save()
+            elif field == 'ignored_profiles':
+                for profile in validated_data.get('ignored_profiles'):
+                    related_profile = UserProfile.get(user=profile)
+                    related_profile.greetings = related_profile.greetings + 1
+                    related_profile.save()
+                profile.save()
             else:
                 instance.__setattr__(field, validated_data.get(field))
         instance.save()
