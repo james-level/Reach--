@@ -390,8 +390,8 @@ console.log("Error updating likes and ignores.");
 
   render(){
 
-      var commaNumber = require('comma-number')
 
+      const commaNumber = require('comma-number')
       const getAge = require('get-age');
 
       if (this.state.query_results){
