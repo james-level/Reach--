@@ -48,14 +48,6 @@ class Settings extends Component {
     })
   }
 
-  // componentDidMount(){
-  //   if (this.props.loggedInAs){
-  //   this.setState({
-  //     settingsUpdated: null
-  //   })
-  // }
-  // }
-
 
   approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
 
@@ -134,24 +126,223 @@ console.log("Error updating settings.");
 
   render(){
 
-    console.log("TOKEN", this.props.token_to_pass_on);
-
 
       const getAge = require('get-age');
 
 
 
-  if (this.state.settingsUpdated === true){
+      if (this.state.settingsUpdated === false){
+        return (
 
-      return <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+      <div className="profile">
 
-    }
+      {/* INTRO TEXT  */}
+      <fieldset>
+        <legend><span class="number"></span> Hey {this.props.data.name} 👋 </legend>
+        <label className="intro" type="text">Lets help you find your bae! Adjust your search settings here:</label>
+      </fieldset>
 
-else if (!this.props.loggedInAs) {
-  return (
+      <br></br>
+
+      <div className="settings">
+
+          <form onSubmit={this.handleSubmit}>
+
+
+        {/* LIFTSTYLE CHOICES */}
+        <fieldset>
+          <legend><span class="number"></span> I want to see:</legend>
+          <label type="text">(<i>The following choices will determine the result of your searches</i>)</label>
+          <br></br>
+
+          {/*  3 STATE TOGGLE */}
+          <p>Vegans </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
+
+          <p>Non-Smoker? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
+
+          <p>Gym-goer? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
+
+          <p>Has kids? </p>
+          <div class="wrapper">
+            <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
+            <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
+            <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
+            <div class="toggle"></div>
+          </div>
+
+          {/* Emoji 2-state toggles NB: DO NOT DELETE AS MAY USE IN 'EDIT PAGE'*/}
+            {/* <div class="emoji-toggle emoji-diet">
+              <input type="checkbox" id="toggle1" class="toggle"></input>
+              <div class="emoji"></div>
+              <label for="toggle1" class="well"></label>
+            </div>
+            <div class="emoji-toggle emoji-lifestyle">
+              <input type="checkbox" id="toggle2" class="toggle"></input>
+              <div class="emoji"></div>
+              <label for="toggle2" class="well"></label>
+            </div>
+            <div class="emoji-toggle emoji-passtime">
+              <input type="checkbox" id="toggle3" class="toggle"></input>
+              <div class="emoji"></div>
+              <label for="toggle3" class="well"></label>
+            </div>
+            <div class="emoji-toggle emoji-rate">
+              <input type="checkbox" id="toggle5" class="toggle"></input>
+              <div class="emoji"></div>
+              <label for="toggle5" class="well"></label>
+            </div>*/}
+
+        </fieldset>
+
+
+        {/* AGE RANGE SELECTOR */}
+        <fieldset>
+          <legend><span class="number"></span> Age & Location </legend>
+          <div>
+            <p>What age range do you want to checkout? Between...</p>
+              <select onChange={this.handleChange} name="min_age">
+                <option disabled hidden value=''></option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+              </select><p>and</p>
+              <select onChange={this.handleChange} name="max_age">
+                <option disabled hidden value=''></option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
+                <option value="55">55</option>
+                <option value="56">56</option>
+                <option value="57">57</option>
+                <option value="58">58</option>
+                <option value="59">59</option>
+                <option value="60">60</option>
+                <option value="61">61</option>
+                <option value="62">62</option>
+                <option value="63">63</option>
+                <option value="64">64</option>
+                <option value="65">65</option>
+                <option value="66">66</option>
+                <option value="67">67</option>
+                <option value="68">68</option>
+                <option value="70">70</option>
+                <option value="71">71</option>
+                <option selected value="72">72</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <p>Looking for:</p>
+          <select onChange={this.handleLookingForChange} name="looking_for">
+            <option value="Any">Any</option>
+            <option value="Girls">Girls</option>
+            <option value="Guys">Guys</option>
+          </select>
+
+
+        {/* DISTANCE RANGE SLIDER  */}
+          <fieldset>
+              <p>Max Distance (1-100 kilometres):</p>
+              <span> <input type="range" value={this.state.distance}  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
+              <p>Your current choice: {this.state.distance}km</p>
+              <br></br><br></br>
+              <input type="submit" onClick={this.handleSubmitClick} value="Update my settings"  name="fieldb" class="Save"></input>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+)}
+
+else if (!this.props.loggedInAs) {return (
     <div className="center"> Oops! You need to log in </div>
   )}
-
 
 else if (this.state.submitted === true){
   return(
@@ -169,217 +360,7 @@ else if (this.state.submitted === true){
 
     else
     {
-
-      return (
-
-    <div className="profile">
-
-    {/* INTRO TEXT  */}
-    <fieldset>
-      <legend><span class="number"></span> Hey {this.props.data.name} 👋 </legend>
-      <label className="intro" type="text">Lets help you find your bae! Adjust your search settings here:</label>
-    </fieldset>
-
-    <br></br>
-
-    <div className="settings">
-
-        <form onSubmit={this.handleSubmit}>
-
-
-      {/* LIFTSTYLE CHOICES */}
-      <fieldset>
-        <legend><span class="number"></span> I want to see:</legend>
-        <label type="text">(<i>The following choices will determine the result of your searches</i>)</label>
-        <br></br>
-
-        {/*  3 STATE TOGGLE */}
-        <p>Vegans </p>
-        <div class="wrapper">
-          <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
-          <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
-          <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
-          <div class="toggle"></div>
-        </div>
-
-        <p>Non-Smoker? </p>
-        <div class="wrapper">
-          <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
-          <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
-          <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
-          <div class="toggle"></div>
-        </div>
-
-        <p>Gym-goer? </p>
-        <div class="wrapper">
-          <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
-          <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
-          <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
-          <div class="toggle"></div>
-        </div>
-
-        <p>Has kids? </p>
-        <div class="wrapper">
-          <label for="yes_radio" id="yes-lbl">👍🏻</label><input type="radio" value="" name="choice_radio"    id="yes_radio"></input>
-          <label for="maybe_radio" id="maybe-lbl">🤔</label><input type="radio" value="" name="choice_radio" id="maybe_radio" checked="checked"></input>
-          <label for="no_radio" id="no-lbl">👎🏻</label><input type="radio" value="" name="choice_radio" id="no_radio"></input>
-          <div class="toggle"></div>
-        </div>
-
-        {/* Emoji 2-state toggles NB: DO NOT DELETE AS MAY USE IN 'EDIT PAGE'*/}
-          {/* <div class="emoji-toggle emoji-diet">
-            <input type="checkbox" id="toggle1" class="toggle"></input>
-            <div class="emoji"></div>
-            <label for="toggle1" class="well"></label>
-          </div>
-
-          <div class="emoji-toggle emoji-lifestyle">
-            <input type="checkbox" id="toggle2" class="toggle"></input>
-            <div class="emoji"></div>
-            <label for="toggle2" class="well"></label>
-          </div>
-
-          <div class="emoji-toggle emoji-passtime">
-            <input type="checkbox" id="toggle3" class="toggle"></input>
-            <div class="emoji"></div>
-            <label for="toggle3" class="well"></label>
-          </div>
-
-          <div class="emoji-toggle emoji-rate">
-            <input type="checkbox" id="toggle5" class="toggle"></input>
-            <div class="emoji"></div>
-            <label for="toggle5" class="well"></label>
-          </div>*/}
-
-      </fieldset>
-
-
-      {/* AGE RANGE SELECTOR */}
-      <fieldset>
-        <legend><span class="number"></span> Age & Location </legend>
-        <div>
-          <p>What age range do you want to checkout? Between...</p>
-            <select onChange={this.handleChange} name="min_age">
-              <option disabled hidden value=''></option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-              <option value="32">32</option>
-              <option value="33">33</option>
-              <option value="34">34</option>
-              <option value="35">35</option>
-              <option value="36">36</option>
-              <option value="37">37</option>
-              <option value="38">38</option>
-              <option value="39">39</option>
-              <option value="40">40</option>
-              <option value="41">41</option>
-              <option value="42">42</option>
-              <option value="43">43</option>
-              <option value="44">44</option>
-              <option value="45">45</option>
-              <option value="46">46</option>
-              <option value="47">47</option>
-              <option value="48">48</option>
-              <option value="49">49</option>
-              <option value="50">50</option>
-            </select><p>and</p>
-            <select onChange={this.handleChange} name="max_age">
-              <option disabled hidden value=''></option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-              <option value="32">32</option>
-              <option value="33">33</option>
-              <option value="34">34</option>
-              <option value="35">35</option>
-              <option value="36">36</option>
-              <option value="37">37</option>
-              <option value="38">38</option>
-              <option value="39">39</option>
-              <option value="40">40</option>
-              <option value="41">41</option>
-              <option value="42">42</option>
-              <option value="43">43</option>
-              <option value="44">44</option>
-              <option value="45">45</option>
-              <option value="46">46</option>
-              <option value="47">47</option>
-              <option value="48">48</option>
-              <option value="49">49</option>
-              <option value="50">50</option>
-              <option value="51">51</option>
-              <option value="52">52</option>
-              <option value="53">53</option>
-              <option value="54">54</option>
-              <option value="55">55</option>
-              <option value="56">56</option>
-              <option value="57">57</option>
-              <option value="58">58</option>
-              <option value="59">59</option>
-              <option value="60">60</option>
-              <option value="61">61</option>
-              <option value="62">62</option>
-              <option value="63">63</option>
-              <option value="64">64</option>
-              <option value="65">65</option>
-              <option value="66">66</option>
-              <option value="67">67</option>
-              <option value="68">68</option>
-              <option value="70">70</option>
-              <option value="71">71</option>
-              <option selected value="72">72</option>
-            </select>
-          </div>
-        </fieldset>
-
-        <p>Looking for:</p>
-        <select onChange={this.handleLookingForChange} name="looking_for">
-          <option value="Any">Any</option>
-          <option value="Girls">Girls</option>
-          <option value="Guys">Guys</option>
-        </select>
-
-
-      {/* DISTANCE RANGE SLIDER  */}
-        <fieldset>
-            <p>Max Distance (1-100 kilometres):</p>
-            <span> <input type="range" value={this.state.distance}  onChange={this.handleChange} max="99" min="0" step="1" name="distance"></input> </span>
-            <p>Your current choice: {this.state.distance}km</p>
-            <br></br><br></br>
-            <input type="submit" onClick={this.handleSubmitClick} value="Update my settings"  name="fieldb" class="Save"></input>
-          </fieldset>
-        </form>
-      </div>
-    </div>
-
-)
+      return <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
 
     }
 
