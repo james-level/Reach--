@@ -17,7 +17,7 @@ class StackedBar extends Component {
 
     let styleYouTube = {
       width: `${youtubeReachPercent}%`
-      
+
     }
 
     let styleTwitter = {

@@ -74,17 +74,22 @@ div.app-title{
 /* NAVIGATION BAR START */
 .nav-bar {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  height: 15vh;
+  margin: 1vw;
+  padding: 1vw;
   overflow: hidden;
   background-color: white;
 }
 
     li {
+        text-decoration: none;
         float: left;
+        border-radius: 50px;
     }
 
     li a {
+        text-decoration: none;
+        border-radius: 50px;
         display: block;
         color: black;
         text-align: center;
@@ -93,9 +98,18 @@ div.app-title{
     }
 
     li a:hover {
+        text-decoration: none;
+        border-radius: 50px;
         background-color: #2cbbad;
         color: white;
-    }
+        animation: pulse 1s;
+       }
+
+       @keyframes pulse {
+         0% {transform: scale(1);}
+         50% {transform: scale(1.1);}
+         100% {transform: scale(1);}
+       }
 
 .nav-bar li a:hover:not(.active) {background-color: #2cbbad;}
 
@@ -120,7 +134,7 @@ div.app-title{
 
 }
 
-/* HOME PAGETAG LINE START */
+/* HOME PAGE TAG LINE (Start) */
 .tag-line {
   text-align: center;
   font-size: 3vw;
@@ -136,6 +150,7 @@ div.app-title{
     margin: 10px auto;
     padding: 20px;
     background: #f4f7f8;
+    box-shadow: 0px 10px 20px #2cbbad;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
 }
@@ -252,7 +267,7 @@ div.app-title{
   width: 30%;
   height: 27vh;
   padding: none;
-  border-radius: 25px;
+  border-radius: 10px;
 }
 
 .foto-upload {
@@ -273,15 +288,18 @@ div.app-title{
 
 }
 .foto-upload:hover:after {
-    background: #f96585;
-    color: white;
+    background: white;
+    color: #2cbbad;
+    border-style: dotted;
+    border: 1%;
+    border-color: #2cbbad;
 
 }
 .foto-upload:after {
     transition: 200ms all ease;
      border-bottom: 3px solid rgba(0,0,0,.2);
     background: #2cbbad;
-    text-shadow: 0 2px 0 rgba(0,0,0,.2);
+    /* text-shadow: 0 2px 0 rgba(0,0,0,.2); */
     color: white;
     font-size: 20px;
     text-align: center;
@@ -291,9 +309,9 @@ div.app-title{
     width: 100%;
     height: 27vh;
     display: block;
-    content: 'Add an image';
+    content: 'Add image';
     /* line-height: 60px; */
-    border-radius: 25px;
+    border-radius: 10px;
      flex: 1;
 }
 /* PHOTO UPLOADER END (REGISTRATION PAGE) */
@@ -313,7 +331,7 @@ input[type="file"] {
   left: 0;
   cursor: pointer;
   border: 1%;
-  border-radius: 25px;
+  border-radius: 10px;
    border-style: solid;
    border-color: #2cbbad;
   outline: 0;
@@ -341,7 +359,7 @@ input[type="file"] {
   height: 27vh;
   display: block;
   line-height: 60px;
-  border-radius: 25px;
+  border-radius: 10px;
    flex: 1;
    border-style: solid;
    border-color: #2cbbad;
@@ -361,7 +379,7 @@ input[type="file"] {
   width: 100%;
   height: 27vh;
   display: block;
-  border-radius: 25px;
+  border-radius: 10px;
    flex: 1;
    border-style: dotted;
    border: 1%;
@@ -372,11 +390,12 @@ input[type="file"] {
 .overlay {
     position: relative;
     align-items: flex-end;
-    top: -13vh;
-    right: -5.5vw;
+    border-radius: 5px;
+    top: -65%;
+    right: -35%;
     width: 34%;
     text-align: center;
-    color: white;
+    color: black;
     font-size: 1.5vh;
     background-color: hsla(174, 62%, 45%, 0.8)
 }
@@ -392,6 +411,7 @@ input[type="file"] {
     margin: 10px auto;
     padding: 20px;
     background: #f4f7f8;
+    box-shadow: 0px 10px 20px #2cbbad;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
 }
@@ -502,6 +522,15 @@ input[type="file"] {
 }
 /* TOTAL REACH HEADER END */
 
+/* DISTANCE FROM USER START */
+.distance_from_user {
+  font-weight: 200;
+  font-size: 2.25vh;
+  text-align: center;
+  color: black;
+}
+/* DISTANCE FROM USER END */
+
 
 /* PROFILE PAGE START */
 .profile {
@@ -509,10 +538,14 @@ input[type="file"] {
     padding: 10px 20px;
     background: #f4f7f8;
     margin: 10px auto;
-    padding: 20px;
+    padding: 2px;
     background: #f4f7f8;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
+}
+.reach_table {
+  display: table;
+  margin: 0 auto;
 }
 .profile fieldset{
     border: none;
@@ -635,11 +668,14 @@ input[type="file"] {
 }
 
 .os-percentages li {
+    text-decoration: none;
 	width: 75px;
 	border: 1px solid white;
 	text-align: center;
 	background: #2cbbad;
   border-radius: 5px;
+  display: inline;
+  float: left;
 }
 
 .os {
@@ -685,8 +721,8 @@ Stacked {
   width:  97%;
 }
 .stacked-bar-graph {
-  width: 97%;
-  height: 1vh;
+  width: 100%;
+  height: 1.2vh;
   background: #eee;
   color:#414042;
 }
@@ -731,8 +767,8 @@ Stacked {
 
 /* NEW PROFILE IMAGE SLIDER/CAROUSEL START */
 .slider-container {
-  height: 450px;
-  width: 450px;
+  height: 55vh;
+  width: 100%;
   position: relative;
   flex-direction: column;
   overflow: hidden;
@@ -1307,9 +1343,9 @@ input[type=range]:focus::-ms-fill-upper {
 .demo {
   position: absolute;
   left: 50%;
-  top: 23%;
+  top: 10%;
   width: 36rem;
-  height: 54rem;
+  height: 80rem;
   margin-left: -18rem;
   margin-top: 0rem;
   background: #fff;
@@ -1441,12 +1477,13 @@ input[type=range]:focus::-ms-fill-upper {
   border-bottom: none;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
+
 }
 .demo__card__choice.m--reject {
-  background: #ff945a;
+  background: red;
 }
 .demo__card__choice.m--like {
-  background: #b1da96;
+  background: green;
 }
 .demo__card__choice.m--like:after {
   transform: scaleY(-1);
@@ -1465,3 +1502,334 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 2.2rem;
 }
 /* SWIPE DECK END */
+
+
+/* LOADING/SEARCHING LOGO PULSE CIRCLE (START) */
+
+@import url("https://fonts.googleapis.com/css?family=Reem+Kufi");
+.circles {
+  width: 100%;
+  position: relative;
+  height:500px;
+}
+.circles img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 50%;
+  border: solid 3px #fff;
+}
+
+.circle1,
+.circle2 {
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 2px solid #02c6c7;
+  background-color: #02c6c7;
+  transform: translateX(-50%) translateY(-50%);
+  animation: pulsate 3s infinite;
+}
+
+.circle2 {
+  animation: pulsate 3s -0.5s infinite;
+}
+
+@keyframes pulsate {
+  0%, 100% {
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  99.999% {
+    width: 350px;
+    height: 350px;
+    opacity: 0;
+  }
+}
+/* LOADING/SEARCHING LOGO PULSE CIRCLE (END) */
+
+
+/*  USER SECTION (PROFILE CARD) (Start) */
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+
+/* .user_card{
+justify-content: center;
+} */
+
+.snip1344 {
+  font-family: 'Open Sans', Arial, sans-serif;
+  /* position: absolute; */
+  justify-content: center;
+  overflow: hidden;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.4em;
+  background-color: #141414;
+}
+.snip1344 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.snip1344 figcaption {
+  width: 100%;
+  padding: 15px 25px;
+  position: absolute;
+  display: inline-block;
+  left: 0;
+  top: 50%;
+}
+.snip1344 .profile {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  max-width: 250px;
+  opacity: 1;
+  box-shadow: 3px 3px 20px #2cbbad;
+  border: 0.5px #2cbbad;
+  -webkit-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+}
+.snip1344 h3 {
+  margin: 0 0 5px;
+  color: black;
+  font-weight: 400;
+}
+.snip1344 h3 span {
+  display: block;
+  font-size: 0.70em;
+  color: black;
+}
+.snip1344 i {
+  padding: 10px 5px;
+  display: inline-block;
+  font-size: 32px;
+  color: #ffffff;
+  text-align: center;
+}
+.snip1344 a {
+  text-decoration: none;
+}
+.snip1344 i:hover {
+  opacity: 1;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+
+.usericons {
+  text-align: center;
+  /* margin: 3vh; */
+  cursor: pointer;
+  float:none;
+  padding: 3vw;
+  display: flex;
+   align-items: stretch; /* Default */
+   justify-content: center;
+   background: white;
+   padding: 0;
+}
+
+.li {
+    text-decoration: none;
+    display: inline-block;
+    flex:auto;
+    list-style-type: none;
+    background: white;
+    padding: 3vw;
+
+}
+
+
+.userbutton:hover {
+  background-color: #2cbbad;
+  color: white;
+  animation: pulse 1s;
+  /* animation: bounce 1s; */
+  border-radius: 10px;
+}
+
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}
+/* @keyframes bounce {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+} */
+/*  USER SECTION END */
+
+
+
+/* LIFESTYLE EMOJIS UNORDERED LIST START */
+.lifestyle_emojis {
+  text-decoration: none;
+}
+
+.emoji_lifestyle_dec {
+  text-decoration: none;
+}
+
+.emoji-li {
+    text-decoration: none;
+}
+/* LIFESTYLE EMOJIS END */
+
+
+
+
+/* USER PROFILE CARD IN 'USER-SECTION' (Start) */
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,400";
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.user-content {
+  position: relative;
+  animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
+  align-items: center;
+  text-align: center
+  left: 30%
+  top: 50%;
+}
+
+.user-card {
+  width: 500px;
+  min-height: 100px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f3f7f8;
+  box-shadow: 2px 10px 20px #2cbbad;
+  position: relative;
+  left: 30%;
+  overflow: hidden;
+}
+/* Below is coloured shape that adds design element */
+.user-card:after {
+  content: '';
+  display: block;
+  width: 190px;
+  height: 300px;
+  background: #2cbbad;
+  position: absolute;
+  animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
+}
+
+.badgescard {
+  width: 500px;
+  align-content: center;
+  min-height: 100px;
+  padding: 20px;
+  border-radius: 3px;
+  background-color: #f3f7f8;
+  box-shadow: 0px 10px 20px #2cbbad;
+  position: relative;
+  left: 30%;
+  overflow: hidden;
+  z-index: -1;
+  animation: animainfos 0.5s cubic-bezier(0.425, 1.04, 0.47, 1.105) 0.75s forwards;
+}
+.badgescard span {
+  font-size: 3em;
+  align-content: center;
+  margin: 0px 6px;
+  opacity: 0.6;
+}
+
+.firstinfo {
+  flex-direction: row;
+  z-index: 2;
+  position: relative;
+}
+.firstinfo img {
+  border-radius: 50%;
+  width: 175px;
+  height: 175px;
+}
+.firstinfo .profileinfo {
+  padding: 0px 20px;
+}
+.firstinfo .profileinfo h1 {
+  font-size: 1.8em;
+}
+.firstinfo .profileinfo h3 {
+  font-size: 1.2em;
+  color: #2cbbad;
+  font-style: italic;
+}
+.firstinfo .profileinfo p.bio {
+  padding: 10px 0px;
+  color: #2cbbad;
+  line-height: 1.2;
+  font-style: initial;
+}
+
+@keyframes animatop {
+  0% {
+    opacity: 0;
+    bottom: -500px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 0px;
+  }
+}
+@keyframes animainfos {
+  0% {
+    bottom: 10px;
+  }
+  100% {
+    bottom: -42px;
+  }
+}
+@keyframes rotatemagic {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg);
+    top: -24px;
+    left: -253px;
+  }
+  100% {
+    transform: rotate(-30deg);
+    top: -24px;
+    left: -78px;
+  }
+}
+/* USER PROFILE CARD IN 'USER-SECTION' (End) */
+
+
+/* CHAT PAGE (Start)  */
+.chat_placeholder {
+  width: 500px;
+  min-height: 100px;
+  padding: 20px;
+  border-radius: 3px;
+  border: 1px;
+  border-color: black;
+  background-color: #f3f7f8;
+  box-shadow: 0px 10px 20px #2cbbad;
+  position: relative;
+  left: 30%;
+  overflow: hidden;
+}
+/* CHAT PAGE (End) */

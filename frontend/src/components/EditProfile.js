@@ -3,7 +3,7 @@ import axios from 'axios';
 import PasswordMask from 'react-password-mask';
 import { Redirect } from 'react-router-dom'
 
-class Update extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
 
@@ -50,12 +50,12 @@ class Update extends Component {
           image4:'empty',
           image5:'empty',
           image6:'empty',
-          image1_message: 'choose a picture',
-          image2_message: '5 slots left',
-          image3_message: '4 slots left',
-          image4_message: '3 slots left',
-          image5_message: '2 slots left',
-          image6_message: '1 slot left, make it count!',
+          image1_message: 'Choose photo',
+          image2_message: '5 left',
+          image3_message: '4 left',
+          image4_message: '3 left',
+          image5_message: '2 left',
+          image6_message: '1 left, make it count!',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -83,31 +83,6 @@ class Update extends Component {
       this.handleNonSmokingCheckClick = this.handleNonSmokingCheckClick.bind(this);
 
   }
-
-  // countNumberOfUserPhotos(){
-  //   var count = 0;
-  //
-  //   if (this.props.data.picture){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_two){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_three){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_four){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_five){
-  //     count += 1;
-  //   }
-  //   if (this.props.data.picture_six){
-  //     count += 1;
-  //   }
-  //
-  //   return count;
-  // }
 
   handleSubmit(evt){
 
@@ -170,17 +145,31 @@ class Update extends Component {
     formData.append('vegan', vegan);
     formData.append('prefers_chill_to_gym', prefers_chill_to_gym);
     formData.append('childless', childless);
-    axios.put(edit_profile_url, formData,
-  { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(()=>{
-      self.setState({
-        userUpdated: true
+
+    var token_refresh_url = 'http://localhost:8080/social_reach/auth-jwt-refresh/`';
+
+
+    axios.post(token_refresh_url, {'token': `${token_passed_from_main}`}).then(function(response){
+      var refreshed_token = response.data['token']
+
+      axios.put(edit_profile_url, formData,
+    { headers: { 'Authorization': `JWT ${refreshed_token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(()=>{
+        self.setState({
+          userUpdated: true
+        })
+        console.log("Done");
+        self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, password)
+        })
+      .catch(function(e){
+        console.log(e);
       })
-      console.log("Done");
-      self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, password)
-      })
-    .catch(function(e){
+
+    }).catch(function(e){
       console.log(e);
     })
+
+
+
   }
 
   handleChange(evt){
@@ -222,7 +211,7 @@ class Update extends Component {
   }))
   this.setState({
     [event.target.name]: event.target.files[0],
-    [message]: "tap to change"
+    [message]: "Tap to change"
 
       })
 
@@ -400,6 +389,12 @@ console.log("Error updating Reach.");
    fontSize: '0.7em'
   }
 
+  if (!this.props.loggedInAs){
+    return (
+      <div className="center"> Oops! You need to log in </div>
+    )
+  }
+
   if (userUpdated){
       return <Redirect to='/profile' data={this.state} loggedInAs={this.state.username} login= {true}/>
     }
@@ -424,11 +419,10 @@ console.log("Error updating Reach.");
 
       <div>
 
-      <div className="pulsating-circle" onClick={this.updateReach}></div>
 
       <div className="register">
 
-      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.loggedInAs}! {"Feel free to update your profile details here!"}</h6>
+      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.data.name}! {"Update your profile here"}</h6>
 <p></p>
 
     {/* PROFILE INFO INPUT FORM START */}
@@ -437,9 +431,7 @@ console.log("Error updating Reach.");
 
     {/* BASIC INFO SECTION */}
     <fieldset>
-    <PasswordMask id="password" name="password" placeholder="Enter password - just so we know it's really you" value={this.state.password}
-onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} inputStyles={inputStyles}
-/>
+  
           <legend><span class="number"></span> Basic Info</legend>
 
           <p>Your name:</p>
@@ -497,16 +489,12 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
             <label for="toggle5" class="well"></label>
           </div>
 
-
           {/*INTERESTS INPUT (EMOJI's)  */}
           <label for="job">Interests:</label>
             <input type="text" onChange={this.handleChange} data-emojiable="true"  maxlength="5" name="interests" placeholder="Pick five emojis that represent your interests"></input>
 
     </fieldset>
-
-
-
-
+<br></br>
 
     {/* SOCIAL MEDIA SECTION */}
           <fieldset>
@@ -518,11 +506,11 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
             <p>YouTube Handle:</p>
             <input type="text" onChange={this.handleChange} name="youtube_handle" value={this.state.youtube_handle}></input>
             <p>Facebook Handle:</p>
-            <input type="text" onChange={this.handleChange} name="facebook_handle" placeholder="Facebook     (enter the bit after 'facebook.com/') "></input>
+            <input type="text" onChange={this.handleChange} name="facebook_handle" placeholder="Facebook     (coming soon) "></input>
             <p>SnapChat Handle:</p>
-            <input type="text" onChange={this.handleChange} name="snapchat" placeholder="SnapChat     (enter the bit after 'snapchat.com') "></input>
+            <input type="text" onChange={this.handleChange} name="snapchat" placeholder="SnapChat     (coming soon) "></input>
             <p>Spotify Handle:</p>
-            <input type="text" onChange={this.handleChange} name="spotify_handle" placeholder="Spotify    (ARTISTS ONLY!)"></input>
+            <input type="text" onChange={this.handleChange} name="spotify_handle" placeholder="Spotify    (coming soon)"></input>
           </fieldset>
 
 
@@ -562,4 +550,4 @@ onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} 
 
 
 
-export default Update;
+export default EditProfile;

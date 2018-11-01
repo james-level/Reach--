@@ -5,8 +5,12 @@ import Register from "./Register";
 import Profile from "./Profile";
 import PublicProfile from "./PublicProfile";
 import Settings from "./Settings";
+import ResultsView from "./ResultsView";
 import PasswordReset from "./PasswordReset";
-import Update from "./Update";
+import EditProfile from "./EditProfile";
+import Loading from "./Loading";
+import Messages from "./Messages";
+import UserSection from "./UserSection";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Redirect } from 'react-router-dom'
@@ -176,7 +180,7 @@ console.log("Error resetting password");
            loggedInAs: uname,
            reroute: true
          })
-          return <Redirect to='/profile' data={self.state.data} loggedInAs={self.state.loggedInAs} login= {self.state.login}/>
+          return <Redirect to='/results' data={self.state.data} loggedInAs={self.state.loggedInAs} login= {self.state.login}/>
 
   }).catch(function(error){
     console.log(error);
@@ -188,8 +192,6 @@ console.log("Error resetting password");
   }
 
   handleLoginFromRegistrationSubmit(username, password){
-
-
 
   var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
 
@@ -224,11 +226,7 @@ console.log("Error resetting password");
   })}).catch(function(error) {
     console.log(error);
   });
-
   }
-
-
-
 
   handleSignUpSubmit(evt){
       evt.preventDefault();
@@ -275,9 +273,12 @@ console.log("Error resetting password");
                 <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
                 <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} token_to_pass_on = {this.state.token_to_pass_on} />} />
                 <Route path="/publicProfile" render={(props) =>  <PublicProfile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
-                <Route path="/updateReach" render={(props) =>  <Update data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
-                <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-
+                <Route path="/editprofile" render={(props) =>  <EditProfile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
+                <Route path="/settings" render={(props) =>  <Settings logout={this.handleLogOut} data={this.state.data} token_to_pass_on = {this.state.token_to_pass_on} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
+                <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
               </React.Fragment>
             </Router>
@@ -312,8 +313,12 @@ console.log("Error resetting password");
           <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
           <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/publicprofile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-          <Route path="/updateReach" render={(props) =>  <Update data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
-          <Route path="/settings" render={(props) =>  <Settings data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/editprofile" render={(props) =>  <EditProfile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
+          <Route path="/settings" render={(props) =>  <Settings data={this.state.data} token_to_pass_on = {this.state.token_to_pass_on} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password}  loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
+          <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data}  logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
         </React.Fragment>
       </Router>
@@ -321,4 +326,9 @@ console.log("Error resetting password");
   }
 }
 
-export default geolocated()(Main);
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(Main);

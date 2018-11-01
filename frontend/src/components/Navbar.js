@@ -16,24 +16,16 @@ class Navbar extends Component {
     return(
       <ul className="nav-bar">
         <li>
-          <Link to="/"><img src="/images/app_images/homeicon.png" alt="home icon" width="25" height="25"></img></Link>
+          <Link to="/usersection"><img src="/images/app_images/usericon.svg" alt="home icon" width="40" height="40"></img></Link>
         </li>
         <li>
-          <Link to="/profile">Deck View</Link>
-        </li><li>
-          <Link to="/publicprofile">Edit Profile</Link>
+          <Link to="/results"><img src="/images/app_images/pushbutton.svg" alt="search icon" width="40" height="40"></img></Link>
         </li>
         <li>
-          <Link to="/settings"><img src="/images/app_images/settingsicon.png" alt="home icon" width="25" height="25"></img></Link>
+          <Link to="/messages"><img src="/images/app_images/messagesicon.svg" alt="message icon" width="40" height="40"></img></Link>
         </li>
         <li>
-          <Link to="/browse">Browse</Link>
-        </li>
-        <li>
-          <Link to="/updateReach">Update Reach</Link>
-        </li>
-        <li>
-          <Link to="/" onClick={this.props.logout}><img src="/images/app_images/signout.png" alt="home icon" width="25" height="25"></img></Link>
+          <Link to="/" onClick={this.props.logout}><img src="/images/app_images/loginicon.svg" alt="exit icon" width="40" height="40"></img></Link>
         </li>
       </ul>
 

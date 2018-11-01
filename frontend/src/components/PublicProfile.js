@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Flickity from 'flickity';
+// import Flickity from 'flickity';
 
 
 class PublicProfile extends Component {

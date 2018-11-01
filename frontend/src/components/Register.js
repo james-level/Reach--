@@ -49,12 +49,12 @@ class Register extends Component {
           image4:'empty',
           image5:'empty',
           image6:'empty',
-          image1_message: 'choose a picture',
-          image2_message: '5 slots left',
-          image3_message: '4 slots left',
-          image4_message: '3 slots left',
-          image5_message: '2 slots left',
-          image6_message: '1 slot left, make it count!',
+          image1_message: 'Choose photo',
+          image2_message: '5 left',
+          image3_message: '4 left',
+          image4_message: '3 left',
+          image5_message: '2 left',
+          image6_message: '1 left, make it count!',
           photo1: '',
           photo2: '',
           photo3: '',
@@ -85,6 +85,7 @@ class Register extends Component {
 
     handleSubmit(evt){
       console.log(this.state);
+    
       var self = this;
       evt.preventDefault();
       console.log("pw", this.state.activation_user_password);
@@ -153,9 +154,6 @@ class Register extends Component {
       })
     }
 
-
-
-
     handleChange(evt){
        this.setState({
          [evt.target.name]: evt.target.value
@@ -206,7 +204,7 @@ class Register extends Component {
     }))
     this.setState({
       [event.target.name]: event.target.files[0],
-      [message]: "tap to change"
+      [message]: "Tap to change"
 
         })
 
