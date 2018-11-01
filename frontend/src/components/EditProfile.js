@@ -431,9 +431,7 @@ console.log("Error updating Reach.");
 
     {/* BASIC INFO SECTION */}
     <fieldset>
-    <PasswordMask id="password" name="password" placeholder="Enter password - just so we know it's really you" value={this.state.password}
-onChange={this.handleChange} useVendorStyles={true} buttonStyles={buttonStyles} inputStyles={inputStyles}
-/>
+  
           <legend><span class="number"></span> Basic Info</legend>
 
           <p>Your name:</p>
