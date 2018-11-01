@@ -95,6 +95,7 @@ class Settings extends Component {
     axios.post(token_refresh_url, {'token': `${token_passed_from_main}`}).then(function(response){
 
     var refreshed_token = response.data['token']
+    console.log("refreshed token", refreshed_token);
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
    ,
