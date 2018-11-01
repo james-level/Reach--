@@ -24,7 +24,12 @@ class Profile extends Component {
   twitter_followers(){return this.props.data.twitter_followers;}
   instagram_followers(){return this.props.data.instagram_followers;}
   youtube_followers(){return this.props.data.youtube_followers;}
-  total_reach(){return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers}
+  total_reach(){
+
+
+     return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers;
+
+   }
 
 
   componentDidMount(){
@@ -88,7 +93,7 @@ const username = this.props.loggedInAs;
         console.log(this.props.coords);
 
 
-    var commaNumber = require('comma-number')
+    const commaNumber = require('comma-number')
 
 
 
@@ -130,7 +135,7 @@ const username = this.props.loggedInAs;
         {/* DISPLAY NAME & AGE*/}
         <fieldset>
           <legend><span class="number"></span> {this.props.data.name} ({this.props.data.location}), {age}yrs </legend>
-          <label className="total-reach" type="text">Reach: commaNumber({this.total_reach()})</label>
+          <label className="total-reach" type="text">Reach: {commaNumber(this.total_reach())}</label>
         </fieldset>
 
       {/* PHOTO CAROUSEL */}
