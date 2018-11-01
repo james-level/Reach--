@@ -145,17 +145,31 @@ class EditProfile extends Component {
     formData.append('vegan', vegan);
     formData.append('prefers_chill_to_gym', prefers_chill_to_gym);
     formData.append('childless', childless);
-    axios.put(edit_profile_url, formData,
-  { headers: { 'Authorization': `JWT ${token_passed_from_main}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(()=>{
-      self.setState({
-        userUpdated: true
+
+    var token_refresh_url = 'http://localhost:8080/social_reach/auth-jwt-refresh/`';
+
+
+    axios.post(token_refresh_url, {'token': `${token_passed_from_main}`}).then(function(response){
+      var refreshed_token = response.data['token']
+
+      axios.put(edit_profile_url, formData,
+    { headers: { 'Authorization': `JWT ${refreshed_token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(()=>{
+        self.setState({
+          userUpdated: true
+        })
+        console.log("Done");
+        self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, password)
+        })
+      .catch(function(e){
+        console.log(e);
       })
-      console.log("Done");
-      self.props.handleLoginFromRegistrationSubmit( self.props.loggedInAs, password)
-      })
-    .catch(function(e){
+
+    }).catch(function(e){
       console.log(e);
     })
+
+
+
   }
 
   handleChange(evt){

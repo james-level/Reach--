@@ -74,8 +74,9 @@ div.app-title{
 /* NAVIGATION BAR START */
 .nav-bar {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  height: 15vh;
+  margin: 1vw;
+  padding: 1vw;
   overflow: hidden;
   background-color: white;
 }
@@ -83,10 +84,12 @@ div.app-title{
     li {
         text-decoration: none;
         float: left;
+        border-radius: 50px;
     }
 
     li a {
         text-decoration: none;
+        border-radius: 50px;
         display: block;
         color: black;
         text-align: center;
@@ -96,9 +99,17 @@ div.app-title{
 
     li a:hover {
         text-decoration: none;
+        border-radius: 50px;
         background-color: #2cbbad;
         color: white;
-    }
+        animation: pulse 1s;
+       }
+
+       @keyframes pulse {
+         0% {transform: scale(1);}
+         50% {transform: scale(1.1);}
+         100% {transform: scale(1);}
+       }
 
 .nav-bar li a:hover:not(.active) {background-color: #2cbbad;}
 
@@ -123,7 +134,7 @@ div.app-title{
 
 }
 
-/* HOME PAGETAG LINE START */
+/* HOME PAGE TAG LINE (Start) */
 .tag-line {
   text-align: center;
   font-size: 3vw;
@@ -139,6 +150,7 @@ div.app-title{
     margin: 10px auto;
     padding: 20px;
     background: #f4f7f8;
+    box-shadow: 0px 10px 20px #2cbbad;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
 }
@@ -399,6 +411,7 @@ input[type="file"] {
     margin: 10px auto;
     padding: 20px;
     background: #f4f7f8;
+    box-shadow: 0px 10px 20px #2cbbad;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
 }
@@ -1632,7 +1645,6 @@ justify-content: center;
    justify-content: center;
    background: white;
    padding: 0;
-
 }
 
 .li {
@@ -1705,11 +1717,9 @@ justify-content: center;
   width: 500px;
   min-height: 100px;
   padding: 20px;
-  border-radius: 3px;
-  border: 1px;
-  border-color: black;
+  border-radius: 5px;
   background-color: #f3f7f8;
-  box-shadow: 0px 10px 20px #2cbbad;
+  box-shadow: 2px 10px 20px #2cbbad;
   position: relative;
   left: 30%;
   overflow: hidden;
@@ -1732,8 +1742,6 @@ justify-content: center;
   padding: 20px;
   border-radius: 3px;
   background-color: #f3f7f8;
-  border: 1px;
-  border-color: black;
   box-shadow: 0px 10px 20px #2cbbad;
   position: relative;
   left: 30%;
@@ -1807,5 +1815,21 @@ justify-content: center;
     left: -78px;
   }
 }
-
 /* USER PROFILE CARD IN 'USER-SECTION' (End) */
+
+
+/* CHAT PAGE (Start)  */
+.chat_placeholder {
+  width: 500px;
+  min-height: 100px;
+  padding: 20px;
+  border-radius: 3px;
+  border: 1px;
+  border-color: black;
+  background-color: #f3f7f8;
+  box-shadow: 0px 10px 20px #2cbbad;
+  position: relative;
+  left: 30%;
+  overflow: hidden;
+}
+/* CHAT PAGE (End) */

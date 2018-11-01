@@ -11,6 +11,7 @@ import os
 from social_reach.access_tokens_fb import facebook_app_token , facebook_access_token
 from social_reach.email_details import password
 import json
+from datetime import datetime, timedelta
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -56,6 +57,11 @@ REST_FRAMEWORK = {
 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',        # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     )
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': timedelta(hours=1),
+    'JWT_ALLOW_REFRESH': True,
 }
 
 
