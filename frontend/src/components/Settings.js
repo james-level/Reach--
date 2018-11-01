@@ -98,6 +98,11 @@ class Settings extends Component {
     formData.append('max_distance_acceptable', max_distance);
     formData.append('looking_for', looking_for);
 
+    var token_refresh_url = 'http://localhost:8080/social_reach/auth-jwt-refresh/`';
+
+    axios.post(token_refresh_url, {'token': `${token_passed_from_main}`}).then(function(response){
+
+    var refreshed_token = response.data['token']
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
    ,
@@ -111,6 +116,9 @@ class Settings extends Component {
 console.log(error);
 console.log("Error updating settings.");
 })
+}).catch(function(e){
+    console.log(e);
+  })
 
       // axios.get(filtering_url)
       // .then(res =>{
