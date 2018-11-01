@@ -85,6 +85,7 @@ class Register extends Component {
 
     handleSubmit(evt){
       console.log(this.state);
+    
       var self = this;
       evt.preventDefault();
       console.log("pw", this.state.activation_user_password);
