@@ -17,9 +17,30 @@ class UserSection extends Component {
     this.onSettingsClick = this.onSettingsClick.bind(this);
     this.onViewClick = this.onViewClick.bind(this);
     this.onExitClick = this.onExitClick.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this)
   }
 
     total_reach(instagram_followers, twitter_followers, youtube_followers){return instagram_followers + twitter_followers + youtube_followers}
+
+    handleLogOut(){
+
+      this.setState({
+        username: '',
+        password: '',
+        login: false,
+        signUpSubmit: false,
+        forgottenPassword: false,
+        resetPasswordSubmitted: false,
+        data: {},
+        loggedInAs: '',
+        activation_token: '',
+        activation_user: '',
+        reset_token: '',
+        reset_uid: '',
+        reroute: false,
+        signup_load: ''
+      })
+    }
 
     onEditClick(){
       this.setState({
@@ -62,8 +83,12 @@ render(){
     }
 
     if (this.state.exitClicked === true){
-     return <Redirect to='/' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
-    }
+     return <Redirect to='/' data={this.props.data} loggedInAs={this.state.username} logout={this.handleLogOut} login= {true}/>
+   }
+   // TODO: Logout (lines 85-7) is redirecting to Search resuts, NOT logging out
+
+
+
 
     if (this.props.loggedInAs === ""){
       return <div className="center"> Oops! You need to log in </div>
@@ -82,7 +107,7 @@ render(){
         <div class="userprofileinfo">
 
           {/* USER NAME  */}
-          <h3>{this.props.data.name}, {this.props.data.username} </h3>
+          <h3>{this.props.data.name}</h3>
 
           {/* USER INFO */}
           <h3>Reach: {commaNumber(this.total_reach(this.props.data.instagram_followers, this.props.data.twitter_followers, this.props.data.youtube_followers))}</h3>
