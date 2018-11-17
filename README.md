@@ -139,6 +139,8 @@ python manage.py dbshell
 
 TRUNCATE django_content_type CASCADE;
 
+python manage.py dumpdata dump.json
+
 python manage.py loaddata dump.json
 
 Now the data is stored in a PSQL database.
