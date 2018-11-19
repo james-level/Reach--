@@ -202,7 +202,7 @@ class EditProfile extends Component {
         [image]: reader.result
       }, function(){
         this.setState({
-          src: this.state.image1
+          src: this.state[image]
         })
       })
 
@@ -428,6 +428,21 @@ console.log("Error updating Reach.");
     src={this.state.src}
     ref={ ref => { this.cropper = ref }}
     ratio = {2/3}
+    values =
+{{
+    // display values
+    display: {
+
+        imgWidth: '50%', // img width
+        imgHeight: '50%', // img height
+    },
+    // original values
+    original: {
+      
+        imgWidth: '50%', // img width
+        imgHeight: '50%', // img height
+    }
+}}
 
 />
 </div>
