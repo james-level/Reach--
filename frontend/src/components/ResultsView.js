@@ -18,8 +18,8 @@ class ResultsView extends Component {
       entered_search_query: false,
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
-      liked_profiles: this.props.data.liked_profiles,
-      ignored_profiles: this.props.data.ignored_profiles
+      liked_profiles: this.props.data.liked_profiles.length > 0 ? this.props.data.liked_profiles : [] ,
+      ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : []
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -153,7 +153,7 @@ obtainUserPreferencesFromAPI(){
   }
 
 
-  saveLikesAndIgnores(){
+  saveLikesAndIgnores(cardsCounter){
 
       console.log("Liked profiles state", this.state.liked_profiles);
 
@@ -183,10 +183,16 @@ obtainUserPreferencesFromAPI(){
     var request_dict = {'liked_profiles': liked_profile_ids};
   }
 
+  var cardsCounter = cardsCounter;
+
+  console.log("cardsCounter", cardsCounter);
+
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       request_dict
    ,
  { headers: { 'Authorization': `JWT ${token_passed_from_main}`} }).then(function (response) {
+
+    self.checkForMutualLike(cardsCounter);
 
     console.log("LIKES AND IGNORES UPDATED");
 }).catch(function(error){
@@ -194,6 +200,7 @@ console.log(error);
 console.log("Error updating likes and ignores.");
 })
 }
+
 
   handleLike(cardsCounter){
 
@@ -205,10 +212,21 @@ console.log("Error updating likes and ignores.");
 
     console.log("QUERY RESULTS AT INDEX", likedProfile);
 
+    if (this.state.liked_profiles.length > 0){
+
     this.setState(
       {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){this.saveLikesAndIgnores()})
+    }, function(){this.saveLikesAndIgnores(cardsCounter)})
+  }
+
+  else {
+
+    this.setState(
+      {
+      liked_profiles: [likedProfile]
+    }, function(){this.saveLikesAndIgnores(cardsCounter)})
+  }
 
   }
 
@@ -227,12 +245,92 @@ console.log("Error updating likes and ignores.");
     var ignoredProfile = this.state.query_results[cardsCounter].user;
         console.log("QUERY RESULTS AT INDEX", ignoredProfile);
 
-        this.setState(
+        if (this.state.ignored_profiles.length > 0){
+
+        this.setState (
           {
           ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
-        }, function(){this.saveLikesAndIgnores()})
+        }, function(){this.saveLikesAndIgnores(cardsCounter)})
 
+      }
+
+      else {
+
+        this.setState (
+          {
+          ignored_profiles: [ignoredProfile]
+        }, function(){this.saveLikesAndIgnores(cardsCounter)})
+
+      }
+
+      }
+
+createMutualLike(liked, liker){
+
+  var self = this;
+
+  var liked = liked.user;
+  var liker = liker;
+
+  var username = this.props.loggedInAs;
+  var token_passed_from_main = this.props.token_to_pass_on;
+
+  const formData = new FormData();
+  formData.append('first_user', liker);
+  formData.append('second_user', liked);
+
+  var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+
+  axios.post(session_url, {
+      'username': username,
+      'password':  self.props.password
+    }).then(function(response) {
+    console.log('response:', response);
+    console.log('Obtained token. (PROFILE)');
+    var token = response.data['token']
+    axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+        "token": token,
+        'username': username,
+        'password': self.props.password
+      }).then(function(second_response) {
+  axios.post(`http://localhost:8080/social_reach/mutual_likes/`,
+    formData
+ ,
+{ headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+ self.obtainUserPreferencesFromAPI()
+  console.log("location UPDATED");
+}).catch(function(error){
+console.log(error);
+console.log("Error updating Reach.");
+}).catch(function (error){
+console.log(error);
+})})})
+
+}
+
+
+checkForMutualLike(cardsCounter){
+
+  console.log("mutual lker checker in action", cardsCounter);
+
+  var likedUserId = this.state.query_results[cardsCounter];
+  var likerId = this.props.data.user;
+
+  console.log("LIKED", likedUserId);
+
+  if (likedUserId){
+  if (likedUserId.liked_profiles.includes(likerId)){
+    console.log("Liked user likes you back");
+    this.createMutualLike(likedUserId, likerId)
   }
+}
+
+else {
+  return
+}
+
+}
+
 
     returnParentStatus(user){
       if (user.childless === false){
