@@ -1833,3 +1833,305 @@ justify-content: center;
   overflow: hidden;
 }
 /* CHAT PAGE (End) */
+
+
+
+
+
+/* MATCH ANIMATION PAGE (Start) */
+.edge-unit {
+  overflow: hidden;
+}
+.edge-unit > li:nth-child(1) {
+  float: left;
+}
+.edge-unit > li:nth-child(2) {
+  float: right;
+}
+
+.flex-img {
+  max-width: 100%;
+  display: block;
+}
+
+.z-carousel {
+  position: relative;
+  text-align: center;
+  max-width: 690px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.z-carousel.z-state-play > .mod-body {
+  background: #ebf7fc;
+  border: 1px solid #cccccc;
+  margin-bottom: 78px;
+}
+.z-carousel.z-state-mutual > .mod-body {
+  padding: 15px;
+}
+.z-carousel.z-state-matched {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+}
+.z-carousel .mod-body {
+  padding: 30px;
+  background: #ffffff;
+  position: relative;
+}
+.z-carousel .icon-verified {
+  color: #32b81c;
+}
+
+.z-carousel-title {
+  margin-top: 20px;
+}
+
+.z-carousel-match-title {
+  color: #666;
+}
+
+.z-matched-content-photo-container {
+  margin-top: 63px;
+  margin-bottom: 40px;
+}
+.z-matched-content-photo-container .z-card-min-info {
+  font-size: 10px;
+  color: #666;
+}
+.z-matched-content-photo-container .z-card-panel {
+  padding: 5px;
+}
+.z-matched-content-photo-container .z-card {
+  display: inline-block;
+  width: 200px;
+}
+
+.z-matched-content-container {
+  margin: 0 auto;
+  width: 62%;
+}
+
+.z-matched-content-msg {
+  margin-bottom: 28px;
+  color: #666;
+}
+
+.z-card {
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(51, 51, 51, 0.8);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.z-card-front, .z-card-back {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.z-card-back {
+  background: #3AB4E3;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.z-card-content {
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+.z-card-photo {
+  border-radius: 4px 4px 0 0;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.z-card-photo > img {
+  border-radius: 4px 4px 0 0;
+}
+.z-card-photo.z-card-photo-min {
+  height: 206px;
+}
+.z-card-photo.z-card-photo-max {
+  height: 288px;
+}
+.z-card-photo .z-status-flag {
+  left: 10px;
+  position: absolute;
+  top: 10px;
+}
+.z-card-photo .z-photo-count {
+  bottom: 10px;
+  left: 10px;
+  position: absolute;
+}
+.z-card-photo .z-card-indicator {
+  position: absolute;
+  right: 0;
+  top: -4px;
+}
+
+.z-card-indicator {
+  padding: 6px;
+  background: #007adf;
+}
+
+.z-card-indicator-text {
+  font-size: 10px;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.z-card-panel {
+  border-radius: 0 0 4px 4px;
+  background: #ffffff;
+  padding: 10px;
+}
+
+.z-card-panel-top {
+  height: 70px;
+  overflow: hidden;
+}
+
+.z-card-panel-name {
+  display: inline-block;
+}
+
+.z-card-panel-location {
+  font-size: 12px;
+}
+
+.z-card-min-info {
+  font-size: 12px;
+  color: #333333;
+}
+
+.z-matched-content-container,
+.z-carousel-match-title {
+  opacity: 0;
+  transition: all 1s;
+}
+
+.z-carousel-match-title {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+}
+
+.z-state-reveal-match .z-matched-content-container,
+.z-state-reveal-match .z-carousel-match-title {
+  opacity: 1;
+}
+.z-state-reveal-match .z-carousel-match-title {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+.z-state-reveal-match .z-state-card-self {
+  -webkit-animation: carousel-self-card .8s forwards 1.2s;
+          animation: carousel-self-card .8s forwards 1.2s;
+}
+.z-state-reveal-match .z-state-card-match {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-animation: carousel-match-card 2s forwards;
+          animation: carousel-match-card 2s forwards;
+}
+
+.z-matched-content-photo-container {
+  min-height: 226px;
+  position: relative;
+}
+.z-matched-content-photo-container .z-card {
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+}
+
+.z-state-card-match {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  opacity: 1;
+}
+
+@-webkit-keyframes carousel-match-card {
+  0% {
+    -webkit-transform: scale(0) rotateY(180deg);
+            transform: scale(0) rotateY(180deg);
+  }
+  30% {
+    -webkit-transform: scale(1) rotateY(180deg);
+            transform: scale(1) rotateY(180deg);
+  }
+  35% {
+    -webkit-transform: scale(1) rotateY(180deg);
+            transform: scale(1) rotateY(180deg);
+  }
+  60% {
+    -webkit-transform: scale(1) rotateY(0);
+            transform: scale(1) rotateY(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1) rotate(10.5deg) translate3d(50%, -30px, 0);
+            transform: scale(1) rotate(10.5deg) translate3d(50%, -30px, 0);
+  }
+}
+
+@keyframes carousel-match-card {
+  0% {
+    -webkit-transform: scale(0) rotateY(180deg);
+            transform: scale(0) rotateY(180deg);
+  }
+  30% {
+    -webkit-transform: scale(1) rotateY(180deg);
+            transform: scale(1) rotateY(180deg);
+  }
+  35% {
+    -webkit-transform: scale(1) rotateY(180deg);
+            transform: scale(1) rotateY(180deg);
+  }
+  60% {
+    -webkit-transform: scale(1) rotateY(0);
+            transform: scale(1) rotateY(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1) rotate(10.5deg) translate3d(50%, -30px, 0);
+            transform: scale(1) rotate(10.5deg) translate3d(50%, -30px, 0);
+  }
+}
+@-webkit-keyframes carousel-self-card {
+  0% {
+    opacity: 0;
+    -webkit-transform: rotate(0) translate3d(-50%, -26px, 0);
+            transform: rotate(0) translate3d(-50%, -26px, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotate(-8.5deg) translate3d(-50%, -26px, 0);
+            transform: rotate(-8.5deg) translate3d(-50%, -26px, 0);
+  }
+}
+@keyframes carousel-self-card {
+  0% {
+    opacity: 0;
+    -webkit-transform: rotate(0) translate3d(-50%, -26px, 0);
+            transform: rotate(0) translate3d(-50%, -26px, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotate(-8.5deg) translate3d(-50%, -26px, 0);
+            transform: rotate(-8.5deg) translate3d(-50%, -26px, 0);
+  }
+}
+/* MATCH ANIMATION PAGE (End) */
