@@ -423,7 +423,7 @@ console.log("Error updating Reach.");
 
     if (this.state.launchPhotoResize){
       return (
-      <div>
+      <div style={{height: '50%', width: '50%', justifyContent: 'center', textAlign: 'center'}}>
       <Cropper
     src={this.state.src}
     ref={ ref => { this.cropper = ref }}
@@ -438,7 +438,7 @@ console.log("Error updating Reach.");
     },
     // original values
     original: {
-      
+
         imgWidth: '50%', // img width
         imgHeight: '50%', // img height
     }
