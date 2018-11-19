@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
 import { Redirect } from 'react-router-dom'
+import {Cropper} from 'react-image-cropper'
 
 class EditProfile extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class EditProfile extends Component {
         activation_token: '',
         activation_user: null,
         activation_user_password: '',
-        
+
           id: this.props.data.user,
           name: this.props.data.name,
           looking_for: this.props.data.looking_for,
@@ -67,7 +68,8 @@ class EditProfile extends Component {
           nonSmokingChecked: this.props.data.non_smoker,
           prefersChillToGymChecked: this.props.data.prefers_chill_to_gym,
           childlessChecked: this.props.data.childless,
-          launchPhotoResize: false
+          launchPhotoResize: false,
+          src: ''
 
         }
 
@@ -190,7 +192,7 @@ class EditProfile extends Component {
 
     let count = event.target.attributes.index.nodeValue
     let preview_image = "image" + count
-    let reader = new FileReader()
+    var reader = new FileReader()
     reader.onloadend = () => {
       /* do not draw new upload button if 6 photos have been uploaded or image is being replaced */
       if (this.state.image_count.length < 6 && this.state[preview_image] === 'empty'){
@@ -198,7 +200,11 @@ class EditProfile extends Component {
     }
       this.setState({
         [image]: reader.result
+      }, function(){
+        this.setState({
+          src: this.state.image1
         })
+      })
 
        }
   if (event.target.files[0] != undefined ){
@@ -212,7 +218,8 @@ class EditProfile extends Component {
   }))
   this.setState({
     [event.target.name]: event.target.files[0],
-    [message]: "Tap to change"
+    [message]: "Tap to change",
+    launchPhotoResize: true
 
       })
 
@@ -413,6 +420,21 @@ console.log("Error updating Reach.");
     //     </div>
     //   )
     // }
+
+    if (this.state.launchPhotoResize){
+      return (
+      <div>
+      <Cropper
+    src={this.state.src}
+    ref={ ref => { this.cropper = ref }}
+    ratio = {2/3}
+
+/>
+</div>
+
+)
+
+    }
 
    else{
      console.log("loadingInProgress is false");
