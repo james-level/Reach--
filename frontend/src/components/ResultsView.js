@@ -134,10 +134,7 @@ obtainUserPreferencesFromAPI(){
   distance: this.props.max_distance_acceptable,
   my_profile: this.props.loggedInAs},
   function(){this.fireSearchRequest()})
-
-
 }
-
 
   componentDidMount(evt){
 

@@ -74,11 +74,11 @@ div.app-title{
 /* NAVIGATION BAR START */
 .nav-bar {
   list-style-type: none;
-  height: 15vh;
-  margin: 1vw;
-  padding: 1vw;
-  overflow: hidden;
-  background-color: white;
+    height: 15vh;
+    margin: 1vw;
+    padding: 1vw;
+    overflow: hidden;
+    background-color: white;
 }
 
     li {
