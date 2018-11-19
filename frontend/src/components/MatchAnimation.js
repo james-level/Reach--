@@ -53,13 +53,15 @@ class MatchAnimation extends Component {
                   </div>
               </div>
 
+              <button class="direct-message-button">
+                <img src="./images/app_images/directmessage.png" height="100" width="100"/>
+              </button>
 
 
               <div class="z-matched-content-container">
                   <div class="equal-action-container">
                       <button class="back-to-results-button">Back To Search</button>
                       <button class="back-to-results-button">View This Profile</button>
-                      <button class="direct-message-button" id="DMs"></button>
                   </div>
               </div>
           </div>

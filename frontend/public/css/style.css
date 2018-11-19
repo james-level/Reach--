@@ -1884,10 +1884,6 @@ justify-content: center;
   color: #32b81c;
 }
 
-.z-carousel-title {
-  margin-top: 20px;
-}
-
 .z-carousel-match-title {
   color: #666;
 }
@@ -1911,10 +1907,11 @@ justify-content: center;
 .z-matched-content-container {
   margin: 0 auto;
   width: 62%;
+  margin: 20;
 }
 
 .z-matched-content-msg {
-  margin-bottom: 28px;
+  margin-bottom: 10px;
   color: #666;
 }
 
@@ -2049,6 +2046,7 @@ justify-content: center;
 .z-matched-content-photo-container {
   min-height: 226px;
   position: relative;
+  margin-bottom: 20px;
 }
 .z-matched-content-photo-container .z-card {
   left: 0;
@@ -2151,6 +2149,7 @@ justify-content: center;
   border: 1px solid #16a085;
   border-width: 1px;
   margin-bottom: 10px;
+  margin-top: 10px;
   border-radius: 8px;
 }
 
@@ -2163,8 +2162,7 @@ justify-content: center;
   background:none;
   width: 100px;
   height: 100px;
+  padding-bottom: 20px;
 }
-.direct-message-button.DMs{
-  background:url('./images/app_images/directmessage.png');
-}
+
 /* MATCH ANIMATION PAGE (End) */
