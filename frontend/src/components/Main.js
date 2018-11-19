@@ -10,6 +10,7 @@ import PasswordReset from "./PasswordReset";
 import EditProfile from "./EditProfile";
 import Loading from "./Loading";
 import Messages from "./Messages";
+import MatchAnimation from "./MatchAnimation"
 import UserSection from "./UserSection";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
@@ -280,6 +281,7 @@ console.log("Error resetting password");
                 <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
                 <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
 
               </React.Fragment>
             </Router>
@@ -320,6 +322,7 @@ console.log("Error resetting password");
           <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data}  logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
 
         </React.Fragment>
       </Router>
