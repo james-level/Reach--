@@ -69,7 +69,8 @@ class EditProfile extends Component {
           prefersChillToGymChecked: this.props.data.prefers_chill_to_gym,
           childlessChecked: this.props.data.childless,
           launchPhotoResize: false,
-          src: ''
+          src: '',
+          currentImageToCrop: ''
 
         }
 
@@ -79,7 +80,7 @@ class EditProfile extends Component {
       this.handleChange = this.handleChange.bind(this);
       this.fileChangedHandler = this.fileChangedHandler.bind(this);
       this.showLoadingIndicator = this.showLoadingIndicator.bind(this);
-
+      this.handleCropSubmit = this.handleCropSubmit.bind(this);
       this.handlePrefersChillToGymClicked = this.handlePrefersChillToGymClicked.bind(this);
       this.handleChildlessCheckClick = this.handleChildlessCheckClick.bind(this);
       this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
@@ -191,7 +192,7 @@ class EditProfile extends Component {
     console.log();
 
     let count = event.target.attributes.index.nodeValue
-    let preview_image = "image" + count
+    var preview_image = "image" + count
     var reader = new FileReader()
     reader.onloadend = () => {
       /* do not draw new upload button if 6 photos have been uploaded or image is being replaced */
@@ -202,7 +203,8 @@ class EditProfile extends Component {
         [image]: reader.result
       }, function(){
         this.setState({
-          src: this.state[image]
+          src: this.state[image],
+          currentImageToCrop: preview_image
         })
       })
 
@@ -253,6 +255,18 @@ componentWillMount() {
     }
 
 
+    handleCropSubmit(state){
+
+    let node = this[state]
+    this.setState({
+      [state]: node.crop()
+    })
+
+    this.setState({
+      launchPhotoResize: false
+    })
+
+  }
 
 
   updateReach(){
@@ -323,6 +337,12 @@ console.log(error);
 console.log("Error updating Reach.");
 })
 }
+
+handleChange (state, values) {
+   this.setState({
+     [state + 'Values']: values
+   })
+ }
 
   render(){
 
@@ -448,7 +468,7 @@ console.log("Error updating Reach.");
 }}
 
 />
-  <form onSubmit={this.handleSubmit}>
+  <form onSubmit={this.handleCropSubmit(`${this.state.currentImageToCrop}`)}>
 <br></br>
   <input type="submit" name="field12" value="Crop image"  class="Save"></input>
   </form>
@@ -456,7 +476,6 @@ console.log("Error updating Reach.");
 </div>
 
 )
-
     }
 
    else{
