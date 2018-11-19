@@ -81,6 +81,7 @@ class EditProfile extends Component {
       this.fileChangedHandler = this.fileChangedHandler.bind(this);
       this.showLoadingIndicator = this.showLoadingIndicator.bind(this);
       this.handleCropSubmit = this.handleCropSubmit.bind(this);
+      this.handleCropChange = this.handleCropChange.bind(this);
       this.handlePrefersChillToGymClicked = this.handlePrefersChillToGymClicked.bind(this);
       this.handleChildlessCheckClick = this.handleChildlessCheckClick.bind(this);
       this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
@@ -200,14 +201,10 @@ class EditProfile extends Component {
       this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
     }
       this.setState({
-        [image]: reader.result
-      }, function(){
-        this.setState({
-          src: this.state[image],
-          currentImageToCrop: preview_image
-        })
+        [image]: reader.result,
+        src: reader.result,
+        currentImageToCrop: 'image1'
       })
-
        }
   if (event.target.files[0] != undefined ){
     reader.readAsDataURL(event.target.files[0])
@@ -255,9 +252,11 @@ componentWillMount() {
     }
 
 
-    handleCropSubmit(state){
+  handleCropSubmit(state){
 
-    let node = this[state]
+    var node = state
+    console.log('node',node);
+
     this.setState({
       [state]: node.crop()
     })
@@ -265,15 +264,19 @@ componentWillMount() {
     this.setState({
       launchPhotoResize: false
     })
-
   }
+
+
+  handleCropChange (state, values) {
+     this.setState({
+       [state + 'Values']: values
+     })
+   }
 
 
   updateReach(){
 
-
     var username = this.props.loggedInAs;
-
     var user = this.props.data.user;
     var name = this.props.data.name;
     var bio = this.props.data.bio;
@@ -295,11 +298,8 @@ componentWillMount() {
     var picture_four = this.props.data.picture_four;
     var picture_five = this.props.data.picture_five;
     var picture_six = this.props.data.picture_six;
-
     var token_passed_from_main = this.props.token_to_pass_on;
-
     var self = this;
-
     var update_reach_url = `http://localhost:8080/social_reach/profiles`
 
     const formData = new FormData();
@@ -337,12 +337,6 @@ console.log(error);
 console.log("Error updating Reach.");
 })
 }
-
-handleChange (state, values) {
-   this.setState({
-     [state + 'Values']: values
-   })
- }
 
   render(){
 
@@ -442,6 +436,9 @@ handleChange (state, values) {
     // }
 
     if (this.state.launchPhotoResize){
+
+
+
       return (
         <div className="profile">
       <div style={{marginLeft: '10%', height: '100%', width: '100%', justifyContent: 'center', textAlign: 'center'}}>
@@ -451,6 +448,7 @@ handleChange (state, values) {
     src={this.state.src}
     ref={ ref => { this.cropper = ref }}
     ratio = {2/3}
+    onChange={values => this.handleCropChange('image1', values)}
     values =
 {{
     // display values
@@ -468,7 +466,7 @@ handleChange (state, values) {
 }}
 
 />
-  <form onSubmit={this.handleCropSubmit(`${this.state.currentImageToCrop}`)}>
+  <form>
 <br></br>
   <input type="submit" name="field12" value="Crop image"  class="Save"></input>
   </form>
