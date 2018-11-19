@@ -2155,6 +2155,16 @@ justify-content: center;
 }
 
 .back-to-results-button: hover {
-    background: pink;
+  background: pink;
+}
+
+.direct-message-button{
+  display:inline-block;
+  background:none;
+  width: 100px;
+  height: 100px;
+}
+.direct-message-button.DMs{
+  background:url('./images/app_images/directmessage.png');
 }
 /* MATCH ANIMATION PAGE (End) */

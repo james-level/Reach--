@@ -36,7 +36,7 @@ class MatchAnimation extends Component {
                   <div class="z-card z-state-card-match">
                       <div class="z-card-front">
                                         <div class="z-card-photo">
-                          <img alt="" class="flex-img js-other-photo" src="https://photov3zoosk-a.akamaihd.net/00275923765941083923/s320.jpg"></img>
+                          <img alt="" class="flex-img js-other-photo" src="./images/app_images/matchanimationgirl.png"></img>
                       </div>
                       <div class="z-card-panel">
                           <ul class="edge-unit">
@@ -59,6 +59,7 @@ class MatchAnimation extends Component {
                   <div class="equal-action-container">
                       <button class="back-to-results-button">Back To Search</button>
                       <button class="back-to-results-button">View This Profile</button>
+                      <button class="direct-message-button" id="DMs"></button>
                   </div>
               </div>
           </div>
