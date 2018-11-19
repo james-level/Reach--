@@ -134,13 +134,15 @@ class ProfileSerializer(serializers.ModelSerializer):
 
             # Implementing funtionality for incrementing likes and dislikes of swiped profiles
             elif field == 'liked_profiles':
-                print("RUNNINGNGGGG")
+                instance.__setattr__('liked_profiles', validated_data.get('liked_profiles'))
+                
                 for profile in validated_data.get('liked_profiles'):
                     related_profile = UserProfile.objects.get(user=profile)
                     print("RELATED PROFILE", related_profile)
                     related_profile.likes = related_profile.likes + 1
                     related_profile.save()
             elif field == 'ignored_profiles':
+                instance.__setattr__('ignored_profiles', validated_data.get('ignored_profiles'))
                 print("RUNNINGNGGGG")
                 for profile in validated_data.get('ignored_profiles'):
                     related_profile = UserProfile.objects.get(user=profile)
