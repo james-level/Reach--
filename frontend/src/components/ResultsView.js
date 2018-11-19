@@ -232,7 +232,7 @@ console.log("Error updating likes and ignores.");
     var ignoredProfile = this.state.query_results[cardsCounter].user;
         console.log("QUERY RESULTS AT INDEX", ignoredProfile);
 
-        this.setState(
+        this.setState (
           {
           ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
         }, function(){this.saveLikesAndIgnores()})
@@ -240,6 +240,47 @@ console.log("Error updating likes and ignores.");
   }
 
 createMutualLike(liked, liker){
+
+  var self = this;
+
+  var liked = liked;
+  var liker = liker;
+
+  var username = this.props.loggedInAs;
+  var token_passed_from_main = this.props.token_to_pass_on;
+
+  const formData = new FormData();
+  formData.append(liker);
+  formData.append(liked);
+
+  var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+
+  axios.post(session_url, {
+      'username': username,
+      'password':  self.props.password
+    }).then(function(response) {
+    console.log('response:', response);
+    console.log('Obtained token. (PROFILE)');
+    var token = response.data['token']
+    axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+        "token": token,
+        'username': username,
+        'password': self.props.password
+      }).then(function(second_response) {
+  axios.patch(`http://localhost:8080/social_reach/mutual_likes/`,
+    formData
+ ,
+{ headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+ self.obtainUserPreferencesFromAPI()
+  console.log("location UPDATED");
+}).catch(function(error){
+console.log(error);
+console.log("Error updating Reach.");
+}).catch(function (error){
+console.log(error);
+})})})
+
+
 
 
 }
