@@ -1862,8 +1862,9 @@ justify-content: center;
   box-sizing: border-box;
 }
 .z-carousel.z-state-play > .mod-body {
-  background: #ebf7fc;
+  /* background: #ebf7fc; */
   border: 1px solid #cccccc;
+  box-shadow: 0px 10px 20px #2cbbad;
   margin-bottom: 78px;
 }
 .z-carousel.z-state-mutual > .mod-body {
@@ -1877,6 +1878,7 @@ justify-content: center;
   padding: 30px;
   background: #ffffff;
   position: relative;
+  box-shadow: 0px 10px 20px #2cbbad;
 }
 .z-carousel .icon-verified {
   color: #32b81c;
@@ -2133,5 +2135,26 @@ justify-content: center;
     -webkit-transform: rotate(-8.5deg) translate3d(-50%, -26px, 0);
             transform: rotate(-8.5deg) translate3d(-50%, -26px, 0);
   }
+}
+
+.back-to-results-button{
+  position: relative;
+  display: block;
+  padding: 5px 5px 5px 5px;
+  color: #FFF;
+  margin: 0 auto;
+  background: #2cbbad;
+  font-size: 2vh;
+  text-align: center;
+  font-style: normal;
+  width: 50%;
+  border: 1px solid #16a085;
+  border-width: 1px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.back-to-results-button: hover {
+    background: pink;
 }
 /* MATCH ANIMATION PAGE (End) */

@@ -18,15 +18,19 @@ class MatchAnimation extends Component {
               <div class="z-matched-content-photo-container">
                   <div class="z-card z-state-card-self">
                       <div class="z-card-photo">
-                          <img alt="" class="flex-img js-other-photo" src="http://cdn.marketplaceimages.windowsphone.com/v8/images/59fcf23e-18aa-4300-b590-065ffd4ab00c?imageType=ws_icon_large"></img>
+                          <img alt="" class="flex-img js-other-photo" src={this.props.data.picture}></img>
                       </div>
                       <div class="z-card-panel">
                           <ul class="edge-unit">
                               <li class="valign-mid">
-                                  <span class="z-card-min-info">User Name (Location)</span>
+                                  <span class="z-card-min-info">
+                                  {this.props.data.name} ({this.props.data.location})
+                                  </span>
                               </li>
                           </ul>
                       </div>
+
+
 
                   </div>
                   <div class="z-card z-state-card-match">
@@ -37,10 +41,10 @@ class MatchAnimation extends Component {
                       <div class="z-card-panel">
                           <ul class="edge-unit">
                               <li class="valign-mid">
-                                  <span class="z-card-min-info">User Name (Location)</span>
+                                  <span class="z-card-min-info">Match X (X Miles away)</span>
                               </li>
                               <li>
-                                  <span class="z-card-min-info">Age: 28</span>
+                                  <span class="z-card-min-info">Age: X</span>
                               </li>
                           </ul>
                       </div>
@@ -49,10 +53,12 @@ class MatchAnimation extends Component {
                   </div>
               </div>
 
+
+
               <div class="z-matched-content-container">
                   <div class="equal-action-container">
-                      <button class="button-v2 js-keep-playing-button" type="button">Back To Results</button>
-                      <button class="button-confirm js-view-profile-button" type="button">View This Profile</button>
+                      <button class="back-to-results-button">Back To Search</button>
+                      <button class="back-to-results-button">View This Profile</button>
                   </div>
               </div>
           </div>
