@@ -9,7 +9,7 @@ class Settings extends Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      password: this.props.password,
       login: false,
       data: {},
       min_age: this.props.data.min_age_desired,
@@ -90,6 +90,12 @@ class Settings extends Component {
     formData.append('max_distance_acceptable', max_distance);
     formData.append('looking_for', looking_for);
 
+    var token_refresh_url = 'http://localhost:8080/social_reach/auth-jwt-refresh/`';
+
+    axios.post(token_refresh_url, {'token': `${token_passed_from_main}`}).then(function(response){
+
+    var refreshed_token = response.data['token']
+    console.log("refreshed token", refreshed_token);
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       formData
    ,
@@ -103,6 +109,9 @@ class Settings extends Component {
 console.log(error);
 console.log("Error updating settings.");
 })
+}).catch(function(e){
+    console.log(e);
+  })
 
       // axios.get(filtering_url)
       // .then(res =>{
@@ -186,19 +195,16 @@ console.log("Error updating settings.");
               <div class="emoji"></div>
               <label for="toggle1" class="well"></label>
             </div>
-
             <div class="emoji-toggle emoji-lifestyle">
               <input type="checkbox" id="toggle2" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle2" class="well"></label>
             </div>
-
             <div class="emoji-toggle emoji-passtime">
               <input type="checkbox" id="toggle3" class="toggle"></input>
               <div class="emoji"></div>
               <label for="toggle3" class="well"></label>
             </div>
-
             <div class="emoji-toggle emoji-rate">
               <input type="checkbox" id="toggle5" class="toggle"></input>
               <div class="emoji"></div>

@@ -134,10 +134,7 @@ obtainUserPreferencesFromAPI(){
   distance: this.props.max_distance_acceptable,
   my_profile: this.props.loggedInAs},
   function(){this.fireSearchRequest()})
-
-
 }
-
 
   componentDidMount(evt){
 
@@ -451,8 +448,8 @@ checkForMutualLike(cardsCounter){
 
   render(){
 
-      var commaNumber = require('comma-number')
 
+      const commaNumber = require('comma-number')
       const getAge = require('get-age');
 
       if (this.state.query_results){

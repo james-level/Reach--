@@ -24,7 +24,12 @@ class Profile extends Component {
   twitter_followers(){return this.props.data.twitter_followers;}
   instagram_followers(){return this.props.data.instagram_followers;}
   youtube_followers(){return this.props.data.youtube_followers;}
-  total_reach(){return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers}
+  total_reach(){
+
+
+     return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers;
+
+   }
 
 
   componentDidMount(){
@@ -88,7 +93,7 @@ const username = this.props.loggedInAs;
         console.log(this.props.coords);
 
 
-
+    const commaNumber = require('comma-number')
 
 
 
@@ -130,7 +135,7 @@ const username = this.props.loggedInAs;
         {/* DISPLAY NAME & AGE*/}
         <fieldset>
           <legend><span class="number"></span> {this.props.data.name} ({this.props.data.location}), {age}yrs </legend>
-          <label className="total-reach" type="text">Reach: {this.total_reach()}</label>
+          <label className="total-reach" type="text">Reach: {commaNumber(this.total_reach())}</label>
         </fieldset>
 
       {/* PHOTO CAROUSEL */}
@@ -197,32 +202,22 @@ const username = this.props.loggedInAs;
           </div>
 
         </div>
-        <br></br><br></br>
-
-          {/* YES OR NO BUTTONS   */}
-
-            {/* <div class="buttonHolder">
-              <a href="#" class="button tick"></a>
-              <a href="#" class="button cross"></a>
-            </div>
- */}
 
 
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
-        <br></br><br></br><br></br>
-
+        <br></br>
         <div>
           <legend><span class="number"></span>About</legend>
           <label type="text">{this.props.data.bio}</label>
         </div>
 
-        <div>
+        {/* <div>
           <legend><span class="number"></span>Further Info:</legend>
           <label type="text">Interests: 🥃 🇬🇧 ⚽️ 🥑 😬 </label>
           <label type="text">Distance: [ x ] miles (from you)</label>
           <label type="text">Liked by: {this.props.data.likes} people</label>
         </div>
-
+ */}
 
       </div>
 
