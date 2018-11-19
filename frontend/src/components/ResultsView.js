@@ -18,8 +18,8 @@ class ResultsView extends Component {
       entered_search_query: false,
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
-      liked_profiles: this.props.data.liked_profiles,
-      ignored_profiles: this.props.data.ignored_profiles
+      liked_profiles: this.props.data.liked_profiles.length > 0 ? this.props.data.liked_profiles : [] ,
+      ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : []
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -153,7 +153,7 @@ obtainUserPreferencesFromAPI(){
   }
 
 
-  saveLikesAndIgnores(){
+  saveLikesAndIgnores(cardsCounter){
 
       console.log("Liked profiles state", this.state.liked_profiles);
 
@@ -190,6 +190,8 @@ obtainUserPreferencesFromAPI(){
    ,
  { headers: { 'Authorization': `JWT ${token_passed_from_main}`} }).then(function (response) {
 
+    self.checkForMutualLike(cardsCounter);
+
     console.log("LIKES AND IGNORES UPDATED");
 }).catch(function(error){
 console.log(error);
@@ -207,27 +209,23 @@ console.log("Error updating likes and ignores.");
 
     console.log("QUERY RESULTS AT INDEX", likedProfile);
 
-    if (this.state.liked_profiles.length === 0){
+    if (this.state.liked_profiles.length > 0){
+
     this.setState(
       {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){this.saveLikesAndIgnores()})
+    }, function(){this.saveLikesAndIgnores(cardsCounter)})
   }
 
   else {
 
     this.setState(
       {
-      liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){this.saveLikesAndIgnores()})
+      liked_profiles: [likedProfile]
+    }, function(){this.saveLikesAndIgnores(cardsCounter)})
   }
 
   }
-
-    this.checkForMutualLike(cardsCounter);
-
-  }
-
 
   handleLikeState(likedProfile){
 
