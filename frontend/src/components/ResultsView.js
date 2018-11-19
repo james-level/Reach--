@@ -183,7 +183,9 @@ obtainUserPreferencesFromAPI(){
     var request_dict = {'liked_profiles': liked_profile_ids};
   }
 
-  console.log("request dict", request_dict);
+  var cardsCounter = cardsCounter;
+
+  console.log("cardsCounter", cardsCounter);
 
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       request_dict
@@ -198,6 +200,7 @@ console.log(error);
 console.log("Error updating likes and ignores.");
 })
 }
+
 
   handleLike(cardsCounter){
 
@@ -242,12 +245,25 @@ console.log("Error updating likes and ignores.");
     var ignoredProfile = this.state.query_results[cardsCounter].user;
         console.log("QUERY RESULTS AT INDEX", ignoredProfile);
 
+        if (this.state.ignored_profiles.length > 0){
+
         this.setState (
           {
           ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
-        }, function(){this.saveLikesAndIgnores()})
+        }, function(){this.saveLikesAndIgnores(cardsCounter)})
 
-  }
+      }
+
+      else {
+
+        this.setState (
+          {
+          ignored_profiles: [ignoredProfile]
+        }, function(){this.saveLikesAndIgnores(cardsCounter)})
+
+      }
+
+      }
 
 createMutualLike(liked, liker){
 
@@ -295,17 +311,23 @@ console.log(error);
 
 checkForMutualLike(cardsCounter){
 
-  console.log("mutual lker checker in action");
+  console.log("mutual lker checker in action", cardsCounter);
 
   var likedUserId = this.state.query_results[cardsCounter];
   var likerId = this.props.data.user;
 
   console.log("LIKED", likedUserId);
 
+  if (likedUserId){
   if (likedUserId.liked_profiles.includes(likerId)){
     console.log("Liked user likes you back");
     this.createMutualLike(likedUserId, likerId)
   }
+}
+
+else {
+  return
+}
 
 }
 
