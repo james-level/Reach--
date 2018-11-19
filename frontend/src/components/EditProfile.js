@@ -423,7 +423,10 @@ console.log("Error updating Reach.");
 
     if (this.state.launchPhotoResize){
       return (
-      <div style={{height: '50%', width: '50%', justifyContent: 'center', textAlign: 'center'}}>
+        <div className="profile">
+      <div style={{marginLeft: '10%', height: '100%', width: '100%', justifyContent: 'center', textAlign: 'center'}}>
+      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.data.name}! {"Resize your image here"}</h6>
+
       <Cropper
     src={this.state.src}
     ref={ ref => { this.cropper = ref }}
@@ -445,6 +448,11 @@ console.log("Error updating Reach.");
 }}
 
 />
+  <form onSubmit={this.handleSubmit}>
+<br></br>
+  <input type="submit" name="field12" value="Crop image"  class="Save"></input>
+  </form>
+</div>
 </div>
 
 )
