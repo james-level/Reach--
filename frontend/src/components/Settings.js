@@ -9,7 +9,7 @@ class Settings extends Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      password: this.props.password,
       login: false,
       data: {},
       min_age: this.props.data.min_age_desired,

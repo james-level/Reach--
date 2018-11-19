@@ -21,14 +21,14 @@ class EditProfile extends Component {
           photo6: 'foto-upload'
         },
         username: '',
-        password: '',
+        password: this.props.password,
         login: false,
         signUpSubmit: false,
         data: {},
         activation_token: '',
         activation_user: null,
         activation_user_password: '',
-        password: '',
+        
           id: this.props.data.user,
           name: this.props.data.name,
           looking_for: this.props.data.looking_for,
@@ -66,10 +66,11 @@ class EditProfile extends Component {
           veganChecked: this.props.data.vegan,
           nonSmokingChecked: this.props.data.non_smoker,
           prefersChillToGymChecked: this.props.data.prefers_chill_to_gym,
-          childlessChecked: this.props.data.childless
-
+          childlessChecked: this.props.data.childless,
+          launchPhotoResize: false
 
         }
+
 
       this.updateReach = this.updateReach.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -431,7 +432,7 @@ console.log("Error updating Reach.");
 
     {/* BASIC INFO SECTION */}
     <fieldset>
-  
+
           <legend><span class="number"></span> Basic Info</legend>
 
           <p>Your name:</p>
