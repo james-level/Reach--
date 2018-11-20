@@ -698,11 +698,12 @@ localStorage.setItem('liked_user_location',
 JSON.stringify(this.state.liked_profile.location));
 
     return (
-
+    
     <Redirect to={{
                 pathname: '/matchanimation',
                 state: { data: this.props.data, loggedInAs: this.props.loggedInAs, likedUser: this.state.liked_profile, distance: {this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, this.state.liked_profile.latitude, this.state.liked_profile.longitude).toFixed(1)}, login: true  }
             }}
+
 
      />
 
