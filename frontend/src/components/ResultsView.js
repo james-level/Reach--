@@ -151,7 +151,8 @@ obtainUserPreferencesFromAPI(){
 
     this.setState({
     liked_profiles: this.props.data.liked_profiles,
-    ignored_profiles: this.props.data.ignored_profiles
+    ignored_profiles: this.props.data.ignored_profiles,
+    matchInProgress: false
   })
 
   }
@@ -294,6 +295,8 @@ createMutualLike(liked, liker){
 
   var liked_profile = liked;
 
+  console.log("running mutual liker creator method");
+
   var username = this.props.loggedInAs;
   var token_passed_from_main = this.props.token_to_pass_on;
 
@@ -320,10 +323,10 @@ createMutualLike(liked, liker){
  ,
 { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
  self.preAnimationLikedProfileState(liked_profile)
-  console.log("location UPDATED");
+  console.log("MUTUAL LIKE CREATED");
 }).catch(function(error){
 console.log(error);
-console.log("Error updating Reach.");
+console.log("Error making mutual like object.");
 }).catch(function (error){
 console.log(error);
 })})})
