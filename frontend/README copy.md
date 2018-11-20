@@ -1,16 +1,9 @@
-# react-instant-chat
-A simple Facebook messenger style chat application using socket.io and React
 
-See the tutorial here [https://medium.com/@coderacademy/you-can-build-an-fb-messenger-style-chat-app-with-reactjs-heres-how-intermediate-211b523838ad](https://medium.com/@coderacademy/you-can-build-an-fb-messenger-style-chat-app-with-reactjs-heres-how-intermediate-211b523838ad)
+FOR THE CHAT PART OF 'REACH' TO WORK - PLEASE Ensure that you also have the "Simple-chat-api" running as well
 
 
-To start the app, run:
-```
-npm install
-
-npm start
-```
-
-Once the webpack server has started you can access it in a browser at http://localhost:8000
-
-Ensure that you also have the [simple-chat-api](https://github.com/kentandlime/simple-chat-api) running as well
+1. Download the code from https://github.com/kentandlime/simple-chat-api
+2. cd into the directory
+3. run 'npm install'
+4. run 'npm run compile'
+5. run 'npm start'
