@@ -18,6 +18,9 @@ class MatchedProfile extends Component {
       longitude: 0,
       latitude: 0
     };
+
+    this.handleResultsClickFromMatchedProfile = this.handleResultsClickFromMatchedProfile.bind(this);
+
   }
 
   twitter_followers(){return this.props.data.twitter_followers;}
@@ -27,6 +30,16 @@ class MatchedProfile extends Component {
 
 
      return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers;
+
+   }
+
+   handleResultsClickFromMatchedProfile(){
+
+     this.setState({
+
+       resultsRedirectClicked: null
+
+     })
 
    }
 
@@ -68,6 +81,8 @@ class MatchedProfile extends Component {
 
 
       <div className="profile">
+
+       <button onClick={this.handleResultsClickFromMatchedProfile} class="back-to-results-button">Back To Results</button>
 
         {/* DISPLAY NAME & AGE*/}
         <fieldset>

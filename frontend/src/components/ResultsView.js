@@ -35,6 +35,7 @@ class ResultsView extends Component {
       this.componentDidMount = this.componentDidMount.bind(this);
       this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
       this.preAnimationLikedProfileState = this.preAnimationLikedProfileState.bind(this);
+      
   }
 
 
@@ -43,6 +44,7 @@ class ResultsView extends Component {
        [evt.target.name]: parseInt(evt.target.value)
      })
   }
+
 
   approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
 
