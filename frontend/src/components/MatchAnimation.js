@@ -10,7 +10,7 @@ class MatchAnimation extends Component {
 
             console.log("MATCH ANIMATION RUNNING RENDER");
 
-          if (this.props.loggedInAs && this.props.likedUser){
+          if (this.props.loggedInAs && localStorage.getItem('liked_profile')){
 
             return (
               <div class="z-carousel z-state-matched z-state-reveal-match">

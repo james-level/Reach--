@@ -681,14 +681,18 @@ else {
   if (this.state.matchInProgress === true){
 
     console.log("CONDITIONAL RENDER FOR MATCH IN PROGRESS BEING EXECUTED");
+    console.log("LIKED PROFILE STATE", this.state.liked_profile);
+
+    localStorage.setItem('liked_profile',
+  JSON.stringify(this.state.liked_profile));
+
     return (
 
-    <MatchAnimation
+    <Redirect to='/matchanimation'
 
-     data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.likedProfile} login= {true}
-     >
+     data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} login= {true}
 
-    </MatchAnimation>
+     />
 
     )
   }
