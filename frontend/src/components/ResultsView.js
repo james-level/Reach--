@@ -31,9 +31,8 @@ class ResultsView extends Component {
       this.handleLike = this.handleLike.bind(this);
       this.handleIgnore = this.handleIgnore.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
-      this.handleLikeState = this.handleLikeState.bind(this);
-      this.handleIgnoreState = this.handleIgnoreState.bind(this);
       this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
+      this.preAnimationLikedProfileState = this.preAnimationLikedProfileState.bind(this);
   }
 
 
@@ -265,14 +264,25 @@ console.log("Error updating likes and ignores.");
 
       }
 
-launchMatchAnimation(liked_profile){
+launchMatchAnimation(){
 
   this.setState({
 
-    matchInProgress: true,
-    liked_profile: liked_profile
+    matchInProgress: true
 
   })
+}
+
+preAnimationLikedProfileState(liked_profile){
+
+  this.setState({
+
+    liked_profile: liked_profile
+
+  }, function(){
+    this.launchMatchAnimation()
+  }
+)
 }
 
 createMutualLike(liked, liker){
@@ -309,7 +319,7 @@ createMutualLike(liked, liker){
     formData
  ,
 { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
- self.launchMatchAnimation(liked_profile)
+ self.preAnimationLikedProfileState(liked_profile)
   console.log("location UPDATED");
 }).catch(function(error){
 console.log(error);
@@ -664,7 +674,7 @@ else {
   if (this.state.matchInProgress === true){
     return (
 
-      <MatchAnimation loggedInAs={this.state.loggedInAs}>
+      <MatchAnimation loggedInAs={this.state.loggedInAs} likedUser={this.state.likedUser}>
       </MatchAnimation>
 
     )
