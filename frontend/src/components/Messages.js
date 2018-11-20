@@ -1,28 +1,17 @@
-import React, { Component } from "react";
+import React from 'react';
 
+import Message from './Message';
 
-class Messages extends Component {
-  constructor(props) {
-    super(props);
+// This is the main display of the application. It shows a list of all the
+// messages which have been sent and received during the current chat session.
+class Messages extends React.Component {
+  render() {
+    // Here we should loop through each message and
+    // pass it to the Message component
+  }
+}
 
-    };
-
-      render() {
-
-        if (!this.props.loggedInAs){
-          return (
-            <div className="center"> Oops! You need to log in </div>
-          )
-        }
-
-        else{
-        return(
-
-          <div>
-            <img class="chat_placeholder" src="./images/app_images/chat.jpg"/>
-          </div>
-
-  )}}}
-
+Messages.defaultProps = {
+};
 
 export default Messages;

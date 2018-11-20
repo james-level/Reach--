@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Main from './components/Main';
+require('../styles/App.css');
+require('../styles/Login.css');
 
 class App extends Component {
   render() {
@@ -8,5 +10,6 @@ class App extends Component {
     )
   }
 }
-
+App.defaultProps = {
+};
 export default App;
