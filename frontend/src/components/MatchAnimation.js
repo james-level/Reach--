@@ -15,6 +15,7 @@ class MatchAnimation extends Component {
     }
 
     this.handleResultsClick = this.handleResultsClick.bind(this);
+    this.handleViewProfileClick = this.handleViewProfileClick.bind(this);
 
     };
 
@@ -49,7 +50,7 @@ class MatchAnimation extends Component {
             console.log("liked user PICTURE", localStorage.getItem('liked_user_picture'));
             console.log("LIKER user PICTURE", this.props.data.picture);
 
-          if (this.props.loggedInAs && localStorage.getItem('liked_profile') && !this.state.resultsRedirectClicked){
+          if (this.props.loggedInAs && localStorage.getItem('liked_profile') && !this.state.resultsRedirectClicked && !this.state.viewProfileClicked){
 
             return (
               <div class="z-carousel z-state-matched z-state-reveal-match">
