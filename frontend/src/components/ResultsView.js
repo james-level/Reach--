@@ -692,6 +692,9 @@ JSON.stringify(this.state.liked_profile.picture));
 localStorage.setItem('liked_user_name',
 JSON.stringify(this.state.liked_profile.name));
 
+localStorage.setItem('liked_user_location',
+JSON.stringify(this.state.liked_profile.location));
+
     return (
 
     <Redirect to='/matchanimation'
