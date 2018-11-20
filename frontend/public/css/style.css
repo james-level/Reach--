@@ -901,69 +901,6 @@ Stacked {
 /* YES OR NO BUTTONS (UNDER PROFILE IMAGES) END */
 
 
-/*  PULSING 'REACH CIRCLE' BEGINS HERE */
-
-
-.pulsating-circle {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  width: 60px;
-  height: 60px;
-  background-color: white;
-}
-.pulsating-circle:before {
-  content: "";
-  position: relative;
-  display: block;
-  width: 300%;
-  height: 300%;
-  box-sizing: border-box;
-  margin-left: -100%;
-  margin-top: -100%;
-  border-radius: 90px;
-  /* background-color: #CC3333;     <- RED*/
-  background-color: #2cbbad;
-  animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-}
-.pulsating-circle:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: #993333;
-  /* background: url('/images/app_images/Reach_Logo.png') no-repeat;  <- RED Logo*/
-  background: url('/images/app_images/update1.png') no-repeat;
-  background-size:cover;
-  border-radius: 40px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.33);
-  }
-  80%, 100% {
-    opacity: 0;
-  }
-}
-@keyframes pulse-dot {
-  0% {
-    transform: scale(0.8);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0.8);
-  }
-}
-/* PULSING REACH CIRCLE ENDS HERE */
 
 
 
@@ -1119,7 +1056,7 @@ Stacked {
   opacity: 0;
 }
 
-/* 'Yes'/green option  */
+/* SWIPE: 'Yes'/green option  */
 #yes_radio:checked {
   background: red;
 }
@@ -1129,7 +1066,7 @@ Stacked {
   box-shadow: 0 0 0.2rem 0.1rem #008000 inset, 0 0 0.2rem 0.1rem #008000;
   left: -0.4rem;
 }
-/* 'No'/red option */
+/* SWIPE: 'No'/red option */
 #no_radio:checked {
   background: red;
 }
@@ -1139,7 +1076,7 @@ Stacked {
   box-shadow: 0 0 0.2rem 0.1rem #ff0000 inset, 0 0 0.2rem 0.1rem #ff0000;
   left: 7.6rem;
 }
-/* middle option */
+/* SWIPE: middle option */
 #maybe_radio, #maybe-lbl {
   left: 33.3333333333%;
 }
@@ -1401,21 +1338,7 @@ input[type=range]:focus::-ms-fill-upper {
   height: 20.5rem;
   padding-top: 4rem;
 }
-/* .demo__card__top.purple {
-  background: #7132b9;
-}
-.demo__card__top.blue {
-  background: #248cb6;
-}
-.demo__card__top.indigo {
-  background: #303f9f;
-}
-.demo__card__top.cyan {
-  background: #26c6da;
-}
-.demo__card__top.lime {
-  background: #afb42b;
-} */
+
 .demo__card__top
  {
   background: white;
@@ -1427,8 +1350,6 @@ input[type=range]:focus::-ms-fill-upper {
   margin: 0 auto 1.5rem;
   border-radius: 50%;
   border: 0.5rem solid #fff;
-  /* background-image: url('//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg'); */
-  /* background-size: cover; */
 }
 .demo__card__name {
   text-align: center;
@@ -1671,12 +1592,6 @@ justify-content: center;
   50% {transform: scale(1.1);}
   100% {transform: scale(1);}
 }
-/* @keyframes bounce {
-  0% {transform: scale(1);}
-  50% {transform: scale(1.1);}
-  100% {transform: scale(1);}
-} */
-/*  USER SECTION END */
 
 
 

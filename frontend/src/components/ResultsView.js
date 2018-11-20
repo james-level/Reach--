@@ -26,6 +26,7 @@ class ResultsView extends Component {
       liked_profile: null
     };
 
+
       this.handleChange = this.handleChange.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
       this.swipdeDeck = this.swipdeDeck.bind(this);
@@ -34,6 +35,8 @@ class ResultsView extends Component {
       this.componentDidMount = this.componentDidMount.bind(this);
       this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
       this.preAnimationLikedProfileState = this.preAnimationLikedProfileState.bind(this);
+      this.resetMatchingState = this.resetMatchingState.bind(this);
+
   }
 
 
@@ -42,6 +45,7 @@ class ResultsView extends Component {
        [evt.target.name]: parseInt(evt.target.value)
      })
   }
+
 
   approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
 
@@ -63,6 +67,7 @@ class ResultsView extends Component {
     return distance
 
   }
+
 
   fireSearchRequest(){
 
@@ -156,6 +161,13 @@ obtainUserPreferencesFromAPI(){
     matchInProgress: false
   })
 
+  }
+
+  resetMatchingState(){
+
+    this.setState({
+      matchInProgress: false
+    })
   }
 
 
@@ -698,9 +710,9 @@ JSON.stringify(this.state.liked_profile.location));
 
     return (
 
-    <Redirect to='/matchanimation'
+    <MatchAnimation
 
-     data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} login= {true}
+     resetMatchingState={this.resetMatchingState} data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} distance={this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, this.state.liked_profile.latitude, this.state.liked_profile.longitude).toFixed(1)} login= {true}
 
      />
 
@@ -711,7 +723,7 @@ else {
   return (
 
       <Indicator/>
-      
+
     )
 }
 
