@@ -6,7 +6,7 @@ INSTRUCTIONS:
 
 At base level of directory (Reach):
 
-sudo pip install Django
+'''sudo pip install Django'''
 
 pip install Pillow
 
