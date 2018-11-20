@@ -51,7 +51,18 @@ class Main extends Component {
     this.get_reset_token = this.get_reset_token.bind(this)
     this.handleLoginFromRegistrationSubmit = this.handleLoginFromRegistrationSubmit.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
+    this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
+    this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
     console.log(this.props.coords);
+  }
+
+  usernameChangeHandler(event) {
+    this.setState({ username: event.target.value });
+  }
+
+  usernameSubmitHandler(event) {
+    event.preventDefault();
+    this.setState({ submitted: true, loggedInAs: this.state.loggedInAs });
   }
 
 get_uniqueID(uid){
@@ -283,7 +294,8 @@ console.log("Error resetting password");
                 <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
-                <Route path="/ChatApp" render={(props) =>  <ChatApp data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
+                <Route path="/ChatApp" render={(props) =>  <ChatApp data={this.state.data} username={this.state.loggedInAs}  loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
+
 
               </React.Fragment>
             </Router>
@@ -325,7 +337,7 @@ console.log("Error resetting password");
           <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data}  logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-          <Route path="/ChatApp" render={(props) =>  <ChatApp data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
+          <Route path="/ChatApp" render={(props) =>  <ChatApp data={this.state.data} username={this.state.loggedInAs}  loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
 
         </React.Fragment>
       </Router>
