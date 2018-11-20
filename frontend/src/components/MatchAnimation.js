@@ -119,7 +119,8 @@ class MatchAnimation extends Component {
 
   if (this.state.viewProfileClicked === true){
     console.log("LIKED PROF PROPS", this.props.likedUser);
-   return <Redirect to='/matchedprofile' loggedInAs={this.props.loggedInAs} data={this.props.likedUser} distance={this.props.distance} login= {true}/>
+
+   return <MatchedProfile loggedInAs={this.props.loggedInAs} data={this.props.likedUser} distance={this.props.distance} login= {true}/>
   }
 
   else {
