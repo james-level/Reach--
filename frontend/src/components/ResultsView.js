@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import $ from 'jquery';
 import StackedBar from './Stacked';
-import MatchAnimation from './MatchAnimation';
-
+import { Redirect } from 'react-router-dom'
 
 class ResultsView extends Component {
   constructor(props) {
@@ -267,6 +266,8 @@ console.log("Error updating likes and ignores.");
 
 launchMatchAnimation(){
 
+  console.log('MATCH IN PROGRESS BEING SET TO TRUE');
+
   this.setState({
 
     matchInProgress: true
@@ -275,6 +276,8 @@ launchMatchAnimation(){
 }
 
 preAnimationLikedProfileState(liked_profile){
+
+  console.log('setting state for liked profile!!');
 
   this.setState({
 
@@ -510,7 +513,7 @@ else {
 
   render(){
 
-
+      console.log("MATCH IN PROGRESS STATE IS", this.state.matchInProgress);
       const commaNumber = require('comma-number')
       const getAge = require('get-age');
 
@@ -675,10 +678,11 @@ else {
   )}
 
   if (this.state.matchInProgress === true){
+
+    console.log("CONDITIONAL RENDER FOR MATCH IN PROGRESS BEING EXECUTED");
     return (
 
-      <MatchAnimation loggedInAs={this.state.loggedInAs} likedUser={this.state.likedUser}>
-      </MatchAnimation>
+    <Redirect to='/matchanimation' data={this.props.data} loggedInAs={this.state.username} likedUser={this.state.likedProfile} login= {true}/>
 
     )
   }

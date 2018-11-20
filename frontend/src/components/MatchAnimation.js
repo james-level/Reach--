@@ -8,6 +8,8 @@ class MatchAnimation extends Component {
 
         render() {
 
+            console.log("MATCH ANIMATION RUNNING RENDER");
+
           if (this.props.loggedInAs && this.props.likedUser){
 
             return (
