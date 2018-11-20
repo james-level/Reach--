@@ -1,5 +1,7 @@
 import React from 'react';
 
+
+
 class ChatInput extends React.Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,7 @@ class ChatInput extends React.Component {
     this.submitHandler = this.submitHandler.bind(this);
     this.textChangeHandler = this.textChangeHandler.bind(this);
   }
-  
+
   submitHandler(event) {
     // Stop the form from refreshing the page on submit
     event.preventDefault();
@@ -31,8 +33,10 @@ class ChatInput extends React.Component {
         <input type="text"
           onChange={this.textChangeHandler}
           value={this.state.chatInput}
-          placeholder="Write a message..."
-          required />
+          placeholder="Go on - slide into thier DM's..."
+          required
+          // data-emojiable="true"
+          />
       </form>
     );
   }

@@ -45,7 +45,7 @@ class ChatApp extends React.Component {
   render() {
     return (
       <div className="container">
-        <h3 className="chat">Reach Chat...slide into those DM's</h3>
+        <h3 className="chat">Reach Chat 💬</h3>
         <Messages messages={this.state.messages} />
         <ChatInput onSend={this.sendHandler} />
       </div>
