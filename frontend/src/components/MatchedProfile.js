@@ -210,4 +210,4 @@ export default geolocated({
     enableHighAccuracy: false,
   },
   userDecisionTimeout: 5000,
-})(Profile);
+})(MatchedProfile);

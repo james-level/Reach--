@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
+import MatchedProfile from './MatchedProfile.js'
 
 
 class MatchAnimation extends Component {
@@ -8,7 +9,8 @@ class MatchAnimation extends Component {
 
     this.state = {
 
-      resultsRedirectClicked: null
+      resultsRedirectClicked: null,
+      viewProfileClicked: null
 
     }
 
@@ -21,6 +23,16 @@ class MatchAnimation extends Component {
       this.setState({
 
         resultsRedirectClicked: true
+
+      })
+
+    }
+
+    handleViewProfileClick(){
+
+      this.setState({
+
+        viewProfileClicked: true
 
       })
 
@@ -90,7 +102,7 @@ class MatchAnimation extends Component {
               <div class="z-matched-content-container">
                   <div class="equal-action-container">
                       <button onClick={this.handleResultsClick} class="back-to-results-button">Back To Search</button>
-                      <button class="back-to-results-button">View This Profile</button>
+                      <button onClick={this.handleViewProfileClick} class="back-to-results-button">View Their Profile</button>
                   </div>
               </div>
           </div>
