@@ -19,7 +19,8 @@ class ResultsView extends Component {
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
       liked_profiles: this.props.data.liked_profiles.length > 0 ? this.props.data.liked_profiles : [] ,
-      ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : []
+      ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : [],
+      matchInProgress: false
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -30,6 +31,7 @@ class ResultsView extends Component {
       this.componentDidMount = this.componentDidMount.bind(this);
       this.handleLikeState = this.handleLikeState.bind(this);
       this.handleIgnoreState = this.handleIgnoreState.bind(this);
+      this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
   }
 
   handleChange(evt){
@@ -232,13 +234,6 @@ console.log("Error updating likes and ignores.");
 
   }
 
-  handleLikeState(likedProfile){
-
-  }
-
-  handleIgnoreState(ignoredProfile){
-
-  }
 
   handleIgnore(cardsCounter){
 
@@ -266,6 +261,15 @@ console.log("Error updating likes and ignores.");
       }
 
       }
+
+launchMatchAnimation(){
+
+  this.setState({
+
+    matchInProgress: true
+
+  })
+}
 
 createMutualLike(liked, liker){
 
@@ -299,7 +303,7 @@ createMutualLike(liked, liker){
     formData
  ,
 { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
- self.obtainUserPreferencesFromAPI()
+ self.launchMatchAnimation()
   console.log("location UPDATED");
 }).catch(function(error){
 console.log(error);
