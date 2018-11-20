@@ -11,6 +11,7 @@ import EditProfile from "./EditProfile";
 import Loading from "./Loading";
 import Messages from "./Messages";
 import MatchAnimation from "./MatchAnimation"
+import MatchedProfile from "./MatchedProfile"
 import UserSection from "./UserSection";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
@@ -282,6 +283,7 @@ console.log("Error resetting password");
                 <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login={this.state.login} />} />
                 <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} likedUser={null} login= {this.state.login} picture={this.state.data.picture}/>} />
+                <Route path="/matchedprofile" render={(props) => <MatchedProfile /> } />
 
               </React.Fragment>
             </Router>
@@ -323,6 +325,7 @@ console.log("Error resetting password");
           <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data}  logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} likedUser={null} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/matchedprofile" render={(props) => <MatchedProfile /> } />
 
         </React.Fragment>
       </Router>
