@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import $ from 'jquery';
 import StackedBar from './Stacked';
+import MatchAnimation from './MatchAnimation';
 import { Redirect } from 'react-router-dom'
 
 class ResultsView extends Component {
@@ -530,7 +531,7 @@ else {
 
         }
 
-      if (this.state.query_results) {
+      if (this.state.query_results && this.state.matchInProgress === false) {
 
         return(
         <div className="container">
@@ -682,7 +683,12 @@ else {
     console.log("CONDITIONAL RENDER FOR MATCH IN PROGRESS BEING EXECUTED");
     return (
 
-    <Redirect to='/matchanimation' data={this.props.data} loggedInAs={this.state.username} likedUser={this.state.likedProfile} login= {true}/>
+    <MatchAnimation
+
+     data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.likedProfile} login= {true}
+     >
+
+    </MatchAnimation>
 
     )
   }
