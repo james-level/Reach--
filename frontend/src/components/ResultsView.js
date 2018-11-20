@@ -3,6 +3,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import StackedBar from './Stacked';
 import MatchAnimation from './MatchAnimation';
+import Indicator from './Indicator';
 import { Redirect } from 'react-router-dom'
 
 class ResultsView extends Component {
@@ -708,13 +709,9 @@ JSON.stringify(this.state.liked_profile.location));
 
 else {
   return (
-    <div class="loader">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+
+      <Indicator/>
+      
     )
 }
 
