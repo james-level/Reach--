@@ -1,28 +1,36 @@
-import React, { Component } from "react";
+import React from 'react';
 
+import Message from './Message';
 
-class Messages extends Component {
-  constructor(props) {
-    super(props);
+class Messages extends React.Component {
+  componentDidUpdate() {
+    // There is a new message in the state, scroll to bottom of list
+    const objDiv = document.getElementById('messageList');
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }
 
-    };
+  render() {
+    // Loop through all the messages in the state and create a Message component
+    const messages = this.props.messages.map((message, i) => {
+        return (
+          <Message
+            key={i}
+            username={message.username}
+            message={message.message}
+            fromMe={message.fromMe} />
+        );
+      });
 
-      render() {
+    return (
+      <div className='messages' id='messageList'>
+        { messages }
+      </div>
+    );
+  }
+}
 
-        if (!this.props.loggedInAs){
-          return (
-            <div className="center"> Oops! You need to log in </div>
-          )
-        }
-
-        else{
-        return(
-
-          <div>
-            <img class="chat_placeholder" src="./images/app_images/chat.jpg"/>
-          </div>
-
-  )}}}
-
+Messages.defaultProps = {
+  messages: []
+};
 
 export default Messages;

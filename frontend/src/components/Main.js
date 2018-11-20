@@ -10,6 +10,7 @@ import PasswordReset from "./PasswordReset";
 import EditProfile from "./EditProfile";
 import Loading from "./Loading";
 import Messages from "./Messages";
+import ChatApp from "./ChatApp";
 import MatchAnimation from "./MatchAnimation"
 import UserSection from "./UserSection";
 import axios from 'axios';
@@ -282,6 +283,7 @@ console.log("Error resetting password");
                 <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
+                <Route path="/ChatApp" render={(props) =>  <ChatApp data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
 
               </React.Fragment>
             </Router>
@@ -323,6 +325,7 @@ console.log("Error resetting password");
           <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data}  logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/ChatApp" render={(props) =>  <ChatApp data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
 
         </React.Fragment>
       </Router>
