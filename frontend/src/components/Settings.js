@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import $ from 'jquery';
 import StackedBar from './Stacked';
+import Indicator from './Indicator';
 import { Redirect } from 'react-router-dom'
 
 class Settings extends Component {
@@ -346,14 +347,11 @@ else if (!this.props.loggedInAs) {return (
   )}
 
 else if (this.state.submitted === true){
+  
   return(
-  <div class="loader">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+
+  <Indicator />
+
 )
 }
 
