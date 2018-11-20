@@ -290,14 +290,14 @@ preAnimationLikedProfileState(liked_profile){
 )
 }
 
-createMutualLike(liked, liker){
+createMutualLike(likedProfile, liker){
 
   var self = this;
 
-  var liked = liked.user;
+  var liked = likedProfile.user;
   var liker = liker;
 
-  var liked_profile = liked;
+  var liked_profile = likedProfile;
 
   console.log("running mutual liker creator method");
 
@@ -685,6 +685,12 @@ else {
 
     localStorage.setItem('liked_profile',
   JSON.stringify(this.state.liked_profile));
+
+  localStorage.setItem('liked_user_picture',
+JSON.stringify(this.state.liked_profile.picture));
+
+localStorage.setItem('liked_user_name',
+JSON.stringify(this.state.liked_profile.name));
 
     return (
 
