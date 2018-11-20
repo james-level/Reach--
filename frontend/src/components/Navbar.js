@@ -25,9 +25,6 @@ class Navbar extends Component {
           <Link to="/messages"><img src="/images/app_images/messagesicon.svg" alt="message icon" width="40" height="40"></img></Link>
         </li>
         <li>
-          <Link to="/matchanimation"><img src="/images/app_images/match.svg" alt="match icon" width="40" height="40"></img></Link>
-        </li>
-        <li>
           <Link to="/" onClick={this.props.logout}><img src="/images/app_images/loginicon.svg" alt="exit icon" width="40" height="40"></img></Link>
         </li>
       </ul>
