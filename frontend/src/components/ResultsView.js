@@ -214,6 +214,8 @@ console.log("Error updating likes and ignores.");
 
     if (this.state.liked_profiles.length > 0){
 
+      console.log("HEREEEEEE");
+
     this.setState(
       {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
