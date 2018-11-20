@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import $ from 'jquery';
 import StackedBar from './Stacked';
+import MatchAnimation from './MatchAnimation';
 
 
 class ResultsView extends Component {
@@ -20,7 +21,8 @@ class ResultsView extends Component {
       distance: this.props.data.max_distance_acceptable,
       liked_profiles: this.props.data.liked_profiles.length > 0 ? this.props.data.liked_profiles : [] ,
       ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : [],
-      matchInProgress: false
+      matchInProgress: false,
+      liked_profile: null
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -33,6 +35,7 @@ class ResultsView extends Component {
       this.handleIgnoreState = this.handleIgnoreState.bind(this);
       this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
   }
+
 
   handleChange(evt){
      this.setState({
@@ -262,11 +265,12 @@ console.log("Error updating likes and ignores.");
 
       }
 
-launchMatchAnimation(){
+launchMatchAnimation(liked_profile){
 
   this.setState({
 
-    matchInProgress: true
+    matchInProgress: true,
+    liked_profile: liked_profile
 
   })
 }
@@ -277,6 +281,8 @@ createMutualLike(liked, liker){
 
   var liked = liked.user;
   var liker = liker;
+
+  var liked_profile = liked;
 
   var username = this.props.loggedInAs;
   var token_passed_from_main = this.props.token_to_pass_on;
@@ -303,7 +309,7 @@ createMutualLike(liked, liker){
     formData
  ,
 { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
- self.launchMatchAnimation()
+ self.launchMatchAnimation(liked_profile)
   console.log("location UPDATED");
 }).catch(function(error){
 console.log(error);
@@ -654,6 +660,15 @@ else {
 
 
   )}
+
+  if (this.state.matchInProgress === true){
+    return (
+
+      <MatchAnimation loggedInAs={this.state.loggedInAs}>
+      </MatchAnimation>
+
+    )
+  }
 
 else {
   return (

@@ -8,7 +8,7 @@ class MatchAnimation extends Component {
 
         render() {
 
-          if (this.props.loggedInAs){
+          if (this.props.loggedInAs && this.props.likedUser){
 
             return (
               <div class="z-carousel z-state-matched z-state-reveal-match">
