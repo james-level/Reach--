@@ -35,7 +35,8 @@ class ResultsView extends Component {
       this.componentDidMount = this.componentDidMount.bind(this);
       this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
       this.preAnimationLikedProfileState = this.preAnimationLikedProfileState.bind(this);
-      
+      this.resetMatchingState = this.resetMatchingState.bind(this);
+
   }
 
 
@@ -66,6 +67,7 @@ class ResultsView extends Component {
     return distance
 
   }
+
 
   fireSearchRequest(){
 
@@ -159,6 +161,13 @@ obtainUserPreferencesFromAPI(){
     matchInProgress: false
   })
 
+  }
+
+  resetMatchingState(){
+
+    this.setState({
+      matchInProgress: false
+    })
   }
 
 
@@ -703,7 +712,7 @@ JSON.stringify(this.state.liked_profile.location));
 
     <MatchAnimation
 
-     data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} distance={this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, this.state.liked_profile.latitude, this.state.liked_profile.longitude).toFixed(1)} login= {true}
+     resetMatchingState={this.resetMatchingState} data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} distance={this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, this.state.liked_profile.latitude, this.state.liked_profile.longitude).toFixed(1)} login= {true}
 
      />
 

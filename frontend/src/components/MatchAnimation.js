@@ -111,7 +111,6 @@ class MatchAnimation extends Component {
       </div>
 
     )
-
   }
 
   if (this.state.resultsRedirectClicked === true){
@@ -123,9 +122,7 @@ class MatchAnimation extends Component {
 
    return (
 
-
-   <MatchedProfile loggedInAs={this.props.loggedInAs} data={this.props.likedUser} distance={this.props.distance} login= {true}/>
-
+   <MatchedProfile resetMatchingState={this.props.resetMatchingState} loggedInAs={this.props.loggedInAs} data={this.props.likedUser} distance={this.props.distance} login= {true}/>
 
  )
 

@@ -19,8 +19,6 @@ class MatchedProfile extends Component {
       latitude: 0
     };
 
-    this.handleResultsClickFromMatchedProfile = this.handleResultsClickFromMatchedProfile.bind(this);
-
   }
 
   twitter_followers(){return this.props.data.twitter_followers;}
@@ -33,15 +31,6 @@ class MatchedProfile extends Component {
 
    }
 
-   handleResultsClickFromMatchedProfile(){
-
-     this.setState({
-
-       resultsRedirectClicked: null
-
-     })
-
-   }
 
   render(){
 
@@ -82,7 +71,7 @@ class MatchedProfile extends Component {
 
       <div className="profile">
 
-       <button onClick={this.handleResultsClickFromMatchedProfile} class="back-to-results-button">Back To Results</button>
+       <button onClick={this.props.resetMatchingState} class="back-to-results-button">Back To Results</button>
 
         {/* DISPLAY NAME & AGE*/}
         <fieldset>
