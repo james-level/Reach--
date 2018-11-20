@@ -1,10 +1,30 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom'
+
 
 class MatchAnimation extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+
+      resultsRedirectClicked: null
+
+    }
+
+    this.handleResultsClick = this.handleResultsClick.bind(this);
+
     };
+
+    handleResultsClick(){
+
+      this.setState({
+
+        resultsRedirectClicked: true
+
+      })
+
+    }
 
     removeQuotationMarksFromLikedUserPhoto(){
       console.log("formatted photo", localStorage.getItem('liked_user_picture').replace(/^"(.*)"$/, '$1'));
@@ -17,7 +37,7 @@ class MatchAnimation extends Component {
             console.log("liked user PICTURE", localStorage.getItem('liked_user_picture'));
             console.log("LIKER user PICTURE", this.props.data.picture);
 
-          if (this.props.loggedInAs && localStorage.getItem('liked_profile')){
+          if (this.props.loggedInAs && localStorage.getItem('liked_profile') && !this.state.resultsRedirectClicked){
 
             return (
               <div class="z-carousel z-state-matched z-state-reveal-match">
@@ -69,7 +89,7 @@ class MatchAnimation extends Component {
 
               <div class="z-matched-content-container">
                   <div class="equal-action-container">
-                      <button class="back-to-results-button">Back To Search</button>
+                      <button onClick={this.handleResultsClick} class="back-to-results-button">Back To Search</button>
                       <button class="back-to-results-button">View This Profile</button>
                   </div>
               </div>
@@ -79,6 +99,11 @@ class MatchAnimation extends Component {
     )
 
   }
+
+  if (this.state.resultsRedirectClicked === true){
+   return <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+  }
+
   else {
     return <div className="center"> Oops! Sorry - You need to log in  </div>
   }
