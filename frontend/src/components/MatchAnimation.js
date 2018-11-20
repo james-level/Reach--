@@ -116,6 +116,10 @@ class MatchAnimation extends Component {
    return <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
   }
 
+  if (this.state.viewProfileClicked === true){
+   return <MatchedProfile data={this.props.likedProfile} loggedInAs={this.state.username} login= {true}/>
+  }
+
   else {
     return <div className="center"> Oops! Sorry - You need to log in  </div>
   }

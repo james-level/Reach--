@@ -199,7 +199,6 @@ const username = this.props.loggedInAs;
     <div className="container">
     {post}
     </div>
-
     )
   }
 }

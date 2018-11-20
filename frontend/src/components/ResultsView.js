@@ -26,6 +26,7 @@ class ResultsView extends Component {
       liked_profile: null
     };
 
+
       this.handleChange = this.handleChange.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
       this.swipdeDeck = this.swipdeDeck.bind(this);
@@ -698,7 +699,7 @@ JSON.stringify(this.state.liked_profile.location));
 
     return (
 
-    <Redirect to='/matchanimation'
+    <MatchAnimation
 
      data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} login= {true}
 
@@ -711,7 +712,7 @@ else {
   return (
 
       <Indicator/>
-      
+
     )
 }
 
