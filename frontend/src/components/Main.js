@@ -283,7 +283,7 @@ console.log("Error resetting password");
                 <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login={this.state.login} />} />
                 <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} likedUser={null} login= {this.state.login} picture={this.state.data.picture}/>} />
-                <Route path="/matchedprofile" render={(props) => <MatchedProfile /> } />
+                <Route path="/matchedprofile" render={(props) => <MatchedProfile loggedInAs={this.state.loggedInAs} data={null} distance={null} login= {true} /> } />
 
               </React.Fragment>
             </Router>
@@ -325,7 +325,7 @@ console.log("Error resetting password");
           <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data}  logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} likedUser={null} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-          <Route path="/matchedprofile" render={(props) => <MatchedProfile /> } />
+          <Route path="/matchedprofile" render={(props) => <MatchedProfile loggedInAs={this.state.loggedInAs} data={null} distance={null} login= {true} /> } />
 
         </React.Fragment>
       </Router>

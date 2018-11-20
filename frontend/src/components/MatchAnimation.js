@@ -114,7 +114,7 @@ class MatchAnimation extends Component {
   }
 
   if (this.state.resultsRedirectClicked === true){
-   return <Redirect to='/results' data={this.props.data} loggedInAs={this.state.username} login= {true}/>
+   return <Redirect to='/results' data={this.props.data} loggedInAs={this.props.loggedInAs} login= {true}/>
   }
 
   if (this.state.viewProfileClicked === true){
