@@ -10,6 +10,7 @@ import PasswordReset from "./PasswordReset";
 import EditProfile from "./EditProfile";
 import Loading from "./Loading";
 import Messages from "./Messages";
+import ChatApp from "./ChatApp";
 import MatchAnimation from "./MatchAnimation"
 import MatchedProfile from "./MatchedProfile"
 import UserSection from "./UserSection";
@@ -51,7 +52,18 @@ class Main extends Component {
     this.get_reset_token = this.get_reset_token.bind(this)
     this.handleLoginFromRegistrationSubmit = this.handleLoginFromRegistrationSubmit.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
+    this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
+    this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
     console.log(this.props.coords);
+  }
+
+  usernameChangeHandler(event) {
+    this.setState({ username: event.target.value });
+  }
+
+  usernameSubmitHandler(event) {
+    event.preventDefault();
+    this.setState({ submitted: true, loggedInAs: this.state.loggedInAs });
   }
 
 get_uniqueID(uid){
@@ -282,8 +294,10 @@ console.log("Error resetting password");
                 <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} login={this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
                 <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login={this.state.login} />} />
                 <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/ChatApp" render={(props) =>  <ChatApp data={this.state.data} username={this.state.loggedInAs}  loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
                 <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} likedUser={null} login= {this.state.login} picture={this.state.data.picture}/>} />
                 <Route path="/matchedprofile" render={(props) => <MatchedProfile loggedInAs={this.state.loggedInAs} data={this.state.data} distance={null} login= {true} /> } />
+
 
               </React.Fragment>
             </Router>
@@ -326,6 +340,7 @@ console.log("Error resetting password");
           <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} likedUser={null} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/matchedprofile" render={(props) => <MatchedProfile loggedInAs={this.state.loggedInAs} data={null} distance={null} login= {true} /> } />
+
 
         </React.Fragment>
       </Router>
