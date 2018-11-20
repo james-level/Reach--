@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from 'axios';
 import $ from 'jquery';
 import StackedBar from './Stacked';
-
+import MatchAnimation from './MatchAnimation';
+import Indicator from './Indicator';
+import { Redirect } from 'react-router-dom'
 
 class ResultsView extends Component {
   constructor(props) {
@@ -19,7 +21,9 @@ class ResultsView extends Component {
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
       liked_profiles: this.props.data.liked_profiles.length > 0 ? this.props.data.liked_profiles : [] ,
-      ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : []
+      ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : [],
+      matchInProgress: false,
+      liked_profile: null
     };
 
       this.handleChange = this.handleChange.bind(this);
@@ -28,9 +32,10 @@ class ResultsView extends Component {
       this.handleLike = this.handleLike.bind(this);
       this.handleIgnore = this.handleIgnore.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
-      this.handleLikeState = this.handleLikeState.bind(this);
-      this.handleIgnoreState = this.handleIgnoreState.bind(this);
+      this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
+      this.preAnimationLikedProfileState = this.preAnimationLikedProfileState.bind(this);
   }
+
 
   handleChange(evt){
      this.setState({
@@ -147,7 +152,8 @@ obtainUserPreferencesFromAPI(){
 
     this.setState({
     liked_profiles: this.props.data.liked_profiles,
-    ignored_profiles: this.props.data.ignored_profiles
+    ignored_profiles: this.props.data.ignored_profiles,
+    matchInProgress: false
   })
 
   }
@@ -214,6 +220,8 @@ console.log("Error updating likes and ignores.");
 
     if (this.state.liked_profiles.length > 0){
 
+      console.log("HEREEEEEE");
+
     this.setState(
       {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
@@ -230,13 +238,6 @@ console.log("Error updating likes and ignores.");
 
   }
 
-  handleLikeState(likedProfile){
-
-  }
-
-  handleIgnoreState(ignoredProfile){
-
-  }
 
   handleIgnore(cardsCounter){
 
@@ -265,12 +266,41 @@ console.log("Error updating likes and ignores.");
 
       }
 
-createMutualLike(liked, liker){
+launchMatchAnimation(){
+
+  console.log('MATCH IN PROGRESS BEING SET TO TRUE');
+
+  this.setState({
+
+    matchInProgress: true
+
+  })
+}
+
+preAnimationLikedProfileState(liked_profile){
+
+  console.log('setting state for liked profile!!');
+
+  this.setState({
+
+    liked_profile: liked_profile
+
+  }, function(){
+    this.launchMatchAnimation()
+  }
+)
+}
+
+createMutualLike(likedProfile, liker){
 
   var self = this;
 
-  var liked = liked.user;
+  var liked = likedProfile.user;
   var liker = liker;
+
+  var liked_profile = likedProfile;
+
+  console.log("running mutual liker creator method");
 
   var username = this.props.loggedInAs;
   var token_passed_from_main = this.props.token_to_pass_on;
@@ -297,11 +327,11 @@ createMutualLike(liked, liker){
     formData
  ,
 { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
- self.obtainUserPreferencesFromAPI()
-  console.log("location UPDATED");
+ self.preAnimationLikedProfileState(liked_profile)
+  console.log("MUTUAL LIKE CREATED");
 }).catch(function(error){
 console.log(error);
-console.log("Error updating Reach.");
+console.log("Error making mutual like object.");
 }).catch(function (error){
 console.log(error);
 })})})
@@ -485,7 +515,7 @@ else {
 
   render(){
 
-
+      console.log("MATCH IN PROGRESS STATE IS", this.state.matchInProgress);
       const commaNumber = require('comma-number')
       const getAge = require('get-age');
 
@@ -502,7 +532,7 @@ else {
 
         }
 
-      if (this.state.query_results) {
+      if (this.state.query_results && this.state.matchInProgress === false) {
 
         return(
         <div className="container">
@@ -649,15 +679,39 @@ else {
 
   )}
 
+  if (this.state.matchInProgress === true){
+
+    console.log("CONDITIONAL RENDER FOR MATCH IN PROGRESS BEING EXECUTED");
+    console.log("LIKED PROFILE STATE", this.state.liked_profile);
+
+    localStorage.setItem('liked_profile',
+  JSON.stringify(this.state.liked_profile));
+
+  localStorage.setItem('liked_user_picture',
+JSON.stringify(this.state.liked_profile.picture));
+
+localStorage.setItem('liked_user_name',
+JSON.stringify(this.state.liked_profile.name));
+
+localStorage.setItem('liked_user_location',
+JSON.stringify(this.state.liked_profile.location));
+
+    return (
+
+    <Redirect to='/matchanimation'
+
+     data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} login= {true}
+
+     />
+
+    )
+  }
+
 else {
   return (
-    <div class="loader">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+
+      <Indicator/>
+      
     )
 }
 
