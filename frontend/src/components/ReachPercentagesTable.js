@@ -1,7 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 import Profile from './Profile';
 
-const ReachPercentagesTable = () => (
+class ReachPercentagesTable extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
+  render(){
+
+    return (
 
   <div className="reach-stats">
   <div className="reach_table">
@@ -36,7 +44,9 @@ const ReachPercentagesTable = () => (
 
   </div>
 
+)}
 
-);
+
+};
 
 export default ReachPercentagesTable;

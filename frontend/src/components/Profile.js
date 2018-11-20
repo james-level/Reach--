@@ -167,8 +167,8 @@ const username = this.props.loggedInAs;
 
            total_reach={this.total_reach()}
            youtube_followers={this.youtube_followers()}
-           instagram_followers={this.youtube_followers()}
-           youtube_followers={this.youtube_followers()}
+           instagram_followers={this.instagram_followers()}
+           twitter_followers={this.twitter_followers()}
 
           / >
 
