@@ -3,6 +3,7 @@ import $ from 'jquery';
 import jQuery from 'jquery'
 import {geolocated, geoPropTypes} from 'react-geolocated';
 import StackedBar from './Stacked';
+import ReachPercentagesTable from './ReachPercentagesTable';
 import axios from 'axios';
 
 // DELETE THIS COMMENT  DURING MERE PLEASE
@@ -50,6 +51,7 @@ const username = this.props.loggedInAs;
        longitude: position.coords.longitude ,
        latitude: position.coords.latitude
      })
+
      formData.append('latitude', self.state.latitude);
      formData.append('longitude', self.state.longitude);
      var session_url = 'http://localhost:8080/social_reach/jwt_login/';
@@ -79,25 +81,15 @@ const username = this.props.loggedInAs;
 })})})
 
    }
-
-
   });
 }
 
 
-
-
-
-
   render(){
-        console.log(this.props.coords);
 
+    console.log(this.props.coords);
 
     const commaNumber = require('comma-number')
-
-
-
-
     const imageStyle = {backgroundImage: `url(${this.props.data.picture_six})`}
     const imageStyle2 = { backgroundImage: `url(${this.props.data.picture_two})`}
     const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
@@ -170,38 +162,15 @@ const username = this.props.loggedInAs;
 
 
           {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
-          <div className="reach-stats">
-          <div className="reach_table">
-          <ul class="os-percentages horizontal-list">
-              <li>
-                {/* <p class="youtube os scnd-font-color">Youtube</p> */}
-                <p class="youtube os scnd-font-color"><img src="../images/app_images/youtube-icon.png" height="30" width="30"></img></p>
-                <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.youtube_followers())}<sup>%</sup></p>
-              </li>
-              <li>
-                <p class="twitter os scnd-font-color"><img src="../images/app_images/twitter-icon.png" height="30" width="30"></img></p>
-                <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.twitter_followers())}<sup>%</sup></p>
-              </li>
-              <li>
-                <p class="instagram os scnd-font-color"><img src="../images/app_images/instagram-icon.png" height="30" width="30"></img></p>
-                <p class="os-percentage">{Math.floor((100/this.total_reach()) * this.instagram_followers())}<sup>%</sup></p>
-              </li>
-              <li>
-                <p class="facebook os scnd-font-color"><img src="../images/app_images/facebook-icon.png" height="30" width="30"></img></p>
-                <p class="os-percentage">0<sup>%</sup></p>
-              </li>
-              <li>
-                <p class="snapchat os scnd-font-color"><img src="../images/app_images/snapchat-icon.png" height="30" width="30"></img></p>
-                <p class="os-percentage">0<sup>%</sup></p>
-              </li>
-              <li>
-                <p class="spotify os scnd-font-color"><img src="../images/app_images/spotify-icon.png" height="30" width="30"></img></p>
-                <p class="os-percentage">0<sup>%</sup></p>
-              </li>
-          </ul>
-          </div>
 
-        </div>
+          <ReachPercentagesTable
+
+           total_reach={this.total_reach()}
+           youtube_followers={this.youtube_followers()}
+           instagram_followers={this.youtube_followers()}
+           youtube_followers={this.youtube_followers()}
+
+          / >
 
 
         {/* DISPLAY HOMETOWN & BIO OF USER*/}
@@ -232,8 +201,6 @@ const username = this.props.loggedInAs;
     </div>
 
     )
-
-
   }
 }
 
