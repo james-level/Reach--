@@ -25,7 +25,8 @@ class ResultsView extends Component {
       liked_profiles: this.props.data.liked_profiles,
       ignored_profiles: this.props.data.ignored_profiles,
       matchInProgress: false,
-      liked_profile: null
+      liked_profile: null,
+      cardsCounter: 0
     };
 
 
@@ -38,145 +39,160 @@ class ResultsView extends Component {
       this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
       this.preAnimationLikedProfileState = this.preAnimationLikedProfileState.bind(this);
       this.resetMatchingState = this.resetMatchingState.bind(this);
+      this.checkForMutualLike = this.checkForMutualLike.bind(this);
 
   }
 
 
-  handleChange(evt){
-     this.setState({
-       [evt.target.name]: parseInt(evt.target.value)
-     })
-  }
+    handleChange(evt){
+       this.setState({
+         [evt.target.name]: parseInt(evt.target.value)
+       })
+    }
 
 
-  approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
+    approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
 
-    var R = 6371.0
+      var R = 6371.0
 
-    var lat1_rad = lat1 * (Math.PI / 180)
-    var long1_rad = long1 * (Math.PI / 180)
-    var lat2_rad = lat2 * (Math.PI / 180)
-    var long2_rad = long2 * (Math.PI / 180)
+      var lat1_rad = lat1 * (Math.PI / 180)
+      var long1_rad = long1 * (Math.PI / 180)
+      var lat2_rad = lat2 * (Math.PI / 180)
+      var long2_rad = long2 * (Math.PI / 180)
 
-    var dlong = long2_rad - long1_rad
-    var dlat = lat2_rad - lat1_rad
+      var dlong = long2_rad - long1_rad
+      var dlat = lat2_rad - lat1_rad
 
-    var a = Math.sin(dlat / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlong / 2)**2
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+      var a = Math.sin(dlat / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlong / 2)**2
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
-    var distance = R * c
+      var distance = R * c
 
-    return distance
+      return distance
 
-  }
+    }
 
 
-  fireSearchRequest(){
+    fireSearchRequest(){
 
-    var min_age = this.state.min_age;
-    var max_age = this.state.max_age;
-    // var max_distance = this.state.distance;
-    var max_distance = 100000;
-    var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/maxdistance=${max_distance}/?format=json`;
-      axios.get(filtering_url)
-      .then(res =>{
-        this.setState({
-          entered_search_query: true,
-          query_results: res.data,
-        })
-      console.log("Retrieved results.");
-      console.log("SMOKER STATUS", res.data[2].non_smoker);
-      }
-    ).catch(function(error){
-        })
-  }
+      var min_age = this.state.min_age;
+      var max_age = this.state.max_age;
+      // var max_distance = this.state.distance;
+      var max_distance = 100000;
+      var filtering_url = `http://localhost:8080/social_reach/profiles/${this.props.loggedInAs}/minage=${min_age}/maxage=${max_age}/maxdistance=${max_distance}/?format=json`;
+        axios.get(filtering_url)
+        .then(res =>{
+          this.setState({
+            entered_search_query: true,
+            query_results: res.data,
+            cardsCounter: this.state.cardsCounter + res.data.length - 1
+          })
+        console.log("Retrieved results.");
+        console.log("SMOKER STATUS", res.data[2].non_smoker);
+        }
+      ).catch(function(error){
+          })
+    }
 
-  getLocation(username, password){
+    getLocation(username, password){
 
-    console.log("getting location");
+      console.log("getting location");
 
-  var self = this
-  const token_passed_from_main = this.props.token_to_pass_on;
-  navigator.geolocation.getCurrentPosition(function(position) {
-    if (position.coords.latitude && position.coords.longitude) {
-      const formData = new FormData();
-     self.setState({
-       longitude: position.coords.longitude,
-       latitude: position.coords.latitude
-     })
-     formData.append('latitude', self.state.latitude);
-     formData.append('longitude', self.state.longitude);
-     var session_url = 'http://localhost:8080/social_reach/jwt_login/';
-     axios.post(session_url, {
-         'username': username,
-         'password': password
-       }).then(function(response) {
-       console.log('response:', response);
-       console.log('Obtained token. (PROFILE)');
-       var token = response.data['token']
-       axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
-           "token": token,
+    var self = this
+    const token_passed_from_main = this.props.token_to_pass_on;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      if (position.coords.latitude && position.coords.longitude) {
+        const formData = new FormData();
+       self.setState({
+         longitude: position.coords.longitude,
+         latitude: position.coords.latitude
+       })
+       formData.append('latitude', self.state.latitude);
+       formData.append('longitude', self.state.longitude);
+       var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+       axios.post(session_url, {
            'username': username,
-           'password': self.props.password
-         }).then(function(second_response) {
-     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
-       formData
-    ,
-  { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
-    self.obtainUserPreferencesFromAPI()
-     console.log("location UPDATED");
- }).catch(function(error){
- console.log(error);
- console.log("Error updating Reach.");
-}).catch(function (error){
-  console.log(error);
-})})})
+           'password': password
+         }).then(function(response) {
+         console.log('response:', response);
+         console.log('Obtained token. (PROFILE)');
+         var token = response.data['token']
+         axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+             "token": token,
+             'username': username,
+             'password': self.props.password
+           }).then(function(second_response) {
+       axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
+         formData
+      ,
+    { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+      self.obtainUserPreferencesFromAPI()
+       console.log("location UPDATED");
+   }).catch(function(error){
+   console.log(error);
+   console.log("Error updating Reach.");
+  }).catch(function (error){
+    console.log(error);
+  })})})
 
-   }
+     }
 
 
-  });
-}
-
-obtainUserPreferencesFromAPI(){
-
-  this.setState({
-  min_age: this.props.data.min_age_desired,
-  max_age: this.props.data.max_age_desired,
-  distance: this.props.max_distance_acceptable,
-  my_profile: this.props.loggedInAs},
-  function(){this.fireSearchRequest()})
-}
-
-  componentDidMount(evt){
-
-    console.log("USERNAME", this.props.loggedInAs);
-    console.log("PASSWORD", this.props.password);
-    const username = this.props.loggedInAs;
-    const password = this.props.password;
-
-    this.getLocation(username, password);
-
-    this.setState({
-    liked_profiles: this.props.data.liked_profiles,
-    ignored_profiles: this.props.data.ignored_profiles,
-    matchInProgress: false
-  })
-
+    });
   }
 
-  resetMatchingState(){
+    obtainUserPreferencesFromAPI(){
 
-    this.setState({
+      this.setState({
+
+      min_age: this.props.data.min_age_desired,
+      max_age: this.props.data.max_age_desired,
+      distance: this.props.max_distance_acceptable,
+      my_profile: this.props.loggedInAs
+
+    },
+
+      function(){
+
+        this.fireSearchRequest()
+
+      })
+    }
+
+    componentDidMount(evt){
+
+      console.log("USERNAME", this.props.loggedInAs);
+      console.log("PASSWORD", this.props.password);
+      const username = this.props.loggedInAs;
+      const password = this.props.password;
+
+      this.getLocation(username, password);
+
+      this.setState({
+
+      liked_profiles: this.props.data.liked_profiles,
+      ignored_profiles: this.props.data.ignored_profiles,
       matchInProgress: false
+
     })
-  }
+
+    }
+
+    resetMatchingState(){
+
+      this.setState({
+
+        matchInProgress: false,
+        cardsCounter: this.state.query_results.length - 1
+
+      })
+    }
 
 
   saveLikesAndIgnores(cardsCounter){
 
       console.log("Liked profiles state", this.state.liked_profiles);
-
+      console.log('cards counter IN SAVE METHOD', cardsCounter);
     var username = this.props.loggedInAs;
     var token_passed_from_main = this.props.token_to_pass_on;
     console.log(this.props.token_to_pass_on);
@@ -234,26 +250,37 @@ console.log("Error updating likes and ignores.");
 
     if (this.state.liked_profiles.length > 0){
 
+      console.log("State liked profiles", this.state.liked_profiles.length);
       console.log("HEREEEEEE");
 
-    this.setState(
-      {
-      liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){
+    this.setState({
+
+      liked_profiles: this.state.liked_profiles.concat(likedProfile)
+
+    },
+
+      function(){
 
       console.log("ABOUT TO CALL SAVE LIKES AND IGNORES FUNCTION");
 
-      this.saveLikesAndIgnores(cardsCounter)
+        this.saveLikesAndIgnores(cardsCounter)
 
     })
   }
 
   else {
 
-    this.setState(
-      {
-      liked_profiles: [likedProfile]
-    }, function(){this.saveLikesAndIgnores(cardsCounter)})
+    this.setState({
+
+      liked_profiles: this.state.liked_profiles.concat(likedProfile)
+
+    },
+
+      function(){
+
+        this.saveLikesAndIgnores(cardsCounter)
+
+      })
   }
 
   }
@@ -270,7 +297,7 @@ console.log("Error updating likes and ignores.");
 
         this.setState (
           {
-          ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
+          ignored_profiles: this.state.ignored_profiles.concat(ignoredProfile)
         }, function(){this.saveLikesAndIgnores(cardsCounter)})
 
       }
@@ -279,107 +306,130 @@ console.log("Error updating likes and ignores.");
 
         this.setState (
           {
-          ignored_profiles: [ignoredProfile]
+          ignored_profiles: this.state.liked_profiles.concat(ignoredProfile)
         }, function(){this.saveLikesAndIgnores(cardsCounter)})
 
       }
 
       }
 
-launchMatchAnimation(){
+      launchMatchAnimation(){
 
-  console.log('MATCH IN PROGRESS BEING SET TO TRUE');
+        console.log('MATCH IN PROGRESS BEING SET TO TRUE');
 
-  this.setState({
+        this.setState({
 
-    matchInProgress: true
+          matchInProgress: true
 
-  })
-}
+        })
+      }
 
-preAnimationLikedProfileState(liked_profile){
+      preAnimationLikedProfileState(liked_profile){
 
-  console.log('setting state for liked profile!!');
+        console.log('setting state for liked profile!!');
 
-  this.setState({
+        this.setState({
 
-    liked_profile: liked_profile
+          liked_profile: liked_profile
 
-  }, function(){
-    this.launchMatchAnimation()
-  }
-)
-}
+        }, function(){
+          this.launchMatchAnimation()
+        }
+      )
+      }
 
-createMutualLike(likedProfile, liker){
+      createMutualLike(likedProfile, liker, cardsCounter){
 
-  var self = this;
+        var self = this;
 
-  var liked = likedProfile.user;
-  var liker = liker;
+        var liked = likedProfile.user;
+        var liker = liker;
 
-  var liked_profile = likedProfile;
+        var liked_profile = likedProfile;
 
-  console.log("running mutual liker creator method");
+        console.log("running mutual liker creator method");
 
-  var username = this.props.loggedInAs;
-  var token_passed_from_main = this.props.token_to_pass_on;
+        var username = this.props.loggedInAs;
+        var token_passed_from_main = this.props.token_to_pass_on;
 
-  const formData = new FormData();
-  formData.append('first_user', liker);
-  formData.append('second_user', liked);
+        const formData = new FormData();
+        formData.append('first_user', liker);
+        formData.append('second_user', liked);
 
-  var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+        var session_url = 'http://localhost:8080/social_reach/jwt_login/';
 
-  axios.post(session_url, {
-      'username': username,
-      'password':  self.props.password
-    }).then(function(response) {
-    console.log('response:', response);
-    console.log('Obtained token. (PROFILE)');
-    var token = response.data['token']
-    axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
-        "token": token,
-        'username': username,
-        'password': self.props.password
-      }).then(function(second_response) {
-  axios.post(`http://localhost:8080/social_reach/mutual_likes/`,
-    formData
- ,
-{ headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
- self.preAnimationLikedProfileState(liked_profile)
-  console.log("MUTUAL LIKE CREATED");
-}).catch(function(error){
-console.log(error);
-console.log("Error making mutual like object.");
-}).catch(function (error){
-console.log(error);
-})})})
+        axios.post(session_url, {
+            'username': username,
+            'password':  self.props.password
+          }).then(function(response) {
+          console.log('response:', response);
+          console.log('Obtained token. (PROFILE)');
+          var token = response.data['token']
+          axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+              "token": token,
+              'username': username,
+              'password': self.props.password
+            }).then(function(second_response) {
+        axios.post(`http://localhost:8080/social_reach/mutual_likes/`,
+          formData
+       ,
+      { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
 
-}
+       self.setState({
+
+         cardsCounter: cardsCounter - 1
+
+       }, function(){
+
+         self.preAnimationLikedProfileState(liked_profile)
+
+       })
+
+        console.log("MUTUAL LIKE CREATED");
+      }).catch(function(error){
+      console.log(error);
+      console.log("Error making mutual like object.");
+      }).catch(function (error){
+      console.log(error);
+      })})})
+
+      }
 
 
-checkForMutualLike(cardsCounter){
+      checkForMutualLike(cardsCounter){
 
-  console.log("mutual lker checker in action", cardsCounter);
+        console.log("mutual liker checker in action", cardsCounter);
 
-  var likedUserId = this.state.query_results[cardsCounter];
-  var likerId = this.props.data.user;
+        var likedUserId = this.state.query_results[cardsCounter];
+        var likerId = this.props.data.user;
 
-  console.log("LIKED", likedUserId);
+        console.log("LIKED", likedUserId);
+        console.log("LIKER ID", likerId);
+        console.log("liked profile's liked profiles", likedUserId.liked_profiles);
 
-  if (likedUserId){
-  if (likedUserId.liked_profiles.includes(likerId)){
-    console.log("Liked user likes you back");
-    this.createMutualLike(likedUserId, likerId)
-  }
-}
 
-else {
-  return
-}
+            if (likedUserId.liked_profiles.includes(likerId)){
+              console.log("Liked user likes you back");
+              this.createMutualLike(likedUserId, likerId, cardsCounter)
+            }
 
-}
+
+            else {
+
+              console.log("no match with this user");
+
+              this.setState({
+                cardsCounter: this.state.cardsCounter - 1
+              }, function(){
+
+                console.log("CARD counter state incremented here and no match");
+                console.log("Cards counter in callback part of mutual checker", this.state.cardsCounter);
+                return
+
+              })
+      }
+          console.log("Cards counter after mutual like checker", this.state.cardsCounter);
+      }
 
 
     returnParentStatus(user){
@@ -420,6 +470,7 @@ else {
   }
 
 
+
 // SWIPE DECK 3 FUNCTION WORDS
   swipdeDeck(numberOfResults) {
 
@@ -428,7 +479,7 @@ else {
     $(document).ready(function() {
 
   var animating = false;
-  var cardsCounter = 0;
+  var cardsCounter = self.state.cardsCounter;
   var numOfCards = numberOfResults;
   console.log("RESULTS", numberOfResults);
   var decisionVal = 80;
@@ -453,14 +504,10 @@ else {
 
     if (pullDeltaX >= decisionVal) {
       $card.addClass("to-right");
-      // Add current card to liked profiles array in state
-      // self.handleLike(cardsCounter);
-      // self.setState({
-      //   liked_profiles: [...state.liked_profiles, state.query_results[cardsCounter]]
-      // })
+
     } else if (pullDeltaX <= -decisionVal) {
       $card.addClass("to-left");
-      // Add current card to ignored profiles array in state
+
     }
 
     if (Math.abs(pullDeltaX) >= decisionVal) {
@@ -470,22 +517,22 @@ else {
         $card.addClass("below").removeClass("inactive to-left to-right");
         // Adding profile to liked array if pull delta exceeds decisive value
         if (pullDeltaX >= decisionVal) {
-            self.handleLike(cardsCounter);
+            self.handleLike(self.state.cardsCounter);
           }
-
+        // Adding profile to ignored array if pull delta exceeds decisive value
         if (pullDeltaX <=  -decisionVal) {
-            self.handleIgnore(cardsCounter);
+            self.handleIgnore(self.state.cardsCounter);
           }
 
-        // self.saveLikesAndIgnores();
-
-        cardsCounter++;
-
-        if (cardsCounter === numOfCards) {
-          cardsCounter = 0;
+        if (self.state.cardsCounter === (0)) {
+          self.state.cardsCounter = numOfCards - 1;
+          console.log("Number of cards", numOfCards);
+          console.log("RESETTING CARD COUNTER TO ZERO");
           $(".demo__card").removeClass("below");
         }
       }, 300);
+
+        // cardsCounter++;
     }
 
     if (Math.abs(pullDeltaX) < decisionVal) {
@@ -527,11 +574,18 @@ else {
   });
 
 })};
+
 // SWIPE DECK 3 FUNCTION ENDS
 
+  total_reach(instagram_followers, twitter_followers, youtube_followers){
 
+    return instagram_followers + twitter_followers + youtube_followers
 
-  total_reach(instagram_followers, twitter_followers, youtube_followers){return instagram_followers + twitter_followers + youtube_followers}
+  }
+
+  printCurrentVisibleUser(user){
+    console.log("current visible user", user);
+  }
 
   render(){
 
@@ -569,6 +623,10 @@ else {
 
                   <div class="demo__card">
                     <div class="demo__card__top">
+
+                    <div>
+                    {this.printCurrentVisibleUser(user)}
+                    </div>
 
   {/* Putting profile card div here for testing */}
 
@@ -635,71 +693,36 @@ else {
         {/* SWIPEDECK NO.3 END */}
   </div>
 
-  // {this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(1)}km from you!
-
-  // BELOW DISPLAYS RESULTS (WHEN USER HITS 'SUBMIT"')
-    // <div>
-    // <p>User {user.user} - their name is {user.name}</p>
-    // <p>{user.bio}</p>
-    // <h4>{this.approxDistanceBetweenTwoPoints(this.props.data.latitude, this.props.data.longitude, user.latitude, user.longitude).toFixed(2)}km from you!</h4>
-    // <br></br>
-    // <p>{user.instagram_followers} is their Instagram Reach!</p>
-    // <p>They self-rated as {user.gender_identity} on the gender continuum!</p>
-    // <br></br>
-    // <img src={`http://localhost:8080/social_reach/media/${user.picture}`}/>
-    // <br></br>
-    // <p>Go check out this user, {this.props.loggedInAs}!</p>
-    // <br></br>
-    // </div>
-
-
-
   )}
 
   if (this.state.matchInProgress === true){
 
-    console.log("CONDITIONAL RENDER FOR MATCH IN PROGRESS BEING EXECUTED");
-    console.log("LIKED PROFILE STATE", this.state.liked_profile);
-
-    localStorage.setItem('liked_profile',
-  JSON.stringify(this.state.liked_profile));
-
-    localStorage.setItem('liked_user_picture',
-  JSON.stringify(this.state.liked_profile.picture));
-
-    localStorage.setItem('liked_user_name',
-    JSON.stringify(this.state.liked_profile.name));
-
-    localStorage.setItem('liked_user_location',
-    JSON.stringify(this.state.liked_profile.location));
 
     return (
 
-    <MatchAnimation
+      <MatchAnimation
 
-     resetMatchingState={this.resetMatchingState} data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} distance={this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, this.state.liked_profile.latitude, this.state.liked_profile.longitude).toFixed(1)} login= {true}
+         resetMatchingState={this.resetMatchingState}
+         data={this.props.data}
+         loggedInAs={this.props.loggedInAs}
+         likedUser={this.state.liked_profile}
+         distance={this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, this.state.liked_profile.latitude, this.state.liked_profile.longitude).toFixed(1)}
+         login= {true}
 
-     />
+       />
 
     )
   }
 
-else {
-  return (
+      else {
+        return (
 
-      <Indicator />
+            <Indicator />
 
-    )
-}
-
-
-
-}
-
-
-
-
-                  }
+          )
+      }
+      }
+      }
 
 
 

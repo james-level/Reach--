@@ -35,16 +35,29 @@ class MatchAnimation extends Component {
 
         render() {
 
+            const getAge = require('get-age');
+
             console.log("MATCH ANIMATION RUNNING RENDER");
             console.log("liked user PICTURE", localStorage.getItem('liked_user_picture'));
             console.log("LIKER user PICTURE", this.props.data.picture);
 
-          if (this.props.loggedInAs && localStorage.getItem('liked_profile') && !this.state.resultsRedirectClicked && !this.state.viewProfileClicked){
+          if (this.props.loggedInAs && this.props.likedUser && !this.state.resultsRedirectClicked && !this.state.viewProfileClicked){
 
             return (
               <div>
               <div class="z-carousel z-state-matched z-state-reveal-match">
           <div class="mod-body">
+
+            <div className="profile" style={{maxWidth:'600'}}>
+
+            <fieldset>
+
+            <label className="total-reach" type="text">You matched!</label>
+
+
+            </fieldset>
+
+            </div>
 
 
               <div class="z-matched-content-photo-container">
@@ -52,11 +65,11 @@ class MatchAnimation extends Component {
                       <div class="z-card-photo">
                           <img alt="" class="flex-img js-other-photo" src={this.props.data.picture}></img>
                       </div>
-                      <div class="z-card-panel">
-                          <ul class="edge-unit">
-                              <li class="valign-mid">
-                                  <span class="z-card-min-info">
-                                  {this.props.data.name} ({this.props.data.location})
+                      <div class="z-card-panel" style={{textAlign: 'center', justifyContent: 'center'}}>
+                          <ul class="edge-unit" style={{textAlign: 'center', justifyContent: 'center'}}>
+                              <li class="valign-mid" style={{textAlign: 'center'}}>
+                                  <span class="z-card-min-info" style={{fontSize: 16}}>
+                                  {this.props.data.name}
                                   </span>
                               </li>
                           </ul>
@@ -68,15 +81,12 @@ class MatchAnimation extends Component {
                   <div class="z-card z-state-card-match">
                       <div class="z-card-front">
                                         <div class="z-card-photo">
-                          <img alt="" class="flex-img js-other-photo" src={this.removeQuotationMarksFromLikedUserPhoto()}></img>
+                          <img alt="" class="flex-img js-other-photo" src={this.props.likedUser.picture}></img>
                       </div>
                       <div class="z-card-panel">
                           <ul class="edge-unit">
-                              <li class="valign-mid">
-                                  <span class="z-card-min-info">Match {localStorage.getItem('liked_user_name')} ({localStorage.getItem('liked_user_location')})</span>
-                              </li>
-                              <li>
-                                  <span class="z-card-min-info">Age: X</span>
+                              <li class="valign-mid" style={{textAlign: 'center'}}>
+                                  <span class="z-card-min-info" style={{fontSize: 16, textAlign: 'center'}}>{this.props.likedUser.name}, {getAge(this.props.likedUser.date_of_birth)}yrs, {this.props.distance}km from you</span>
                               </li>
                           </ul>
                       </div>
@@ -116,7 +126,15 @@ class MatchAnimation extends Component {
 
    return (
 
-   <MatchedProfile resetMatchingState={this.props.resetMatchingState} loggedInAs={this.props.loggedInAs} data={this.props.likedUser} distance={this.props.distance} login= {true}/>
+     <MatchedProfile
+
+       resetMatchingState={this.props.resetMatchingState}
+       loggedInAs={this.props.loggedInAs}
+       data={this.props.likedUser}
+       distance={this.props.distance}
+       login= {true}
+
+     />
 
  )
 

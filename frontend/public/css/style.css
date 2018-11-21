@@ -1758,10 +1758,13 @@ justify-content: center;
   overflow: hidden;
 }
 .edge-unit > li:nth-child(1) {
-  float: left;
+  text-align: 'center';
+  align: center;
+  margin-left: 5%;
+
 }
 .edge-unit > li:nth-child(2) {
-  float: right;
+  text-align: 'center'
 }
 
 .flex-img {

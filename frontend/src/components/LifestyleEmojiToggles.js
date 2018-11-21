@@ -25,7 +25,7 @@ class LifestyleEmojiToggles extends Component {
       </div>
 
       <div class="emoji-toggle emoji-passtime">
-        <input type="checkbox" checked={this.props.prefersChillToGym} onChange={this.props.handlePrefersChillToGymClicked} id="toggle3" class="toggle"></input>
+        <input type="checkbox" checked={this.props.prefersChillToGymChecked} onChange={this.props.handlePrefersChillToGymClicked} id="toggle3" class="toggle"></input>
         <div class="emoji"></div>
         <label for="toggle3" class="well"></label>
       </div>

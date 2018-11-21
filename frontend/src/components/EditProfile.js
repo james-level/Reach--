@@ -533,7 +533,7 @@ console.log("Error updating Reach.");
 
           veganChecked={this.state.veganChecked}
           nonSmokingChecked={this.state.nonSmokingChecked}
-          prefersChillToGym={this.state.prefersChillToGymChecked}
+          prefersChillToGymChecked={this.state.prefersChillToGymChecked}
           childlessChecked={this.state.childlessChecked}
           handleVeganCheckClick={this.handleVeganCheckClick}
           handleNonSmokingCheckClick={this.handleNonSmokingCheckClick}
