@@ -10,9 +10,9 @@ const GalleryDots = ({ user }) => (
 
   return (
 
-      <label for={`slide-dot-` + [user.picture, user.picture_two, user.picture_three, user.picture_four, user.picture_five, user.picture_six]
+      <label for={`slide-dot-` + ([user.picture, user.picture_two, user.picture_three, user.picture_four, user.picture_five, user.picture_six]
 
-        .indexOf(image)}>
+        .indexOf(image) + 1)}>
 
       </label>
 

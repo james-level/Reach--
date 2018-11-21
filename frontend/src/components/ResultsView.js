@@ -239,7 +239,13 @@ console.log("Error updating likes and ignores.");
     this.setState(
       {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){this.saveLikesAndIgnores(cardsCounter)})
+    }, function(){
+
+      console.log("ABOUT TO CALL SAVE LIKES AND IGNORES FUNCTION");
+
+      this.saveLikesAndIgnores(cardsCounter)
+
+    })
   }
 
   else {
@@ -658,14 +664,14 @@ else {
     localStorage.setItem('liked_profile',
   JSON.stringify(this.state.liked_profile));
 
-  localStorage.setItem('liked_user_picture',
-JSON.stringify(this.state.liked_profile.picture));
+    localStorage.setItem('liked_user_picture',
+  JSON.stringify(this.state.liked_profile.picture));
 
-localStorage.setItem('liked_user_name',
-JSON.stringify(this.state.liked_profile.name));
+    localStorage.setItem('liked_user_name',
+    JSON.stringify(this.state.liked_profile.name));
 
-localStorage.setItem('liked_user_location',
-JSON.stringify(this.state.liked_profile.location));
+    localStorage.setItem('liked_user_location',
+    JSON.stringify(this.state.liked_profile.location));
 
     return (
 
