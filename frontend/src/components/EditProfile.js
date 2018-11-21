@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
 import { Redirect } from 'react-router-dom'
+import {Cropper} from 'react-image-cropper'
 
 class EditProfile extends Component {
   constructor(props) {
@@ -21,14 +22,14 @@ class EditProfile extends Component {
           photo6: 'foto-upload'
         },
         username: '',
-        password: '',
+        password: this.props.password,
         login: false,
         signUpSubmit: false,
         data: {},
         activation_token: '',
         activation_user: null,
         activation_user_password: '',
-        password: '',
+
           id: this.props.data.user,
           name: this.props.data.name,
           looking_for: this.props.data.looking_for,
@@ -66,17 +67,21 @@ class EditProfile extends Component {
           veganChecked: this.props.data.vegan,
           nonSmokingChecked: this.props.data.non_smoker,
           prefersChillToGymChecked: this.props.data.prefers_chill_to_gym,
-          childlessChecked: this.props.data.childless
-
+          childlessChecked: this.props.data.childless,
+          launchPhotoResize: false,
+          src: '',
+          currentImageToCrop: ''
 
         }
+
 
       this.updateReach = this.updateReach.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.fileChangedHandler = this.fileChangedHandler.bind(this);
       this.showLoadingIndicator = this.showLoadingIndicator.bind(this);
-
+      this.handleCropSubmit = this.handleCropSubmit.bind(this);
+      this.handleCropChange = this.handleCropChange.bind(this);
       this.handlePrefersChillToGymClicked = this.handlePrefersChillToGymClicked.bind(this);
       this.handleChildlessCheckClick = this.handleChildlessCheckClick.bind(this);
       this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
@@ -188,17 +193,18 @@ class EditProfile extends Component {
     console.log();
 
     let count = event.target.attributes.index.nodeValue
-    let preview_image = "image" + count
-    let reader = new FileReader()
+    var preview_image = "image" + count
+    var reader = new FileReader()
     reader.onloadend = () => {
       /* do not draw new upload button if 6 photos have been uploaded or image is being replaced */
       if (this.state.image_count.length < 6 && this.state[preview_image] === 'empty'){
       this.setState(prevState => ({ image_count: [...prevState.image_count, prevState.image_count.length+1]}))
     }
       this.setState({
-        [image]: reader.result
-        })
-
+        [image]: reader.result,
+        src: reader.result,
+        currentImageToCrop: 'image1'
+      })
        }
   if (event.target.files[0] != undefined ){
     reader.readAsDataURL(event.target.files[0])
@@ -211,7 +217,8 @@ class EditProfile extends Component {
   }))
   this.setState({
     [event.target.name]: event.target.files[0],
-    [message]: "Tap to change"
+    [message]: "Tap to change",
+    launchPhotoResize: true
 
       })
 
@@ -245,13 +252,31 @@ componentWillMount() {
     }
 
 
+  handleCropSubmit(state){
+
+    var node = state
+    console.log('node',node);
+
+    this.setState({
+      [state]: node.crop()
+    })
+
+    this.setState({
+      launchPhotoResize: false
+    })
+  }
+
+
+  handleCropChange (state, values) {
+     this.setState({
+       [state + 'Values']: values
+     })
+   }
 
 
   updateReach(){
 
-
     var username = this.props.loggedInAs;
-
     var user = this.props.data.user;
     var name = this.props.data.name;
     var bio = this.props.data.bio;
@@ -273,11 +298,8 @@ componentWillMount() {
     var picture_four = this.props.data.picture_four;
     var picture_five = this.props.data.picture_five;
     var picture_six = this.props.data.picture_six;
-
     var token_passed_from_main = this.props.token_to_pass_on;
-
     var self = this;
-
     var update_reach_url = `http://localhost:8080/social_reach/profiles`
 
     const formData = new FormData();
@@ -413,6 +435,47 @@ console.log("Error updating Reach.");
     //   )
     // }
 
+    if (this.state.launchPhotoResize){
+
+
+
+      return (
+        <div className="profile">
+      <div style={{marginLeft: '10%', height: '100%', width: '100%', justifyContent: 'center', textAlign: 'center'}}>
+      <h6 align="center" style={{fontWeight: 'bold'}}>Hey {this.props.data.name}! {"Resize your image here"}</h6>
+
+      <Cropper
+    src={this.state.src}
+    ref={ ref => { this.cropper = ref }}
+    ratio = {2/3}
+    onChange={values => this.handleCropChange('image1', values)}
+    values =
+{{
+    // display values
+    display: {
+
+        imgWidth: '50%', // img width
+        imgHeight: '50%', // img height
+    },
+    // original values
+    original: {
+
+        imgWidth: '50%', // img width
+        imgHeight: '50%', // img height
+    }
+}}
+
+/>
+  <form>
+<br></br>
+  <input type="submit" name="field12" value="Crop image"  class="Save"></input>
+  </form>
+</div>
+</div>
+
+)
+    }
+
    else{
      console.log("loadingInProgress is false");
     return(
@@ -431,7 +494,7 @@ console.log("Error updating Reach.");
 
     {/* BASIC INFO SECTION */}
     <fieldset>
-  
+
           <legend><span class="number"></span> Basic Info</legend>
 
           <p>Your name:</p>

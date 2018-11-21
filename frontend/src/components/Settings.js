@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import $ from 'jquery';
 import StackedBar from './Stacked';
+import Indicator from './Indicator';
 import { Redirect } from 'react-router-dom'
 
 class Settings extends Component {
@@ -9,7 +10,7 @@ class Settings extends Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      password: this.props.password,
       login: false,
       data: {},
       min_age: this.props.data.min_age_desired,
@@ -346,14 +347,11 @@ else if (!this.props.loggedInAs) {return (
   )}
 
 else if (this.state.submitted === true){
+  
   return(
-  <div class="loader">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+
+  <Indicator />
+
 )
 }
 

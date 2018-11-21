@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import axios from 'axios';
 import $ from 'jquery';
 import StackedBar from './Stacked';
-
+import MatchAnimation from './MatchAnimation';
+import Indicator from './Indicator';
+import { Redirect } from 'react-router-dom'
+import Gallery from './Gallery';
+import ReachPercentagesTable from './ReachPercentagesTable';
 
 class ResultsView extends Component {
   constructor(props) {
@@ -19,8 +23,11 @@ class ResultsView extends Component {
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
       liked_profiles: this.props.data.liked_profiles,
-      ignored_profiles: this.props.data.ignored_profiles
+      ignored_profiles: this.props.data.ignored_profiles,
+      matchInProgress: false,
+      liked_profile: null
     };
+
 
       this.handleChange = this.handleChange.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
@@ -28,15 +35,19 @@ class ResultsView extends Component {
       this.handleLike = this.handleLike.bind(this);
       this.handleIgnore = this.handleIgnore.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
-      this.handleLikeState = this.handleLikeState.bind(this);
-      this.handleIgnoreState = this.handleIgnoreState.bind(this);
+      this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
+      this.preAnimationLikedProfileState = this.preAnimationLikedProfileState.bind(this);
+      this.resetMatchingState = this.resetMatchingState.bind(this);
+
   }
+
 
   handleChange(evt){
      this.setState({
        [evt.target.name]: parseInt(evt.target.value)
      })
   }
+
 
   approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
 
@@ -58,6 +69,7 @@ class ResultsView extends Component {
     return distance
 
   }
+
 
   fireSearchRequest(){
 
@@ -134,10 +146,7 @@ obtainUserPreferencesFromAPI(){
   distance: this.props.max_distance_acceptable,
   my_profile: this.props.loggedInAs},
   function(){this.fireSearchRequest()})
-
-
 }
-
 
   componentDidMount(evt){
 
@@ -150,13 +159,21 @@ obtainUserPreferencesFromAPI(){
 
     this.setState({
     liked_profiles: this.props.data.liked_profiles,
-    ignored_profiles: this.props.data.ignored_profiles
+    ignored_profiles: this.props.data.ignored_profiles,
+    matchInProgress: false
   })
 
   }
 
+  resetMatchingState(){
 
-  saveLikesAndIgnores(){
+    this.setState({
+      matchInProgress: false
+    })
+  }
+
+
+  saveLikesAndIgnores(cardsCounter){
 
       console.log("Liked profiles state", this.state.liked_profiles);
 
@@ -186,10 +203,16 @@ obtainUserPreferencesFromAPI(){
     var request_dict = {'liked_profiles': liked_profile_ids};
   }
 
+  var cardsCounter = cardsCounter;
+
+  console.log("cardsCounter", cardsCounter);
+
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
       request_dict
    ,
  { headers: { 'Authorization': `JWT ${token_passed_from_main}`} }).then(function (response) {
+
+    self.checkForMutualLike(cardsCounter);
 
     console.log("LIKES AND IGNORES UPDATED");
 }).catch(function(error){
@@ -197,6 +220,7 @@ console.log(error);
 console.log("Error updating likes and ignores.");
 })
 }
+
 
   handleLike(cardsCounter){
 
@@ -208,20 +232,26 @@ console.log("Error updating likes and ignores.");
 
     console.log("QUERY RESULTS AT INDEX", likedProfile);
 
+    if (this.state.liked_profiles.length > 0){
+
+      console.log("HEREEEEEE");
+
     this.setState(
       {
       liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){this.saveLikesAndIgnores()})
+    }, function(){this.saveLikesAndIgnores(cardsCounter)})
+  }
+
+  else {
+
+    this.setState(
+      {
+      liked_profiles: [likedProfile]
+    }, function(){this.saveLikesAndIgnores(cardsCounter)})
+  }
 
   }
 
-  handleLikeState(likedProfile){
-
-  }
-
-  handleIgnoreState(ignoredProfile){
-
-  }
 
   handleIgnore(cardsCounter){
 
@@ -230,12 +260,121 @@ console.log("Error updating likes and ignores.");
     var ignoredProfile = this.state.query_results[cardsCounter].user;
         console.log("QUERY RESULTS AT INDEX", ignoredProfile);
 
-        this.setState(
+        if (this.state.ignored_profiles.length > 0){
+
+        this.setState (
           {
           ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
-        }, function(){this.saveLikesAndIgnores()})
+        }, function(){this.saveLikesAndIgnores(cardsCounter)})
 
+      }
+
+      else {
+
+        this.setState (
+          {
+          ignored_profiles: [ignoredProfile]
+        }, function(){this.saveLikesAndIgnores(cardsCounter)})
+
+      }
+
+      }
+
+launchMatchAnimation(){
+
+  console.log('MATCH IN PROGRESS BEING SET TO TRUE');
+
+  this.setState({
+
+    matchInProgress: true
+
+  })
+}
+
+preAnimationLikedProfileState(liked_profile){
+
+  console.log('setting state for liked profile!!');
+
+  this.setState({
+
+    liked_profile: liked_profile
+
+  }, function(){
+    this.launchMatchAnimation()
   }
+)
+}
+
+createMutualLike(likedProfile, liker){
+
+  var self = this;
+
+  var liked = likedProfile.user;
+  var liker = liker;
+
+  var liked_profile = likedProfile;
+
+  console.log("running mutual liker creator method");
+
+  var username = this.props.loggedInAs;
+  var token_passed_from_main = this.props.token_to_pass_on;
+
+  const formData = new FormData();
+  formData.append('first_user', liker);
+  formData.append('second_user', liked);
+
+  var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+
+  axios.post(session_url, {
+      'username': username,
+      'password':  self.props.password
+    }).then(function(response) {
+    console.log('response:', response);
+    console.log('Obtained token. (PROFILE)');
+    var token = response.data['token']
+    axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+        "token": token,
+        'username': username,
+        'password': self.props.password
+      }).then(function(second_response) {
+  axios.post(`http://localhost:8080/social_reach/mutual_likes/`,
+    formData
+ ,
+{ headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
+ self.preAnimationLikedProfileState(liked_profile)
+  console.log("MUTUAL LIKE CREATED");
+}).catch(function(error){
+console.log(error);
+console.log("Error making mutual like object.");
+}).catch(function (error){
+console.log(error);
+})})})
+
+}
+
+
+checkForMutualLike(cardsCounter){
+
+  console.log("mutual lker checker in action", cardsCounter);
+
+  var likedUserId = this.state.query_results[cardsCounter];
+  var likerId = this.props.data.user;
+
+  console.log("LIKED", likedUserId);
+
+  if (likedUserId){
+  if (likedUserId.liked_profiles.includes(likerId)){
+    console.log("Liked user likes you back");
+    this.createMutualLike(likedUserId, likerId)
+  }
+}
+
+else {
+  return
+}
+
+}
+
 
     returnParentStatus(user){
       if (user.childless === false){
@@ -390,7 +529,7 @@ console.log("Error updating likes and ignores.");
 
   render(){
 
-
+      console.log("MATCH IN PROGRESS STATE IS", this.state.matchInProgress);
       const commaNumber = require('comma-number')
       const getAge = require('get-age');
 
@@ -407,7 +546,7 @@ console.log("Error updating likes and ignores.");
 
         }
 
-      if (this.state.query_results) {
+      if (this.state.query_results && this.state.matchInProgress === false) {
 
         return(
         <div className="container">
@@ -420,6 +559,7 @@ console.log("Error updating likes and ignores.");
                 <div class="demo__card-cont">
 
                   {this.state.query_results.map(user =>
+
 
                   <div class="demo__card">
                     <div class="demo__card__top">
@@ -436,34 +576,12 @@ console.log("Error updating likes and ignores.");
     </fieldset>
 
   {/* PHOTO CAROUSEL */}
-      <div class="slider-container">
-        <div class="slider-menu">
-          <label for="slide-dot-1"></label>
-          <label for="slide-dot-2"></label>
-          <label for="slide-dot-3"></label>
-          <label for="slide-dot-4"></label>
-          <label for="slide-dot-5"></label>
-          <label for="slide-dot-6"></label>
-        </div>
+      <Gallery
 
-         <input id="slide-dot-1" type="radio" name="slides"></input>
-        <div class="slide slide-1" style={{backgroundImage: `url(${user.picture_six})`}}></div>
+      data={user}
 
-        <input id="slide-dot-2" type="radio" name="slides"></input>
-         <div class="slide slide-2" style={{backgroundImage: `url(${user.picture_two})`}}></div>
+      />
 
-         <input id="slide-dot-3" type="radio" name="slides"></input>
-         <div class="slide slide-3" style={{backgroundImage: `url(${user.picture_three})`}}></div>
-
-         <input id="slide-dot-4" type="radio" name="slides"></input>
-         <div class="slide slide-4" style={{backgroundImage: `url(${user.picture_four})`}}></div>
-
-         <input id="slide-dot-5" type="radio" name="slides"></input>
-         <div class="slide slide-5" style={{backgroundImage: `url(${user.picture_five})`}}></div>
-
-         <input id="slide-dot-6" type="radio" name="slides"></input>
-         <div class="slide slide-6" style={{backgroundImage: `url(${user.picture})`}}></div>
-       </div>
        <br></br>
 
     <StackedBar twitter={user.twitter_followers} youtube={user.youtube_followers} instagram={user.instagram_followers} totalReach={this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)} />
@@ -471,37 +589,15 @@ console.log("Error updating likes and ignores.");
 
 
       {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
-      <div className="reach-stats">
-      <div className="reach_table">
-      <ul class="os-percentages horizontal-list">
-          <li>
-            {/* <p class="youtube os scnd-font-color">Youtube</p> */}
-            <p class="youtube os scnd-font-color"><img src="../images/app_images/youtube-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.youtube_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="twitter os scnd-font-color"><img src="../images/app_images/twitter-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.twitter_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="instagram os scnd-font-color"><img src="../images/app_images/instagram-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.instagram_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="facebook os scnd-font-color"><img src="../images/app_images/facebook-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="snapchat os scnd-font-color"><img src="../images/app_images/snapchat-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="spotify os scnd-font-color"><img src="../images/app_images/spotify-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-      </ul>
-      </div>
-    </div>
+
+      <ReachPercentagesTable
+
+       total_reach={this.total_reach(user.youtube_followers, user.instagram_followers, user.twitter_followers)}
+       youtube_followers={user.youtube_followers}
+       instagram_followers={user.instagram_followers}
+       twitter_followers={user.twitter_followers}
+
+      / >
 
 
     {/* DISPLAY HOMETOWN & BIO OF USER*/}
@@ -554,15 +650,39 @@ console.log("Error updating likes and ignores.");
 
   )}
 
+  if (this.state.matchInProgress === true){
+
+    console.log("CONDITIONAL RENDER FOR MATCH IN PROGRESS BEING EXECUTED");
+    console.log("LIKED PROFILE STATE", this.state.liked_profile);
+
+    localStorage.setItem('liked_profile',
+  JSON.stringify(this.state.liked_profile));
+
+  localStorage.setItem('liked_user_picture',
+JSON.stringify(this.state.liked_profile.picture));
+
+localStorage.setItem('liked_user_name',
+JSON.stringify(this.state.liked_profile.name));
+
+localStorage.setItem('liked_user_location',
+JSON.stringify(this.state.liked_profile.location));
+
+    return (
+
+    <MatchAnimation
+
+     resetMatchingState={this.resetMatchingState} data={this.props.data} loggedInAs={this.props.loggedInAs} likedUser={this.state.liked_profile} distance={this.approxDistanceBetweenTwoPoints(this.state.latitude, this.state.longitude, this.state.liked_profile.latitude, this.state.liked_profile.longitude).toFixed(1)} login= {true}
+
+     />
+
+    )
+  }
+
 else {
   return (
-    <div class="loader">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+
+      <Indicator />
+
     )
 }
 

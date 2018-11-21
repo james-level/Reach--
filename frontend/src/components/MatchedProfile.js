@@ -8,10 +8,7 @@ import Gallery from './Gallery';
 import axios from 'axios';
 
 
-// DELETE THIS COMMENT  DURING MERE PLEASE
-
-
-class Profile extends Component {
+class MatchedProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +19,7 @@ class Profile extends Component {
       longitude: 0,
       latitude: 0
     };
+
   }
 
   twitter_followers(){return this.props.data.twitter_followers;}
@@ -33,58 +31,6 @@ class Profile extends Component {
      return this.props.data.instagram_followers + this.props.data.twitter_followers + this.props.data.youtube_followers;
 
    }
-
-
-  componentDidMount(){
-    this.getLocation()
-
-    }
-
-  getLocation(){
-    console.log("getting location");
-
-var self = this
-const token_passed_from_main = this.props.token_to_pass_on;
-const username = this.props.loggedInAs;
-  navigator.geolocation.getCurrentPosition(function(position) {
-    if (position.coords.latitude && position.coords.longitude) {
-      const formData = new FormData();
-     self.setState({
-       longitude: position.coords.longitude ,
-       latitude: position.coords.latitude
-     })
-
-     formData.append('latitude', self.state.latitude);
-     formData.append('longitude', self.state.longitude);
-     var session_url = 'http://localhost:8080/social_reach/jwt_login/';
-     axios.post(session_url, {
-         'username': username,
-         'password': self.props.password
-       }).then(function(response) {
-         console.log('response:', response);
-       console.log('Obtained token. (PROFILE)');
-       var token = response.data['token']
-       axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
-           "token": token,
-           'username': username,
-           'password': self.props.password
-         }).then(function(second_response) {
-     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
-       formData
-    ,
-  { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
-
-     console.log("location UPDATED");
- }).catch(function(error){
- console.log(error);
- console.log("Error updating Reach.");
-}).catch(function (error){
-  console.log(error);
-})})})
-
-   }
-  });
-}
 
 
   render(){
@@ -103,13 +49,17 @@ const username = this.props.loggedInAs;
 
       <div className="profile">
 
+       <button onClick={this.props.resetMatchingState} class="back-to-results-button">Back To Results</button>
+
         {/* DISPLAY NAME & AGE*/}
         <fieldset>
           <legend><span class="number"></span> {this.props.data.name} ({this.props.data.location}), {age}yrs </legend>
           <label className="total-reach" type="text">Reach: {commaNumber(this.total_reach())}</label>
+          <label className="distance_from_user" type="text"> {this.props.distance}km away</label>
         </fieldset>
 
       {/* PHOTO CAROUSEL */}
+
       <Gallery
 
       data={this.props.data}
@@ -160,7 +110,6 @@ const username = this.props.loggedInAs;
     <div className="container">
     {post}
     </div>
-
     )
   }
 }
@@ -171,4 +120,4 @@ export default geolocated({
     enableHighAccuracy: false,
   },
   userDecisionTimeout: 5000,
-})(Profile);
+})(MatchedProfile);

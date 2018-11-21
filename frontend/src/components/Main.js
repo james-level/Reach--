@@ -10,6 +10,9 @@ import PasswordReset from "./PasswordReset";
 import EditProfile from "./EditProfile";
 import Loading from "./Loading";
 import Messages from "./Messages";
+import ChatApp from "./ChatApp";
+import MatchAnimation from "./MatchAnimation"
+import MatchedProfile from "./MatchedProfile"
 import UserSection from "./UserSection";
 import axios from 'axios';
 import { BrowserRouter as Router, Route} from "react-router-dom";
@@ -49,7 +52,18 @@ class Main extends Component {
     this.get_reset_token = this.get_reset_token.bind(this)
     this.handleLoginFromRegistrationSubmit = this.handleLoginFromRegistrationSubmit.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
+    this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
+    this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
     console.log(this.props.coords);
+  }
+
+  usernameChangeHandler(event) {
+    this.setState({ username: event.target.value });
+  }
+
+  usernameSubmitHandler(event) {
+    event.preventDefault();
+    this.setState({ submitted: true, loggedInAs: this.state.loggedInAs });
   }
 
 get_uniqueID(uid){
@@ -171,6 +185,7 @@ console.log("Error resetting password");
         console.log(second_response);
         var verified_token = second_response.data['token']
         console.log("VER TOKEN", verified_token);
+        console.log("PASSWORSD", self.state.password);
        axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `JWT ${verified_token}` } })
        .then(res =>{
          self.setState({
@@ -273,12 +288,16 @@ console.log("Error resetting password");
                 <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
                 <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} token_to_pass_on = {this.state.token_to_pass_on} />} />
                 <Route path="/publicProfile" render={(props) =>  <PublicProfile data={this.state.data} loggedInAs={this.state.loggedInAs} />} />
-                <Route path="/editprofile" render={(props) =>  <EditProfile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
-                <Route path="/settings" render={(props) =>  <Settings logout={this.handleLogOut} data={this.state.data} token_to_pass_on = {this.state.token_to_pass_on} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/editprofile" render={(props) =>  <EditProfile data={this.state.data} loggedInAs={this.state.loggedInAs} password={this.state.password} login={this.state.login} token_to_pass_on = {this.state.token_to_pass_on} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
+                <Route path="/settings" render={(props) =>  <Settings logout={this.handleLogOut} password={this.state.password}  data={this.state.data} token_to_pass_on={this.state.token_to_pass_on} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
                 <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-                <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
-                <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} login={this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
+                <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data} logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login={this.state.login} />} />
                 <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+                <Route path="/ChatApp" render={(props) =>  <ChatApp data={this.state.data} username={this.state.loggedInAs}  loggedInAs={this.state.loggedInAs} login= {this.state.login}  picture={this.state.data.picture}/>} />
+                <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} loggedInAs={this.state.loggedInAs} likedUser={null} login= {this.state.login} picture={this.state.data.picture}/>} />
+                <Route path="/matchedprofile" render={(props) => <MatchedProfile loggedInAs={this.state.loggedInAs} data={this.state.data} distance={null} login= {true} /> } />
+
 
               </React.Fragment>
             </Router>
@@ -313,12 +332,15 @@ console.log("Error resetting password");
           <Route exact path="/reset_password/:id/:token" render={(props) => <PasswordReset {...props} handlePasswordResetSubmit = {this.handlePasswordResetSubmit} get_uniqueID = {this.get_uniqueID} get_reset_token = {this.get_reset_token} data={props}/>}/>
           <Route path="/Profile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/publicprofile" render={(props) =>  <Profile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
-          <Route path="/editprofile" render={(props) =>  <EditProfile data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
-          <Route path="/settings" render={(props) =>  <Settings data={this.state.data} token_to_pass_on = {this.state.token_to_pass_on} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/editprofile" render={(props) =>  <EditProfile data={this.state.data} password={this.state.password} loggedInAs={this.state.loggedInAs} login= {this.state.login} handleLoginFromRegistrationSubmit = {this.handleLoginFromRegistrationSubmit} />} />
+          <Route path="/settings" render={(props) =>  <Settings data={this.state.data} password={this.state.password}  token_to_pass_on = {this.state.token_to_pass_on} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/results" render={(props) =>  <ResultsView data={this.state.data} password={this.state.password}  loggedInAs={this.state.loggedInAs} login= {this.state.login} token_to_pass_on = {this.state.token_to_pass_on} />} />
           <Route path="/loading" render={(props) =>  <Loading data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/usersection" render={(props) =>  <UserSection data={this.state.data}  logout={this.handleLogOut}  loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
           <Route path="/messages" render={(props) =>  <Messages data={this.state.data} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/matchanimation" render={(props) =>  <MatchAnimation data={this.state.data} likedUser={null} loggedInAs={this.state.loggedInAs} login= {this.state.login} />} />
+          <Route path="/matchedprofile" render={(props) => <MatchedProfile loggedInAs={this.state.loggedInAs} data={null} distance={null} login= {true} /> } />
+
 
         </React.Fragment>
       </Router>

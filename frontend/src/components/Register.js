@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
 import { Redirect } from 'react-router-dom';
+import Indicator from './Indicator';
 import $ from 'jquery';
 
 
@@ -85,7 +86,7 @@ class Register extends Component {
 
     handleSubmit(evt){
       console.log(this.state);
-    
+
       var self = this;
       evt.preventDefault();
       console.log("pw", this.state.activation_user_password);
@@ -445,13 +446,8 @@ class Register extends Component {
     else {
       return (
 
-        <div class="loader">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <Indicator / >
+        
       )
     }
 
