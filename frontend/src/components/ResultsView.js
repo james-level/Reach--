@@ -74,7 +74,7 @@ class ResultsView extends Component {
 
     var imageArray = [user.picture, user.picture_two, user.picture_three, user.picture_four, user.picture_five, user.picture_six];
 
-    imageArray.filter(image => image !== null).map(image =>{
+    const galleryDots = imageArray.filter(image => image !== null).map(image =>{
 
     return (
 
@@ -83,6 +83,9 @@ class ResultsView extends Component {
       )
     }
   )
+
+    return galleryDots;
+
 }
 
 
@@ -594,6 +597,7 @@ else {
       <Gallery
 
       data={user}
+      hello={user.name}
       gallery_dots={this.galleryDots(user)}
 
       />

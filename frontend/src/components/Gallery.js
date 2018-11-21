@@ -10,13 +10,11 @@ class Gallery extends Component {
 
   render(){
 
-    const GalleryDots = this.props.gallery_dots ? ( this.props.gallery_dots ) : (<p></p>)
-
     return (
 
       <div class="slider-container">
         <div class="slider-menu">
-        {GalleryDots}
+        {this.props.gallery_dots}
         </div>
 
          <input id="slide-dot-1" type="radio" name="slides"></input>
