@@ -22,8 +22,8 @@ class ResultsView extends Component {
       entered_search_query: false,
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
-      liked_profiles: this.props.data.liked_profiles.length > 0 ? this.props.data.liked_profiles : [] ,
-      ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : [],
+      liked_profiles: this.props.data.liked_profiles,
+      ignored_profiles: this.props.data.ignored_profiles,
       matchInProgress: false,
       liked_profile: null
     };
