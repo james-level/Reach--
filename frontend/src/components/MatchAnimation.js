@@ -42,6 +42,7 @@ class MatchAnimation extends Component {
           if (this.props.loggedInAs && localStorage.getItem('liked_profile') && !this.state.resultsRedirectClicked && !this.state.viewProfileClicked){
 
             return (
+              <div>
               <div class="z-carousel z-state-matched z-state-reveal-match">
           <div class="mod-body">
 
@@ -84,9 +85,16 @@ class MatchAnimation extends Component {
                   </div>
               </div>
 
-              <button class="direct-message-button">
-                <img src="./images/app_images/directmessage.png" height="100" width="100"/>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+
+              <button class="direct-message-button" style={{borderColor: "transparent"}}>
+                <img src="./images/app_images/directmessage.png" style={{borderColor: "transparent"}} height="100" width="100"/>
               </button>
+
+              <br></br>
 
 
               <div class="z-matched-content-container">
@@ -97,6 +105,8 @@ class MatchAnimation extends Component {
               </div>
           </div>
       </div>
+      <br></br>
+      </div>
 
     )
   }
@@ -106,7 +116,15 @@ class MatchAnimation extends Component {
 
    return (
 
-   <MatchedProfile resetMatchingState={this.props.resetMatchingState} loggedInAs={this.props.loggedInAs} data={this.props.likedUser} distance={this.props.distance} login= {true}/>
+     <MatchedProfile
+
+       resetMatchingState={this.props.resetMatchingState}
+       loggedInAs={this.props.loggedInAs}
+       data={this.props.likedUser}
+       distance={this.props.distance}
+       login= {true}
+
+     />
 
  )
 

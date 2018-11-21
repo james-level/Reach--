@@ -166,11 +166,11 @@ console.log("Error resetting password");
   // self = this , a workaround to access 'this' within axios
   var self = this;
   this.setState({
-    username: uname,
+    username: uname.toLowerCase(),
     password: pass
   })
   axios.post(session_url, {
-      'username': uname,
+      'username': uname.toLowerCase(),
       'password': pass
     }).then(function(response) {
       console.log('response:', response);
@@ -178,7 +178,7 @@ console.log("Error resetting password");
     var token = response.data['token']
     axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
         "token": token,
-        'username': uname,
+        'username': uname.toLowerCase(),
         'password': pass
       }).then(function(second_response) {
 
@@ -186,13 +186,13 @@ console.log("Error resetting password");
         var verified_token = second_response.data['token']
         console.log("VER TOKEN", verified_token);
         console.log("PASSWORSD", self.state.password);
-       axios.get(`http://localhost:8080/social_reach/profiles/${uname}/?format=json`, { headers: { Authorization: `JWT ${verified_token}` } })
+       axios.get(`http://localhost:8080/social_reach/profiles/${uname.toLowerCase()}/?format=json`, { headers: { Authorization: `JWT ${verified_token}` } })
        .then(res =>{
          self.setState({
            login: true,
            data: res.data,
            token_to_pass_on: verified_token,
-           loggedInAs: uname,
+           loggedInAs: uname.toLowerCase(),
            reroute: true
          })
           return <Redirect to='/results' data={self.state.data} loggedInAs={self.state.loggedInAs} login= {self.state.login}/>
