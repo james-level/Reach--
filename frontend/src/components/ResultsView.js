@@ -597,7 +597,6 @@ else {
       <Gallery
 
       data={user}
-      hello={user.name}
       gallery_dots={this.galleryDots(user)}
 
       />

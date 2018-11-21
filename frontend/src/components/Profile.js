@@ -4,6 +4,7 @@ import jQuery from 'jquery'
 import {geolocated, geoPropTypes} from 'react-geolocated';
 import StackedBar from './Stacked';
 import ReachPercentagesTable from './ReachPercentagesTable';
+import Gallery from './Gallery';
 import axios from 'axios';
 
 // DELETE THIS COMMENT  DURING MERE PLEASE
@@ -84,38 +85,33 @@ const username = this.props.loggedInAs;
   });
 }
 
+galleryDots(user){
+
+  var imageArray = [user.picture, user.picture_two, user.picture_three, user.picture_four, user.picture_five, user.picture_six];
+
+  const galleryDots = imageArray.filter(image => image !== null).map(image =>{
+
+  return (
+
+      <label for={`slide-dot-` + imageArray.indexOf(image)}> </label>
+
+    )
+  }
+)
+
+  return galleryDots;
+
+}
+
 
   render(){
 
     console.log(this.props.coords);
 
     const commaNumber = require('comma-number')
-    const imageStyle = {backgroundImage: `url(${this.props.data.picture_six})`}
-    const imageStyle2 = { backgroundImage: `url(${this.props.data.picture_two})`}
-    const imageStyle3 = {backgroundImage: `url(${this.props.data.picture_three})`}
-    const imageStyle4 = {backgroundImage: `url(${this.props.data.picture_four})`}
-    const imageStyle5 = {backgroundImage: `url(${this.props.data.picture_five})`}
-    const imageStyle6 = {backgroundImage: `url(${this.props.data.picture})`}
-    const imageArray = [this.props.data.picture, this.props.data.picture_two, this.props.data.picture_three, this.props.data.picture_four, this.props.data.picture_five, this.props.data.picture_six]
-    console.log(imageArray);
-    console.log("PHOTO 1", this.props.data.picture);
-    console.log("PHOTO 2", this.props.data.picture_two);
-    console.log("PHOTO 3", this.props.data.picture_three);
-    console.log("PHOTO 4", this.props.data.picture_four);
-    console.log("PHOTO 5", this.props.data.picture_five);
-    console.log("PHOTO 6", this.props.data.picture_six);
+
     var getAge = require('get-age');
     var age = getAge(this.props.data.date_of_birth);
-
-    var galleryElements = imageArray.filter(image => image !== null) ;
-    console.log(galleryElements);
-    const GalleryDots = galleryElements.map(image =>{
-      var dot = `slide-dot-` + imageArray.indexOf(image)
-      return (
-          <label for={dot}> </label>)
-    })
-
-      // )
 
 
 //ternary to either display profile or log in message
@@ -131,29 +127,12 @@ const username = this.props.loggedInAs;
         </fieldset>
 
       {/* PHOTO CAROUSEL */}
-          <div class="slider-container">
-            <div class="slider-menu">
-              {GalleryDots }
-            </div>
+      <Gallery
 
-             <input id="slide-dot-0" type="radio" name="slides"></input>
-            <div class="slide slide-1" style={imageStyle}></div>
+      data={this.props.data}
+      gallery_dots={this.galleryDots(this.props.data)}
 
-            <input id="slide-dot-1" type="radio" name="slides"></input>
-             <div class="slide slide-2" style={imageStyle2}></div>
-
-             <input id="slide-dot-2" type="radio" name="slides"></input>
-             <div class="slide slide-3" style={imageStyle3}></div>
-
-             <input id="slide-dot-3" type="radio" name="slides"></input>
-             <div class="slide slide-4" style={imageStyle4}></div>
-
-             <input id="slide-dot-4" type="radio" name="slides"></input>
-             <div class="slide slide-5" style={imageStyle5}></div>
-
-             <input id="slide-dot-5" type="radio" name="slides"></input>
-             <div class="slide slide-6" style={imageStyle6}></div>
-           </div>
+      />
            <br></br>
 
 
