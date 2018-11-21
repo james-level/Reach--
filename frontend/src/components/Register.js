@@ -94,6 +94,13 @@ class Register extends Component {
 // poST request currently meaningless as no JWT is needed to make profile currently
     var session_url = 'http://localhost:8080/social_reach/jwt_login/';
 
+    self.setState({
+
+      profileSubmitted: true
+
+    })
+
+    
     axios.post(session_url, {
         'username': self.state.activation_user['username'],
         'password':  self.state.password
@@ -156,19 +163,7 @@ class Register extends Component {
       formData.append('childless', childless);
       axios.post(create_profile_url, formData).then(()=>{
         console.log("Done");
-        self.setState({
-
-          profileSubmitted: true
-
-        },
-
-        function(){
-
-          console.log("PROFILE SUBMITTED", self.state.profileSubmitted);
-
           self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'], self.state.password)
-
-        })
         })
       })}).catch(function(e){
         console.log(e);
