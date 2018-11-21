@@ -297,7 +297,7 @@ console.log("Error updating likes and ignores.");
 
         this.setState (
           {
-          ignored_profiles: [...this.state.ignored_profiles, ignoredProfile]
+          ignored_profiles: this.state.ignored_profiles.concat(ignoredProfile)
         }, function(){this.saveLikesAndIgnores(cardsCounter)})
 
       }
@@ -306,7 +306,7 @@ console.log("Error updating likes and ignores.");
 
         this.setState (
           {
-          ignored_profiles: [ignoredProfile]
+          ignored_profiles: this.state.liked_profiles.concat(ignoredProfile)
         }, function(){this.saveLikesAndIgnores(cardsCounter)})
 
       }

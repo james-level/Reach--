@@ -133,7 +133,7 @@ class Register extends Component {
       var picture_six = self.state.photo6
       var vegan = self.state.veganChecked
       var non_smoker = self.state.nonSmokingChecked
-      var prefers_chill_to_gym = self.state.prefersChillToGym
+      var prefers_chill_to_gym = self.state.prefersChillToGymChecked
       var childless = self.state.childlessChecked
       console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
@@ -387,7 +387,7 @@ class Register extends Component {
 
             veganChecked={this.state.veganChecked}
             smokingChecked={this.state.nonSmokingChecked}
-            prefersChillToGym={this.state.prefersChillToGymChecked}
+            prefersChillToGymChecked={this.state.prefersChillToGymChecked}
             childlessChecked={this.state.childlessChecked}
             handleVeganCheckClick={this.handleVeganCheckClick}
             handleNonSmokingCheckClick={this.handleNonSmokingCheckClick}
