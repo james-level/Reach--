@@ -6,6 +6,7 @@ import MatchAnimation from './MatchAnimation';
 import Indicator from './Indicator';
 import { Redirect } from 'react-router-dom'
 import Gallery from './Gallery';
+import ReachPercentagesTable from './ReachPercentagesTable';
 
 class ResultsView extends Component {
   constructor(props) {
@@ -582,37 +583,15 @@ else {
 
 
       {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
-      <div className="reach-stats">
-      <div className="reach_table">
-      <ul class="os-percentages horizontal-list">
-          <li>
-            {/* <p class="youtube os scnd-font-color">Youtube</p> */}
-            <p class="youtube os scnd-font-color"><img src="../images/app_images/youtube-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.youtube_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="twitter os scnd-font-color"><img src="../images/app_images/twitter-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.twitter_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="instagram os scnd-font-color"><img src="../images/app_images/instagram-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.instagram_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="facebook os scnd-font-color"><img src="../images/app_images/facebook-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="snapchat os scnd-font-color"><img src="../images/app_images/snapchat-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="spotify os scnd-font-color"><img src="../images/app_images/spotify-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-      </ul>
-      </div>
-    </div>
+
+      <ReachPercentagesTable
+
+       total_reach={this.total_reach()}
+       youtube_followers={user.youtube_followers}
+       instagram_followers={user.instagram_followers}
+       twitter_followers={user.twitter_followers}
+
+      / >
 
 
     {/* DISPLAY HOMETOWN & BIO OF USER*/}
