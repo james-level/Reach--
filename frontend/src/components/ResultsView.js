@@ -86,9 +86,12 @@ class ResultsView extends Component {
             entered_search_query: true,
             query_results: res.data,
             cardsCounter: this.state.cardsCounter + res.data.length - 1
+          }, function(){
+            console.log("Retrieved results.");
+            console.log("SMOKER STATUS", res.data[2].non_smoker);
+            console.log("CARDS COUNTER AFTER FIRING SEARCH REQUEST", this.state.cardsCounter);
           })
-        console.log("Retrieved results.");
-        console.log("SMOKER STATUS", res.data[2].non_smoker);
+
         }
       ).catch(function(error){
           })
@@ -218,8 +221,6 @@ class ResultsView extends Component {
     else if (liked_profile_ids.length > 0){
     var request_dict = {'liked_profiles': liked_profile_ids};
   }
-
-  var cardsCounter = cardsCounter;
 
   console.log("cardsCounter", cardsCounter);
 
@@ -479,9 +480,9 @@ console.log("Error updating likes and ignores.");
     $(document).ready(function() {
 
   var animating = false;
-  var cardsCounter = self.state.cardsCounter;
   var numOfCards = numberOfResults;
   console.log("RESULTS", numberOfResults);
+  console.log("Cards counter at top of swipedeck()", self.state.cardsCounter);
   var decisionVal = 80;
   var pullDeltaX = 0;
   var deg = 0;
@@ -517,6 +518,8 @@ console.log("Error updating likes and ignores.");
         $card.addClass("below").removeClass("inactive to-left to-right");
         // Adding profile to liked array if pull delta exceeds decisive value
         if (pullDeltaX >= decisionVal) {
+          console.log("cards Counter when about to call handleLike", self.state.cardsCounter);
+          console.log("number of cards when about to call handleLike", numOfCards);
             self.handleLike(self.state.cardsCounter);
           }
         // Adding profile to ignored array if pull delta exceeds decisive value
@@ -524,10 +527,11 @@ console.log("Error updating likes and ignores.");
             self.handleIgnore(self.state.cardsCounter);
           }
 
-        if (self.state.cardsCounter === (0)) {
+        if (self.state.cardsCounter === 0) {
           self.state.cardsCounter = numOfCards - 1;
           console.log("Number of cards", numOfCards);
           console.log("RESETTING CARD COUNTER TO ZERO");
+          console.log("CARD COUNTER POST RESET", self.state.cardsCounter);
           $(".demo__card").removeClass("below");
         }
       }, 300);
@@ -592,6 +596,9 @@ console.log("Error updating likes and ignores.");
       console.log("MATCH IN PROGRESS STATE IS", this.state.matchInProgress);
       const commaNumber = require('comma-number')
       const getAge = require('get-age');
+
+
+      
 
       if (this.state.query_results){
         this.swipdeDeck(this.state.query_results.length);
