@@ -39,7 +39,7 @@ class MatchAnimation extends Component {
             console.log("liked user PICTURE", localStorage.getItem('liked_user_picture'));
             console.log("LIKER user PICTURE", this.props.data.picture);
 
-          if (this.props.loggedInAs && localStorage.getItem('liked_profile') && !this.state.resultsRedirectClicked && !this.state.viewProfileClicked){
+          if (this.props.loggedInAs && this.props.likedUser && !this.state.resultsRedirectClicked && !this.state.viewProfileClicked){
 
             return (
               <div>
@@ -68,12 +68,12 @@ class MatchAnimation extends Component {
                   <div class="z-card z-state-card-match">
                       <div class="z-card-front">
                                         <div class="z-card-photo">
-                          <img alt="" class="flex-img js-other-photo" src={this.removeQuotationMarksFromLikedUserPhoto()}></img>
+                          <img alt="" class="flex-img js-other-photo" src={this.props.likedUser.picture}></img>
                       </div>
                       <div class="z-card-panel">
                           <ul class="edge-unit">
                               <li class="valign-mid">
-                                  <span class="z-card-min-info">Match {localStorage.getItem('liked_user_name')} ({localStorage.getItem('liked_user_location')})</span>
+                                  <span class="z-card-min-info">Match {this.props.likedUser.name} ({this.props.likedUser.location})</span>
                               </li>
                               <li>
                                   <span class="z-card-min-info">Age: X</span>

@@ -25,7 +25,8 @@ class ResultsView extends Component {
       liked_profiles: this.props.data.liked_profiles,
       ignored_profiles: this.props.data.ignored_profiles,
       matchInProgress: false,
-      liked_profile: null
+      liked_profile: null,
+      cardsCounter: 0
     };
 
 
@@ -38,6 +39,7 @@ class ResultsView extends Component {
       this.launchMatchAnimation = this.launchMatchAnimation.bind(this);
       this.preAnimationLikedProfileState = this.preAnimationLikedProfileState.bind(this);
       this.resetMatchingState = this.resetMatchingState.bind(this);
+      this.checkForMutualLike = this.checkForMutualLike.bind(this);
 
   }
 
@@ -83,6 +85,7 @@ class ResultsView extends Component {
           this.setState({
             entered_search_query: true,
             query_results: res.data,
+            cardsCounter: this.state.cardsCounter + res.data.length - 1
           })
         console.log("Retrieved results.");
         console.log("SMOKER STATUS", res.data[2].non_smoker);
@@ -179,7 +182,8 @@ class ResultsView extends Component {
 
       this.setState({
 
-        matchInProgress: false
+        matchInProgress: false,
+        cardsCounter: this.state.query_results.length - 1
 
       })
     }
@@ -188,7 +192,7 @@ class ResultsView extends Component {
   saveLikesAndIgnores(cardsCounter){
 
       console.log("Liked profiles state", this.state.liked_profiles);
-
+      console.log('cards counter IN SAVE METHOD', cardsCounter);
     var username = this.props.loggedInAs;
     var token_passed_from_main = this.props.token_to_pass_on;
     console.log(this.props.token_to_pass_on);
@@ -246,11 +250,12 @@ console.log("Error updating likes and ignores.");
 
     if (this.state.liked_profiles.length > 0){
 
+      console.log("State liked profiles", this.state.liked_profiles.length);
       console.log("HEREEEEEE");
 
     this.setState({
 
-      liked_profiles: [...this.state.liked_profiles, likedProfile]
+      liked_profiles: this.state.liked_profiles.concat(likedProfile)
 
     },
 
@@ -267,7 +272,7 @@ console.log("Error updating likes and ignores.");
 
     this.setState({
 
-      liked_profiles: [likedProfile]
+      liked_profiles: this.state.liked_profiles.concat(likedProfile)
 
     },
 
@@ -333,7 +338,7 @@ console.log("Error updating likes and ignores.");
       )
       }
 
-      createMutualLike(likedProfile, liker){
+      createMutualLike(likedProfile, liker, cardsCounter){
 
         var self = this;
 
@@ -369,7 +374,17 @@ console.log("Error updating likes and ignores.");
           formData
        ,
       { headers: { 'Authorization': `JWT ${token}` , 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' } }).then(function (response) {
-       self.preAnimationLikedProfileState(liked_profile)
+
+       self.setState({
+
+         cardsCounter: cardsCounter - 1
+
+       }, function(){
+
+         self.preAnimationLikedProfileState(liked_profile)
+
+       })
+
         console.log("MUTUAL LIKE CREATED");
       }).catch(function(error){
       console.log(error);
@@ -389,18 +404,31 @@ console.log("Error updating likes and ignores.");
         var likerId = this.props.data.user;
 
         console.log("LIKED", likedUserId);
+        console.log("LIKER ID", likerId);
+        console.log("liked profile's liked profiles", likedUserId.liked_profiles);
 
-        if (likedUserId){
-        if (likedUserId.liked_profiles.includes(likerId)){
-          console.log("Liked user likes you back");
-          this.createMutualLike(likedUserId, likerId)
-        }
+
+            if (likedUserId.liked_profiles.includes(likerId)){
+              console.log("Liked user likes you back");
+              this.createMutualLike(likedUserId, likerId, cardsCounter)
+            }
+
+
+            else {
+
+              console.log("no match with this user");
+
+              this.setState({
+                cardsCounter: this.state.cardsCounter - 1
+              }, function(){
+
+                console.log("CARD counter state incremented here and no match");
+                console.log("Cards counter in callback part of mutual checker", this.state.cardsCounter);
+                return
+
+              })
       }
-
-      else {
-        return
-      }
-
+          console.log("Cards counter after mutual like checker", this.state.cardsCounter);
       }
 
 
@@ -442,6 +470,7 @@ console.log("Error updating likes and ignores.");
   }
 
 
+
 // SWIPE DECK 3 FUNCTION WORDS
   swipdeDeck(numberOfResults) {
 
@@ -450,7 +479,7 @@ console.log("Error updating likes and ignores.");
     $(document).ready(function() {
 
   var animating = false;
-  var cardsCounter = 0;
+  var cardsCounter = self.state.cardsCounter;
   var numOfCards = numberOfResults;
   console.log("RESULTS", numberOfResults);
   var decisionVal = 80;
@@ -488,20 +517,22 @@ console.log("Error updating likes and ignores.");
         $card.addClass("below").removeClass("inactive to-left to-right");
         // Adding profile to liked array if pull delta exceeds decisive value
         if (pullDeltaX >= decisionVal) {
-            self.handleLike(cardsCounter);
+            self.handleLike(self.state.cardsCounter);
           }
         // Adding profile to ignored array if pull delta exceeds decisive value
         if (pullDeltaX <=  -decisionVal) {
-            self.handleIgnore(cardsCounter);
+            self.handleIgnore(self.state.cardsCounter);
           }
 
-        cardsCounter++;
-
-        if (cardsCounter === numOfCards) {
-          cardsCounter = 0;
+        if (self.state.cardsCounter === (0)) {
+          self.state.cardsCounter = numOfCards - 1;
+          console.log("Number of cards", numOfCards);
+          console.log("RESETTING CARD COUNTER TO ZERO");
           $(".demo__card").removeClass("below");
         }
       }, 300);
+
+        // cardsCounter++;
     }
 
     if (Math.abs(pullDeltaX) < decisionVal) {
@@ -552,6 +583,10 @@ console.log("Error updating likes and ignores.");
 
   }
 
+  printCurrentVisibleUser(user){
+    console.log("current visible user", user);
+  }
+
   render(){
 
       console.log("MATCH IN PROGRESS STATE IS", this.state.matchInProgress);
@@ -588,6 +623,10 @@ console.log("Error updating likes and ignores.");
 
                   <div class="demo__card">
                     <div class="demo__card__top">
+
+                    <div>
+                    {this.printCurrentVisibleUser(user)}
+                    </div>
 
   {/* Putting profile card div here for testing */}
 
@@ -658,20 +697,6 @@ console.log("Error updating likes and ignores.");
 
   if (this.state.matchInProgress === true){
 
-    console.log("CONDITIONAL RENDER FOR MATCH IN PROGRESS BEING EXECUTED");
-    console.log("LIKED PROFILE STATE", this.state.liked_profile);
-
-    localStorage.setItem('liked_profile',
-  JSON.stringify(this.state.liked_profile));
-
-    localStorage.setItem('liked_user_picture',
-  JSON.stringify(this.state.liked_profile.picture));
-
-    localStorage.setItem('liked_user_name',
-    JSON.stringify(this.state.liked_profile.name));
-
-    localStorage.setItem('liked_user_location',
-    JSON.stringify(this.state.liked_profile.location));
 
     return (
 
