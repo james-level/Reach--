@@ -84,12 +84,19 @@ class ResultsView extends Component {
         .then(res =>{
           this.setState({
             entered_search_query: true,
-            query_results: res.data,
-            cardsCounter: this.state.cardsCounter + res.data.length - 1
+            query_results: res.data
           }, function(){
-            console.log("Retrieved results.");
-            console.log("SMOKER STATUS", res.data[2].non_smoker);
-            console.log("CARDS COUNTER AFTER FIRING SEARCH REQUEST", this.state.cardsCounter);
+
+            this.setState({
+              cardsCounter: this.state.cardsCounter + this.state.query_results.length - 1
+
+            }, function(){
+
+              console.log("Retrieved results.");
+              console.log("SMOKER STATUS", res.data[2].non_smoker);
+              console.log("CARDS COUNTER AFTER FIRING SEARCH REQUEST", this.state.cardsCounter);
+
+            })
           })
 
         }
@@ -169,17 +176,20 @@ class ResultsView extends Component {
       const username = this.props.loggedInAs;
       const password = this.props.password;
 
-      this.getLocation(username, password);
-
       this.setState({
 
       liked_profiles: this.props.data.liked_profiles,
       ignored_profiles: this.props.data.ignored_profiles,
-      matchInProgress: false
+      matchInProgress: false,
+      cardsCounter: 0
 
-    })
+    }, function(){
+
+      this.getLocation(username, password)
 
     }
+  )
+  }
 
     resetMatchingState(){
 
@@ -241,9 +251,51 @@ console.log("Error updating likes and ignores.");
 
   handleLike(cardsCounter){
 
-    console.log("CARDS COUNTER", cardsCounter);
+    // RESET CARDS COUNTER TO TOP INDEX IF EQUAL TO -1 - START OF CONDITIONAL LOGIC
 
-    var likedProfile = this.state.query_results[cardsCounter].user;
+    if (cardsCounter === - 1){
+      console.log("CARDS COUNTER IS MINUS ONE!");
+      console.log("Query RESULTS lENGTH IS", this.state.query_results.length);
+      
+      this.setState({
+        cardsCounter: this.state.query_results.length - 1
+      }, function() {
+
+        console.log("CARDS COUNTER", this.state.cardsCounter);
+
+        var likedProfile = this.state.query_results[this.state.cardsCounter].user;
+
+        console.log("likedProf", likedProfile);
+
+        console.log("QUERY RESULTS AT INDEX", likedProfile);
+
+        if (this.state.liked_profiles.length > 0){
+
+          console.log("State liked profiles", this.state.liked_profiles.length);
+          console.log("HEREEEEEE");
+
+        this.setState({
+
+          liked_profiles: this.state.liked_profiles.concat(likedProfile)
+
+        },
+
+          function(){
+
+          console.log("ABOUT TO CALL SAVE LIKES AND IGNORES FUNCTION");
+
+            this.saveLikesAndIgnores(cardsCounter)
+
+        })
+
+      }})
+  }
+
+  // END OF CONDITIONAL LOGIC FOR MINUS ONE
+
+    console.log("CARDS COUNTER", this.state.cardsCounter);
+
+    var likedProfile = this.state.query_results[this.state.cardsCounter].user;
 
     console.log("likedProf", likedProfile);
 
@@ -598,7 +650,7 @@ console.log("Error updating likes and ignores.");
       const getAge = require('get-age');
 
 
-      
+
 
       if (this.state.query_results){
         this.swipdeDeck(this.state.query_results.length);
