@@ -91,13 +91,23 @@ class Register extends Component {
       evt.preventDefault();
       console.log("pw", this.state.activation_user_password);
       console.log("username",self.state.activation_user['username']);
-      var session_url = 'http://localhost:8080/social_reach/api/auth/token/obtain/';
+
       console.log(self.state.password);
 // poST request currently meaningless as no JWT is needed to make profile currently
-      axios.post(session_url, {
+    var session_url = 'http://localhost:8080/social_reach/jwt_login/';
+
+    axios.post(session_url, {
+        'username': self.state.activation_user['username'],
+        'password':  self.state.password
+      }).then(function(response) {
+      console.log('response:', response);
+      console.log('Obtained token. (PROFILE)');
+      var token = response.data['token']
+      axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
+          "token": token,
           'username': self.state.activation_user['username'],
           'password': self.state.password
-        }).then(function(response) {
+        }).then(function(second_response) {
           console.log(response);
         console.log('Authenticated');
         var token = response.data['access']
@@ -148,9 +158,9 @@ class Register extends Component {
       formData.append('childless', childless);
       axios.post(create_profile_url, formData).then(()=>{
         console.log("Done");
-        self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'],self.state.password)
+        self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'], self.state.password)
         })
-      }).catch(function(e){
+      })}).catch(function(e){
         console.log(e);
       })
     }
@@ -447,7 +457,7 @@ class Register extends Component {
       return (
 
         <Indicator / >
-        
+
       )
     }
 
