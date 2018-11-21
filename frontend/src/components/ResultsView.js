@@ -70,6 +70,21 @@ class ResultsView extends Component {
 
   }
 
+  galleryDots(user){
+
+    var imageArray = [user.picture, user.picture_two, user.picture_three, user.picture_four, user.picture_five, user.picture_six];
+
+    imageArray.filter(image => image !== null).map(image =>{
+
+    return (
+
+        <label for={`slide-dot-` + imageArray.indexOf(image)}> </label>
+
+      )
+    }
+  )
+}
+
 
   fireSearchRequest(){
 
@@ -560,6 +575,7 @@ else {
 
                   {this.state.query_results.map(user =>
 
+
                   <div class="demo__card">
                     <div class="demo__card__top">
 
@@ -575,7 +591,13 @@ else {
     </fieldset>
 
   {/* PHOTO CAROUSEL */}
-      <Gallery data={user} GalleryDots={GalleryDots} />
+      <Gallery
+
+      data={user}
+      gallery_dots={this.galleryDots(user)}
+
+      />
+
        <br></br>
 
     <StackedBar twitter={user.twitter_followers} youtube={user.youtube_followers} instagram={user.instagram_followers} totalReach={this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)} />
@@ -586,7 +608,7 @@ else {
 
       <ReachPercentagesTable
 
-       total_reach={this.total_reach()}
+       total_reach={this.total_reach(user.youtube_followers, user.instagram_followers, user.twitter_followers)}
        youtube_followers={user.youtube_followers}
        instagram_followers={user.instagram_followers}
        twitter_followers={user.twitter_followers}
@@ -675,7 +697,7 @@ JSON.stringify(this.state.liked_profile.location));
 else {
   return (
 
-      <Indicator/>
+      <Indicator />
 
     )
 }

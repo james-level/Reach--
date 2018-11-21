@@ -10,7 +10,7 @@ class Gallery extends Component {
 
   render(){
 
-    const GalleryDots = this.props.GalleryDots ? ( this.props.GalleryDots ) : (<p></p>)
+    const GalleryDots = this.props.gallery_dots ? ( this.props.gallery_dots ) : (<p></p>)
 
     return (
 
