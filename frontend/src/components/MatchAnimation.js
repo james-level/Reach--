@@ -46,6 +46,17 @@ class MatchAnimation extends Component {
               <div class="z-carousel z-state-matched z-state-reveal-match">
           <div class="mod-body">
 
+            <div className="profile" style={{maxWidth:'600'}}>
+
+            <fieldset>
+
+            <label className="total-reach" type="text">You matched!</label>
+
+
+            </fieldset>
+
+            </div>
+
 
               <div class="z-matched-content-photo-container">
                   <div class="z-card z-state-card-self">
