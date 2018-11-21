@@ -141,11 +141,19 @@ class ResultsView extends Component {
     obtainUserPreferencesFromAPI(){
 
       this.setState({
+
       min_age: this.props.data.min_age_desired,
       max_age: this.props.data.max_age_desired,
       distance: this.props.max_distance_acceptable,
-      my_profile: this.props.loggedInAs},
-      function(){this.fireSearchRequest()})
+      my_profile: this.props.loggedInAs
+
+    },
+
+      function(){
+
+        this.fireSearchRequest()
+
+      })
     }
 
     componentDidMount(evt){
@@ -158,9 +166,11 @@ class ResultsView extends Component {
       this.getLocation(username, password);
 
       this.setState({
+
       liked_profiles: this.props.data.liked_profiles,
       ignored_profiles: this.props.data.ignored_profiles,
       matchInProgress: false
+
     })
 
     }
@@ -168,7 +178,9 @@ class ResultsView extends Component {
     resetMatchingState(){
 
       this.setState({
+
         matchInProgress: false
+
       })
     }
 
@@ -236,24 +248,34 @@ console.log("Error updating likes and ignores.");
 
       console.log("HEREEEEEE");
 
-    this.setState(
-      {
+    this.setState({
+
       liked_profiles: [...this.state.liked_profiles, likedProfile]
-    }, function(){
+
+    },
+
+      function(){
 
       console.log("ABOUT TO CALL SAVE LIKES AND IGNORES FUNCTION");
 
-      this.saveLikesAndIgnores(cardsCounter)
+        this.saveLikesAndIgnores(cardsCounter)
 
     })
   }
 
   else {
 
-    this.setState(
-      {
+    this.setState({
+
       liked_profiles: [likedProfile]
-    }, function(){this.saveLikesAndIgnores(cardsCounter)})
+
+    },
+
+      function(){
+
+        this.saveLikesAndIgnores(cardsCounter)
+
+      })
   }
 
   }
