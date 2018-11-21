@@ -5,6 +5,7 @@ import StackedBar from './Stacked';
 import MatchAnimation from './MatchAnimation';
 import Indicator from './Indicator';
 import { Redirect } from 'react-router-dom'
+import Gallery from './Gallery';
 
 class ResultsView extends Component {
   constructor(props) {
@@ -573,34 +574,7 @@ else {
     </fieldset>
 
   {/* PHOTO CAROUSEL */}
-      <div class="slider-container">
-        <div class="slider-menu">
-          <label for="slide-dot-1"></label>
-          <label for="slide-dot-2"></label>
-          <label for="slide-dot-3"></label>
-          <label for="slide-dot-4"></label>
-          <label for="slide-dot-5"></label>
-          <label for="slide-dot-6"></label>
-        </div>
-
-         <input id="slide-dot-1" type="radio" name="slides"></input>
-        <div class="slide slide-1" style={{backgroundImage: `url(${user.picture_six})`}}></div>
-
-        <input id="slide-dot-2" type="radio" name="slides"></input>
-         <div class="slide slide-2" style={{backgroundImage: `url(${user.picture_two})`}}></div>
-
-         <input id="slide-dot-3" type="radio" name="slides"></input>
-         <div class="slide slide-3" style={{backgroundImage: `url(${user.picture_three})`}}></div>
-
-         <input id="slide-dot-4" type="radio" name="slides"></input>
-         <div class="slide slide-4" style={{backgroundImage: `url(${user.picture_four})`}}></div>
-
-         <input id="slide-dot-5" type="radio" name="slides"></input>
-         <div class="slide slide-5" style={{backgroundImage: `url(${user.picture_five})`}}></div>
-
-         <input id="slide-dot-6" type="radio" name="slides"></input>
-         <div class="slide slide-6" style={{backgroundImage: `url(${user.picture})`}}></div>
-       </div>
+      <Gallery data={user} GalleryDots={GalleryDots} />
        <br></br>
 
     <StackedBar twitter={user.twitter_followers} youtube={user.youtube_followers} instagram={user.instagram_followers} totalReach={this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)} />

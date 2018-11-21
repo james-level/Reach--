@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class Gallery extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -10,16 +10,13 @@ class Gallery extends Component {
 
   render(){
 
+    const GalleryDots = this.props.GalleryDots ? ( this.props.GalleryDots ) : (<p></p>)
+
     return (
 
       <div class="slider-container">
         <div class="slider-menu">
-          <label for="slide-dot-1"></label>
-          <label for="slide-dot-2"></label>
-          <label for="slide-dot-3"></label>
-          <label for="slide-dot-4"></label>
-          <label for="slide-dot-5"></label>
-          <label for="slide-dot-6"></label>
+        {GalleryDots}
         </div>
 
          <input id="slide-dot-1" type="radio" name="slides"></input>
@@ -47,4 +44,4 @@ class Gallery extends Component {
 
 }
 
-export default Gallery:
+export default Gallery;

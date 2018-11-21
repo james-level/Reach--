@@ -83,7 +83,7 @@ class MatchedProfile extends Component {
       {/* PHOTO CAROUSEL */}
           <div class="slider-container">
             <div class="slider-menu">
-              {GalleryDots }
+              {GalleryDots}
             </div>
 
              <input id="slide-dot-0" type="radio" name="slides"></input>
