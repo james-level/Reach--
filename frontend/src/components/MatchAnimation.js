@@ -9,25 +9,13 @@ class MatchAnimation extends Component {
 
     this.state = {
 
-      resultsRedirectClicked: null,
       viewProfileClicked: null
 
     }
 
-    this.handleResultsClick = this.handleResultsClick.bind(this);
     this.handleViewProfileClick = this.handleViewProfileClick.bind(this);
 
     };
-
-    handleResultsClick(){
-
-      this.setState({
-
-        resultsRedirectClicked: true
-
-      })
-
-    }
 
 
     handleViewProfileClick(){
@@ -103,7 +91,7 @@ class MatchAnimation extends Component {
 
               <div class="z-matched-content-container">
                   <div class="equal-action-container">
-                      <button onClick={this.handleResultsClick} class="back-to-results-button">Back To Search</button>
+                      <button onClick={this.props.resetMatchingState} class="back-to-results-button">Back To Search</button>
                       <button onClick={this.handleViewProfileClick} class="back-to-results-button">View Their Profile</button>
                   </div>
               </div>
@@ -111,10 +99,6 @@ class MatchAnimation extends Component {
       </div>
 
     )
-  }
-
-  if (this.state.resultsRedirectClicked === true){
-   return <Redirect to='/results' data={this.props.data} loggedInAs={this.props.loggedInAs} login= {true}/>
   }
 
   if (this.state.viewProfileClicked === true){

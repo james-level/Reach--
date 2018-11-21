@@ -5,6 +5,8 @@ import StackedBar from './Stacked';
 import MatchAnimation from './MatchAnimation';
 import Indicator from './Indicator';
 import { Redirect } from 'react-router-dom'
+import Gallery from './Gallery';
+import ReachPercentagesTable from './ReachPercentagesTable';
 
 class ResultsView extends Component {
   constructor(props) {
@@ -20,8 +22,8 @@ class ResultsView extends Component {
       entered_search_query: false,
       query_results: null,
       distance: this.props.data.max_distance_acceptable,
-      liked_profiles: this.props.data.liked_profiles.length > 0 ? this.props.data.liked_profiles : [] ,
-      ignored_profiles: this.props.data.ignored_profiles.length > 0 ? this.props.data.ignored_profiles : [],
+      liked_profiles: this.props.data.liked_profiles,
+      ignored_profiles: this.props.data.ignored_profiles,
       matchInProgress: false,
       liked_profile: null
     };
@@ -558,6 +560,7 @@ else {
 
                   {this.state.query_results.map(user =>
 
+
                   <div class="demo__card">
                     <div class="demo__card__top">
 
@@ -573,34 +576,12 @@ else {
     </fieldset>
 
   {/* PHOTO CAROUSEL */}
-      <div class="slider-container">
-        <div class="slider-menu">
-          <label for="slide-dot-1"></label>
-          <label for="slide-dot-2"></label>
-          <label for="slide-dot-3"></label>
-          <label for="slide-dot-4"></label>
-          <label for="slide-dot-5"></label>
-          <label for="slide-dot-6"></label>
-        </div>
+      <Gallery
 
-         <input id="slide-dot-1" type="radio" name="slides"></input>
-        <div class="slide slide-1" style={{backgroundImage: `url(${user.picture_six})`}}></div>
+      data={user}
 
-        <input id="slide-dot-2" type="radio" name="slides"></input>
-         <div class="slide slide-2" style={{backgroundImage: `url(${user.picture_two})`}}></div>
+      />
 
-         <input id="slide-dot-3" type="radio" name="slides"></input>
-         <div class="slide slide-3" style={{backgroundImage: `url(${user.picture_three})`}}></div>
-
-         <input id="slide-dot-4" type="radio" name="slides"></input>
-         <div class="slide slide-4" style={{backgroundImage: `url(${user.picture_four})`}}></div>
-
-         <input id="slide-dot-5" type="radio" name="slides"></input>
-         <div class="slide slide-5" style={{backgroundImage: `url(${user.picture_five})`}}></div>
-
-         <input id="slide-dot-6" type="radio" name="slides"></input>
-         <div class="slide slide-6" style={{backgroundImage: `url(${user.picture})`}}></div>
-       </div>
        <br></br>
 
     <StackedBar twitter={user.twitter_followers} youtube={user.youtube_followers} instagram={user.instagram_followers} totalReach={this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)} />
@@ -608,37 +589,15 @@ else {
 
 
       {/* REACH STATS (I.E PERCENTAGE INFO-GRAPHIC) */}
-      <div className="reach-stats">
-      <div className="reach_table">
-      <ul class="os-percentages horizontal-list">
-          <li>
-            {/* <p class="youtube os scnd-font-color">Youtube</p> */}
-            <p class="youtube os scnd-font-color"><img src="../images/app_images/youtube-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.youtube_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="twitter os scnd-font-color"><img src="../images/app_images/twitter-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.twitter_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="instagram os scnd-font-color"><img src="../images/app_images/instagram-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">{Math.floor((100/this.total_reach(user.instagram_followers, user.twitter_followers, user.youtube_followers)) * user.instagram_followers)}<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="facebook os scnd-font-color"><img src="../images/app_images/facebook-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="snapchat os scnd-font-color"><img src="../images/app_images/snapchat-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-          <li>
-            <p class="spotify os scnd-font-color"><img src="../images/app_images/spotify-icon.png" height="30" width="30"></img></p>
-            <p class="os-percentage">0<sup>%</sup></p>
-          </li>
-      </ul>
-      </div>
-    </div>
+
+      <ReachPercentagesTable
+
+       total_reach={this.total_reach(user.youtube_followers, user.instagram_followers, user.twitter_followers)}
+       youtube_followers={user.youtube_followers}
+       instagram_followers={user.instagram_followers}
+       twitter_followers={user.twitter_followers}
+
+      / >
 
 
     {/* DISPLAY HOMETOWN & BIO OF USER*/}
@@ -722,7 +681,7 @@ JSON.stringify(this.state.liked_profile.location));
 else {
   return (
 
-      <Indicator/>
+      <Indicator />
 
     )
 }
