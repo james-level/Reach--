@@ -6,9 +6,6 @@ import Indicator from './Indicator';
 import LifestyleEmojiToggles from './LifestyleEmojiToggles';
 import $ from 'jquery';
 
-
-
-
 class Register extends Component {
     constructor(props) {
       super(props);
@@ -391,7 +388,7 @@ class Register extends Component {
             onChange={this.handleChange}
             veganChecked={this.state.veganChecked}
             smokingChecked={this.state.nonSmokingChecked}
-            handlePrefersChillToGym={this.state.handlePrefersChillToGym}
+            prefersChillToGym={this.state.prefersChillToGym}
             childlessChecked={this.state.childlessChecked}
             handleVeganCheckClick={this.handleVeganCheckClick}
             handleNonSmokingCheckClick={this.handleNonSmokingCheckClick}
