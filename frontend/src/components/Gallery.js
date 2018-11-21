@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import GalleryDots from "./GalleryDots";
 
 class Gallery extends Component {
 
@@ -7,14 +8,13 @@ class Gallery extends Component {
 
   }
 
-
   render(){
 
     return (
 
       <div class="slider-container">
         <div class="slider-menu">
-        {this.props.gallery_dots}
+        <GalleryDots user={this.props.data} />
         </div>
 
          <input id="slide-dot-1" type="radio" name="slides"></input>
