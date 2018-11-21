@@ -62,7 +62,7 @@ class Register extends Component {
           photo6: '',
           veganChecked: false,
           nonSmokingChecked: false,
-          prefersChillToGym: false,
+          prefersChillToGymChecked: false,
           childlessChecked: false,
           profileSubmitted: false
 
@@ -238,7 +238,7 @@ class Register extends Component {
       }
 
     handlePrefersChillToGymClicked() {
-        this.setState({ prefersChillToGym: !this.state.prefersChillToGym });
+        this.setState({ prefersChillToGymChecked: !this.state.prefersChillToGymChecked });
       }
 
 
@@ -385,10 +385,9 @@ class Register extends Component {
 
             <LifestyleEmojiToggles
 
-            onChange={this.handleChange}
             veganChecked={this.state.veganChecked}
             smokingChecked={this.state.nonSmokingChecked}
-            prefersChillToGym={this.state.prefersChillToGym}
+            prefersChillToGym={this.state.prefersChillToGymChecked}
             childlessChecked={this.state.childlessChecked}
             handleVeganCheckClick={this.handleVeganCheckClick}
             handleNonSmokingCheckClick={this.handleNonSmokingCheckClick}

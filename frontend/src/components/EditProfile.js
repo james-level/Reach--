@@ -531,10 +531,9 @@ console.log("Error updating Reach.");
 
           <LifestyleEmojiToggles
 
-          onChange={this.handleChange}
           veganChecked={this.state.veganChecked}
-          smokingChecked={this.state.nonSmokingChecked}
-          prefersChillToGym={this.state.prefersChillToGym}
+          nonSmokingChecked={this.state.nonSmokingChecked}
+          prefersChillToGym={this.state.prefersChillToGymChecked}
           childlessChecked={this.state.childlessChecked}
           handleVeganCheckClick={this.handleVeganCheckClick}
           handleNonSmokingCheckClick={this.handleNonSmokingCheckClick}
