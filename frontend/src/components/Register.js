@@ -65,7 +65,8 @@ class Register extends Component {
           veganChecked: false,
           nonSmokingChecked: false,
           prefersChillToGym: false,
-          childlessChecked: false
+          childlessChecked: false,
+          profileSubmitted: false
 
 
         }
@@ -79,9 +80,6 @@ class Register extends Component {
         this.handleVeganCheckClick = this.handleVeganCheckClick.bind(this);
         this.handleNonSmokingCheckClick = this.handleNonSmokingCheckClick.bind(this);
       };
-
-
-
 
 
     handleSubmit(evt){
@@ -158,7 +156,19 @@ class Register extends Component {
       formData.append('childless', childless);
       axios.post(create_profile_url, formData).then(()=>{
         console.log("Done");
-        self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'], self.state.password)
+        self.setState({
+
+          profileSubmitted: true
+
+        },
+
+        function(){
+
+          console.log("PROFILE SUBMITTED", self.state.profileSubmitted);
+
+          self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'], self.state.password)
+
+        })
         })
       })}).catch(function(e){
         console.log(e);
@@ -340,7 +350,7 @@ class Register extends Component {
         return <Redirect to='/profile' password= {this.state.password} data={this.state} loggedInAs={this.state.username} login= {true}/>
       }
 
-      if (this.state.activation_user){
+      if (this.state.activation_user && this.state.profileSubmitted === false){
       return (
         <div className="register">
 
