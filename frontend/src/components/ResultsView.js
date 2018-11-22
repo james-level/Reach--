@@ -84,11 +84,21 @@ class ResultsView extends Component {
         .then(res =>{
           this.setState({
             entered_search_query: true,
-            query_results: res.data,
-            cardsCounter: this.state.cardsCounter + res.data.length - 1
+            query_results: res.data
+          }, function(){
+
+            this.setState({
+              cardsCounter: this.state.cardsCounter + this.state.query_results.length - 1
+
+            }, function(){
+
+              console.log("Retrieved search request results.");
+              console.log("SMOKER STATUS", res.data[2].non_smoker);
+              console.log("CARDS COUNTER AFTER FIRING SEARCH REQUEST", this.state.cardsCounter);
+
+            })
           })
-        console.log("Retrieved results.");
-        console.log("SMOKER STATUS", res.data[2].non_smoker);
+
         }
       ).catch(function(error){
           })
@@ -154,6 +164,8 @@ class ResultsView extends Component {
 
       function(){
 
+        console.log("User preferences obtained and search request about to be fired.")
+
         this.fireSearchRequest()
 
       })
@@ -166,17 +178,21 @@ class ResultsView extends Component {
       const username = this.props.loggedInAs;
       const password = this.props.password;
 
-      this.getLocation(username, password);
-
       this.setState({
 
       liked_profiles: this.props.data.liked_profiles,
       ignored_profiles: this.props.data.ignored_profiles,
-      matchInProgress: false
+      matchInProgress: false,
+      cardsCounter: 0
 
-    })
+    }, function(){
+
+      this.getLocation(username, password)
+      console.log("ResultsView component mounted.");
 
     }
+  )
+  }
 
     resetMatchingState(){
 
@@ -219,8 +235,6 @@ class ResultsView extends Component {
     var request_dict = {'liked_profiles': liked_profile_ids};
   }
 
-  var cardsCounter = cardsCounter;
-
   console.log("cardsCounter", cardsCounter);
 
     axios.patch(`http://localhost:8080/social_reach/profiles/${username}/`,
@@ -240,9 +254,51 @@ console.log("Error updating likes and ignores.");
 
   handleLike(cardsCounter){
 
-    console.log("CARDS COUNTER", cardsCounter);
+    // RESET CARDS COUNTER TO TOP INDEX IF EQUAL TO -1 - START OF CONDITIONAL LOGIC
 
-    var likedProfile = this.state.query_results[cardsCounter].user;
+    if (cardsCounter === - 1){
+      console.log("CARDS COUNTER IS MINUS ONE!");
+      console.log("Query RESULTS lENGTH IS", this.state.query_results.length);
+
+      this.setState({
+        cardsCounter: this.state.query_results.length - 1
+      }, function() {
+
+        console.log("CARDS COUNTER", this.state.cardsCounter);
+
+        var likedProfile = this.state.query_results[this.state.cardsCounter].user;
+
+        console.log("likedProf", likedProfile);
+
+        console.log("QUERY RESULTS AT INDEX", likedProfile);
+
+        if (this.state.liked_profiles.length > 0){
+
+          console.log("State liked profiles", this.state.liked_profiles.length);
+          console.log("HEREEEEEE");
+
+        this.setState({
+
+          liked_profiles: this.state.liked_profiles.concat(likedProfile)
+
+        },
+
+          function(){
+
+          console.log("ABOUT TO CALL SAVE LIKES AND IGNORES FUNCTION");
+
+            this.saveLikesAndIgnores(cardsCounter)
+
+        })
+
+      }})
+  }
+
+  // END OF CONDITIONAL LOGIC FOR MINUS ONE
+
+    console.log("CARDS COUNTER", this.state.cardsCounter);
+
+    var likedProfile = this.state.query_results[this.state.cardsCounter].user;
 
     console.log("likedProf", likedProfile);
 
@@ -479,9 +535,9 @@ console.log("Error updating likes and ignores.");
     $(document).ready(function() {
 
   var animating = false;
-  var cardsCounter = self.state.cardsCounter;
   var numOfCards = numberOfResults;
   console.log("RESULTS", numberOfResults);
+  console.log("Cards counter at top of swipedeck()", self.state.cardsCounter);
   var decisionVal = 80;
   var pullDeltaX = 0;
   var deg = 0;
@@ -517,6 +573,8 @@ console.log("Error updating likes and ignores.");
         $card.addClass("below").removeClass("inactive to-left to-right");
         // Adding profile to liked array if pull delta exceeds decisive value
         if (pullDeltaX >= decisionVal) {
+          console.log("cards Counter when about to call handleLike", self.state.cardsCounter);
+          console.log("number of cards when about to call handleLike", numOfCards);
             self.handleLike(self.state.cardsCounter);
           }
         // Adding profile to ignored array if pull delta exceeds decisive value
@@ -524,11 +582,19 @@ console.log("Error updating likes and ignores.");
             self.handleIgnore(self.state.cardsCounter);
           }
 
-        if (self.state.cardsCounter === (0)) {
-          self.state.cardsCounter = numOfCards - 1;
-          console.log("Number of cards", numOfCards);
-          console.log("RESETTING CARD COUNTER TO ZERO");
-          $(".demo__card").removeClass("below");
+        if (self.state.cardsCounter === 0) {
+          self.setState({
+
+            cardsCounter: numOfCards - 1
+
+          }, function(){
+
+            console.log("Number of cards", numOfCards);
+            console.log("RESETTING CARD COUNTER TO ZERO");
+            console.log("CARD COUNTER POST RESET", self.state.cardsCounter);
+            $(".demo__card").removeClass("below");
+
+          })
         }
       }, 300);
 
@@ -592,6 +658,9 @@ console.log("Error updating likes and ignores.");
       console.log("MATCH IN PROGRESS STATE IS", this.state.matchInProgress);
       const commaNumber = require('comma-number')
       const getAge = require('get-age');
+
+
+
 
       if (this.state.query_results){
         this.swipdeDeck(this.state.query_results.length);
