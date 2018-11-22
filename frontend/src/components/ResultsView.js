@@ -92,7 +92,7 @@ class ResultsView extends Component {
 
             }, function(){
 
-              console.log("Retrieved results.");
+              console.log("Retrieved search request results.");
               console.log("SMOKER STATUS", res.data[2].non_smoker);
               console.log("CARDS COUNTER AFTER FIRING SEARCH REQUEST", this.state.cardsCounter);
 
@@ -164,6 +164,8 @@ class ResultsView extends Component {
 
       function(){
 
+        console.log("User preferences obtained and search request about to be fired.")
+
         this.fireSearchRequest()
 
       })
@@ -186,6 +188,7 @@ class ResultsView extends Component {
     }, function(){
 
       this.getLocation(username, password)
+      console.log("ResultsView component mounted.");
 
     }
   )
@@ -256,7 +259,7 @@ console.log("Error updating likes and ignores.");
     if (cardsCounter === - 1){
       console.log("CARDS COUNTER IS MINUS ONE!");
       console.log("Query RESULTS lENGTH IS", this.state.query_results.length);
-      
+
       this.setState({
         cardsCounter: this.state.query_results.length - 1
       }, function() {
@@ -580,11 +583,18 @@ console.log("Error updating likes and ignores.");
           }
 
         if (self.state.cardsCounter === 0) {
-          self.state.cardsCounter = numOfCards - 1;
-          console.log("Number of cards", numOfCards);
-          console.log("RESETTING CARD COUNTER TO ZERO");
-          console.log("CARD COUNTER POST RESET", self.state.cardsCounter);
-          $(".demo__card").removeClass("below");
+          self.setState({
+
+            cardsCounter: numOfCards - 1
+
+          }, function(){
+
+            console.log("Number of cards", numOfCards);
+            console.log("RESETTING CARD COUNTER TO ZERO");
+            console.log("CARD COUNTER POST RESET", self.state.cardsCounter);
+            $(".demo__card").removeClass("below");
+
+          })
         }
       }, 300);
 
