@@ -1,5 +1,7 @@
 # Reach
 
+This README is only intended as a reminder for Stephen, James and David.
+
 Clone repo onto your machine.
 
 INSTRUCTIONS:
