@@ -205,7 +205,7 @@ class PasswordReset extends Component {
                       <input type="text" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
                       <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                   </div>
-                  <h5 align="center" style={{fontWeight: "bold", color: "#8B0000"}}>The two passwords have to match</h5>
+                  
 
 
               </div>
