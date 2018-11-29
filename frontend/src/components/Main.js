@@ -127,6 +127,7 @@ get_reset_token(token){
 }
 
 handlePasswordResetSubmit(evt){
+  var self = this;
   console.log(evt.target);
   evt.preventDefault();
   var uid = this.state.reset_uid
@@ -144,7 +145,7 @@ handlePasswordResetSubmit(evt){
      'password': password,
      'email': email
    }).then(function (response) {
-    this.setState({
+    self.setState({
       resetPasswordSubmitted: true,
     })
 }).catch(function(error){
