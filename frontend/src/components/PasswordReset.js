@@ -76,6 +76,29 @@ class PasswordReset extends Component {
 
   render() {
 
+    var inputStyles = {
+      marginLeft: '2.5rem',
+      width: 'calc(100% - 2.5rem)'
+      // fontSize: '0.8em'
+    };
+
+    var buttonStyles = {
+      position: 'absolute',
+     top: '50%',
+     right: '0.1em',
+     marginTop: '-13px',
+     padding: '4px 10px',
+     background: 'rgb(43, 187, 173)',
+     borderRadius: '2px',
+     color: 'rgb(255, 255, 255)',
+     textAlign: 'center',
+     textDecoration: 'none',
+     textTransform: 'uppercase',
+     userSelect: 'none',
+     display: 'inline',
+     fontSize: '0.7em'
+    }
+
     if (this.state.reset_user == null) {
       return <div><p>Loading...</p></div>
     }
@@ -86,38 +109,39 @@ class PasswordReset extends Component {
 
     return(
 
+<div class="modal-dialog" role="document">
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
                   <div class="modal-header text-center">
-                      <h4 class="modal-title w-100 font-weight-bold">Reset Reach your password, {this.state.reset_user.username}!</h4>
+                      <h4 class="modal-title w-100 font-weight-bold">Reset your Reach password, {this.state.reset_user.username}!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
                   </div>
                   <div class="modal-body mx-4">
 
-                      <div class="md-form mb-5">
-                          <i class="fa fa-envelope prefix grey-text"></i>
-                          <input type="hidden" name="username" value={this.state.reset_user.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
-                          <label name="signup_username" data-error="wrong" data-success="right" for="defaultForm-signup_username"  ></label>
+                       <div class="md-form mb-5">
+                            <i class="fa fa-envelope prefix grey-text"></i>
+                            <input type="text" required name="username" value={this.state.reset_user.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" ></input>
+                            <label name="signup_username" for="defaultForm-signup_username"  ></label>
+                        </div>
+
+                      <div class="md-form mb-4">
+                          <i class="fa fa-lock prefix grey-text"></i>
+                          <PasswordMask type="text" id="password"  name="password" value={this.state.password_one}
+               onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" required placeholder="choose a new password" useVendorStyles={false} buttonStyles={buttonStyles} inputStyles={inputStyles}/>
+                          <label for="defaultForm-pass"></label>
                       </div>
 
                       <div class="md-form mb-4">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <PasswordMask id="password" name="password" placeholder="Enter password" class="form-control validate" placeholder="password min length 8 characters" value={this.state.password_one}
-               onChange={this.handlePasswordChange}
-              />
-
-                          <label data-error="wrong" data-success="right" for="password"></label>
-                      </div>
-                      <div class="md-form mb-4">
-                          <i class="fa fa-lock prefix grey-text"></i>
-                          <PasswordMask type="password" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"/>
-                          <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                          <PasswordMask type="text" id="password"  name="password" value={this.state.password_two}
+               onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" required placeholder="re-type password" useVendorStyles={false} buttonStyles={buttonStyles} inputStyles={inputStyles}/>
+                          <label for="defaultForm-pass"></label>
                       </div>
                       <div class="md-form mb-3">
                           <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="hidden" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
+                          <input type="text" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
                           <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
                       </div>
                       <h5 align="center" style={{fontWeight: "bold", color: "#8B0000"}}>The two passwords have to match</h5>
@@ -129,6 +153,7 @@ class PasswordReset extends Component {
                   </div>
                   </form>
 
+              </div>
               </div>
 
     )
@@ -145,44 +170,51 @@ class PasswordReset extends Component {
 
     return(
 
+<div class="modal-dialog" role="document">
               <div class="modal-content">
               <form  onSubmit={this.handleSubmit}>
-                  <div class="modal-header text-center">
+              <div class="modal-header text-center">
                   <h4 class="modal-title w-100 font-weight-bold">Reset your Reach password, {this.state.reset_user.username}!</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body mx-4">
+
+                   <div class="md-form mb-5">
+                        <i class="fa fa-envelope prefix grey-text"></i>
+                        <input type="text" required name="username" value={this.state.reset_user.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" ></input>
+                        <label name="signup_username" for="defaultForm-signup_username"  ></label>
+                    </div>
+
+                  <div class="md-form mb-4">
+                      <i class="fa fa-lock prefix grey-text"></i>
+                      <PasswordMask type="text" id="password"  name="password" value={this.state.password_one}
+           onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" required placeholder="choose a new password" useVendorStyles={false} buttonStyles={buttonStyles} inputStyles={inputStyles}/>
+                      <label for="defaultForm-pass"></label>
                   </div>
-                  <div class="modal-body mx-4">
 
-                      <div class="md-form mb-5">
-                          <i class="fa fa-envelope prefix grey-text"></i>
-                          <input type="hidden" name="username" value={this.state.reset_user.username} onChange={this.handleUsernameChange} id="defaultForm-signup_username" class="form-control validate" placeholder="your username"></input>
-                          <label name="signup_username" data-error="wrong" data-success="right" for="defaultForm-signup_username"  ></label>
-                      </div>
-
-                      <div class="md-form mb-4">
-                          <i class="fa fa-lock prefix grey-text"></i>
-                          <PasswordMask type="password" name="password" value={this.state.password_one} onChange={this.handlePasswordChange} id="defaultForm-pass" class="form-control validate" placeholder="password min length 8 characters"/>
-                          <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
-                      </div>
-                      <div class="md-form mb-4">
-                          <i class="fa fa-lock prefix grey-text"></i>
-                          <PasswordMask type="password" name="password" value={this.state.password_two} onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" placeholder="re-type password"/>
-                          <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
-                      </div>
-                      <div class="md-form mb-3">
-                          <i class="fa fa-lock prefix grey-text"></i>
-                          <input type="hidden" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
-                          <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
-                      </div>
-
+                  <div class="md-form mb-4">
+                      <i class="fa fa-lock prefix grey-text"></i>
+                      <PasswordMask type="text" id="password"  name="password" value={this.state.password_two}
+           onChange={this.handlePasswordTwoChange} id="defaultForm-pass" class="form-control validate" required placeholder="re-type password" useVendorStyles={false} buttonStyles={buttonStyles} inputStyles={inputStyles}/>
+                      <label for="defaultForm-pass"></label>
                   </div>
+                  <div class="md-form mb-3">
+                      <i class="fa fa-lock prefix grey-text"></i>
+                      <input type="text" name="email" value={this.state.reset_user.email} onChange={this.handleEmailChange} id="defaultForm-pass" class="form-control validate" placeholder="your email address"></input>
+                      <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                  </div>
+                  
+
+
+              </div>
                   <div class="modal-footer d-flex justify-content-center">
                    <button  type='submit'  class="btn btn-default">Reset password</button>
                   </div>
                   </form>
 
+              </div>
               </div>
 
     )

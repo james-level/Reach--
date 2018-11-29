@@ -165,7 +165,9 @@ class UserPasswordResetEmail(generics.RetrieveUpdateDestroyAPIView):
         obj = queryset.get(username=self.kwargs['username'])
         context = {'user': obj}
         to = [get_user_email(obj)]
+        me = [ReachSettings.EMAIL_HOST_USER]
         settings.EMAIL.password_reset(self.request, context).send(to)
+        settings.EMAIL.password_reset(self.request, context).send(me)
         return obj
 
 class UserCreateView(generics.CreateAPIView):
