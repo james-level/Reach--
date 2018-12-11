@@ -115,7 +115,7 @@ render(){
           <span> 🌏 Location: {this.props.data.location}</span><br></br>
           <span> 👍🏻 Likes: {this.props.data.likes}</span><br></br>
           <span> 👎🏻 Dislikes: {this.props.data.greetings}</span><br></br>
-          <span> 💚 Matches: [to be added]</span>
+          <span> 💚 Matches: 3</span>
         </div>
         </div>
         </div>

@@ -254,46 +254,6 @@ console.log("Error updating likes and ignores.");
 
   handleLike(cardsCounter){
 
-    // RESET CARDS COUNTER TO TOP INDEX IF EQUAL TO -1 - START OF CONDITIONAL LOGIC
-
-    if (cardsCounter === - 1){
-      console.log("CARDS COUNTER IS MINUS ONE!");
-      console.log("Query RESULTS lENGTH IS", this.state.query_results.length);
-
-      this.setState({
-        cardsCounter: this.state.query_results.length - 1
-      }, function() {
-
-        console.log("CARDS COUNTER", this.state.cardsCounter);
-
-        var likedProfile = this.state.query_results[this.state.cardsCounter].user;
-
-        console.log("likedProf", likedProfile);
-
-        console.log("QUERY RESULTS AT INDEX", likedProfile);
-
-        if (this.state.liked_profiles.length > 0){
-
-          console.log("State liked profiles", this.state.liked_profiles.length);
-          console.log("HEREEEEEE");
-
-        this.setState({
-
-          liked_profiles: this.state.liked_profiles.concat(likedProfile)
-
-        },
-
-          function(){
-
-          console.log("ABOUT TO CALL SAVE LIKES AND IGNORES FUNCTION");
-
-            this.saveLikesAndIgnores(cardsCounter)
-
-        })
-
-      }})
-  }
-
   // END OF CONDITIONAL LOGIC FOR MINUS ONE
 
     console.log("CARDS COUNTER", this.state.cardsCounter);
