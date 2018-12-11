@@ -1,6 +1,6 @@
 # Reach
 
-This README is only intended to be a memory aid for Stephen, James and David.
+This README is only intended as a memory aid for Stephen, James and David.
 
 Clone repo onto your machine.
 
