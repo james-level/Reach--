@@ -127,7 +127,7 @@ console.log("Error updating settings.");
   total_reach(instagram_followers, twitter_followers, youtube_followers){return instagram_followers + twitter_followers + youtube_followers}
 
   render(){
-      
+
 
       const getAge = require('get-age');
 
@@ -141,7 +141,7 @@ console.log("Error updating settings.");
       {/* INTRO TEXT  */}
       <fieldset>
         <legend><span class="number"></span> Hey {this.props.data.name} 👋 </legend>
-        <label className="intro" type="text">Lets help you find your bae! Adjust your search settings here:</label>
+        <label className="intro" type="text">We can help you find your bae! Adjust your search settings here:</label>
       </fieldset>
 
       <br></br>
@@ -347,7 +347,7 @@ else if (!this.props.loggedInAs) {return (
   )}
 
 else if (this.state.submitted === true){
-  
+
   return(
 
   <Indicator />
