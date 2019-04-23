@@ -1,32 +1,8 @@
 # Reach
 
-This README is only intended as a memory aid for Stephen, James and David.
+Clone repo
 
-Clone repo onto your machine.
-
-INSTRUCTIONS:
-
-At base level of directory (Reach):
-
-'''sudo pip install Django'''
-
-pip install Pillow
-
-pip install django-registration
-
-pip install django-registration-redux
-
-pip install django-bootstrap3
-
- [ cd into social ]
-
-GENERAL INSTRUCTIONS AFTER REFACTORING MODELS AND ALTERING SEEDS:
-
-python manage.py makemigrations (only necessary if you've changed models.py)
-
-python manage.py migrate (only necessary if you've changed models.py)
-
-python populate_social.py (seeds DB = ESSENTIAL after cloning)
+pip install
 
 GET IT UP AND RUNNING:
 
@@ -39,16 +15,6 @@ python manage.py runserver 8080
  Then you'll be prompted to enter the username and password you want to use for your admin account.
 
  [ Navigate to localhost:8080/admin/  to manage the app's database and delete users etc ]
-
- INSTALLING BEAUTIFUL SOUP:
-
- pip install requests bs4
-
- INSTALLING REST FRAMEWORK AND AUTHENTICATION:
-
- pip install djangorestframework
-
- pip install djangorestframework-simplejwt
 
  INITIAL ENDPOINTS FOR OUR REST API (you need to be logged into Reach to view the response; change port number if need be):
 
@@ -71,32 +37,6 @@ python manage.py runserver 8080
  Get all photo categories: http://localhost:8080/social_reach/categories/
 
  FOR JSON RESPONSE (e.g. profiles): http://localhost:8080/social_reach/profiles/?format=json
-
- INSTALLING SOCIAL AUTHENTICATION:
-
- pip install social-auth-app-django
-
- CORS (Cross origin resource sharing):
-
- pip install django-cors-headers
-
- REST FRAMEWORK AUTHENTICATION VIEWS:
-
- pip install coreapi
-
- DJANGO REGISTRATION AUTHENTICATION:
-
- pip install django-rest-auth
-
- pip install django-allauth
-
- DJOSER:
-
- pip install djoser
-
- ACCESS TOKENS:
-
- pip install django-access-tokens
 
 CONVERT SQLITE TO PSQL:
 
@@ -147,40 +87,9 @@ python manage.py loaddata dump.json
 
 Now the data is stored in a PSQL database.
 
-POSTGRES EXTENSIONS FOR ARRAYS:
 
-pip install django_postgres_extensions
+FRONTEND (REACT):
 
-pip install djangorestframework-jwt
-
-OTHERS:
-
-pip install cryptography
-pip install python-jose
-
- FRONTEND (REACT):
-
- npm install flickity
-
- npm i get-age --save
-
- npm i get-age --save
-
- npm install --save-dev babel-plugin-transform-function-bind
-
- npm run build (possibly)
- npm install jquery
-
- npm start
-
-npm install react-geolocated --save
-
-npm install --save comma-number  
-
-npm i react-image-cropper --save
-
-npm i socket.io-client --save
-
-
+npm install
 
   <b>VERY IMPORTANT: If it says a .pyc file has been staged when doing a git commit, undo immediately and run python python-cache-flusher.py. DON'T PUSH!<b>
